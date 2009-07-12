@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6989F6D6-086F-4B98-9B47-DE01F09E0C53}"
+	ProjectSection(SolutionItems) = preProject
+		CodeAnalysisDictionary.xml = CodeAnalysisDictionary.xml
+		EtsyApi.vsmdi = EtsyApi.vsmdi
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		Netsy.vsmdi = Netsy.vsmdi
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy.Helpers", "Netsy.Helpers\Silverlight.Netsy.Helpers.csproj", "{C1B868FF-D872-4FFC-8DF4-E18E6655698C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy.DataModel", "Netsy.Datamodel\Silverlight.Netsy.DataModel.csproj", "{E413E2F5-E561-4A86-A99B-72C8EFEC82C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy.Interfaces", "Netsy.Interfaces\Silverlight.Netsy.Interfaces.csproj", "{46C29C05-6F2F-4643-ADA7-944981870EDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy.Core", "Netsy.Core\Silverlight.Netsy.Core.csproj", "{B979E9E0-EB45-47F3-8DA7-307546B8515E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1B868FF-D872-4FFC-8DF4-E18E6655698C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1B868FF-D872-4FFC-8DF4-E18E6655698C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1B868FF-D872-4FFC-8DF4-E18E6655698C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1B868FF-D872-4FFC-8DF4-E18E6655698C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E413E2F5-E561-4A86-A99B-72C8EFEC82C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E413E2F5-E561-4A86-A99B-72C8EFEC82C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E413E2F5-E561-4A86-A99B-72C8EFEC82C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E413E2F5-E561-4A86-A99B-72C8EFEC82C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46C29C05-6F2F-4643-ADA7-944981870EDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46C29C05-6F2F-4643-ADA7-944981870EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46C29C05-6F2F-4643-ADA7-944981870EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46C29C05-6F2F-4643-ADA7-944981870EDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B979E9E0-EB45-47F3-8DA7-307546B8515E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B979E9E0-EB45-47F3-8DA7-307546B8515E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B979E9E0-EB45-47F3-8DA7-307546B8515E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B979E9E0-EB45-47F3-8DA7-307546B8515E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
