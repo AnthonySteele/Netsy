@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy.Interface
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy.Core", "Netsy.Core\Silverlight.Netsy.Core.csproj", "{B979E9E0-EB45-47F3-8DA7-307546B8515E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy.TestControl", "Silverlight.Netsy.TestControl\Silverlight.Netsy.TestControl.csproj", "{C26B28EC-1878-476D-A021-D30622ACD54B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy.Web", "Silverlight.Netsy.TestControl.Web\Silverlight.Netsy.Web.csproj", "{7C1FEBC7-98CC-4A73-AF93-B9FEF4529931}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{B979E9E0-EB45-47F3-8DA7-307546B8515E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B979E9E0-EB45-47F3-8DA7-307546B8515E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B979E9E0-EB45-47F3-8DA7-307546B8515E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C26B28EC-1878-476D-A021-D30622ACD54B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C26B28EC-1878-476D-A021-D30622ACD54B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C26B28EC-1878-476D-A021-D30622ACD54B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C26B28EC-1878-476D-A021-D30622ACD54B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C1FEBC7-98CC-4A73-AF93-B9FEF4529931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C1FEBC7-98CC-4A73-AF93-B9FEF4529931}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C1FEBC7-98CC-4A73-AF93-B9FEF4529931}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C1FEBC7-98CC-4A73-AF93-B9FEF4529931}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
