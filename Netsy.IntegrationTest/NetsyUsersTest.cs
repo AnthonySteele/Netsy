@@ -44,7 +44,12 @@ namespace Netsy.IntegrationTest
         /// <summary>
         /// Result data from the call to get users
         /// </summary>
-        private ResultData<Users> resultData;
+        private Users resultData;
+
+        /// <summary>
+        /// Result status from the call to get users
+        /// </summary>
+        private ResultStatus resultStatus;
         
         /// <summary>
         /// Test retrieving etsy users
@@ -67,8 +72,12 @@ namespace Netsy.IntegrationTest
                 // check that the event was fired, did not time out
                 Assert.IsTrue(signalled, "Not signalled");
 
+                Assert.IsNotNull(this.resultStatus);
+                Assert.IsTrue(this.resultStatus.Success, "Call failed");
                 Assert.IsNotNull(this.resultData);
-                Assert.IsTrue(this.resultData.Success, "Call failed");
+                Assert.IsNotNull(this.resultData.Params);
+                Assert.IsNotNull(this.resultData.Results);
+                Assert.AreEqual(1, this.resultData.Count);
             }
             finally
             {
@@ -81,9 +90,11 @@ namespace Netsy.IntegrationTest
         /// </summary>
         /// <param name="sender">the event sender</param>
         /// <param name="e">the event params</param>
-        private void GetUserDetailsCompleted(object sender, EventArgs<ResultData<Users>> e)
+        private void GetUserDetailsCompleted(object sender, EventArgs<Users, ResultStatus> e)
         {
-            this.resultData = e.Value;
+            this.resultData = e.ResultValue;
+            this.resultStatus = e.ResultStatus;
+
             this.userDetailsGetCompletedEvent.Set();
         }
     }

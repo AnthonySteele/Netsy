@@ -39,7 +39,7 @@ namespace Netsy.Core
         /// <summary>
         /// Event handler for when GetUserDetails completes
         /// </summary>
-        public event EventHandler<EventArgs<ResultData<Users>>> GetUserDetailsCompleted;
+        public event EventHandler<EventArgs<Users, ResultStatus>> GetUserDetailsCompleted;
 
         /// <summary>
         /// Get the user details
@@ -85,12 +85,7 @@ namespace Netsy.Core
             response.Close();
 
             Users users = resultString.Deserialize<Users>();
-
-            this.SendResult(new ResultData<Users>
-                {
-                    Success = true,
-                    Data = users
-                });
+            this.SendResult(users, new ResultStatus(true));
         }
 
         /// <summary>
@@ -100,22 +95,19 @@ namespace Netsy.Core
         /// <param name="ex">the exception</param>
         private void SendError(string errorMessage, Exception ex)
         {
-            this.SendResult(new ResultData<Users>
-            {
-                ErrorMessage = errorMessage,
-                Exception = ex
-            });            
+            this.SendResult(null, new ResultStatus(errorMessage, ex));            
         }
 
         /// <summary>
         /// Send the result message
         /// </summary>
-        /// <param name="result">tjhe result message to send</param>
-        private void SendResult(ResultData<Users> result)
+        /// <param name="users">the users read</param>
+        /// <param name="status">the status of the call</param>
+        private void SendResult(Users users, ResultStatus status)
         {
           if (this.GetUserDetailsCompleted != null)
           {
-              this.GetUserDetailsCompleted(this, new EventArgs<ResultData<Users>>(result));
+              this.GetUserDetailsCompleted(this, new EventArgs<Users, ResultStatus>(users, status));
           }
         }
     }
