@@ -90,7 +90,7 @@ namespace Netsy.IntegrationTest
         /// </summary>
         /// <param name="sender">the event sender</param>
         /// <param name="e">the event params</param>
-        private void GetUserDetailsCompleted(object sender, EventArgs<Users, ResultStatus> e)
+        private void GetUserDetailsCompleted(object sender, ResultEventArgs<Users, ResultStatus> e)
         {
             this.resultData = e.ResultValue;
             this.resultStatus = e.ResultStatus;

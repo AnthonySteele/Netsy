@@ -39,7 +39,7 @@ namespace Netsy.Core
         /// <summary>
         /// Event handler for when GetUserDetails completes
         /// </summary>
-        public event EventHandler<EventArgs<Users, ResultStatus>> GetUserDetailsCompleted;
+        public event EventHandler<ResultEventArgs<Users, ResultStatus>> GetUserDetailsCompleted;
 
         /// <summary>
         /// Get the user details
@@ -107,7 +107,7 @@ namespace Netsy.Core
         {
           if (this.GetUserDetailsCompleted != null)
           {
-              this.GetUserDetailsCompleted(this, new EventArgs<Users, ResultStatus>(users, status));
+              this.GetUserDetailsCompleted(this, new ResultEventArgs<Users, ResultStatus>(users, status));
           }
         }
     }

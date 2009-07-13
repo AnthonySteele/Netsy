@@ -19,7 +19,7 @@ namespace Netsy.Interfaces
         /// <summary>
         /// User details completed event
         /// </summary>
-        event EventHandler<EventArgs<Users, ResultStatus>> GetUserDetailsCompleted;
+        event EventHandler<ResultEventArgs<Users, ResultStatus>> GetUserDetailsCompleted;
         
         /// <summary>
         /// Query for user details

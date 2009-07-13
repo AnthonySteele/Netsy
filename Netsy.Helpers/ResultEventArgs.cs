@@ -11,26 +11,26 @@ namespace Netsy.Helpers
     /// <summary>
     /// Generic event arguments that wrap a single object
     /// </summary>
-    /// <typeparam name="T">The result data type wrapped by these event args</typeparam>
-    /// <typeparam name="U">The result status type wrapped by these event args</typeparam>
-    public class EventArgs<T, U> : EventArgs
+    /// <typeparam name="TResult">The result data type wrapped by these event args</typeparam>
+    /// <typeparam name="TStatus">The result status type wrapped by these event args</typeparam>
+    public class ResultEventArgs<TResult, TStatus> : EventArgs
     {
         /// <summary>
         /// stores the wrapped result value
         /// </summary>
-        private readonly T resultValue;
+        private readonly TResult resultValue;
 
         /// <summary>
         /// stores the wrapped result value
         /// </summary>
-        private readonly U resultStatus;
+        private readonly TStatus resultStatus;
 
         /// <summary>
-        /// Initializes a new instance of the EventArgs class
+        /// Initializes a new instance of the ResultEventArgs class
         /// </summary>
         /// <param name="resultValue">the wrapped result value</param>
         /// <param name="resultStatus">the wrapped result status</param>
-        public EventArgs(T resultValue, U resultStatus)
+        public ResultEventArgs(TResult resultValue, TStatus resultStatus)
         {
             this.resultValue = resultValue;
             this.resultStatus = resultStatus;
@@ -39,7 +39,7 @@ namespace Netsy.Helpers
         /// <summary>
         /// Gets the wrapped result value
         /// </summary>
-        public T ResultValue
+        public TResult ResultValue
         {
             get
             {
@@ -50,7 +50,7 @@ namespace Netsy.Helpers
         /// <summary>
         /// Gets the wrapped result status
         /// </summary>
-        public U ResultStatus
+        public TStatus ResultStatus
         {
             get
             {
