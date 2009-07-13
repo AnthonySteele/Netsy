@@ -14,6 +14,11 @@ namespace Silverlight.Netsy.TestControl
     public partial class App : Application
     {
         /// <summary>
+        /// The API key to use 
+        /// </summary>
+        private const string EtsyApiKey = "rfc35bh98q3a9hvccfsxe4cc";
+
+        /// <summary>
         /// Initializes a new instance of the App class
         /// </summary>
         public App()
@@ -32,7 +37,11 @@ namespace Silverlight.Netsy.TestControl
         /// <param name="e">event params</param>
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            this.RootVisual = new MainPage();
+            string userId = e.InitParams["UserId"];
+
+            MainPage mainPage = new MainPage(int.Parse(userId), EtsyApiKey);
+
+            this.RootVisual = mainPage;
         }
 
         /// <summary>

@@ -5,8 +5,11 @@
     mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480">
   <Grid x:Name="LayoutRoot">
         <TextBlock 
+            x:Name="outputTextBlock"
             HorizontalAlignment="Center" 
-            VerticalAlignment="Center">
+            VerticalAlignment="Center"
+            TextWrapping="Wrap"
+            >
             Netsy test app
         </TextBlock>
   </Grid>
