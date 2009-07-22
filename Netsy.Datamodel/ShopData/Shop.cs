@@ -74,10 +74,21 @@ namespace Netsy.DataModel.ShopData
         public string Announcement { get; set; }
 
         /// <summary>
-        /// Gets or sets the vacation flag - 1 if the seller is not currently accepting purchases, 0 otherwise.
+        /// Gets or sets the vacation status - 1 if the seller is not currently accepting purchases, 0 otherwise.
         /// </summary>
         [DataMember(Name = "is_vacation")]
         public int IsVacation { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the seller is currently on vacation
+        /// </summary>
+        public bool IsVacationFlag
+        {
+            get
+            {
+                return this.IsVacation == 1;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the vacation message, If is_vacation=1, a message to buyers.
