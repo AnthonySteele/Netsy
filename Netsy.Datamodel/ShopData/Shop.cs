@@ -7,13 +7,14 @@
 namespace Netsy.DataModel.ShopData
 {
     using System.Runtime.Serialization;
+    using Netsy.DataModel.UserData;
 
     /// <summary>
     /// Details on an etsy shop
     /// Fields copied from http://developer.etsy.com/docs#shops
     /// </summary>
     [DataContract]
-    public class Shop
+    public class Shop: User
     {
         #region low detail
 
