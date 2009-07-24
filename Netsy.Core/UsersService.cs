@@ -3,6 +3,7 @@
 // Copyright (c) AFS. All rights reserved.
 // </copyright>
 //----------------------------------------------------------------------- 
+
 namespace Netsy.Core
 {
     using System;
@@ -69,7 +70,15 @@ namespace Netsy.Core
             Uri uri = new Uri(url);
 
             WebRequest request = WebRequest.Create(uri);
-            IAsyncResult result = request.BeginGetResponse(this.GetUserDetailsCompletedCallback, request);
+
+            var completed = ServiceHelper.RequestCompletedCallback(
+                s =>
+                {
+                    Users users = s.Deserialize<Users>();
+                    this.SendUserDetailsResult(users, new ResultStatus(true));
+                });
+
+            IAsyncResult result = request.BeginGetResponse(completed, request);
 
             return result;
         }
@@ -100,52 +109,20 @@ namespace Netsy.Core
             Uri uri = new Uri(url);
 
             WebRequest request = WebRequest.Create(uri);
-            IAsyncResult result = request.BeginGetResponse(this.GetUsersByNameCompletedCallback, request);
+
+            var completed = ServiceHelper.RequestCompletedCallback(
+                    s =>
+                    {
+                        Users users = s.Deserialize<Users>();
+                        this.SendUsersByNameResult(users, new ResultStatus(true));
+                    });
+
+            IAsyncResult result = request.BeginGetResponse(completed, request);
 
             return result;
         }
 
         #endregion
-
-        /// <summary>
-        /// GetUserDetails completed Callback
-        /// </summary>
-        /// <param name="asyncResult">the result of the operation</param>
-        private void GetUserDetailsCompletedCallback(IAsyncResult asyncResult)
-        {
-            WebRequest request = (WebRequest)asyncResult.AsyncState;
-
-            HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(asyncResult);
-            Stream responseStream = response.GetResponseStream();
-            StreamReader streamReader = new StreamReader(responseStream);
-
-            string resultString = streamReader.ReadToEnd();
-            streamReader.Close();
-            response.Close();
-
-            Users users = resultString.Deserialize<Users>();
-            this.SendUserDetailsResult(users, new ResultStatus(true));
-        }
-
-        /// <summary>
-        /// GetUserByName completed Callback
-        /// </summary>
-        /// <param name="asyncResult">the result of the operation</param>
-        private void GetUsersByNameCompletedCallback(IAsyncResult asyncResult)
-        {
-            WebRequest request = (WebRequest)asyncResult.AsyncState;
-
-            HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(asyncResult);
-            Stream responseStream = response.GetResponseStream();
-            StreamReader streamReader = new StreamReader(responseStream);
-
-            string resultString = streamReader.ReadToEnd();
-            streamReader.Close();
-            response.Close();
-
-            Users users = resultString.Deserialize<Users>();
-            this.SendUsersByNameResult(users, new ResultStatus(true));
-        }
 
         /// <summary>
         /// Send the result message
