@@ -8,5 +8,4 @@
 // "In Project Suppression File". 
 // You do not need to add suppressions to this file manually. 
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Scope = "member", Target = "Netsy.Core.UsersService.#GetUserDetails(System.Int32,Netsy.DataModel.DetailLevel)")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Scope = "member", Target = "Netsy.Core.UsersService.#GetUsersByName(System.String,System.Int32,System.Int32,Netsy.DataModel.DetailLevel)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Scope = "member", Target = "Netsy.Core.ServiceHelper.#TestSendEvent`1(System.EventHandler`1<Netsy.Helpers.ResultEventArgs`1<!!0>>,System.Object,Netsy.Helpers.ResultEventArgs`1<!!0>)")]

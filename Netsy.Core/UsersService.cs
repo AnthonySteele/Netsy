@@ -57,19 +57,21 @@ namespace Netsy.Core
         {
             if (string.IsNullOrEmpty(this.ApiKey))
             {
-                this.SendUserDetailsResult(null, new ResultStatus("No Api key", null));
+                ResultEventArgs<Users> errorResult = new ResultEventArgs<Users>(null, new ResultStatus("No Api key", null));
+                ServiceHelper.TestSendEvent(this.GetUserDetailsCompleted, this, errorResult);
                 return null;
             }
 
             string url = Constants.BaseUrl + "users/" + userId + 
-                "?api_key=" + this.ApiKey + 
-                "&detail_level=" + detailLevel.ToString().ToLower(CultureInfo.InvariantCulture);
+                "?api_key=" + this.ApiKey +
+                "&detail_level=" + detailLevel.ToStringLower();
 
-            return ServiceHelper.GenerateRequest(url,
+            return ServiceHelper.GenerateRequest(new Uri(url), 
                 s =>
                 {
                     Users users = s.Deserialize<Users>();
-                    this.SendUserDetailsResult(users, new ResultStatus(true));
+                    ResultEventArgs<Users> sucessResult = new ResultEventArgs<Users>(users, new ResultStatus(true));
+                    ServiceHelper.TestSendEvent(this.GetUserDetailsCompleted, this, sucessResult);
                 });
             
         }
@@ -87,7 +89,8 @@ namespace Netsy.Core
         {
             if (string.IsNullOrEmpty(this.ApiKey))
             {
-                this.SendUsersByNameResult(null, new ResultStatus("No Api key", null));            
+                ResultEventArgs<Users> errorResult = new ResultEventArgs<Users>(null, new ResultStatus("No Api key", null));
+                ServiceHelper.TestSendEvent(this.GetUserByNameCompleted, this, errorResult);
                 return null;
             }
 
@@ -96,42 +99,17 @@ namespace Netsy.Core
                 "?api_key=" + this.ApiKey +
                 "&offset=" + offset +
                 "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToString().ToLower(CultureInfo.InvariantCulture);
+                "&detail_level=" + detailLevel.ToStringLower();
 
-            return ServiceHelper.GenerateRequest(url,
+            return ServiceHelper.GenerateRequest(new Uri(url),
                     s =>
                     {
                         Users users = s.Deserialize<Users>();
-                        this.SendUsersByNameResult(users, new ResultStatus(true));
+                        ResultEventArgs<Users> sucessResult = new ResultEventArgs<Users>(users, new ResultStatus(true));
+                        ServiceHelper.TestSendEvent(this.GetUserByNameCompleted, this, sucessResult);
                     });            
         }
 
         #endregion
-
-        /// <summary>
-        /// Send the result message
-        /// </summary>
-        /// <param name="users">the users read</param>
-        /// <param name="status">the status of the call</param>
-        private void SendUserDetailsResult(Users users, ResultStatus status)
-        {
-          if (this.GetUserDetailsCompleted != null)
-          {
-              this.GetUserDetailsCompleted(this, new ResultEventArgs<Users>(users, status));
-          }
-        }
-
-        /// <summary>
-        /// Send the result message
-        /// </summary>
-        /// <param name="users">the users read</param>
-        /// <param name="status">the status of the call</param>
-        private void SendUsersByNameResult(Users users, ResultStatus status)
-        {
-            if (this.GetUserByNameCompleted != null)
-            {
-                this.GetUserByNameCompleted(this, new ResultEventArgs<Users>(users, status));
-            }
-        }
     }
 }

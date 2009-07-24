@@ -10,6 +10,10 @@ namespace Netsy.Core
     using System.IO;
     using System.Net;
 
+    using DataModel.UserData;
+
+    using Helpers;
+
     /// <summary>
     /// Helper methods for services
     /// </summary>
@@ -18,12 +22,11 @@ namespace Netsy.Core
         /// <summary>
         /// Generate a request 
         /// </summary>
-        /// <param name="url">the url to read</param>
-        /// <param name="dataAction">the action on returned data</param>
+        /// <param name="uri">the uri to read</param>
+        /// <param name="dataAction">the action to take on returned data</param>
         /// <returns>the async state of the request</returns>
-        public static IAsyncResult GenerateRequest(string url, Action<string> dataAction)
+        public static IAsyncResult GenerateRequest(Uri uri, Action<string> dataAction)
         {
-            Uri uri = new Uri(url);
             WebRequest request = WebRequest.Create(uri);
 
             AsyncCallback completed = RequestCompletedCallback(dataAction);
@@ -32,7 +35,8 @@ namespace Netsy.Core
 
 
         /// <summary>
-        /// Generate a callback for the request conpleted
+        /// Generate a callback for the request completion
+        /// It's a template method, functinal style
         /// </summary>
         /// <param name="dataAction">the processing to do on the returned data</param>
         /// <returns>a callback method</returns>
@@ -53,6 +57,21 @@ namespace Netsy.Core
                 // do the action on the result data
                 dataAction(resultString);
             };
+        }
+
+        /// <summary>
+        /// Send an event if any handler is attached
+        /// </summary>
+        /// <typeparam name="T">the type of data to send</typeparam>
+        /// <param name="eventHandler">the event handler to fire</param>
+        /// <param name="sender">the event sender</param>
+        /// <param name="result">the event result</param>
+        public static void TestSendEvent<T>(EventHandler<ResultEventArgs<T>> eventHandler, object sender, ResultEventArgs<T> result)
+        {
+            if (eventHandler != null)
+            {
+                eventHandler(sender, result);
+            }
         }
     }
 }
