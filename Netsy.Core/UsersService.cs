@@ -18,9 +18,6 @@ namespace Netsy.Core
 
     /// <summary>
     /// Implementation of Etsy users service calls API 
-    /// todo: now there are two service calls, Many more to come. 
-    /// todo: They are variations on a theme, so refactor common stuff out. 
-    /// todo: use template methods and lambdas?
     /// </summary>
     public class UsersService : IUsersService
     {
@@ -67,20 +64,14 @@ namespace Netsy.Core
             string url = Constants.BaseUrl + "users/" + userId + 
                 "?api_key=" + this.ApiKey + 
                 "&detail_level=" + detailLevel.ToString().ToLower(CultureInfo.InvariantCulture);
-            Uri uri = new Uri(url);
 
-            WebRequest request = WebRequest.Create(uri);
-
-            var completed = ServiceHelper.RequestCompletedCallback(
+            return ServiceHelper.GenerateRequest(url,
                 s =>
                 {
                     Users users = s.Deserialize<Users>();
                     this.SendUserDetailsResult(users, new ResultStatus(true));
                 });
-
-            IAsyncResult result = request.BeginGetResponse(completed, request);
-
-            return result;
+            
         }
 
         /// <summary>
@@ -106,20 +97,13 @@ namespace Netsy.Core
                 "&offset=" + offset +
                 "&limit=" + limit +
                 "&detail_level=" + detailLevel.ToString().ToLower(CultureInfo.InvariantCulture);
-            Uri uri = new Uri(url);
 
-            WebRequest request = WebRequest.Create(uri);
-
-            var completed = ServiceHelper.RequestCompletedCallback(
+            return ServiceHelper.GenerateRequest(url,
                     s =>
                     {
                         Users users = s.Deserialize<Users>();
                         this.SendUsersByNameResult(users, new ResultStatus(true));
-                    });
-
-            IAsyncResult result = request.BeginGetResponse(completed, request);
-
-            return result;
+                    });            
         }
 
         #endregion

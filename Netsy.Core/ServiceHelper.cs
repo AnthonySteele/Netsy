@@ -16,6 +16,22 @@ namespace Netsy.Core
     public static class ServiceHelper
     {
         /// <summary>
+        /// Generate a request 
+        /// </summary>
+        /// <param name="url">the url to read</param>
+        /// <param name="dataAction">the action on returned data</param>
+        /// <returns>the async state of the request</returns>
+        public static IAsyncResult GenerateRequest(string url, Action<string> dataAction)
+        {
+            Uri uri = new Uri(url);
+            WebRequest request = WebRequest.Create(uri);
+
+            AsyncCallback completed = RequestCompletedCallback(dataAction);
+            return request.BeginGetResponse(completed, request);
+        }
+
+
+        /// <summary>
         /// Generate a callback for the request conpleted
         /// </summary>
         /// <param name="dataAction">the processing to do on the returned data</param>
