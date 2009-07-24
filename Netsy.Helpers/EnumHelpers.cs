@@ -23,15 +23,5 @@ namespace Netsy.Helpers
         {
             return (T)Enum.Parse(typeof(T), value, true);
         }
-
-        /// <summary>
-        /// Convert an object to a string in lower case
-        /// </summary>
-        /// <param name="value">the value to convert</param>
-        /// <returns>the lower-case string</returns>
-        public static string ToStringLower(this object value)
-        {
-            return value.ToString().ToLower(CultureInfo.InvariantCulture);
-        }
     }
 }
