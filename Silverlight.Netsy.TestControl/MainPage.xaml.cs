@@ -41,12 +41,13 @@ namespace Silverlight.Netsy.TestControl
         /// <param name="e">the event params</param>
         private void GetUserDetailsCompleted(object sender, ResultEventArgs<Users> e)
         {
-            this.Dispatcher.BeginInvoke(new EventHandler<ResultEventArgs<Users>>(this.GetUserDetailsCompletedOnThread), e);
+            this.Dispatcher.BeginInvoke(new EventHandler<ResultEventArgs<Users>>(this.GetUserDetailsCompletedOnThread), sender, e);
         }
 
         /// <summary>
         /// Event fired when the user details have arrived
         /// </summary>
+        /// <param name="sender">the event sender</param>
         /// <param name="e">the event params</param>
         private void GetUserDetailsCompletedOnThread(object sender, ResultEventArgs<Users> e)
         {
