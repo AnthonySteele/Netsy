@@ -9,3 +9,4 @@
 // You do not need to add suppressions to this file manually. 
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Scope = "member", Target = "Netsy.Core.UsersService.#GetUserDetails(System.Int32,Netsy.DataModel.DetailLevel)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Scope = "member", Target = "Netsy.Core.UsersService.#GetUsersByName(System.String,System.Int32,System.Int32,Netsy.DataModel.DetailLevel)")]

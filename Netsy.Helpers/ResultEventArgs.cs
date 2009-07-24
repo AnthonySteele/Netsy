@@ -9,36 +9,27 @@ namespace Netsy.Helpers
     using System;
 
     /// <summary>
-    /// Delegate type for result event args
+    /// Generic event arguments that wrap a pair of objects - result data, result status
     /// </summary>
-    /// <typeparam name="TResult">The result data type wrapped by these event args</typeparam>
-    /// <typeparam name="TStatus">The result status type wrapped by these event args</typeparam>
-    /// <param name="e">the event params</param>
-    public delegate void ResultEventArgsHandler<TResult, TStatus>(ResultEventArgs<TResult, TStatus> e);
-
-    /// <summary>
-    /// Generic event arguments that wrap a single object
-    /// </summary>
-    /// <typeparam name="TResult">The result data type wrapped by these event args</typeparam>
-    /// <typeparam name="TStatus">The result status type wrapped by these event args</typeparam>
-    public class ResultEventArgs<TResult, TStatus> : EventArgs
+    /// <typeparam name="T">The result data type wrapped by these event args</typeparam>
+    public class ResultEventArgs<T> : EventArgs
     {
         /// <summary>
         /// stores the wrapped result value
         /// </summary>
-        private readonly TResult resultValue;
+        private readonly T resultValue;
 
         /// <summary>
         /// stores the wrapped result value
         /// </summary>
-        private readonly TStatus resultStatus;
+        private readonly ResultStatus resultStatus;
 
         /// <summary>
         /// Initializes a new instance of the ResultEventArgs class
         /// </summary>
         /// <param name="resultValue">the wrapped result value</param>
         /// <param name="resultStatus">the wrapped result status</param>
-        public ResultEventArgs(TResult resultValue, TStatus resultStatus)
+        public ResultEventArgs(T resultValue, ResultStatus resultStatus)
         {
             this.resultValue = resultValue;
             this.resultStatus = resultStatus;
@@ -47,7 +38,7 @@ namespace Netsy.Helpers
         /// <summary>
         /// Gets the wrapped result value
         /// </summary>
-        public TResult ResultValue
+        public T ResultValue
         {
             get
             {
@@ -58,7 +49,7 @@ namespace Netsy.Helpers
         /// <summary>
         /// Gets the wrapped result status
         /// </summary>
-        public TStatus ResultStatus
+        public ResultStatus ResultStatus
         {
             get
             {

@@ -16,14 +16,14 @@ namespace Netsy.Core
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Implementation of Etsy users
+    /// Implementation of Etsy users service calls API 
     /// </summary>
     public class UsersService : IUsersService
     {
         /// <summary>
         /// the API to use for authentication
         /// </summary>
-        private readonly string apiKey;
+        private readonly string ApiKey;
 
         /// <summary>
         /// Initializes a new instance of the UsersService class
@@ -31,7 +31,7 @@ namespace Netsy.Core
         /// <param name="apiKey">the API key to use</param>
         public UsersService(string apiKey)
         {
-            this.apiKey = apiKey;
+            this.ApiKey = apiKey;
         }
 
         #region IEtsyUsers Members
@@ -39,7 +39,12 @@ namespace Netsy.Core
         /// <summary>
         /// Event handler for when GetUserDetails completes
         /// </summary>
-        public event EventHandler<ResultEventArgs<Users, ResultStatus>> GetUserDetailsCompleted;
+        public event EventHandler<ResultEventArgs<Users>> GetUserDetailsCompleted;
+
+        /// <summary>
+        /// Event handler for when GetUserByName completes
+        /// </summary>
+        public event EventHandler<ResultEventArgs<Users>> GetUserByNameCompleted;
 
         /// <summary>
         /// Get the user details
@@ -49,19 +54,50 @@ namespace Netsy.Core
         /// <returns>the async state</returns>
         public IAsyncResult GetUserDetails(int userId, DetailLevel detailLevel)
         {
-            if (string.IsNullOrEmpty(this.apiKey))
+            if (string.IsNullOrEmpty(this.ApiKey))
             {
-                this.SendError("No Api key", null);
+                this.SendUserDetailsResult(null, new ResultStatus("No Api key", null));
                 return null;
             }
 
             string url = Constants.BaseUrl + "users/" + userId + 
-                "?api_key=" + this.apiKey + 
+                "?api_key=" + this.ApiKey + 
                 "&detail_level=" + detailLevel.ToString().ToLower(CultureInfo.InvariantCulture);
             Uri uri = new Uri(url);
 
             WebRequest request = WebRequest.Create(uri);
             IAsyncResult result = request.BeginGetResponse(this.GetUserDetailsCompletedCallback, request);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Query for users by name
+        /// </summary>
+        /// <param name="searchName">the name to search for</param>
+        /// <param name="offset">the searh results offset</param>
+        /// <param name="limit">the search limit</param>
+        /// <param name="detailLevel"></param>
+        /// <param name="detailLevel">the level of detail</param>
+        /// <returns>the async state</returns>
+        public IAsyncResult GetUsersByName(string searchName, int offset, int limit, DetailLevel detailLevel)
+        {
+            if (string.IsNullOrEmpty(this.ApiKey))
+            {
+                this.SendUsersByNameResult(null, new ResultStatus("No Api key", null));            
+                return null;
+            }
+
+            string url = Constants.BaseUrl +
+                "users/keywords/" + searchName +
+                "?api_key=" + this.ApiKey +
+                "&offset=" + offset +
+                "&limit=" + limit +
+                "&detail_level=" + detailLevel.ToString().ToLower(CultureInfo.InvariantCulture);
+            Uri uri = new Uri(url);
+
+            WebRequest request = WebRequest.Create(uri);
+            IAsyncResult result = request.BeginGetResponse(this.GetUsersByNameCompletedCallback, request);
 
             return result;
         }
@@ -85,17 +121,27 @@ namespace Netsy.Core
             response.Close();
 
             Users users = resultString.Deserialize<Users>();
-            this.SendResult(users, new ResultStatus(true));
+            this.SendUserDetailsResult(users, new ResultStatus(true));
         }
 
         /// <summary>
-        /// Send an error message
+        /// GetUserByName completed Callback
         /// </summary>
-        /// <param name="errorMessage">the error message</param>
-        /// <param name="ex">the exception</param>
-        private void SendError(string errorMessage, Exception ex)
+        /// <param name="asyncResult">the result of the operation</param>
+        private void GetUsersByNameCompletedCallback(IAsyncResult asyncResult)
         {
-            this.SendResult(null, new ResultStatus(errorMessage, ex));            
+            WebRequest request = (WebRequest)asyncResult.AsyncState;
+
+            HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(asyncResult);
+            Stream responseStream = response.GetResponseStream();
+            StreamReader streamReader = new StreamReader(responseStream);
+
+            string resultString = streamReader.ReadToEnd();
+            streamReader.Close();
+            response.Close();
+
+            Users users = resultString.Deserialize<Users>();
+            this.SendUsersByNameResult(users, new ResultStatus(true));
         }
 
         /// <summary>
@@ -103,12 +149,25 @@ namespace Netsy.Core
         /// </summary>
         /// <param name="users">the users read</param>
         /// <param name="status">the status of the call</param>
-        private void SendResult(Users users, ResultStatus status)
+        private void SendUserDetailsResult(Users users, ResultStatus status)
         {
           if (this.GetUserDetailsCompleted != null)
           {
-              this.GetUserDetailsCompleted(this, new ResultEventArgs<Users, ResultStatus>(users, status));
+              this.GetUserDetailsCompleted(this, new ResultEventArgs<Users>(users, status));
           }
+        }
+
+        /// <summary>
+        /// Send the result message
+        /// </summary>
+        /// <param name="users">the users read</param>
+        /// <param name="status">the status of the call</param>
+        private void SendUsersByNameResult(Users users, ResultStatus status)
+        {
+            if (this.GetUserByNameCompleted != null)
+            {
+                this.GetUserByNameCompleted(this, new ResultEventArgs<Users>(users, status));
+            }
         }
     }
 }

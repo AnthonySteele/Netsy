@@ -37,22 +37,39 @@ namespace Netsy.IntegrationTest
         private const int TestUserId = 7394192;
 
         /// <summary>
-        /// Synchronisation object to wait until the suceeding login attempt completes
+        /// Synchronisation object to wait until the user details get completes
         /// </summary>
         private AutoResetEvent userDetailsGetCompletedEvent;
 
         /// <summary>
-        /// Result data from the call to get users
+        /// Synchronisation object to wait until the user search by na,e get completes
         /// </summary>
-        private Users resultData;
+        private AutoResetEvent userByNameGetCompletedEvent;
 
         /// <summary>
-        /// Result status from the call to get users
+        /// Result data from the call to get users by id
         /// </summary>
-        private ResultStatus resultStatus;
+        private Users usersResultData;
+
+
+        /// <summary>
+        /// Result data from the call to get users by name
+        /// </summary>
+        private Users usersSearchResultData;
+
+
+        /// <summary>
+        /// Result status from the call to get users by id
+        /// </summary>
+        private ResultStatus usersResultStatus;
+
+        /// <summary>
+        /// Result status from the call to get users by name
+        /// </summary>
+        private ResultStatus userSearchResultStatus;
         
         /// <summary>
-        /// Test retrieving etsy users
+        /// Test retrieving etsy users by id
         /// </summary>
         [TestMethod]
         public void EtsyUsersLowDetailRetrievalTest()
@@ -62,7 +79,7 @@ namespace Netsy.IntegrationTest
             {
                 IUsersService etsyUsers = new UsersService(EtsyApiKey);
 
-                this.resultData = null;
+                this.usersResultData = null;
                 etsyUsers.GetUserDetailsCompleted += this.GetUserDetailsCompleted;
                 etsyUsers.GetUserDetails(TestUserId, DetailLevel.Low);
 
@@ -72,12 +89,12 @@ namespace Netsy.IntegrationTest
                 // check that the event was fired, did not time out
                 Assert.IsTrue(signalled, "Not signalled");
 
-                Assert.IsNotNull(this.resultStatus);
-                Assert.IsTrue(this.resultStatus.Success, "Call failed");
-                Assert.IsNotNull(this.resultData);
-                Assert.IsNotNull(this.resultData.Params);
-                Assert.IsNotNull(this.resultData.Results);
-                Assert.AreEqual(1, this.resultData.Count);
+                Assert.IsNotNull(this.usersResultStatus);
+                Assert.IsTrue(this.usersResultStatus.Success, "Call failed");
+                Assert.IsNotNull(this.usersResultData);
+                Assert.IsNotNull(this.usersResultData.Params);
+                Assert.IsNotNull(this.usersResultData.Results);
+                Assert.AreEqual(1, this.usersResultData.Count);
             }
             finally
             {
@@ -86,16 +103,69 @@ namespace Netsy.IntegrationTest
         }
 
         /// <summary>
-        /// Retrieve completed
+        /// Test retrieving etsy users by id
+        /// </summary>
+        [TestMethod]
+        public void EtsyUsersSearchLowDetailRetrievalTest()
+        {
+            this.userByNameGetCompletedEvent = new AutoResetEvent(false);
+            try
+            {
+                IUsersService etsyUsers = new UsersService(EtsyApiKey);
+
+                this.usersSearchResultData = null;
+                etsyUsers.GetUserByNameCompleted += this.GetUserByNameCompleted;
+                // the etsy server should have data here - at least 3 shops with "fred" in the name
+                etsyUsers.GetUsersByName("Fred", 0, 3, DetailLevel.Low);
+
+                // wait for up to 20 seconds for it to complete
+                bool signalled = this.userByNameGetCompletedEvent.WaitOne(WaitTimeout);
+
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                Assert.IsNotNull(this.userSearchResultStatus);
+                Assert.IsTrue(this.userSearchResultStatus.Success, "Call failed");
+                Assert.IsNotNull(this.usersSearchResultData);
+                Assert.IsNotNull(this.usersSearchResultData.Params);
+                Assert.IsNotNull(this.usersSearchResultData.Results);
+
+                // the etsy server should have at least 3 shops with "fred" in the name
+                Assert.IsTrue(this.usersSearchResultData.Count >= 3);
+            }
+            finally
+            {
+                this.userByNameGetCompletedEvent = null;
+            }
+        }
+
+        /// <summary>
+        /// User details by Id Retrieve completed
         /// </summary>
         /// <param name="sender">the event sender</param>
         /// <param name="e">the event params</param>
-        private void GetUserDetailsCompleted(object sender, ResultEventArgs<Users, ResultStatus> e)
+        private void GetUserDetailsCompleted(object sender, ResultEventArgs<Users> e)
         {
-            this.resultData = e.ResultValue;
-            this.resultStatus = e.ResultStatus;
+            this.usersResultData = e.ResultValue;
+            this.usersResultStatus = e.ResultStatus;
 
+            // signal that the data is retrieved, ready for testing
             this.userDetailsGetCompletedEvent.Set();
+        }
+
+
+        /// <summary>
+        /// Users by name retrieve completed
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the event params</param>
+        private void GetUserByNameCompleted(object sender, ResultEventArgs<Users> e)
+        {
+            this.usersSearchResultData = e.ResultValue;
+            this.userSearchResultStatus = e.ResultStatus;
+
+            // signal that the data is retrieved, ready for testing
+            this.userByNameGetCompletedEvent.Set();
         }
     }
 }
