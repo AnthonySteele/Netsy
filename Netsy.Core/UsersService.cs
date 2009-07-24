@@ -17,6 +17,9 @@ namespace Netsy.Core
 
     /// <summary>
     /// Implementation of Etsy users service calls API 
+    /// todo: now there are two service calls, Many more to come. 
+    /// todo: They are variations on a theme, so refactor common stuff out. 
+    /// todo: use template methods and lambdas?
     /// </summary>
     public class UsersService : IUsersService
     {
