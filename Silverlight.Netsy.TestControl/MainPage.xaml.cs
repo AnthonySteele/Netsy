@@ -5,6 +5,7 @@
 //----------------------------------------------------------------------- 
 namespace Silverlight.Netsy.TestControl
 {
+    using System;
     using System.Windows.Controls;
 
     using global::Netsy.Core;
@@ -38,16 +39,16 @@ namespace Silverlight.Netsy.TestControl
         /// </summary>
         /// <param name="sender">the event sender</param>
         /// <param name="e">the event params</param>
-        private void GetUserDetailsCompleted(object sender, ResultEventArgs<Users, ResultStatus> e)
+        private void GetUserDetailsCompleted(object sender, ResultEventArgs<Users> e)
         {
-            this.Dispatcher.BeginInvoke(new ResultEventArgsHandler<Users, ResultStatus>(this.GetUserDetailsCompletedOnThread), e);
+            this.Dispatcher.BeginInvoke(new EventHandler<ResultEventArgs<Users>>(this.GetUserDetailsCompletedOnThread), e);
         }
 
         /// <summary>
         /// Event fired when the user details have arrived
         /// </summary>
         /// <param name="e">the event params</param>
-        private void GetUserDetailsCompletedOnThread(ResultEventArgs<Users, ResultStatus> e)
+        private void GetUserDetailsCompletedOnThread(object sender, ResultEventArgs<Users> e)
         {
             if (e.ResultStatus.Success)
             {

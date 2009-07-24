@@ -56,10 +56,10 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="JsonSerializerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResultData.cs" />
     <Compile Include="ResultEventArgs.cs" />
     <Compile Include="ResultStatus.cs" />
     <Compile Include="SilverlightNetsyException.cs" />
+    <Compile Include="StringHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Silverlight.Netsy.Helpers.snk" />
