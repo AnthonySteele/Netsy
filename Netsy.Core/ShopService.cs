@@ -7,13 +7,9 @@
 namespace Netsy.Core
 {
     using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Net;
-
-    using DataModel.ShopData;
 
     using Netsy.DataModel;
+    using Netsy.DataModel.ShopData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
 

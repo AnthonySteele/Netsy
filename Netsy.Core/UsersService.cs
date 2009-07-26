@@ -7,9 +7,6 @@
 namespace Netsy.Core
 {
     using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Net;
 
     using Netsy.DataModel;
     using Netsy.DataModel.UserData;
