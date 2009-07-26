@@ -16,9 +16,14 @@ namespace Netsy.Interfaces
     public interface IShopService
     {
         /// <summary>
-        /// User details by id completed event
+        /// Shop details by id completed event
         /// </summary>
         event EventHandler<ResultEventArgs<Shops>> GetShopDetailsCompleted;
+
+        /// <summary>
+        /// Shop search by name completed event
+        /// </summary>
+        event EventHandler<ResultEventArgs<Shops>> GetShopsByNameCompleted;
 
         /// <summary>
         /// Query for shop details
@@ -27,5 +32,17 @@ namespace Netsy.Interfaces
         /// <param name="detailLevel">the level of detail</param>
         /// <returns>the async state</returns>
         IAsyncResult GetShopDetails(int userId, DetailLevel detailLevel);
+
+        /// <summary>
+        /// Query for shops by name
+        /// </summary>
+        /// <param name="searchName">the name to search for</param>
+        /// <param name="offset">the search results offset</param>
+        /// <param name="sortOrder">the sort order</param>
+        /// <param name="limit">the search limit</param>
+        /// <param name="detailLevel"></param>
+        /// <param name="detailLevel">the level of detail</param>
+        /// <returns>the async state</returns>
+        IAsyncResult GetShopsByName(string searchName, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel);
     }
 }

@@ -60,6 +60,7 @@
     <Compile Include="ShopData\Shop.cs" />
     <Compile Include="ShopData\Shops.cs" />
     <Compile Include="ShopData\ShopSection.cs" />
+    <Compile Include="SortOrder.cs" />
     <Compile Include="UserData\User.cs" />
     <Compile Include="UserData\Users.cs" />
     <Compile Include="UserData\UserStatus.cs" />
