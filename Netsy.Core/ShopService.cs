@@ -14,7 +14,6 @@ namespace Netsy.Core
     using DataModel.ShopData;
 
     using Netsy.DataModel;
-    using Netsy.DataModel.UserData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
 

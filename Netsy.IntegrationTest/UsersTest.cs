@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="NetsyUsersTest.cs" company="AFS">
+// <copyright file="UsersTest.cs" company="AFS">
 // Copyright (c) AFS. All rights reserved.
 // </copyright>
 //----------------------------------------------------------------------- 
@@ -19,7 +19,7 @@ namespace Netsy.IntegrationTest
     /// Test etsy users retrieval
     /// </summary>
     [TestClass]
-    public class NetsyUsersTest
+    public class UsersTest
     {
         /// <summary>
         /// how long to wait before timing out - 100 seconds
