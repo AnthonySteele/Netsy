@@ -59,6 +59,9 @@
     <Compile Include="UserData\User.cs" />
     <Compile Include="UserData\Users.cs" />
     <Compile Include="UserData\UserStatus.cs" />
+    <Compile Include="ShopData\Shop.cs" />
+    <Compile Include="ShopData\Shops.cs" />
+    <Compile Include="ShopData\ShopSection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Netsy.Helpers\Silverlight.Netsy.Helpers.csproj">

@@ -20,7 +20,7 @@ namespace Netsy.Core
     public static class ServiceHelper
     {
         /// <summary>
-        /// Generate a request 
+        /// Generate a request, attatch the action on completion and start it
         /// </summary>
         /// <param name="uri">the uri to read</param>
         /// <param name="dataAction">the action to take on returned data</param>
@@ -36,7 +36,7 @@ namespace Netsy.Core
 
         /// <summary>
         /// Generate a callback for the request completion
-        /// It's a template method, functinal style
+        /// It's a template method, functional style
         /// </summary>
         /// <param name="dataAction">the processing to do on the returned data</param>
         /// <returns>a callback method</returns>
