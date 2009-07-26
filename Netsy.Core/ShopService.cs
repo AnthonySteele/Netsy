@@ -81,7 +81,7 @@ namespace Netsy.Core
                 {
                     Shops shops = s.Deserialize<Shops>();
                     ResultEventArgs<Shops> sucessResult = new ResultEventArgs<Shops>(shops, new ResultStatus(true));
-                    ServiceHelper.TestSendEvent(this.GetShopDetailsCompleted, this, sucessResult);
+                    ServiceHelper.TestSendEvent(this.GetShopsByNameCompleted, this, sucessResult);
                 });
         }
 

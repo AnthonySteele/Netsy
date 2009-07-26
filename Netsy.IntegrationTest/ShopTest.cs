@@ -56,10 +56,10 @@ namespace Netsy.IntegrationTest
         private ResultStatus shopsResultStatus;
 
         /// <summary>
-        /// Test retrieving etsy users by id
+        /// Test retrieving etsy shops by id
         /// </summary>
         [TestMethod]
-        public void EtsyShopLowDetailRetrievalTest()
+        public void ShopLowDetailRetrievalTest()
         {
             this.shopDetailsGetCompletedEvent = new AutoResetEvent(false);
             try
@@ -86,6 +86,41 @@ namespace Netsy.IntegrationTest
             finally
             {
                 this.shopDetailsGetCompletedEvent = null;
+            }
+        }
+
+        
+        /// <summary>
+        /// Test searching for etsy shops by name
+        /// </summary>
+        [TestMethod]
+        public void ShopSearchLowDetailRetrievalTest()
+        {
+            using (AutoResetEvent shopSearchEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Shops> result = null;
+
+                IShopService shopsService = new ShopService(EtsyApiKey);
+
+                shopsService.GetShopsByNameCompleted += (s, e) =>
+                    {
+                        result = e;
+                        shopSearchEvent.Set();
+                    };
+                shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, DetailLevel.Low);
+
+                // wait for up to 20 seconds for it to complete
+                bool signalled = shopSearchEvent.WaitOne(WaitTimeout);
+
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");     
+            
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.ResultStatus);
+                Assert.IsNotNull(result.ResultValue);
+                Assert.IsNotNull(result.ResultValue.Results);
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.IsTrue(result.ResultValue.Count > 0);
             }
         }
 

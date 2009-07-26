@@ -72,7 +72,7 @@ namespace Netsy.IntegrationTest
         /// Test retrieving etsy users by id
         /// </summary>
         [TestMethod]
-        public void EtsyUsersLowDetailRetrievalTest()
+        public void UsersLowDetailRetrievalTest()
         {
             this.userDetailsGetCompletedEvent = new AutoResetEvent(false);
             try
@@ -106,7 +106,7 @@ namespace Netsy.IntegrationTest
         /// Test retrieving etsy users by id
         /// </summary>
         [TestMethod]
-        public void EtsyUsersSearchLowDetailRetrievalTest()
+        public void UsersSearchLowDetailRetrievalTest()
         {
             this.userByNameGetCompletedEvent = new AutoResetEvent(false);
             try
