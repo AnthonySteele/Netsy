@@ -8,6 +8,11 @@ namespace Netsy.DataModel.ListingData
 {
     using System.Runtime.Serialization;
 
+    /// <summary>
+    /// Details on an etsy listing image
+    /// Fields copied from http://developer.etsy.com/docs#images
+    /// Images are a subtype of Listings and will appear when detail_level is high.
+    /// </summary>
     public class ListingImage
     {
         /// <summary>

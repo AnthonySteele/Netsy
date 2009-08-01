@@ -12,6 +12,7 @@ namespace Netsy.DataModel.ShopData
     /// <summary>
     /// Details on an etsy shop
     /// Fields copied from http://developer.etsy.com/docs#shops
+    /// Shop records extend user records to include information about the seller's shop. 
     /// </summary>
     [DataContract]
     public class Shop: User

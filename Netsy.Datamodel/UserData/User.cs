@@ -14,6 +14,7 @@ namespace Netsy.DataModel.UserData
     /// <summary>
     /// Details on an etsy user
     /// Fields copied from http://developer.etsy.com/docs#users
+    /// User records represent a single user of the site, who may or may not be a seller.
     /// </summary>
     [DataContract]
     public class User

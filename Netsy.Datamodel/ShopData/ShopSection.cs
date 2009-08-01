@@ -11,6 +11,7 @@ namespace Netsy.DataModel.ShopData
     /// <summary>
     /// A shop section from the Etsy API 
     /// Fields copied from http://developer.etsy.com/docs#shop_sections
+    /// Some sellers may choose to organize their listings into sections.  Each section is specific to a shop and has a numeric ID and a title.
     /// </summary>
     [DataContract]
     public class ShopSection
