@@ -56,6 +56,7 @@
     <Compile Include="DetailLevel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ListingData\Listing.cs" />
+    <Compile Include="ListingData\ListingImage.cs" />
     <Compile Include="ListingData\ListingState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryParams.cs" />

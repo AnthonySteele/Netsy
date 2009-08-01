@@ -196,6 +196,53 @@ namespace Netsy.DataModel.ListingData
 
         #region high detail
 
+        /// <summary>
+        /// Gets or sets the average color of the listing's primary image, in RGB hexadecimal ("web") format.
+        /// </summary>
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the latitude of the user selling the item (may be blank).
+        /// </summary>
+        [DataMember(Name = "lat")]
+        public double Latitude { get; set; }
+
+        /// <summary>
+        /// Gets or sets the longitude of the user selling the item (may be blank).
+        /// </summary>
+        [DataMember(Name = "lon")]
+        public double Longitude { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user's city and state (user-supplied; may be blank).
+        /// </summary>
+        [DataMember(Name = "city")]
+        public double City { get; set; }
+
+        /// <summary>
+        /// Gets or sets the numeric ID of the section to which this listing belongs. If the shop uses sections.
+        /// </summary>
+        [DataMember(Name = "section_id")]
+        public int SectionId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title of the section to which this listing belongs.
+        /// </summary>
+        [DataMember(Name = "section_title")]
+        public string SectionTitle { get; set; }
+
+        /// <summary>
+        /// Gets or sets an array of image objects (
+        /// </summary>
+        [DataMember(Name = "all_images")]
+        public ListingImage[] AllImages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date and time that the user was favorited (only available in the command getFavoriteListingsOfUser.)
+        /// </summary>
+        [DataMember(Name = "favorite_creation_epoch")]
+        public string FavoriteCreationEpoch { get; set; }
 
         #endregion
     }
