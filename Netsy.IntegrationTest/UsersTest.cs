@@ -48,10 +48,8 @@ namespace Netsy.IntegrationTest
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                Assert.IsNotNull(result);
-                Assert.IsNotNull(result.ResultStatus);
-                Assert.IsTrue(result.ResultStatus.Success, "Call failed");
-                Assert.IsNotNull(result.ResultValue);
+                NetsyData.CheckResultSuccess(result);
+
                 Assert.IsNotNull(result.ResultValue.Params);
                 Assert.IsNotNull(result.ResultValue.Results);
                 Assert.AreEqual(1, result.ResultValue.Count);
@@ -85,10 +83,8 @@ namespace Netsy.IntegrationTest
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                Assert.IsNotNull(result);
-                Assert.IsNotNull(result.ResultStatus);
-                Assert.IsTrue(result.ResultStatus.Success, "Call failed");
-                Assert.IsNotNull(result.ResultValue);
+                NetsyData.CheckResultSuccess(result);
+
                 Assert.IsNotNull(result.ResultValue.Params);
                 Assert.IsNotNull(result.ResultValue.Results);
 

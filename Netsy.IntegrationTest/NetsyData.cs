@@ -6,6 +6,10 @@
 
 namespace Netsy.IntegrationTest
 {
+    using Helpers;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     public static class NetsyData
     {
         /// <summary>
@@ -22,5 +26,13 @@ namespace Netsy.IntegrationTest
         /// the user to test on
         /// </summary>
         public const int TestUserId = 7394192;
+
+        public static void CheckResultSuccess<T>(ResultEventArgs<T> result)
+        {
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.ResultStatus);
+            Assert.IsTrue(result.ResultStatus.Success, "Call failed");
+            Assert.IsNotNull(result.ResultValue);
+        }
     }
 }
