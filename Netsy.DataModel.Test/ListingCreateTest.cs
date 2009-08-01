@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="UserCreateTest.cs" company="AFS">
+// <copyright file="ListingCreateTest.cs" company="AFS">
 // Copyright (c) AFS. All rights reserved.
 // </copyright>
 //----------------------------------------------------------------------- 
@@ -9,46 +9,46 @@ namespace Netsy.DataModel.Test
     using System;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Netsy.DataModel.UserData;
+    using Netsy.DataModel.ListingData;
 
     /// <summary>
     /// Test creating the user details
     /// </summary>
     [TestClass]
-    public class UserCreateTest
+    public class ListingCreateTest
     {
         /// <summary>
         /// Test simple creation of a user
         /// </summary>
         [TestMethod]
-        public void UserSimpleCreateTest()
+        public void ListingSimpleCreateTest()
         {
-            User user = new User();
-            Assert.IsNotNull(user);
+            Listing listing = new Listing();
+            Assert.IsNotNull(listing);
         }
 
         /// <summary>
         /// Test setting the user status to public
         /// </summary>
         [TestMethod]
-        public void UserSetStatusPublicTest()
+        public void ListingSetStateActiveTest()
         {
-            User user = new User();
-            user.StatusString = "public";
+            Listing listing = new Listing();
+            listing.State = "active";
 
-            Assert.AreEqual(UserStatus.Public, user.StatusEnum);
+            Assert.AreEqual(ListingState.Active, listing.StateEnum);
         }
 
         /// <summary>
         /// Test setting the user status to private
         /// </summary>
         [TestMethod]
-        public void UserSetStatusPrivateTest()
+        public void ListingSetStateExpiredTest()
         {
-            User user = new User();
-            user.StatusString = "private";
+            Listing listing = new Listing();
+            listing.State = "expired";
 
-            Assert.AreEqual(UserStatus.Private, user.StatusEnum);
+            Assert.AreEqual(ListingState.Expired, listing.StateEnum);
         }
 
         /// <summary>
@@ -56,10 +56,10 @@ namespace Netsy.DataModel.Test
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void UserSetStatusBadValueTest()
+        public void ListingSetStateBadValueTest()
         {
-            User user = new User();
-            user.StatusString = "goofy";
+            Listing listing = new Listing();
+            listing.State = "goofy";
         }
     }
 }
