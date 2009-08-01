@@ -11,8 +11,8 @@ namespace Netsy.DataModel.ListingData
     using Helpers;
 
     /// <summary>
-    /// Details on an etsy shop
-    /// Fields copied from http://developer.etsy.com/docs#shops
+    /// Etsy listing data. Fields from http://developer.etsy.com/docs#listings
+    /// Listing records represent an item for sale on Etsy.
     /// </summary>
     [DataContract]
     public class Listing
