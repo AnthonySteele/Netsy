@@ -25,7 +25,7 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time the date and time the gift guide was created, in epoch seconds.
         /// </summary>
         [DataMember(Name = "creation_tsz_epoch")]
-        public double CreationTszEpoch { get; set; }
+        public double CreationEpoch { get; set; }
 
         /// <summary>
         /// Gets or sets a short description of the guide

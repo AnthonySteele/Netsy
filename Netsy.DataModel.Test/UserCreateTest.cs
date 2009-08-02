@@ -28,6 +28,16 @@ namespace Netsy.DataModel.Test
         }
 
         /// <summary>
+        /// Test simple creation of users
+        /// </summary>
+        [TestMethod]
+        public void UsersSimpleCreateTest()
+        {
+            Users users = new Users();
+            Assert.IsNotNull(users);
+        }
+
+        /// <summary>
         /// Test setting the user status to public
         /// </summary>
         [TestMethod]

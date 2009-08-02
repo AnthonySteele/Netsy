@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DetailLevel.cs" />
+    <Compile Include="FeedbackData\Feedback.cs" />
+    <Compile Include="FeedbackData\FeedbackDisposition.cs" />
     <Compile Include="GiftGuide.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ListingData\Listing.cs" />

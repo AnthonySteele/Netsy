@@ -21,7 +21,7 @@ namespace Netsy.DataModel.Test
         /// Test simple creation of a shop
         /// </summary>
         [TestMethod]
-        public void ShopDetailsSimpleCreateTest()
+        public void ShopSimpleCreateTest()
         {
             Shop shop = new Shop();
             Assert.IsNotNull(shop);
@@ -31,7 +31,7 @@ namespace Netsy.DataModel.Test
         /// Test that that shop is not on vacation by default
         /// </summary>
         [TestMethod]
-        public void ShopDetailsVacationFalseByDefaultTest()
+        public void ShopVacationFalseByDefaultTest()
         {
             Shop shop = new Shop();
             Assert.AreEqual(0, shop.IsVacation);
@@ -42,7 +42,7 @@ namespace Netsy.DataModel.Test
         /// Test that that shop is on vacation when set
         /// </summary>
         [TestMethod]
-        public void ShopDetailsVacationTrueWhenSetTest()
+        public void ShopVacationTrueWhenSetTest()
         {
             Shop shop = new Shop();
             shop.IsVacation = 1;
@@ -54,10 +54,21 @@ namespace Netsy.DataModel.Test
         /// Test simple creation of a shop section
         /// </summary>
         [TestMethod]
-        public void ShopSectionDetailsSimpleCreateTest()
+        public void ShopSectionSimpleCreateTest()
         {
             ShopSection shopSection = new ShopSection();
             Assert.IsNotNull(shopSection);
+        }
+
+
+        /// <summary>
+        /// Test simple creation of shops
+        /// </summary>
+        [TestMethod]
+        public void ShopsSimpleCreateTest()
+        {
+            Shops shops = new Shops();
+            Assert.IsNotNull(shops);
         }
     }
 }

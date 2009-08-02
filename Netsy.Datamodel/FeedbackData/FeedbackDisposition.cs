@@ -1,15 +1,13 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SortOrder.cs" company="AFS">
+// <copyright file="FeedbackDisposition.cs" company="AFS">
 // Copyright (c) AFS. All rights reserved.
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.DataModel
+
+namespace Netsy.DataModel.FeedbackData
 {
-    /// <summary>
-    /// Sort order for returned results
-    /// </summary>
-    public enum SortOrder
+    public enum FeedbackDisposition
     {
         /// <summary>
         /// Unknown default value
@@ -17,13 +15,18 @@ namespace Netsy.DataModel
         Unknown = 0,
 
         /// <summary>
-        /// Sort upwards
+        /// Positive feedback
         /// </summary>
-        Up,
+        Positive, 
 
         /// <summary>
-        /// Sort Downwards
+        /// Neutral feedback
         /// </summary>
-        Down
+        Neutral, 
+
+        /// <summary>
+        /// Negative feedback
+        /// </summary>
+        Negative
     }
 }
