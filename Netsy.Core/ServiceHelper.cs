@@ -10,8 +10,6 @@ namespace Netsy.Core
     using System.IO;
     using System.Net;
 
-    using DataModel.UserData;
-
     using Helpers;
 
     /// <summary>

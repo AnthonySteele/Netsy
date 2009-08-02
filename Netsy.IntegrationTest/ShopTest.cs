@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Shops> result = null;
-                IShopService shopsService = new ShopService(NetsyData.EtsyApiKey);
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
                 shopsService.GetShopDetailsCompleted += (s, e) =>
                     {
                         result = e;
@@ -68,7 +68,7 @@ namespace Netsy.IntegrationTest
             {
                 ResultEventArgs<Shops> result = null;
 
-                IShopService shopsService = new ShopService(NetsyData.EtsyApiKey);
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
                 shopsService.GetShopsByNameCompleted += (s, e) =>
                     {
                         result = e;

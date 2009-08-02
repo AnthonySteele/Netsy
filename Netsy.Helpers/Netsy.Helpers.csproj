@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
     <Compile Include="EnumHelpers.cs" />
     <Compile Include="NetsyException.cs" />
     <Compile Include="GenericEventArgs.cs" />

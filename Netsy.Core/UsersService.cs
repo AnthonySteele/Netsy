@@ -19,17 +19,17 @@ namespace Netsy.Core
     public class UsersService : IUsersService
     {
         /// <summary>
-        /// the API to use for authentication
+        /// the Etsy context data
         /// </summary>
-        private readonly string ApiKey;
+        private readonly EtsyContext etsyContext;
 
         /// <summary>
         /// Initializes a new instance of the UsersService class
         /// </summary>
-        /// <param name="apiKey">the API key to use</param>
-        public UsersService(string apiKey)
+        /// <param name="etsyContext">the etsy context to use</param>
+        public UsersService(EtsyContext etsyContext)
         {
-            this.ApiKey = apiKey;
+            this.etsyContext = etsyContext;
         }
 
         #region IEtsyUsers Members
@@ -52,15 +52,15 @@ namespace Netsy.Core
         /// <returns>the async state</returns>
         public IAsyncResult GetUserDetails(int userId, DetailLevel detailLevel)
         {
-            if (string.IsNullOrEmpty(this.ApiKey))
+            if (string.IsNullOrEmpty(this.etsyContext.ApiKey))
             {
                 ResultEventArgs<Users> errorResult = new ResultEventArgs<Users>(null, new ResultStatus("No Api key", null));
                 ServiceHelper.TestSendEvent(this.GetUserDetailsCompleted, this, errorResult);
                 return null;
             }
 
-            string url = Constants.BaseUrl + "users/" + userId + 
-                "?api_key=" + this.ApiKey +
+            string url = this.etsyContext.BaseUrl + "users/" + userId + 
+                "?api_key=" + this.etsyContext.ApiKey +
                 "&detail_level=" + detailLevel.ToStringLower();
 
             return ServiceHelper.GenerateRequest(new Uri(url), 
@@ -84,16 +84,16 @@ namespace Netsy.Core
         /// <returns>the async state</returns>
         public IAsyncResult GetUsersByName(string searchName, int offset, int limit, DetailLevel detailLevel)
         {
-            if (string.IsNullOrEmpty(this.ApiKey))
+            if (string.IsNullOrEmpty(this.etsyContext.ApiKey))
             {
                 ResultEventArgs<Users> errorResult = new ResultEventArgs<Users>(null, new ResultStatus("No Api key", null));
                 ServiceHelper.TestSendEvent(this.GetUserByNameCompleted, this, errorResult);
                 return null;
             }
 
-            string url = Constants.BaseUrl +
+            string url = this.etsyContext.BaseUrl +
                 "users/keywords/" + searchName +
-                "?api_key=" + this.ApiKey +
+                "?api_key=" + this.etsyContext.ApiKey +
                 "&offset=" + offset +
                 "&limit=" + limit +
                 "&detail_level=" + detailLevel.ToStringLower();

@@ -19,17 +19,17 @@ namespace Netsy.Core
     public class ShopService : IShopService
     {
         /// <summary>
-        /// the API to use for authentication
+        /// the Etsy context data
         /// </summary>
-        private readonly string ApiKey;
+        private readonly EtsyContext etsyContext;
 
         /// <summary>
         /// Initializes a new instance of the UsersService class
         /// </summary>
-        /// <param name="apiKey">the API key to use</param>
-        public ShopService(string apiKey)
+        /// <param name="etsyContext">the etsy context to use</param>
+        public ShopService(EtsyContext etsyContext)
         {
-            this.ApiKey = apiKey;
+            this.etsyContext = etsyContext;
         }
 
         #region IShopService Members
@@ -42,15 +42,15 @@ namespace Netsy.Core
 
         public IAsyncResult GetShopDetails(int userId, DetailLevel detailLevel)
         {
-            if (string.IsNullOrEmpty(this.ApiKey))
+            if (string.IsNullOrEmpty(this.etsyContext.ApiKey))
             {
                 ResultEventArgs<Shops> errorResult = new ResultEventArgs<Shops>(null, new ResultStatus("No Api key", null));
                 ServiceHelper.TestSendEvent(this.GetShopDetailsCompleted, this, errorResult);
                 return null;
             }
 
-            string url = Constants.BaseUrl + "shops/" + userId +
-                "?api_key=" + this.ApiKey +
+            string url = this.etsyContext.BaseUrl + "shops/" + userId +
+                "?api_key=" + this.etsyContext.ApiKey +
                 "&detail_level=" + detailLevel.ToStringLower();
 
             return ServiceHelper.GenerateRequest(new Uri(url),
@@ -64,15 +64,15 @@ namespace Netsy.Core
 
         public IAsyncResult GetFeaturedSellers(int offset, int limit, DetailLevel detailLevel)
         {
-            if (string.IsNullOrEmpty(this.ApiKey))
+            if (string.IsNullOrEmpty(this.etsyContext.ApiKey))
             {
                 ResultEventArgs<Shops> errorResult = new ResultEventArgs<Shops>(null, new ResultStatus("No Api key", null));
                 ServiceHelper.TestSendEvent(this.GetShopsByNameCompleted, this, errorResult);
                 return null;
             }
 
-            string url = Constants.BaseUrl + "shops/featured/" + 
-                "?api_key=" + this.ApiKey +
+            string url = this.etsyContext.BaseUrl + "shops/featured/" + 
+                "?api_key=" + this.etsyContext.ApiKey +
                 "&offset=" + offset +
                 "&limit=" + limit +
                 "&detail_level=" + detailLevel.ToStringLower();
@@ -89,15 +89,15 @@ namespace Netsy.Core
 
         public IAsyncResult GetShopsByName(string searchName, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel)
         {
-            if (string.IsNullOrEmpty(this.ApiKey))
+            if (string.IsNullOrEmpty(this.etsyContext.ApiKey))
             {
                 ResultEventArgs<Shops> errorResult = new ResultEventArgs<Shops>(null, new ResultStatus("No Api key", null));
                 ServiceHelper.TestSendEvent(this.GetShopsByNameCompleted, this, errorResult);
                 return null;
             }
 
-            string url = Constants.BaseUrl + "shops/keywords/" + searchName +
-                "?api_key=" + this.ApiKey +
+            string url = this.etsyContext.BaseUrl + "shops/keywords/" + searchName +
+                "?api_key=" + this.etsyContext.ApiKey +
                 "&sort_order=" + sortOrder.ToStringLower() +
                 "&offset=" + offset +
                 "&limit=" + limit +

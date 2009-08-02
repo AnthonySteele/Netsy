@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DetailLevel.cs" />
+    <Compile Include="EtsyContext.cs" />
     <Compile Include="FeedbackData\Feedback.cs" />
     <Compile Include="FeedbackData\FeedbackDisposition.cs" />
     <Compile Include="GiftGuide.cs" />

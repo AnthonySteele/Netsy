@@ -50,7 +50,6 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
     <Compile Include="EnumHelpers.cs" />
     <Compile Include="GenericEventArgs.cs" />
     <Compile Include="GlobalSuppressions.cs" />

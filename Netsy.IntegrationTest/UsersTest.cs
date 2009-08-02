@@ -31,7 +31,7 @@ namespace Netsy.IntegrationTest
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Users> result = null;
-                IUsersService etsyUsers = new UsersService(NetsyData.EtsyApiKey);
+                IUsersService etsyUsers = new UsersService(new EtsyContext(NetsyData.EtsyApiKey));
                 etsyUsers.GetUserDetailsCompleted += (s, e) =>
                     {
                         result = e;
@@ -66,7 +66,7 @@ namespace Netsy.IntegrationTest
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Users> result = null;
-                IUsersService etsyUsers = new UsersService(NetsyData.EtsyApiKey);
+                IUsersService etsyUsers = new UsersService(new EtsyContext(NetsyData.EtsyApiKey));
                 etsyUsers.GetUserByNameCompleted += (s, e) =>
                     {
                         result = e;
