@@ -36,6 +36,8 @@ namespace Netsy.Core
 
         public event EventHandler<ResultEventArgs<Shops>> GetShopDetailsCompleted;
 
+        public event EventHandler<ResultEventArgs<Shops>> GetFeaturedSellersCompleted;
+
         public event EventHandler<ResultEventArgs<Shops>> GetShopsByNameCompleted;
 
         public IAsyncResult GetShopDetails(int userId, DetailLevel detailLevel)
@@ -59,6 +61,31 @@ namespace Netsy.Core
                     ServiceHelper.TestSendEvent(this.GetShopDetailsCompleted, this, sucessResult);
                 });
         }
+
+        public IAsyncResult GetFeaturedSellers(int offset, int limit, DetailLevel detailLevel)
+        {
+            if (string.IsNullOrEmpty(this.ApiKey))
+            {
+                ResultEventArgs<Shops> errorResult = new ResultEventArgs<Shops>(null, new ResultStatus("No Api key", null));
+                ServiceHelper.TestSendEvent(this.GetShopsByNameCompleted, this, errorResult);
+                return null;
+            }
+
+            string url = Constants.BaseUrl + "shops/featured/" + 
+                "?api_key=" + this.ApiKey +
+                "&offset=" + offset +
+                "&limit=" + limit +
+                "&detail_level=" + detailLevel.ToStringLower();
+
+            return ServiceHelper.GenerateRequest(new Uri(url),
+                s =>
+                {
+                    Shops shops = s.Deserialize<Shops>();
+                    ResultEventArgs<Shops> sucessResult = new ResultEventArgs<Shops>(shops, new ResultStatus(true));
+                    ServiceHelper.TestSendEvent(this.GetFeaturedSellersCompleted, this, sucessResult);
+                });
+        }
+
 
         public IAsyncResult GetShopsByName(string searchName, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel)
         {
