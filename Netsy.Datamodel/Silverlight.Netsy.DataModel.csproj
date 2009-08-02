@@ -67,6 +67,8 @@
     <Compile Include="ListingData\Listing.cs" />
     <Compile Include="ListingData\ListingImage.cs" />
     <Compile Include="ListingData\ListingState.cs" />
+    <Compile Include="FeedbackData\Feedback.cs" />
+    <Compile Include="FeedbackData\FeedbackDisposition.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Netsy.Helpers\Silverlight.Netsy.Helpers.csproj">
