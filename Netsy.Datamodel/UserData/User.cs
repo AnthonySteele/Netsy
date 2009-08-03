@@ -139,13 +139,13 @@ namespace Netsy.DataModel.UserData
         /// Gets or sets the user's favorite materials
         /// </summary>
         [DataMember(Name = "materials")]
-        public string Materials { get; set; }
+        public string[] Materials { get; set; }
 
         /// <summary>
         /// Gets or sets the date and time of the user's last login
         /// </summary>
         [DataMember(Name = "last_login_epoch")]
-        public DateTime LastLogin { get; set; }
+        public double LastLogin { get; set; }
 
         #endregion
 
@@ -167,13 +167,13 @@ namespace Netsy.DataModel.UserData
         /// Gets or sets the day portion of the user's birthday (may be blank).
         /// </summary>
         [DataMember(Name = "birth_day")]
-        public int BirthDay { get; set; }
+        public string BirthDay { get; set; }
 
         /// <summary>
         /// Gets or sets the month portion of the user's birthday (may be blank)
         /// </summary>
         [DataMember(Name = "birth_month")]
-        public int BirthMonth { get; set; }
+        public string BirthMonth { get; set; }
 
         /// <summary>
         /// Gets or sets the user's biography (may be blank).

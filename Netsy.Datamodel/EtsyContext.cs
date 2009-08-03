@@ -7,6 +7,7 @@ namespace Netsy.DataModel
 {
     /// <summary>
     /// Context data for etsy services
+    /// Wraps all settings needed, suitable for DI as singleton
     /// </summary>
     public class EtsyContext
     {
