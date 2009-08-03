@@ -34,7 +34,7 @@ namespace Netsy.DataModel.Test
         public void ShopVacationFalseByDefaultTest()
         {
             Shop shop = new Shop();
-            Assert.AreEqual(0, shop.IsVacation);
+            Assert.IsTrue(string.IsNullOrEmpty(shop.IsVacation));
             Assert.IsFalse(shop.IsVacationFlag);
         }
 
@@ -45,8 +45,8 @@ namespace Netsy.DataModel.Test
         public void ShopVacationTrueWhenSetTest()
         {
             Shop shop = new Shop();
-            shop.IsVacation = 1;
-            Assert.AreEqual(1, shop.IsVacation);
+            shop.IsVacation = "1";
+            Assert.AreEqual("1", shop.IsVacation);
             Assert.IsTrue(shop.IsVacationFlag);
         }
 
