@@ -58,7 +58,7 @@ namespace Netsy.DataModel.Test
         }
 
         /// <summary>
-        /// Test parsing a user details response
+        /// Test parsing a users low details response
         /// </summary>
         [TestMethod]
         public void UsersLowDetailResponseParse()
@@ -82,7 +82,7 @@ namespace Netsy.DataModel.Test
         }
 
         /// <summary>
-        /// Test parsing a user details response
+        /// Test parsing a users medium detail response
         /// </summary>
         [TestMethod]
         public void UsersMediumDetailResponseParse()
@@ -106,7 +106,7 @@ namespace Netsy.DataModel.Test
         }
 
         /// <summary>
-        /// Test parsing a user details response
+        /// Test parsing a users high detail response
         /// </summary>
         [TestMethod]
         public void UsersHighDetailResponseParse()

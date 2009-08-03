@@ -28,7 +28,7 @@ namespace Silverlight.Netsy.TestControl
         {
             InitializeComponent();
 
-            IUsersService users = new UsersService(apiKey);
+            IUsersService users = new UsersService(new EtsyContext(apiKey));
 
             users.GetUserDetailsCompleted += this.GetUserDetailsCompleted;
             users.GetUserDetails(userId, DetailLevel.Low);

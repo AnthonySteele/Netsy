@@ -56,6 +56,7 @@
     <Compile Include="EtsyContext.cs" />
     <Compile Include="GiftGuide.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="ListingData\Listings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryParams.cs" />
     <Compile Include="SortOrder.cs" />

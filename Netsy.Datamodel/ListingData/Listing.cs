@@ -172,7 +172,7 @@ namespace Netsy.DataModel.ListingData
         /// Gets or sets the login name of the user who posted the item
         /// </summary>
         [DataMember(Name = "user_name")]
-        public int UserName { get; set; }
+        public string UserName { get; set; }
         
         /// <summary>
         /// Gets or sets the quantity of this item available for sale.
@@ -184,7 +184,7 @@ namespace Netsy.DataModel.ListingData
         /// Gets or sets the average color of the listing's primary image, in HSV format.
         /// </summary>
         [DataMember(Name = "hsv_color")]
-        public int[] HsvColor { get; set; }
+        public string HsvColor { get; set; }
         
         /// <summary>
         /// Gets or sets the average color of the listing's primary image, in RGB hexadecimal ("web") format.
@@ -218,7 +218,7 @@ namespace Netsy.DataModel.ListingData
         /// Gets or sets the user's city and state (user-supplied; may be blank).
         /// </summary>
         [DataMember(Name = "city")]
-        public double City { get; set; }
+        public string City { get; set; }
 
         /// <summary>
         /// Gets or sets the numeric ID of the section to which this listing belongs. If the shop uses sections.
