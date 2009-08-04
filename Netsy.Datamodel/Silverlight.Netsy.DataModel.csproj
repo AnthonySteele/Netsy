@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="DetailLevel.cs" />
     <Compile Include="EtsyContext.cs" />
+    <Compile Include="FeedbackData\Feedbacks.cs" />
     <Compile Include="GiftGuide.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ListingData\Listings.cs" />
