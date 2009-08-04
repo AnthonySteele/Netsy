@@ -6,6 +6,9 @@
 
 namespace Netsy.DataModel.ListingData
 {
+    /// <summary>
+    /// State of the listing - active or not
+    /// </summary>
     public enum ListingState
     {
         /// <summary>

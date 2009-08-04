@@ -57,6 +57,7 @@
     <Compile Include="EtsyContext.cs" />
     <Compile Include="FeedbackData\Feedback.cs" />
     <Compile Include="FeedbackData\FeedbackDisposition.cs" />
+    <Compile Include="FeedbackData\Feedbacks.cs" />
     <Compile Include="GiftGuide.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ListingData\Listing.cs" />
