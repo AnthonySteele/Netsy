@@ -22,6 +22,39 @@ namespace Netsy.IntegrationTest
     public class UsersTest
     {
         /// <summary>
+        /// test what happens with an invalid api key
+        /// </summary>
+        [TestMethod]
+        public void UserDetailsApiKeyFailTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Users> result = null;
+                IUsersService etsyUsers = new UsersService(new EtsyContext("InvalidKey"));
+                etsyUsers.GetUserDetailsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                etsyUsers.GetUserDetails(NetsyData.TestUserId, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should fail
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.ResultStatus);
+                Assert.IsFalse(result.ResultStatus.Success);
+            }            
+        }
+
+        /// <summary>
         /// Test retrieving etsy users by id
         /// </summary>
         [TestMethod]

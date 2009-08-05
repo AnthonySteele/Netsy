@@ -9,3 +9,4 @@
 // You do not need to add suppressions to this file manually. 
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Scope = "member", Target = "Netsy.Core.ServiceHelper.#TestSendEvent`1(System.EventHandler`1<Netsy.Helpers.ResultEventArgs`1<!!0>>,System.Object,Netsy.Helpers.ResultEventArgs`1<!!0>)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Scope = "member", Target = "Netsy.Core.ServiceHelper.#TestSendError`1(System.EventHandler`1<Netsy.Helpers.ResultEventArgs`1<!!0>>,System.Object,System.Exception)")]

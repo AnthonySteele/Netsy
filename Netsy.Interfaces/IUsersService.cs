@@ -40,7 +40,6 @@ namespace Netsy.Interfaces
         /// <param name="searchName">the name to search for</param>
         /// <param name="offset">the searh results offset</param>
         /// <param name="limit">the search limit</param>
-        /// <param name="detailLevel"></param>
         /// <param name="detailLevel">the level of detail</param>
         /// <returns>the async state</returns>
         IAsyncResult GetUsersByName(string searchName, int offset, int limit, DetailLevel detailLevel);

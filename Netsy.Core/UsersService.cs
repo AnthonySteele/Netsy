@@ -69,8 +69,8 @@ namespace Netsy.Core
                     Users users = s.Deserialize<Users>();
                     ResultEventArgs<Users> sucessResult = new ResultEventArgs<Users>(users, new ResultStatus(true));
                     ServiceHelper.TestSendEvent(this.GetUserDetailsCompleted, this, sucessResult);
-                });
-            
+                },
+                ex => ServiceHelper.TestSendError(this.GetUserDetailsCompleted, this, ex));
         }
 
         /// <summary>
@@ -104,7 +104,9 @@ namespace Netsy.Core
                         Users users = s.Deserialize<Users>();
                         ResultEventArgs<Users> sucessResult = new ResultEventArgs<Users>(users, new ResultStatus(true));
                         ServiceHelper.TestSendEvent(this.GetUserByNameCompleted, this, sucessResult);
-                    });            
+                    },
+                    ex => ServiceHelper.TestSendError(this.GetUserByNameCompleted, this, ex));
+
         }
 
         #endregion
