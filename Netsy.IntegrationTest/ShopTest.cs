@@ -23,6 +23,23 @@ namespace Netsy.IntegrationTest
     public class ShopTest
     {
         /// <summary>
+        /// Test missing APi key
+        /// </summary>
+        [TestMethod]
+        public void ShopRetrievalMissingApiKeyTest()
+        {
+            ResultEventArgs<Shops> result = null;
+            IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
+            shopsService.GetShopDetailsCompleted += (s, e) => result = e;
+
+            // ACT
+            shopsService.GetShopDetails(NetsyData.TestUserId, DetailLevel.Low);
+
+            // check the data
+            NetsyData.CheckResultFailure(result);
+        }
+
+        /// <summary>
         /// Test retrieving etsy shops by id
         /// </summary>
         [TestMethod]
@@ -55,7 +72,6 @@ namespace Netsy.IntegrationTest
                 Assert.AreEqual(1, result.ResultValue.Count);
             }
         }
-
 
         /// <summary>
         /// Test searching for etsy shops by name
@@ -90,6 +106,23 @@ namespace Netsy.IntegrationTest
                 Assert.IsTrue(result.ResultStatus.Success);
                 Assert.IsTrue(result.ResultValue.Count > 0);
             }
+        }
+
+        /// <summary>
+        /// Test missing APi key
+        /// </summary>
+        [TestMethod]
+        public void ShopSearchMissingApiKeyTest()
+        {
+            ResultEventArgs<Shops> result = null;
+            IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
+            shopsService.GetShopsByNameCompleted += (s, e) => result = e;
+
+            // ACT
+            shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, DetailLevel.Low);
+
+            // check the data
+            NetsyData.CheckResultFailure(result);
         }
     }
 }

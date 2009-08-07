@@ -57,10 +57,8 @@ namespace Netsy.Core
         /// <returns>the async state</returns>
         public IAsyncResult GetShopDetails(int userId, DetailLevel detailLevel)
         {
-            if (string.IsNullOrEmpty(this.etsyContext.ApiKey))
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetShopDetailsCompleted, this.etsyContext))
             {
-                ResultEventArgs<Shops> errorResult = new ResultEventArgs<Shops>(null, new ResultStatus("No Api key", null));
-                ServiceHelper.TestSendEvent(this.GetShopDetailsCompleted, this, errorResult);
                 return null;
             }
 

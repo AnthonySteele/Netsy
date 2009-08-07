@@ -23,6 +23,23 @@ namespace Netsy.IntegrationTest
     public class UsersTest
     {
         /// <summary>
+        /// Test missing APi key
+        /// </summary>
+        [TestMethod]
+        public void UserDetailsApiKeyMissingTest()
+        {
+            ResultEventArgs<Users> result = null;
+            IUsersService etsyUsers = new UsersService(new EtsyContext(string.Empty));
+            etsyUsers.GetUserDetailsCompleted += (s, e) => result = e;
+
+            // ACT
+            etsyUsers.GetUserDetails(NetsyData.TestUserId, DetailLevel.Low);
+
+            // check the data
+            NetsyData.CheckResultFailure(result);
+        }
+
+        /// <summary>
         /// test what happens with an invalid api key
         /// </summary>
         [TestMethod]
@@ -89,6 +106,23 @@ namespace Netsy.IntegrationTest
                 Assert.IsNotNull(result.ResultValue.Results);
                 Assert.AreEqual(1, result.ResultValue.Count);
             }
+        }
+
+        /// <summary>
+        /// Test missing APi key
+        /// </summary>
+        [TestMethod]
+        public void UserSearchApiKeyMissingTest()
+        {
+            ResultEventArgs<Users> result = null;
+            IUsersService etsyUsers = new UsersService(new EtsyContext(string.Empty));
+            etsyUsers.GetUserByNameCompleted += (s, e) => result = e;
+
+            // ACT
+            etsyUsers.GetUsersByName("Fred", 0, 3, DetailLevel.Low);
+
+            // check the data
+            NetsyData.CheckResultFailure(result);
         }
 
         /// <summary>

@@ -10,6 +10,10 @@ namespace Netsy.IntegrationTest
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+    /// <summary>
+    /// Helpers on integration tests
+    /// Input data and output inspection
+    /// </summary>
     public static class NetsyData
     {
         /// <summary>
@@ -27,12 +31,29 @@ namespace Netsy.IntegrationTest
         /// </summary>
         public const int TestUserId = 7394192;
 
+        /// <summary>
+        /// Check that the result was sucessfull
+        /// </summary>
+        /// <typeparam name="T">the type of result data</typeparam>
+        /// <param name="result">the data to inspect</param>
         public static void CheckResultSuccess<T>(ResultEventArgs<T> result)
         {
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(result.ResultStatus);
+            Assert.IsNotNull(result, "Result is null");
+            Assert.IsNotNull(result.ResultStatus, "Result Status is null");
             Assert.IsTrue(result.ResultStatus.Success, "Call failed");
-            Assert.IsNotNull(result.ResultValue);
+            Assert.IsNotNull(result.ResultValue, "Result value is null");
+        }
+
+        /// <summary>
+        /// Check that the result was a failure
+        /// </summary>
+        /// <typeparam name="T">the type of result data</typeparam>
+        /// <param name="result">the data to inspect</param>
+        public static void CheckResultFailure<T>(ResultEventArgs<T> result)
+        {
+            Assert.IsNotNull(result, "Result is null");
+            Assert.IsNotNull(result.ResultStatus, "Result Status is null");
+            Assert.IsFalse(result.ResultStatus.Success, "Call was expected to fail");
         }
     }
 }
