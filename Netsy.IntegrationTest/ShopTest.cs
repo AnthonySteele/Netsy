@@ -73,11 +73,29 @@ namespace Netsy.IntegrationTest
             }
         }
 
+
+        /// <summary>
+        /// Test missing APi key
+        /// </summary>
+        [TestMethod]
+        public void ShopByNameMissingApiKeyTest()
+        {
+            ResultEventArgs<Shops> result = null;
+            IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
+            shopsService.GetShopsByNameCompleted += (s, e) => result = e;
+
+            // ACT
+            shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, DetailLevel.Low);
+
+            // check the data
+            NetsyData.CheckResultFailure(result);
+        }
+
         /// <summary>
         /// Test searching for etsy shops by name
         /// </summary>
         [TestMethod]
-        public void ShopSearchLowDetailRetrievalTest()
+        public void ShopByNameLowDetailRetrievalTest()
         {
             // ARANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -109,20 +127,38 @@ namespace Netsy.IntegrationTest
         }
 
         /// <summary>
-        /// Test missing APi key
+        /// Test searching for etsy shops by name
         /// </summary>
         [TestMethod]
-        public void ShopSearchMissingApiKeyTest()
+        public void GetFeaturedSellersTest()
         {
-            ResultEventArgs<Shops> result = null;
-            IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
-            shopsService.GetShopsByNameCompleted += (s, e) => result = e;
+            // ARANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Shops> result = null;
 
-            // ACT
-            shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, DetailLevel.Low);
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
+                shopsService.GetFeaturedSellersCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
 
-            // check the data
-            NetsyData.CheckResultFailure(result);
+                // ACT
+                shopsService.GetFeaturedSellers(0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsNotNull(result.ResultValue.Results);
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.IsTrue(result.ResultValue.Count > 0);
+            }
         }
     }
 }

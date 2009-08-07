@@ -83,7 +83,7 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "shops/featured/" + 
+            string url = this.etsyContext.BaseUrl + "shops/featured" + 
                 "?api_key=" + this.etsyContext.ApiKey +
                 "&offset=" + offset +
                 "&limit=" + limit +
