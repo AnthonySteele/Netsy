@@ -68,15 +68,7 @@ namespace Netsy.Core
                 "?api_key=" + this.etsyContext.ApiKey +
                 "&detail_level=" + detailLevel.ToStringLower();
 
-            return ServiceHelper.GenerateRequest(
-                new Uri(url),
-                s =>
-                {
-                    Shops shops = s.Deserialize<Shops>();
-                    ResultEventArgs<Shops> sucessResult = new ResultEventArgs<Shops>(shops, new ResultStatus(true));
-                    ServiceHelper.TestSendEvent(this.GetShopDetailsCompleted, this, sucessResult);
-                },
-                ex => ServiceHelper.TestSendError(this.GetShopDetailsCompleted, this, ex));
+            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetShopDetailsCompleted);
         }
 
         /// <summary>
@@ -88,10 +80,8 @@ namespace Netsy.Core
         /// <returns>the async state</returns>
         public IAsyncResult GetFeaturedSellers(int offset, int limit, DetailLevel detailLevel)
         {
-            if (string.IsNullOrEmpty(this.etsyContext.ApiKey))
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeaturedSellersCompleted, this.etsyContext))
             {
-                ResultEventArgs<Shops> errorResult = new ResultEventArgs<Shops>(null, new ResultStatus("No Api key", null));
-                ServiceHelper.TestSendEvent(this.GetShopsByNameCompleted, this, errorResult);
                 return null;
             }
 
@@ -101,15 +91,7 @@ namespace Netsy.Core
                 "&limit=" + limit +
                 "&detail_level=" + detailLevel.ToStringLower();
 
-            return ServiceHelper.GenerateRequest(
-                new Uri(url),
-                s =>
-                {
-                    Shops shops = s.Deserialize<Shops>();
-                    ResultEventArgs<Shops> sucessResult = new ResultEventArgs<Shops>(shops, new ResultStatus(true));
-                    ServiceHelper.TestSendEvent(this.GetFeaturedSellersCompleted, this, sucessResult);
-                },
-                ex => ServiceHelper.TestSendError(this.GetFeaturedSellersCompleted, this, ex));
+            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetFeaturedSellersCompleted);
         }
 
         /// <summary>
@@ -123,10 +105,8 @@ namespace Netsy.Core
         /// <returns>the async state</returns>
         public IAsyncResult GetShopsByName(string searchName, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel)
         {
-            if (string.IsNullOrEmpty(this.etsyContext.ApiKey))
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetShopsByNameCompleted, this.etsyContext))
             {
-                ResultEventArgs<Shops> errorResult = new ResultEventArgs<Shops>(null, new ResultStatus("No Api key", null));
-                ServiceHelper.TestSendEvent(this.GetShopsByNameCompleted, this, errorResult);
                 return null;
             }
 
@@ -137,15 +117,7 @@ namespace Netsy.Core
                 "&limit=" + limit +
                 "&detail_level=" + detailLevel.ToStringLower();
 
-            return ServiceHelper.GenerateRequest(
-                new Uri(url),
-                s =>
-                {
-                    Shops shops = s.Deserialize<Shops>();
-                    ResultEventArgs<Shops> sucessResult = new ResultEventArgs<Shops>(shops, new ResultStatus(true));
-                    ServiceHelper.TestSendEvent(this.GetShopsByNameCompleted, this, sucessResult);
-                },
-                ex => ServiceHelper.TestSendError(this.GetShopsByNameCompleted, this, ex));
+            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetShopsByNameCompleted);
         }
 
         #endregion

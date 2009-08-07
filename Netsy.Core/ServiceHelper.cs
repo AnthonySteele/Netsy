@@ -10,26 +10,58 @@ namespace Netsy.Core
     using System.IO;
     using System.Net;
 
-    using Helpers;
+    using Netsy.DataModel;
+    using Netsy.Helpers;
 
     /// <summary>
     /// Helper methods for services
     /// </summary>
     public static class ServiceHelper
     {
+
         /// <summary>
-        /// Generate a request, attatch the action on completion and start it
+        /// Test that the api is a sate suitable to make calls
         /// </summary>
-        /// <param name="uri">the uri to read</param>
-        /// <param name="dataAction">the action to take on returned data</param>
-        /// <param name="errorAction">the processing to do on error</param>
-        /// <returns>the async state of the request</returns>
-        public static IAsyncResult GenerateRequest(Uri uri, Action<string> dataAction, Action<Exception> errorAction)
+        /// <typeparam name="T">the type of data returned</typeparam>
+        /// <param name="sender">the event sender</param>
+        /// <param name="errorEvent">the error event to send if it's not in a good state</param>
+        /// <param name="etsyContext">the context data to inspect</param>
+        /// <returns>true if everyting is ok, false if there is an error</returns>
+        public static bool TestCallPrerequisites<T>(object sender, EventHandler<ResultEventArgs<T>> errorEvent, EtsyContext etsyContext)
         {
+            if (string.IsNullOrEmpty(etsyContext.ApiKey))
+            {
+                ResultEventArgs<T> errorResult = new ResultEventArgs<T>(default(T), new ResultStatus("No Api key", null));
+                TestSendEvent(errorEvent, sender, errorResult);
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Generate a web service request, attatch the action on completion and start it
+        /// </summary>
+        /// <typeparam name="T">The type to desrialise to</typeparam>
+        /// <param name="sender">the sender</param>
+        /// <param name="uri">the Uri to poll</param>
+        /// <param name="completedEvent">where to send completed data and errors</param>
+        /// <returns>the async state of the request</returns>
+        public static IAsyncResult GenerateRequest<T>(object sender, Uri uri, EventHandler<ResultEventArgs<T>> completedEvent) where T : class
+        {
+            Action<string> dataAction = s =>
+                {
+                    T data = s.Deserialize<T>();
+                    ResultEventArgs<T> sucessResult = new ResultEventArgs<T>(data, new ResultStatus(true));
+                    TestSendEvent(completedEvent, sender, sucessResult);
+                };
+
+            Action<Exception> errorAction = ex => TestSendError(completedEvent, sender, ex);
+
             WebRequest request = WebRequest.Create(uri);
 
             AsyncCallback completed = RequestCompletedCallback(dataAction, errorAction);
-            return request.BeginGetResponse(completed, request);
+            return request.BeginGetResponse(completed, request);           
         }
 
         /// <summary>

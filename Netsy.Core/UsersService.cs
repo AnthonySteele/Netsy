@@ -52,10 +52,8 @@ namespace Netsy.Core
         /// <returns>the async state</returns>
         public IAsyncResult GetUserDetails(int userId, DetailLevel detailLevel)
         {
-            if (string.IsNullOrEmpty(this.etsyContext.ApiKey))
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetUserDetailsCompleted, this.etsyContext))
             {
-                ResultEventArgs<Users> errorResult = new ResultEventArgs<Users>(null, new ResultStatus("No Api key", null));
-                ServiceHelper.TestSendEvent(this.GetUserDetailsCompleted, this, errorResult);
                 return null;
             }
 
@@ -63,14 +61,7 @@ namespace Netsy.Core
                 "?api_key=" + this.etsyContext.ApiKey +
                 "&detail_level=" + detailLevel.ToStringLower();
 
-            return ServiceHelper.GenerateRequest(new Uri(url), 
-                s =>
-                {
-                    Users users = s.Deserialize<Users>();
-                    ResultEventArgs<Users> sucessResult = new ResultEventArgs<Users>(users, new ResultStatus(true));
-                    ServiceHelper.TestSendEvent(this.GetUserDetailsCompleted, this, sucessResult);
-                },
-                ex => ServiceHelper.TestSendError(this.GetUserDetailsCompleted, this, ex));
+            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetUserDetailsCompleted);
         }
 
         /// <summary>
@@ -84,10 +75,8 @@ namespace Netsy.Core
         /// <returns>the async state</returns>
         public IAsyncResult GetUsersByName(string searchName, int offset, int limit, DetailLevel detailLevel)
         {
-            if (string.IsNullOrEmpty(this.etsyContext.ApiKey))
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetUserByNameCompleted, this.etsyContext))
             {
-                ResultEventArgs<Users> errorResult = new ResultEventArgs<Users>(null, new ResultStatus("No Api key", null));
-                ServiceHelper.TestSendEvent(this.GetUserByNameCompleted, this, errorResult);
                 return null;
             }
 
@@ -98,15 +87,7 @@ namespace Netsy.Core
                 "&limit=" + limit +
                 "&detail_level=" + detailLevel.ToStringLower();
 
-            return ServiceHelper.GenerateRequest(new Uri(url),
-                    s =>
-                    {
-                        Users users = s.Deserialize<Users>();
-                        ResultEventArgs<Users> sucessResult = new ResultEventArgs<Users>(users, new ResultStatus(true));
-                        ServiceHelper.TestSendEvent(this.GetUserByNameCompleted, this, sucessResult);
-                    },
-                    ex => ServiceHelper.TestSendError(this.GetUserByNameCompleted, this, ex));
-
+            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetUserByNameCompleted);
         }
 
         #endregion
