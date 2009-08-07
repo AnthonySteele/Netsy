@@ -18,7 +18,6 @@ namespace Netsy.Core
     /// </summary>
     public static class ServiceHelper
     {
-
         /// <summary>
         /// Test that the api is a sate suitable to make calls
         /// </summary>

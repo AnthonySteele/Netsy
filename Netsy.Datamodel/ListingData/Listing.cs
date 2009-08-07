@@ -49,6 +49,7 @@ namespace Netsy.DataModel.ListingData
             {
                 return this.stateString;
             }
+
             set
             {
                 this.stateString = value;
@@ -142,7 +143,6 @@ namespace Netsy.DataModel.ListingData
         /// </summary>
         [DataMember(Name = "materials")]
         public string[] Materials { get; set; }
-
 
         /// <summary>
         /// Gets or sets the item's price.

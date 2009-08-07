@@ -15,7 +15,6 @@ namespace Netsy.DataModel.Test
     [TestClass]
     public class ListingParseTest
     {
-
         /// <summary>
         /// A sample response text containing one listing, low detail level
         /// </summary>

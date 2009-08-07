@@ -15,7 +15,6 @@ namespace Netsy.DataModel.Test
     [TestClass]
     public class FeedbackParseTest
     {
-
         /// <summary>
         /// A sample response text containing one feedback
         /// </summary>
