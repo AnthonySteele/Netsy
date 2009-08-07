@@ -6,6 +6,7 @@
 namespace Netsy.Helpers
 {
     using System;
+    using System.Net;
 
     /// <summary>
     /// Result status class
@@ -34,7 +35,7 @@ namespace Netsy.Helpers
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the request suceeded
+        /// Gets a value indicating whether the request suceeded
         /// </summary>
         public bool Success
         {
@@ -43,7 +44,7 @@ namespace Netsy.Helpers
         }
 
         /// <summary>
-        /// Gets or sets an error message on failure
+        /// Gets an error message on failure
         /// </summary>
         public string ErrorMessage
         {
@@ -52,12 +53,29 @@ namespace Netsy.Helpers
         }
 
         /// <summary>
-        /// Gets or sets the exception on failure
+        /// Gets the exception on failure
         /// </summary>
         public Exception Exception
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// Gets the status from a web execption
+        /// </summary>
+        public WebExceptionStatus WebStatus
+        {
+            get
+            {
+                WebException wex = Exception as WebException;
+                if (wex == null)
+                {
+                    return WebExceptionStatus.Success;
+                }
+                    
+                return wex.Status;
+            }
         }
     }
 }

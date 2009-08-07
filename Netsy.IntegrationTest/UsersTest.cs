@@ -6,6 +6,7 @@
 
 namespace Netsy.IntegrationTest
 {
+    using System.Net;
     using System.Threading;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -51,6 +52,7 @@ namespace Netsy.IntegrationTest
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.ResultStatus);
                 Assert.IsFalse(result.ResultStatus.Success);
+                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
             }            
         }
 
