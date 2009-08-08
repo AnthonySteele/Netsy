@@ -50,12 +50,19 @@ namespace Netsy.Core
         {
             Action<string> dataAction = s =>
                 {
-                    T data = s.Deserialize<T>();
-                    ResultEventArgs<T> sucessResult = new ResultEventArgs<T>(data, new ResultStatus(true));
-                    TestSendEvent(completedEvent, sender, sucessResult);
+                    try
+                    {
+                        T data = s.Deserialize<T>();
+                        ResultEventArgs<T> sucessResult = new ResultEventArgs<T>(data, new ResultStatus(true));
+                        TestSendEvent(completedEvent, sender, sucessResult);
+                    }
+                    catch (Exception ex)
+                    {
+                        TestSendError(completedEvent, sender, "Error Deserializing data", ex);
+                    }
                 };
 
-            Action<Exception> errorAction = ex => TestSendError(completedEvent, sender, ex);
+            Action<Exception> errorAction = ex => TestSendError(completedEvent, sender, "Web error", ex);
 
             WebRequest request = WebRequest.Create(uri);
 
@@ -124,12 +131,13 @@ namespace Netsy.Core
         /// <typeparam name="T">the type of data to send</typeparam>
         /// <param name="eventHandler">the event handler to fire</param>
         /// <param name="sender">the event sender</param>
+        /// <param name="errorMessage">the error message</param>
         /// <param name="ex">the exception to send</param>
-        public static void TestSendError<T>(EventHandler<ResultEventArgs<T>> eventHandler, object sender, Exception ex)
+        public static void TestSendError<T>(EventHandler<ResultEventArgs<T>> eventHandler, object sender, string errorMessage, Exception ex)
         {
             if (eventHandler != null)
             {
-                var result = new ResultEventArgs<T>(default(T), new ResultStatus("Call failed", ex));
+                var result = new ResultEventArgs<T>(default(T), new ResultStatus(errorMessage, ex));
                 eventHandler(sender, result);
             }
         }

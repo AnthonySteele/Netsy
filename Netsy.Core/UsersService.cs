@@ -42,7 +42,7 @@ namespace Netsy.Core
         /// <summary>
         /// Event handler for when GetUserByName completes
         /// </summary>
-        public event EventHandler<ResultEventArgs<Users>> GetUserByNameCompleted;
+        public event EventHandler<ResultEventArgs<Users>> GetUsersByNameCompleted;
 
         /// <summary>
         /// Get the user details
@@ -74,7 +74,7 @@ namespace Netsy.Core
         /// <returns>the async state</returns>
         public IAsyncResult GetUsersByName(string searchName, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetUserByNameCompleted, this.etsyContext))
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetUsersByNameCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -86,7 +86,7 @@ namespace Netsy.Core
                 "&limit=" + limit +
                 "&detail_level=" + detailLevel.ToStringLower();
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetUserByNameCompleted);
+            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetUsersByNameCompleted);
         }
 
         #endregion

@@ -40,6 +40,10 @@ namespace Netsy.IntegrationTest
         {
             Assert.IsNotNull(result, "Result is null");
             Assert.IsNotNull(result.ResultStatus, "Result Status is null");
+
+            Assert.IsNull(result.ResultStatus.Exception, "Has exception:" + result.ResultStatus.Exception);
+            Assert.IsNull(result.ResultStatus.ErrorMessage, "Has error message:" + result.ResultStatus.ErrorMessage);
+
             Assert.IsTrue(result.ResultStatus.Success, "Call failed");
             Assert.IsNotNull(result.ResultValue, "Result value is null");
         }

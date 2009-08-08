@@ -103,13 +103,13 @@ namespace Netsy.DataModel.UserData
         /// Gets or sets the user's latitude (may be blank).
         /// </summary>
         [DataMember(Name = "lat")]
-        public double Latitude { get; set; }
+        public string Latitude { get; set; }
 
         /// <summary>
         /// Gets or sets the user's latitude (may be blank).
         /// </summary>
         [DataMember(Name = "lon")]
-        public double Longitude { get; set; }
+        public string Longitude { get; set; }
 
         /// <summary>
         /// Gets or sets the number of items the user has purchased.
@@ -142,10 +142,10 @@ namespace Netsy.DataModel.UserData
         public string[] Materials { get; set; }
 
         /// <summary>
-        /// Gets or sets the date and time of the user's last login
+        /// Gets or sets the date and time of the user's last login (can be null)
         /// </summary>
         [DataMember(Name = "last_login_epoch")]
-        public double LastLogin { get; set; }
+        public string LastLogin { get; set; }
 
         #endregion
 
@@ -191,7 +191,7 @@ namespace Netsy.DataModel.UserData
         /// Gets or sets the percentage of feedback by or about this user that is positive.
         /// </summary>
         [DataMember(Name = "feedback_percent_positive")]
-        public int FeedbackPercentPositive { get; set; }
+        public string FeedbackPercentPositive { get; set; }
 
         #endregion
 
