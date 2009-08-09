@@ -8,6 +8,7 @@
 
 namespace Netsy.IntegrationTest
 {
+    using System.Net;
     using System.Threading;
 
     using DataModel.ShopData;
@@ -25,10 +26,10 @@ namespace Netsy.IntegrationTest
     public class GetShopDetailsTest
     {
         /// <summary>
-        /// Test missing APi key
+        /// Test missing API key
         /// </summary>
         [TestMethod]
-        public void ShopRetrievalMissingApiKeyTest()
+        public void GetShopDetailsMissingApiKeyTest()
         {
             ResultEventArgs<Shops> result = null;
             IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
@@ -42,10 +43,43 @@ namespace Netsy.IntegrationTest
         }
 
         /// <summary>
+        /// Test invalid API key
+        /// </summary>
+        [TestMethod]
+        public void GetShopDetailsApiKeyInvalidTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Shops> result = null;
+                IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"));
+                shopsService.GetShopDetailsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                shopsService.GetShopDetails(NetsyData.TestUserId, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should fail
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.ResultStatus);
+                Assert.IsFalse(result.ResultStatus.Success);
+                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
+        }
+
+        /// <summary>
         /// Test retrieving etsy shops by id
         /// </summary>
         [TestMethod]
-        public void ShopLowDetailRetrievalTest()
+        public void GetShopDetailsLowDetailTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -74,5 +108,51 @@ namespace Netsy.IntegrationTest
                 Assert.AreEqual(1, result.ResultValue.Count);
             }
         }
+
+        /// <summary>
+        /// Test retrieving shop details, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetShopDetailsAllDetailLevelsTest()
+        {
+            TestGetShopDetails(DetailLevel.Low);
+            TestGetShopDetails(DetailLevel.Medium);
+            TestGetShopDetails(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Tets getting shop details with various detail levels
+        /// </summary>
+        /// <param name="detailLevel">the detail level to use</param>
+        private static void TestGetShopDetails(DetailLevel detailLevel)
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Shops> result = null;
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
+                shopsService.GetShopDetailsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                shopsService.GetShopDetails(NetsyData.TestUserId, detailLevel);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsNotNull(result.ResultValue.Params);
+                Assert.IsNotNull(result.ResultValue.Results);
+                Assert.AreEqual(1, result.ResultValue.Count);
+            }
+        }
+
     }
 }

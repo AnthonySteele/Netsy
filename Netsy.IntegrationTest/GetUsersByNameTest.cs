@@ -118,8 +118,8 @@ namespace Netsy.IntegrationTest
         [TestMethod]
         public void GetUsersByNameAllDetailLevelsRetrievalTest()
         {
-           //TestGetUsersByName(DetailLevel.Low);
-           // TestGetUsersByName(DetailLevel.Medium);
+            TestGetUsersByName(DetailLevel.Low);
+            TestGetUsersByName(DetailLevel.Medium);
             TestGetUsersByName(DetailLevel.High);
         }
 

@@ -8,6 +8,7 @@
 
 namespace Netsy.IntegrationTest
 {
+    using System.Net;
     using System.Threading;
 
     using DataModel.ShopData;
@@ -28,7 +29,7 @@ namespace Netsy.IntegrationTest
         /// Test missing APi key
         /// </summary>
         [TestMethod]
-        public void ShopByNameMissingApiKeyTest()
+        public void GetShopsByNameMissingApiKeyTest()
         {
             ResultEventArgs<Shops> result = null;
             IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
@@ -39,6 +40,39 @@ namespace Netsy.IntegrationTest
 
             // check the data
             NetsyData.CheckResultFailure(result);
+        }
+
+        /// <summary>
+        /// Test invalid API key
+        /// </summary>
+        [TestMethod]
+        public void GetShopsByNameApiKeyInvalidTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Shops> result = null;
+                IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"));
+                shopsService.GetShopsByNameCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should fail
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.ResultStatus);
+                Assert.IsFalse(result.ResultStatus.Success);
+                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
         }
 
         /// <summary>
