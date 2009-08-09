@@ -20,12 +20,11 @@ namespace Netsy.IntegrationTest
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Test etsy shop retrieval
+    /// Test the GetFeaturedSellers function on the shop service
     /// </summary>
     [TestClass]
     public class GetFeaturedSellersTest
     {
-
         /// <summary>
         /// Test missing API key
         /// </summary>
@@ -109,6 +108,52 @@ namespace Netsy.IntegrationTest
                 Assert.IsTrue(result.ResultStatus.Success);
                 Assert.IsTrue(result.ResultValue.Count > 0);
             }
+        }
+
+        /// <summary>
+        /// Test retrieving shop details, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetFeauredSellersAllDetailLevelsTest()
+        {
+            TestFeauredSellers(DetailLevel.Low);
+            TestFeauredSellers(DetailLevel.Medium);
+            TestFeauredSellers(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Test getting featured sellers at the given detail level
+        /// </summary>
+        /// <param name="detailLevel">the given detail level</param>
+        private static void TestFeauredSellers(DetailLevel detailLevel)
+        {
+            // ARANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Shops> result = null;
+
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
+                shopsService.GetFeaturedSellersCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                shopsService.GetFeaturedSellers(0, 10, detailLevel);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsNotNull(result.ResultValue.Results);
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.IsTrue(result.ResultValue.Count > 0);
+            }            
         }
     }
 }

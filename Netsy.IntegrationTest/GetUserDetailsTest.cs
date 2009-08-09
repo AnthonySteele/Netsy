@@ -25,7 +25,7 @@ namespace Netsy.IntegrationTest
     public class GetUserDetailsTest
     {
         /// <summary>
-        /// Test missing APi key
+        /// Test the GetUserDetails funciton on the users service
         /// </summary>
         [TestMethod]
         public void GetUserDetailsApiKeyMissingTest()

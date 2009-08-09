@@ -26,7 +26,7 @@ namespace Netsy.IntegrationTest
     public class GetShopsByNameTest
     {
         /// <summary>
-        /// Test missing APi key
+        /// Test the GetShopsByName function on the shop service
         /// </summary>
         [TestMethod]
         public void GetShopsByNameMissingApiKeyTest()

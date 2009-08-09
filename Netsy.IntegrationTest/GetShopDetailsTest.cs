@@ -20,7 +20,7 @@ namespace Netsy.IntegrationTest
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Test etsy shop retrieval
+    /// Test the GetShopDetails function on the shop service
     /// </summary>
     [TestClass]
     public class GetShopDetailsTest

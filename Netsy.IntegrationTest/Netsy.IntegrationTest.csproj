@@ -44,7 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetFeaturedDetailsTest.cs" />
     <Compile Include="GetShopDetailsTest.cs" />
+    <Compile Include="GetShopListingsTest.cs" />
     <Compile Include="GetShopsByNameTest.cs" />
     <Compile Include="GetUserDetailsTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />

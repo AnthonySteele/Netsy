@@ -19,7 +19,7 @@ namespace Netsy.IntegrationTest
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Test etsy users retrieval
+    /// Test the GetUsersByName funcion on the users service
     /// </summary>
     [TestClass]
     public class GetUsersByNameTest
