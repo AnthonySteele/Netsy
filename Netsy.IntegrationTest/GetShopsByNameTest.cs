@@ -79,7 +79,7 @@ namespace Netsy.IntegrationTest
         /// Test searching for etsy shops by name
         /// </summary>
         [TestMethod]
-        public void ShopByNameLowDetailRetrievalTest()
+        public void GetShopsByNameLowDetailRetrievalTest()
         {
             // ARANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -95,6 +95,52 @@ namespace Netsy.IntegrationTest
 
                 // ACT
                 shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsNotNull(result.ResultValue.Results);
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.IsTrue(result.ResultValue.Count > 0);
+            }
+        }
+
+        /// <summary>
+        /// Test retrieving shop details, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetShopsByNameAllDetailLevelsTest()
+        {
+            TestGetShopsByName(DetailLevel.Low);
+            TestGetShopsByName(DetailLevel.Medium);
+            TestGetShopsByName(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Test retrieving shops by name, all detail levels
+        /// </summary>
+        /// <param name="detailLevel">the detail level to use</param>
+        private static void TestGetShopsByName(DetailLevel detailLevel)
+        {
+            // ARANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Shops> result = null;
+
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
+                shopsService.GetShopsByNameCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
