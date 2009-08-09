@@ -34,6 +34,11 @@ namespace Netsy.IntegrationTest
         public const int TestUserId = 7394192;
 
         /// <summary>
+        /// the user to test on
+        /// </summary>
+        public const string TestUserName = "ColonialSteele";
+
+        /// <summary>
         /// Check that the result was sucessfull
         /// </summary>
         /// <typeparam name="T">the type of result data</typeparam>
