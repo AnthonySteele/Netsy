@@ -108,5 +108,51 @@ namespace Netsy.IntegrationTest
                 Assert.IsTrue(result.ResultValue.Count > 0);
             }
         }
+
+        /// <summary>
+        /// Test retrieving featured details, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetFeaturedDetailsAllDetailLevelsTest()
+        {
+            TestGetFeaturedDetails(DetailLevel.Low);
+            TestGetFeaturedDetails(DetailLevel.Medium);
+            TestGetFeaturedDetails(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Test retrieving featured details at the given detail level
+        /// </summary>
+        /// <param name="detailLevel">the given detail level</param>
+        private static void TestGetFeaturedDetails(DetailLevel detailLevel)
+        {
+            // ARANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
+                shopsService.GetFeaturedDetailsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                shopsService.GetFeaturedDetails(NetsyData.TestUserId, detailLevel);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsNotNull(result.ResultValue.Results);
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.IsTrue(result.ResultValue.Count > 0);
+            }
+        }
     }
 }

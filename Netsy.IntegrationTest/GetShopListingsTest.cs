@@ -108,5 +108,51 @@ namespace Netsy.IntegrationTest
                 Assert.IsTrue(result.ResultValue.Count > 0);
             }
         }
+
+        /// <summary>
+        /// Test retrieving shop listings, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetShopListingsAllDetailLevelsTest()
+        {
+            TestGetShopListings(DetailLevel.Low);
+            TestGetShopListings(DetailLevel.Medium);
+            TestGetShopListings(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Test retrieving shop listings at the given detail level
+        /// </summary>
+        /// <param name="detailLevel">the given detail level</param>
+        private static void TestGetShopListings(DetailLevel detailLevel)
+        {
+            // ARANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
+                shopsService.GetShopListingsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                shopsService.GetShopListings(NetsyData.TestUserId, SortField.Created, SortOrder.Down, 0, 0, 10, detailLevel);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsNotNull(result.ResultValue.Results);
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.IsTrue(result.ResultValue.Count > 0);
+            }
+        }
     }
 }

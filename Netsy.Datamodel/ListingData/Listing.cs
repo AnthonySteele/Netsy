@@ -208,13 +208,13 @@ namespace Netsy.DataModel.ListingData
         /// Gets or sets the latitude of the user selling the item (may be blank).
         /// </summary>
         [DataMember(Name = "lat")]
-        public double Latitude { get; set; }
+        public string Latitude { get; set; }
 
         /// <summary>
         /// Gets or sets the longitude of the user selling the item (may be blank).
         /// </summary>
         [DataMember(Name = "lon")]
-        public double Longitude { get; set; }
+        public string Longitude { get; set; }
 
         /// <summary>
         /// Gets or sets the user's city and state (user-supplied; may be blank).
@@ -226,7 +226,7 @@ namespace Netsy.DataModel.ListingData
         /// Gets or sets the numeric ID of the section to which this listing belongs. If the shop uses sections.
         /// </summary>
         [DataMember(Name = "section_id")]
-        public int SectionId { get; set; }
+        public string SectionId { get; set; }
 
         /// <summary>
         /// Gets or sets the title of the section to which this listing belongs.
