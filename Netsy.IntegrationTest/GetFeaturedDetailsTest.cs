@@ -53,10 +53,10 @@ namespace Netsy.IntegrationTest
                 ResultEventArgs<Listings> result = null;
                 IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"));
                 shopsService.GetFeaturedDetailsCompleted += (s, e) =>
-                {
-                    result = e;
-                    waitEvent.Set();
-                };
+                    {
+                        result = e;
+                        waitEvent.Set();
+                    };
 
                 // ACT
                 shopsService.GetFeaturedDetails(NetsyData.TestUserId, DetailLevel.Low);
@@ -71,6 +71,41 @@ namespace Netsy.IntegrationTest
                 Assert.IsNotNull(result.ResultStatus);
                 Assert.IsFalse(result.ResultStatus.Success);
                 Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
+        }
+
+        /// <summary>
+        /// Test searching for etsy shops by name
+        /// </summary>
+        [TestMethod]
+        public void GetFetauredDetailsLowDetailTest()
+        {
+            // ARANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
+                shopsService.GetFeaturedDetailsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                shopsService.GetFeaturedDetails(NetsyData.TestUserId, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsNotNull(result.ResultValue.Results);
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.IsTrue(result.ResultValue.Count > 0);
             }
         }
     }

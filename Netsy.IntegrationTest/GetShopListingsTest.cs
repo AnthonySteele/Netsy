@@ -28,7 +28,7 @@ namespace Netsy.IntegrationTest
         /// Test missing API key
         /// </summary>
         [TestMethod]
-        public void GetFeaturedSellersMissingApiKeyTest()
+        public void GetShopListingsMissingApiKeyTest()
         {
             ResultEventArgs<Listings> result = null;
             IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
@@ -45,7 +45,7 @@ namespace Netsy.IntegrationTest
         /// Test invalid API key
         /// </summary>
         [TestMethod]
-        public void GetFeaturedDetailsApiKeyInvalidTest()
+        public void GetSHopListingsApiKeyInvalidTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -74,5 +74,39 @@ namespace Netsy.IntegrationTest
             }
         }
 
+        /// <summary>
+        /// Test searching for etsy shops by name
+        /// </summary>
+        [TestMethod]
+        public void GetShopListingsRetrieveLowDetailTest()
+        {
+            // ARANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
+                shopsService.GetShopListingsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                shopsService.GetShopListings(NetsyData.TestUserId, SortField.Created, SortOrder.Down, 0, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsNotNull(result.ResultValue.Results);
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.IsTrue(result.ResultValue.Count > 0);
+            }
+        }
     }
 }
