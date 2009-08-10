@@ -10,11 +10,29 @@ namespace Netsy.Interfaces
 {
     using System;
 
+    using Netsy.DataModel;
+    using Netsy.Helpers;
+
     /// <summary>
     /// Interface to server functions on the Etsy API
     /// </summary>
     public interface IServerService
     {
+        /// <summary>
+        /// Ping completed event
+        /// </summary>
+        event EventHandler<ResultEventArgs<Ping>> PingCompleted;
+
+        /// <summary>
+        /// GetServerEpoch completed event
+        /// </summary>
+        event EventHandler<ResultEventArgs<ServerEpoch>> GetServerEpochCompleted;
+
+        /// <summary>
+        /// GetMethodTable completed event
+        /// </summary>
+        event EventHandler<ResultEventArgs<MethodTable>> GetMethodTableCompleted;
+
         /// <summary>
         /// Check that the server is alive.
         /// </summary>

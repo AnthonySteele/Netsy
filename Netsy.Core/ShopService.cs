@@ -17,7 +17,7 @@ namespace Netsy.Core
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Implementation of th shop service
+    /// Implementation of the shop service
     /// </summary>
     public class ShopService : IShopService
     {

@@ -15,6 +15,7 @@ namespace Netsy.DataModel
     /// Gift guides display summary information about each gift guide on the Etsy website.  
     /// Gift Guides don't support the detail_level parameter; all fields are available at all times
     /// </summary>
+    [DataContract]
     public class GiftGuide
     {
         /// <summary>
