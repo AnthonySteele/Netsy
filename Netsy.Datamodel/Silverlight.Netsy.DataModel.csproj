@@ -60,6 +60,7 @@
     <Compile Include="ListingData\Listings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryParams.cs" />
+    <Compile Include="SortField.cs" />
     <Compile Include="SortOrder.cs" />
     <Compile Include="UserData\User.cs" />
     <Compile Include="UserData\Users.cs" />

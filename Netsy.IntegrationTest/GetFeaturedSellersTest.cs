@@ -114,18 +114,18 @@ namespace Netsy.IntegrationTest
         /// Test retrieving shop details, all detail levels
         /// </summary>
         [TestMethod]
-        public void GetFeauredSellersAllDetailLevelsTest()
+        public void GetFeaturedSellersAllDetailLevelsTest()
         {
-            TestFeauredSellers(DetailLevel.Low);
-            TestFeauredSellers(DetailLevel.Medium);
-            TestFeauredSellers(DetailLevel.High);
+            TestFeaturedSellers(DetailLevel.Low);
+            TestFeaturedSellers(DetailLevel.Medium);
+            TestFeaturedSellers(DetailLevel.High);
         }
 
         /// <summary>
         /// Test getting featured sellers at the given detail level
         /// </summary>
         /// <param name="detailLevel">the given detail level</param>
-        private static void TestFeauredSellers(DetailLevel detailLevel)
+        private static void TestFeaturedSellers(DetailLevel detailLevel)
         {
             // ARANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))

@@ -78,7 +78,7 @@ namespace Netsy.IntegrationTest
         /// Test searching for etsy shops by name
         /// </summary>
         [TestMethod]
-        public void GetFetauredDetailsLowDetailTest()
+        public void GetFeaturedDetailsLowDetailTest()
         {
             // ARANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
