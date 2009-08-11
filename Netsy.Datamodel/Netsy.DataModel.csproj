@@ -65,7 +65,7 @@
     <Compile Include="ListingData\Listings.cs" />
     <Compile Include="ListingData\ListingState.cs" />
     <Compile Include="MethodTable.cs" />
-    <Compile Include="Ping.cs" />
+    <Compile Include="PingResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryParams.cs" />
     <Compile Include="ServerEpoch.cs" />

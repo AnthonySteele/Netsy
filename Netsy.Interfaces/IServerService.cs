@@ -19,9 +19,9 @@ namespace Netsy.Interfaces
     public interface IServerService
     {
         /// <summary>
-        /// Ping completed event
+        /// PingResult completed event
         /// </summary>
-        event EventHandler<ResultEventArgs<Ping>> PingCompleted;
+        event EventHandler<ResultEventArgs<PingResult>> PingCompleted;
 
         /// <summary>
         /// GetServerEpoch completed event

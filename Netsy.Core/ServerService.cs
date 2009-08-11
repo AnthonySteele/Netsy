@@ -34,12 +34,25 @@ namespace Netsy.Core
 
         #region IServerService Members
 
-        public event EventHandler<ResultEventArgs<Ping>> PingCompleted;
+        /// <summary>
+        /// Event hander for when the PingResult call completes
+        /// </summary>
+        public event EventHandler<ResultEventArgs<PingResult>> PingCompleted;
 
+        /// <summary>
+        /// Event hander for when the GetServerEpoch call completes
+        /// </summary>
         public event EventHandler<ResultEventArgs<ServerEpoch>> GetServerEpochCompleted;
 
+        /// <summary>
+        /// Event hander for when the GetMethodTable call completes
+        /// </summary>
         public event EventHandler<ResultEventArgs<MethodTable>> GetMethodTableCompleted;
 
+        /// <summary>
+        /// Check that the server is alive.
+        /// </summary>
+        /// <returns>The Async state of the call</returns>
         public IAsyncResult Ping()
         {
             if (!ServiceHelper.TestCallPrerequisites(this, this.PingCompleted, this.etsyContext))
@@ -53,6 +66,10 @@ namespace Netsy.Core
             return ServiceHelper.GenerateRequest(this, new Uri(url), this.PingCompleted);
         }
 
+        /// <summary>
+        /// Get server time, in epoch seconds notation.
+        /// </summary>
+        /// <returns>The Async state of the call</returns>
         public IAsyncResult GetServerEpoch()
         {
             if (!ServiceHelper.TestCallPrerequisites(this, this.GetServerEpochCompleted, this.etsyContext))
@@ -66,6 +83,10 @@ namespace Netsy.Core
             return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetServerEpochCompleted);
         }
 
+        /// <summary>
+        /// Get a list of all methods available.
+        /// </summary>
+        /// <returns>The Async state of the call</returns>
         public IAsyncResult GetMethodTable()
         {
            if (!ServiceHelper.TestCallPrerequisites(this, this.GetMethodTableCompleted, this.etsyContext))

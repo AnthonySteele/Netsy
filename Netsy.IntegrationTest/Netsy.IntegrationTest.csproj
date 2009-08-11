@@ -51,6 +51,7 @@
     <Compile Include="GetUserDetailsTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NetsyData.cs" />
+    <Compile Include="PingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GetFeaturedSellersTest.cs" />
     <Compile Include="GetUsersByNameTest.cs" />

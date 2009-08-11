@@ -17,7 +17,7 @@ namespace Netsy.DataModel.FeedbackData
     public class Feedbacks
     {
         /// <summary>
-        /// Gets or sets how many users were returned
+        /// Gets or sets how many feebacks were returned
         /// </summary>
         [DataMember(Name = "count")]
         public int Count { get; set; }
