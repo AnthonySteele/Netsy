@@ -17,9 +17,21 @@ namespace Netsy.DataModel
     public class ServerEpoch
     {
         /// <summary>
-        /// Gets or sets the result value from the ping
+        /// Gets or sets how many users were returned
+        /// </summary>
+        [DataMember(Name = "count")]
+        public int Count { get; set; }
+
+        /// <summary>
+        /// Gets or sets the result value
         /// </summary>
         [DataMember(Name = "results")]
-        public string Results { get; set; }
+        public int[] Results { get; set; }
+
+        /// <summary>
+        /// Gets or sets the etsy query params
+        /// </summary>
+        [DataMember(Name = "params")]
+        public QueryParams Params { get; set; }
     }
 }
