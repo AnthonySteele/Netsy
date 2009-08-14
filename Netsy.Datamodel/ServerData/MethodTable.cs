@@ -16,5 +16,22 @@ namespace Netsy.DataModel.ServerData
     [DataContract]
     public class MethodTable
     {
+        /// <summary>
+        /// Gets or sets how many methods were returned
+        /// </summary>
+        [DataMember(Name = "count")]
+        public int Count { get; set; }
+
+        /// <summary>
+        /// Gets or sets the result methods
+        /// </summary>
+        [DataMember(Name = "results")]
+        public Method[] Results { get; set; }
+
+        /// <summary>
+        /// Gets or sets the etsy query params
+        /// </summary>
+        [DataMember(Name = "params")]
+        public QueryParams Params { get; set; }
     }
 }

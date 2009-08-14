@@ -64,6 +64,7 @@
     <Compile Include="ListingData\ListingImage.cs" />
     <Compile Include="ListingData\Listings.cs" />
     <Compile Include="ListingData\ListingState.cs" />
+    <Compile Include="ServerData\Method.cs" />
     <Compile Include="ServerData\MethodTable.cs" />
     <Compile Include="ServerData\PingResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

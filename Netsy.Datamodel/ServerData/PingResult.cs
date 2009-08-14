@@ -17,7 +17,7 @@ namespace Netsy.DataModel.ServerData
     public class PingResult
     {
         /// <summary>
-        /// Gets or sets how many users were returned
+        /// Gets or sets how many pings were returned - should be one
         /// </summary>
         [DataMember(Name = "count")]
         public int Count { get; set; }
