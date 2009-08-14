@@ -11,7 +11,7 @@ namespace Netsy.DataModel.ServerData
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// A method details
+    /// An Etsy API method's details
     /// </summary>
     [DataContract]
     public class Method

@@ -44,6 +44,7 @@
     <Compile Include="FeedbackParseTest.cs" />
     <Compile Include="ListingCreateTest.cs" />
     <Compile Include="ListingParseTest.cs" />
+    <Compile Include="MethodTableParseTest.cs" />
     <Compile Include="PingParseTest.cs" />
     <Compile Include="ServerEpochParseTest.cs" />
     <Compile Include="ShopCreateTest.cs" />
