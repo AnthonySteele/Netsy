@@ -58,11 +58,8 @@
     <Compile Include="GiftGuide.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ListingData\Listings.cs" />
-    <Compile Include="MethodTable.cs" />
-    <Compile Include="PingResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryParams.cs" />
-    <Compile Include="ServerEpoch.cs" />
     <Compile Include="SortField.cs" />
     <Compile Include="SortOrder.cs" />
     <Compile Include="UserData\User.cs" />
@@ -76,6 +73,9 @@
     <Compile Include="ListingData\ListingState.cs" />
     <Compile Include="FeedbackData\Feedback.cs" />
     <Compile Include="FeedbackData\FeedbackDisposition.cs" />
+    <Compile Include="ServerData\MethodTable.cs" />
+    <Compile Include="ServerData\PingResult.cs" />
+    <Compile Include="ServerData\ServerEpoch.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Netsy.Helpers\Silverlight.Netsy.Helpers.csproj">

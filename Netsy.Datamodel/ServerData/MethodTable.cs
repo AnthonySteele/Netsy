@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.DataModel
+namespace Netsy.DataModel.ServerData
 {
     using System.Runtime.Serialization;
 

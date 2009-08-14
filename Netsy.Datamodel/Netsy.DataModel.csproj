@@ -64,11 +64,11 @@
     <Compile Include="ListingData\ListingImage.cs" />
     <Compile Include="ListingData\Listings.cs" />
     <Compile Include="ListingData\ListingState.cs" />
-    <Compile Include="MethodTable.cs" />
-    <Compile Include="PingResult.cs" />
+    <Compile Include="ServerData\MethodTable.cs" />
+    <Compile Include="ServerData\PingResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryParams.cs" />
-    <Compile Include="ServerEpoch.cs" />
+    <Compile Include="ServerData\ServerEpoch.cs" />
     <Compile Include="ShopData\Shop.cs" />
     <Compile Include="ShopData\Shops.cs" />
     <Compile Include="ShopData\ShopSection.cs" />

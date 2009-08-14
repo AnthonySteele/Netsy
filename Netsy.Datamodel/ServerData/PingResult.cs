@@ -1,20 +1,20 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ServerEpoch.cs" company="AFS">
+// <copyright file="PingResult.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.DataModel
+namespace Netsy.DataModel.ServerData
 {
     using System.Runtime.Serialization;
 
     /// <summary>
-    ///  result data from GetServerEpoch
+    ///  A data packet containg ping data
     /// </summary>
     [DataContract]
-    public class ServerEpoch
+    public class PingResult
     {
         /// <summary>
         /// Gets or sets how many users were returned
@@ -23,10 +23,10 @@ namespace Netsy.DataModel
         public int Count { get; set; }
 
         /// <summary>
-        /// Gets or sets the result value
+        /// Gets or sets the result text
         /// </summary>
         [DataMember(Name = "results")]
-        public int[] Results { get; set; }
+        public string[] Results { get; set; }
 
         /// <summary>
         /// Gets or sets the etsy query params

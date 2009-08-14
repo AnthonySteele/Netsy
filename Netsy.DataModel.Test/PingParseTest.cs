@@ -9,6 +9,8 @@
 namespace Netsy.DataModel.Test
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using Netsy.DataModel.ServerData;
     using Netsy.Helpers;
 
     /// <summary>

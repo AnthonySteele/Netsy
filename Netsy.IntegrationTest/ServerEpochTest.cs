@@ -14,6 +14,7 @@ namespace Netsy.IntegrationTest
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Netsy.Core;
     using Netsy.DataModel;
+    using Netsy.DataModel.ServerData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
 
