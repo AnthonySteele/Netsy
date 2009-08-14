@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GetFeaturedDetailsTest.cs" />
+    <Compile Include="GetMethodTableTest.cs" />
     <Compile Include="GetShopDetailsTest.cs" />
     <Compile Include="GetShopListingsTest.cs" />
     <Compile Include="GetShopsByNameTest.cs" />

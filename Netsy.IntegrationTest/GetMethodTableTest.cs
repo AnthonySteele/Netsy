@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="PingTest.cs" company="AFS">
+// <copyright file="GetMethodTableTest.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -19,23 +19,23 @@ namespace Netsy.IntegrationTest
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Test the ping function on the server service
+    /// Test the GetMethodTable function on the server service
     /// </summary>
     [TestClass]
-    public class PingTest
+    public class GetMethodTableTest
     {
         /// <summary>
         /// Test missing API key
         /// </summary>
         [TestMethod]
-        public void PingApiKeyMissingTest()
+        public void GetMethodTableApiKeyMissingTest()
         {
-            ResultEventArgs<PingResult> result = null;
+            ResultEventArgs<MethodTable> result = null;
             IServerService stsyServer = new ServerService(new EtsyContext(string.Empty));
-            stsyServer.PingCompleted += (s, e) => result = e;
+            stsyServer.GetMethodTableCompleted += (s, e) => result = e;
 
             // ACT
-            stsyServer.Ping();
+            stsyServer.GetMethodTable();
 
             // check the data
             NetsyData.CheckResultFailure(result);
@@ -45,21 +45,21 @@ namespace Netsy.IntegrationTest
         /// Test invalid API key
         /// </summary>
         [TestMethod]
-        public void PingApiKeyInvalidTest()
+        public void GetMethodTableApiKeyInvalidTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
-                ResultEventArgs<PingResult> result = null;
+                ResultEventArgs<MethodTable> result = null;
                 IServerService etsyServer = new ServerService(new EtsyContext("InvalidKey"));
-                etsyServer.PingCompleted += (s, e) =>
+                etsyServer.GetMethodTableCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                etsyServer.Ping();
+                etsyServer.GetMethodTable();
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -78,21 +78,21 @@ namespace Netsy.IntegrationTest
         /// Test invalid API key
         /// </summary>
         [TestMethod]
-        public void PingCallTest()
+        public void GetMethodTableCallTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
-                ResultEventArgs<PingResult> result = null;
+                ResultEventArgs<MethodTable> result = null;
                 IServerService etsyServer = new ServerService(new EtsyContext(NetsyData.EtsyApiKey));
-                etsyServer.PingCompleted += (s, e) =>
+                etsyServer.GetMethodTableCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                etsyServer.Ping();
+                etsyServer.GetMethodTable();
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -103,9 +103,8 @@ namespace Netsy.IntegrationTest
                 Assert.IsNotNull(result);
                 NetsyData.CheckResultSuccess(result);
 
-                Assert.AreEqual(1, result.ResultValue.Count);
-                Assert.AreEqual(1, result.ResultValue.Results.Length);
-                Assert.AreEqual("pong", result.ResultValue.Results[0]);
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.IsTrue(result.ResultValue.Results.Length > 1);
                 Assert.IsNull(result.ResultValue.Params);
             }
         }
