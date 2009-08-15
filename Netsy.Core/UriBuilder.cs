@@ -36,6 +36,11 @@ namespace Netsy.Core
         private bool hasUriParams;
 
         /// <summary>
+        /// does the Uri have an api key yet
+        /// </summary>
+        private bool hasApiKey;
+
+        /// <summary>
         /// Initializes a new instance of the UriBuilder class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
@@ -53,6 +58,57 @@ namespace Netsy.Core
         {
             UriBuilder instance = new UriBuilder(etsyContext);
             instance.Append(etsyContext.BaseUrl);
+
+            return instance;
+        }
+
+        /// <summary>
+        /// Start the Uri with the base uri and a path under that
+        /// </summary>
+        /// <param name="etsyContext">the etsy context</param>
+        /// <param name="basePath">the path on the base uri</param>
+        /// <returns>the Uri builder</returns>
+        public static UriBuilder Start(EtsyContext etsyContext, string basePath)
+        {
+            UriBuilder instance = new UriBuilder(etsyContext);
+            instance.Append(etsyContext.BaseUrl);
+            instance.Append(basePath);
+
+            return instance;
+        }
+
+        /// <summary>
+        /// Start the Uri with the base uri and a path under that
+        /// </summary>
+        /// <param name="etsyContext">the etsy context</param>
+        /// <param name="basePath">the path on the base uri</param>
+        /// <param name="id">the item id to append</param>
+        /// <returns>the Uri builder</returns>
+        public static UriBuilder Start(EtsyContext etsyContext, string basePath, int id)
+        {
+            UriBuilder instance = new UriBuilder(etsyContext);
+            instance.Append(etsyContext.BaseUrl);
+            instance.Append(basePath);
+            instance.Append("/");
+            instance.Append(id);
+
+            return instance;
+        }
+
+        /// <summary>
+        /// Start the Uri with the base uri and a path under that
+        /// </summary>
+        /// <param name="etsyContext">the etsy context</param>
+        /// <param name="basePath">the path on the base uri</param>
+        /// <param name="id">the item id to append</param>
+        /// <returns>the Uri builder</returns>
+        public static UriBuilder Start(EtsyContext etsyContext, string basePath, string id)
+        {
+            UriBuilder instance = new UriBuilder(etsyContext);
+            instance.Append(etsyContext.BaseUrl);
+            instance.Append(basePath);
+            instance.Append("/");
+            instance.Append(id);
 
             return instance;
         }
@@ -137,7 +193,7 @@ namespace Netsy.Core
         /// <summary>
         /// Append an offset to the uri
         /// </summary>
-        /// <param name="offset">the offset</param>
+        /// <param name="offset">the result set offset</param>
         /// <returns>the uri builder</returns>
         public UriBuilder Offset(int offset)
         {
@@ -147,11 +203,23 @@ namespace Netsy.Core
         /// <summary>
         /// Append an limit to the uri
         /// </summary>
-        /// <param name="limit">the results limit</param>
+        /// <param name="limit">the result set limit</param>
         /// <returns>the uri builder</returns>
         public UriBuilder Limit(int limit)
         {
             return this.Param("limit", limit);
+        }
+
+        /// <summary>
+        /// Append an limit to the uri
+        /// </summary>
+        /// <param name="offset">the result set offset</param>
+        /// <param name="limit">the results limit</param>
+        /// <returns>the uri builder</returns>
+        public UriBuilder OffsetLimit(int offset, int limit)
+        {
+            this.Offset(offset);
+            return this.Limit(limit);
         }
 
         /// <summary>
@@ -185,12 +253,25 @@ namespace Netsy.Core
         }
 
         /// <summary>
+        /// Append a sort field and sort order to the uri
+        /// </summary>
+        /// <param name="sortField">the sort field</param>
+        /// <param name="sortOrder">the sort order</param>
+        /// <returns>the uri builder</returns>
+        public UriBuilder Sort(SortField sortField, SortOrder sortOrder)
+        {
+            this.Param("sort_on", sortField.ToStringLower());
+            return this.Param("sort_order", sortOrder.ToStringLower());            
+        }
+
+        /// <summary>
         /// Append the Api key
         /// </summary>
         /// <returns>the uri builder</returns>
-        public UriBuilder AppendApiKey()
+        public UriBuilder ApiKey()
         {
-            return this.Param("api_key", this.etsyContext.ApiKey);             
+            this.hasApiKey = true;
+            return this.Param("api_key", this.etsyContext.ApiKey);
         }
 
         /// <summary>
@@ -199,6 +280,12 @@ namespace Netsy.Core
         /// <returns>the generated Uri</returns>
         public Uri Result()
         {
+            // must have an APi key
+            if (!this.hasApiKey)
+            {
+                this.ApiKey();
+            }
+
             return new Uri(this.result.ToString());
         }
 

@@ -75,9 +75,7 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
-                .Append("shops/").Append(userId)
-                .AppendApiKey()
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", userId)
                 .DetailLevel(detailLevel);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted);
@@ -97,11 +95,8 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
-                .Append("shops/featured")
-                .AppendApiKey()
-                .Offset(offset)
-                .Limit(limit)
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops/featured")
+                .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedSellersCompleted);
@@ -123,12 +118,9 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
-                .Append("shops/keywords/").Append(searchName)
-                .AppendApiKey()
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops/keywords", searchName)
                 .SortOrder(sortOrder)
-                .Offset(offset)
-                .Limit(limit)
+                .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopsByNameCompleted);
@@ -152,14 +144,11 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
-                .Append("shops/").Append(userId).Append("/listings")
-                .AppendApiKey()
-                .SortOn(sortOn)
-                .SortOrder(sortOrder)
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", userId)
+                .Append("/listings")
+                .Sort(sortOn, sortOrder)
                 .OptionalParam("section_id", sectionId)
-                .Offset(offset)
-                .Limit(limit)
+                .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted);
@@ -183,14 +172,11 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
-                .Append("shops/").Append(userName).Append("/listings")
-                .AppendApiKey()
-                .SortOn(sortOn)
-                .SortOrder(sortOrder)
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", userName)
+                .Append("/listings")
+                .Sort(sortOn, sortOrder)
                 .OptionalParam("section_id", sectionId)
-                .Offset(offset)
-                .Limit(limit)
+                .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted);
@@ -209,9 +195,8 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
-                .Append("shops/").Append(userName).Append("/listings/featured")
-                .AppendApiKey()
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops/", userName)
+                .Append("/listings/featured")
                 .DetailLevel(detailLevel);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted);            
@@ -230,9 +215,8 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
-                .Append("shops/").Append(userId).Append("/listings/featured")
-                .AppendApiKey()
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops/", userId)
+                .Append("/listings/featured")
                 .DetailLevel(detailLevel);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted);

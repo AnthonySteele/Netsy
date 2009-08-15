@@ -59,11 +59,10 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "users/" + userId + 
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&detail_level=" + detailLevel.ToStringLower();
-
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetUserDetailsCompleted);
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+                .DetailLevel(detailLevel); 
+            
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetUserDetailsCompleted);
         }
 
         /// <summary>
@@ -81,14 +80,11 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl +
-                "users/keywords/" + searchName +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users/keywords", searchName)
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetUsersByNameCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetUsersByNameCompleted);
         }
 
         #endregion

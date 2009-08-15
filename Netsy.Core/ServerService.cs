@@ -61,9 +61,7 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
-                .Append("server/ping")
-                .AppendApiKey();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "server/ping");
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.PingCompleted);
         }
@@ -79,9 +77,7 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
-                .Append("server/epoch")
-                .AppendApiKey();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "server/epoch");
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetServerEpochCompleted);
         }
@@ -97,9 +93,7 @@ namespace Netsy.Core
                 return null;
             }
 
-           UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
-               .Append("/")
-               .AppendApiKey();
+           UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext).Append("/");
 
            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetMethodTableCompleted);
         }
