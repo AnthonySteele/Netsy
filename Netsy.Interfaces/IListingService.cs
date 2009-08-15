@@ -94,7 +94,7 @@ namespace Netsy.Interfaces
         /// <param name="limit"></param>
         /// <param name="detailLevel"></param>
         /// <returns></returns>
-        IAsyncResult GetListingsByCategory(string category, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel);
+        IAsyncResult GetListingsByCategory(string category, SortField sortOn, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Search for listings by average color of primary image.
