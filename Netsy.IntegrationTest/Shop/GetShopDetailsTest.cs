@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.IntegrationTest
+namespace Netsy.IntegrationTest.Shop
 {
     using System.Net;
     using System.Threading;

@@ -1,69 +1,69 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="GetShopsByNameTest.cs" company="AFS">
+// <copyright file="GetUserDetailsTest.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.IntegrationTest
+namespace Netsy.IntegrationTest.Users
 {
     using System.Net;
     using System.Threading;
 
-    using DataModel.ShopData;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Netsy.Core;
     using Netsy.DataModel;
+    using Netsy.DataModel.UserData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Test etsy shop retrieval
+    /// Test etsy users retrieval
     /// </summary>
     [TestClass]
-    public class GetShopsByNameTest
+    public class GetUserDetailsTest
     {
         /// <summary>
-        /// Test the GetShopsByName function on the shop service
+        /// Test the GetUserDetails funciton on the users service
         /// </summary>
         [TestMethod]
-        public void GetShopsByNameMissingApiKeyTest()
+        public void GetUserDetailsApiKeyMissingTest()
         {
-            ResultEventArgs<Shops> result = null;
-            IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
-            shopsService.GetShopsByNameCompleted += (s, e) => result = e;
+            ResultEventArgs<Users> result = null;
+            IUsersService etsyUsers = new UsersService(new EtsyContext(string.Empty));
+            etsyUsers.GetUserDetailsCompleted += (s, e) => result = e;
 
             // ACT
-            shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, DetailLevel.Low);
+            etsyUsers.GetUserDetails(NetsyData.TestUserId, DetailLevel.Low);
 
             // check the data
             NetsyData.CheckResultFailure(result);
         }
 
         /// <summary>
-        /// Test invalid API key
+        /// test what happens with an invalid api key
         /// </summary>
         [TestMethod]
-        public void GetShopsByNameApiKeyInvalidTest()
+        public void GetUserDetailsApiKeyFailTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
-                ResultEventArgs<Shops> result = null;
-                IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"));
-                shopsService.GetShopsByNameCompleted += (s, e) =>
+                ResultEventArgs<Users> result = null;
+                IUsersService etsyUsers = new UsersService(new EtsyContext("InvalidKey"));
+                etsyUsers.GetUserDetailsCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, DetailLevel.Low);
+                etsyUsers.GetUserDetails(NetsyData.TestUserId, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
+
                 // check that the event was fired, did not time out
                 Assert.IsTrue(signalled, "Not signalled");
 
@@ -76,84 +76,84 @@ namespace Netsy.IntegrationTest
         }
 
         /// <summary>
-        /// Test searching for etsy shops by name
+        /// Test retrieving etsy users by id, low detail
         /// </summary>
         [TestMethod]
-        public void GetShopsByNameLowDetailRetrievalTest()
+        public void GetUserDetailsLowDetailRetrievalTest()
         {
-            // ARANGE
+            // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
-                ResultEventArgs<Shops> result = null;
-
-                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
-                shopsService.GetShopsByNameCompleted += (s, e) =>
+                ResultEventArgs<Users> result = null;
+                IUsersService etsyUsers = new UsersService(new EtsyContext(NetsyData.EtsyApiKey));
+                etsyUsers.GetUserDetailsCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, DetailLevel.Low);
+                etsyUsers.GetUserDetails(NetsyData.TestUserId, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
+
                 // check that the event was fired, did not time out
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
                 NetsyData.CheckResultSuccess(result);
 
+                Assert.IsNotNull(result.ResultValue.Params);
                 Assert.IsNotNull(result.ResultValue.Results);
-                Assert.IsTrue(result.ResultStatus.Success);
-                Assert.IsTrue(result.ResultValue.Count > 0);
+                Assert.AreEqual(1, result.ResultValue.Count);
             }
         }
 
         /// <summary>
-        /// Test retrieving shop details, all detail levels
+        /// Test retrieving etsy users by id, all detail levels
         /// </summary>
         [TestMethod]
-        public void GetShopsByNameAllDetailLevelsTest()
+        public void GetUserDetailsAllDetailRetrievalTest()
         {
-            TestGetShopsByName(DetailLevel.Low);
-            TestGetShopsByName(DetailLevel.Medium);
-            TestGetShopsByName(DetailLevel.High);
+            TestGetUserDetails(DetailLevel.Low);
+            TestGetUserDetails(DetailLevel.Medium);
+            TestGetUserDetails(DetailLevel.High);
         }
 
         /// <summary>
-        /// Test retrieving shops by name, all detail levels
+        /// Test getting users with the given detail level
         /// </summary>
         /// <param name="detailLevel">the detail level to use</param>
-        private static void TestGetShopsByName(DetailLevel detailLevel)
+        private static void TestGetUserDetails(DetailLevel detailLevel)
         {
-            // ARANGE
+            // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
-                ResultEventArgs<Shops> result = null;
-
-                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
-                shopsService.GetShopsByNameCompleted += (s, e) =>
+                ResultEventArgs<Users> result = null;
+                IUsersService etsyUsers = new UsersService(new EtsyContext(NetsyData.EtsyApiKey));
+                etsyUsers.GetUserDetailsCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, detailLevel);
+                etsyUsers.GetUserDetails(NetsyData.TestUserId, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
+
                 // check that the event was fired, did not time out
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
                 NetsyData.CheckResultSuccess(result);
 
+                Assert.IsNotNull(result.ResultValue.Params);
                 Assert.IsNotNull(result.ResultValue.Results);
-                Assert.IsTrue(result.ResultStatus.Success);
-                Assert.IsTrue(result.ResultValue.Count > 0);
-            }
+                Assert.AreEqual(1, result.ResultValue.Count);
+            }            
         }
     }
 }

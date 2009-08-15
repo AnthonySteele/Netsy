@@ -44,19 +44,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GetFeaturedDetailsTest.cs" />
-    <Compile Include="GetMethodTableTest.cs" />
-    <Compile Include="GetShopDetailsTest.cs" />
-    <Compile Include="GetShopListingsTest.cs" />
-    <Compile Include="GetShopsByNameTest.cs" />
-    <Compile Include="GetUserDetailsTest.cs" />
+    <Compile Include="Shop\GetFeaturedDetailsTest.cs" />
+    <Compile Include="Server\GetMethodTableTest.cs" />
+    <Compile Include="Shop\GetShopDetailsTest.cs" />
+    <Compile Include="Shop\GetShopListingsTest.cs" />
+    <Compile Include="Shop\GetShopsByNameTest.cs" />
+    <Compile Include="Users\GetUserDetailsTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NetsyData.cs" />
-    <Compile Include="PingTest.cs" />
+    <Compile Include="Server\PingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GetFeaturedSellersTest.cs" />
-    <Compile Include="GetUsersByNameTest.cs" />
-    <Compile Include="ServerEpochTest.cs" />
+    <Compile Include="Shop\GetFeaturedSellersTest.cs" />
+    <Compile Include="Users\GetUsersByNameTest.cs" />
+    <Compile Include="Server\ServerEpochTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Netsy.Core\Netsy.Core.csproj">

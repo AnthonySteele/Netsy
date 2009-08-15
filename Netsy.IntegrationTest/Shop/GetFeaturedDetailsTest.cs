@@ -1,12 +1,12 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="GetUsersByNameTest.cs" company="AFS">
+// <copyright file="GetFeaturedDetailsTest.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.IntegrationTest
+namespace Netsy.IntegrationTest.Shop
 {
     using System.Net;
     using System.Threading;
@@ -14,28 +14,28 @@ namespace Netsy.IntegrationTest
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Netsy.Core;
     using Netsy.DataModel;
-    using Netsy.DataModel.UserData;
+    using Netsy.DataModel.ListingData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Test the GetUsersByName funcion on the users service
+    /// Test the GetFeaturedDetails function on the shop service
     /// </summary>
     [TestClass]
-    public class GetUsersByNameTest
+    public class GetFeaturedDetailsTest
     {
         /// <summary>
         /// Test missing API key
         /// </summary>
         [TestMethod]
-        public void GetUsersByNameApiKeyMissingTest()
+        public void GetFeaturedSellersMissingApiKeyTest()
         {
-            ResultEventArgs<Users> result = null;
-            IUsersService etsyUsers = new UsersService(new EtsyContext(string.Empty));
-            etsyUsers.GetUsersByNameCompleted += (s, e) => result = e;
+            ResultEventArgs<Listings> result = null;
+            IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
+            shopsService.GetFeaturedDetailsCompleted += (s, e) => result = e;
 
             // ACT
-            etsyUsers.GetUsersByName("Fred", 0, 3, DetailLevel.Low);
+            shopsService.GetFeaturedDetails(NetsyData.TestUserId, DetailLevel.Low);
 
             // check the data
             NetsyData.CheckResultFailure(result);
@@ -45,22 +45,21 @@ namespace Netsy.IntegrationTest
         /// Test invalid API key
         /// </summary>
         [TestMethod]
-        public void GetUsersByNameApiKeyInvalidTest()
+        public void GetFeaturedDetailsApiKeyInvalidTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
-                ResultEventArgs<Users> result = null;
-                IUsersService etsyUsers = new UsersService(new EtsyContext("InvalidKey"));
-                etsyUsers.GetUsersByNameCompleted += (s, e) =>
-                {
-                    result = e;
-                    waitEvent.Set();
-                };
+                ResultEventArgs<Listings> result = null;
+                IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"));
+                shopsService.GetFeaturedDetailsCompleted += (s, e) =>
+                    {
+                        result = e;
+                        waitEvent.Set();
+                    };
 
                 // ACT
-                // the etsy server should have data here - at least 3 shops with "fred" in the name
-                etsyUsers.GetUsersByName("Fred", 0, 3, DetailLevel.Low);
+                shopsService.GetFeaturedDetails(NetsyData.TestUserId, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -76,25 +75,25 @@ namespace Netsy.IntegrationTest
         }
 
         /// <summary>
-        /// Test retrieving etsy users by id
+        /// Test searching for etsy shops by name
         /// </summary>
         [TestMethod]
-        public void GetUsersByNameLowDetailRetrievalTest()
+        public void GetFeaturedDetailsLowDetailTest()
         {
-            // ARRANGE
+            // ARANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
-                ResultEventArgs<Users> result = null;
-                IUsersService etsyUsers = new UsersService(new EtsyContext(NetsyData.EtsyApiKey));
-                etsyUsers.GetUsersByNameCompleted += (s, e) =>
+                ResultEventArgs<Listings> result = null;
+
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
+                shopsService.GetFeaturedDetailsCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                // the etsy server should have data here - at least 3 shops with "fred" in the name
-                etsyUsers.GetUsersByName("Fred", 0, 3, DetailLevel.Low);
+                shopsService.GetFeaturedDetails(NetsyData.TestUserId, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -104,45 +103,43 @@ namespace Netsy.IntegrationTest
                 // check the data
                 NetsyData.CheckResultSuccess(result);
 
-                Assert.IsNotNull(result.ResultValue.Params);
                 Assert.IsNotNull(result.ResultValue.Results);
-
-                // the etsy server should have at least 3 shops with "fred" in the name
-                Assert.IsTrue(result.ResultValue.Count >= 3);
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.IsTrue(result.ResultValue.Count > 0);
             }
         }
 
         /// <summary>
-        /// Test retrieving etsy users by id, all detail levels
+        /// Test retrieving featured details, all detail levels
         /// </summary>
         [TestMethod]
-        public void GetUsersByNameAllDetailLevelsRetrievalTest()
+        public void GetFeaturedDetailsAllDetailLevelsTest()
         {
-            TestGetUsersByName(DetailLevel.Low);
-            TestGetUsersByName(DetailLevel.Medium);
-            TestGetUsersByName(DetailLevel.High);
+            TestGetFeaturedDetails(DetailLevel.Low);
+            TestGetFeaturedDetails(DetailLevel.Medium);
+            TestGetFeaturedDetails(DetailLevel.High);
         }
 
         /// <summary>
-        /// Test getting users by name with the given detail level
+        /// Test retrieving featured details at the given detail level
         /// </summary>
-        /// <param name="detailLevel">the detail level to use</param>
-        private static void TestGetUsersByName(DetailLevel detailLevel)
+        /// <param name="detailLevel">the given detail level</param>
+        private static void TestGetFeaturedDetails(DetailLevel detailLevel)
         {
-            // ARRANGE
+            // ARANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
-                ResultEventArgs<Users> result = null;
-                IUsersService etsyUsers = new UsersService(new EtsyContext(NetsyData.EtsyApiKey));
-                etsyUsers.GetUsersByNameCompleted += (s, e) =>
+                ResultEventArgs<Listings> result = null;
+
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
+                shopsService.GetFeaturedDetailsCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                // the etsy server should have data here - at least 3 shops with "fred" in the name
-                etsyUsers.GetUsersByName("Fred", 0, 3, detailLevel);
+                shopsService.GetFeaturedDetails(NetsyData.TestUserId, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -152,11 +149,9 @@ namespace Netsy.IntegrationTest
                 // check the data
                 NetsyData.CheckResultSuccess(result);
 
-                Assert.IsNotNull(result.ResultValue.Params);
                 Assert.IsNotNull(result.ResultValue.Results);
-
-                // the etsy server should have at least 3 shops with "fred" in the name
-                Assert.IsTrue(result.ResultValue.Count >= 3);
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.IsTrue(result.ResultValue.Count > 0);
             }
         }
     }
