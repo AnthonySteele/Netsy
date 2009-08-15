@@ -78,7 +78,7 @@ namespace Netsy.IntegrationTest.Server
         }
 
         /// <summary>
-        /// Test scuess response
+        /// Test success response
         /// </summary>
         [TestMethod]
         public void GetListingDetailsCallTest()
@@ -96,6 +96,52 @@ namespace Netsy.IntegrationTest.Server
 
                 // ACT
                 listingService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.AreEqual(1, result.ResultValue.Count);
+                Assert.AreEqual(1, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
+
+        /// <summary>
+        /// Test retrieving listing details, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetListingDetailsAllDetailLevelsTest()
+        {
+            TestGetListingDetails(DetailLevel.Low);
+            TestGetListingDetails(DetailLevel.Medium);
+            TestGetListingDetails(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Test retrieving listing details at the given detail level
+        /// </summary>
+        /// <param name="detailLevel">the given detail level</param>
+        private static void TestGetListingDetails(DetailLevel detailLevel)
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingService listingService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingService.GetListingDetailsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                listingService.GetListingDetails(NetsyData.TestListingId, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT

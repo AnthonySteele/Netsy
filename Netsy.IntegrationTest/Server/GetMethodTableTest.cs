@@ -75,7 +75,7 @@ namespace Netsy.IntegrationTest.Server
         }
 
         /// <summary>
-        /// Test scuess response
+        /// Test success response
         /// </summary>
         [TestMethod]
         public void GetMethodTableCallTest()
