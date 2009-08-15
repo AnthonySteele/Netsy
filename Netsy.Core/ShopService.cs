@@ -97,13 +97,14 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "shops/featured" + 
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
+                .Append("shops/featured")
+                .AppendApiKey()
+                .Offset(offset)
+                .Limit(limit)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetFeaturedSellersCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedSellersCompleted);
         }
 
         /// <summary>
@@ -122,14 +123,15 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "shops/keywords/" + searchName +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&sort_order=" + sortOrder.ToStringLower() +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
+                .Append("shops/keywords/").Append(searchName)
+                .AppendApiKey()
+                .SortOrder(sortOrder)
+                .Offset(offset)
+                .Limit(limit)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetShopsByNameCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopsByNameCompleted);
         }
 
         /// <summary>
@@ -150,16 +152,17 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "shops/" + userId + "/listings" +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&sort_on=" + sortOn.ToStringLower() +
-                "&sort_order=" + sortOrder.ToStringLower() +
-                OptionalParam("section_id", sectionId) +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
+                .Append("shops/").Append(userId).Append("/listings")
+                .AppendApiKey()
+                .SortOn(sortOn)
+                .SortOrder(sortOrder)
+                .OptionalParam("section_id", sectionId)
+                .Offset(offset)
+                .Limit(limit)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetShopListingsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted);
         }
 
         /// <summary>
@@ -180,16 +183,17 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "shops/" + userName + "/listings" +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&sort_on=" + sortOn.ToStringLower() +
-                "&sort_order=" + sortOrder.ToStringLower() +
-                OptionalParam("section_id", sectionId) +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
+                .Append("shops/").Append(userName).Append("/listings")
+                .AppendApiKey()
+                .SortOn(sortOn)
+                .SortOrder(sortOrder)
+                .OptionalParam("section_id", sectionId)
+                .Offset(offset)
+                .Limit(limit)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetShopListingsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted);
         }
 
         /// <summary>
@@ -205,11 +209,12 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "shops/" + userName + "/listings/featured" +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
+                .Append("shops/").Append(userName).Append("/listings/featured")
+                .AppendApiKey()
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetFeaturedDetailsCompleted);            
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted);            
         }
 
         /// <summary>
@@ -225,27 +230,12 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "shops/" + userId + "/listings/featured" +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
+                .Append("shops/").Append(userId).Append("/listings/featured")
+                .AppendApiKey()
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetFeaturedDetailsCompleted);
-        }
-
-        /// <summary>
-        /// Generate an optional param, containing the value or nothing
-        /// </summary>
-        /// <param name="paramName">the param name</param>
-        /// <param name="paramValue">the aparam value</param>
-        /// <returns>the param string fragment, if needed</returns>
-        private static string OptionalParam(string paramName, int? paramValue)
-        {
-            if (paramValue.HasValue)
-            {
-                return "&" + paramName + "=" + paramValue.Value;
-            }
-                
-            return string.Empty;
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted);
         }
 
         #endregion
