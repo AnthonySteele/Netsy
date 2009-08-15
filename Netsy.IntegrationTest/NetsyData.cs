@@ -34,6 +34,11 @@ namespace Netsy.IntegrationTest
         public const int TestUserId = 7394192;
 
         /// <summary>
+        /// the listing to test on
+        /// </summary>
+        public const int TestListingId = 27861562;
+
+        /// <summary>
         /// the user to test on
         /// </summary>
         public const string TestUserName = "ColonialSteele";
