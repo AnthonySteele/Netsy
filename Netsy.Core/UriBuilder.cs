@@ -9,6 +9,7 @@
 namespace Netsy.Core
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Text;
 
@@ -128,6 +129,32 @@ namespace Netsy.Core
         /// <summary>
         /// Append part of a url
         /// </summary>
+        /// <param name="values">the values to append</param>
+        /// <returns>the Uri builder</returns>
+        public UriBuilder Append(IEnumerable<string> values)
+        {
+            bool first = true;
+
+            foreach (string param in values)
+            {
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    this.Append(",");
+                }
+
+                this.Append(param);
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Append part of a url
+        /// </summary>
         /// <param name="value">the value to append</param>
         /// <returns>the Uri builder</returns>
         public UriBuilder Append(int value)
@@ -172,6 +199,28 @@ namespace Netsy.Core
         public UriBuilder Param(string paramName, int paramValue)
         {
             return this.Param(paramName, paramValue.ToString(CultureInfo.InvariantCulture));
+        }
+
+        /// <summary>
+        /// Append a uri param to the uri
+        /// </summary>
+        /// <param name="paramName">the param name</param>
+        /// <param name="paramValue">the param value</param>
+        /// <returns>the uri builder</returns>
+        public UriBuilder Param(string paramName, decimal paramValue)
+        {
+            return this.Param(paramName, paramValue.ToString(CultureInfo.InvariantCulture));
+        }
+
+        /// <summary>
+        /// Append a uri param to the uri
+        /// </summary>
+        /// <param name="paramName">the param name</param>
+        /// <param name="paramValue">the param value</param>
+        /// <returns>the uri builder</returns>
+        public UriBuilder Param(string paramName, bool paramValue)
+        {
+            return this.Param(paramName, paramValue ? "true" : "false");
         }
 
         /// <summary>

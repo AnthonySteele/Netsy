@@ -96,12 +96,10 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "listings/" + listingId + "/" +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&listing_id=" + listingId +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings", listingId)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetListingDetailsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingDetailsCompleted);
         }
 
         /// <summary>
@@ -120,15 +118,12 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "listings/all" +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&sort_on=" + sortOn.ToStringLower() +
-                "&sort_order=" + sortOrder.ToStringLower() +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/all")
+                .Sort(sortOn, sortOrder)
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetAllListingsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetAllListingsCompleted);
         }
 
         /// <summary>
@@ -148,15 +143,12 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "listings/category" + category + "/" +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&sort_on=" + sortOn.ToStringLower() +
-                "&sort_order=" + sortOrder.ToStringLower() +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
-
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetListingsByCategoryCompleted);
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/category", category)
+                .Sort(sortOn, sortOrder)
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel); 
+            
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByCategoryCompleted);
         }
 
         /// <summary>
@@ -175,14 +167,12 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "listings/color" + color + "/" + 
-                "?api_key=" + this.etsyContext.ApiKey +
-                "wiggle=" + wiggle +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/color", color)
+                .Param("wiggle", wiggle)
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetListingsByColorCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByColorCompleted);
         }
 
         /// <summary>
@@ -202,15 +192,13 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "listings/color" + color + 
-                "/keywords/" + GenerateParams(keywords) +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "wiggle=" + wiggle +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/color", color)
+                .Append("/keywords/").Append(keywords)
+                .Param("wiggle", wiggle)
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetListingsByColorAndKeywordsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByColorAndKeywordsCompleted);
         }
 
         /// <summary>
@@ -227,13 +215,11 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "listings/featured/front" +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/featured/front")
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetFrontFeaturedListingsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFrontFeaturedListingsCompleted);
         }
 
         /// <summary>
@@ -256,18 +242,16 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "listings/keywords" + GenerateParams(searchTerms) +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&sort_on=" + sortOn.ToStringLower() +
-                "&sort_order=" + sortOrder.ToStringLower() +
-                "&min_price=" + minPrince +
-                "&max_price=" + minPrince +
-                "&search_description=" + searchDescription +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/keywords")
+                .Append(searchTerms)
+                .Sort(sortOn, sortOrder)
+                .Param("min_price", minPrince)
+                .Param("max_price", maxPrice)
+                .Param("search_description", searchDescription)
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetListingsByKeywordCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByKeywordCompleted);
         }
 
         /// <summary>
@@ -287,15 +271,13 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "listings/materials" + GenerateParams(materials) +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&sort_on=" + sortOn.ToStringLower() +
-                "&sort_order=" + sortOrder.ToStringLower() +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
-
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetListingsByMaterialsCompleted);
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/materials")
+                .Append(materials)
+                .Sort(sortOn, sortOrder)
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel); 
+            
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByMaterialsCompleted);
         }
 
         /// <summary>
@@ -315,37 +297,13 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "listings/tags" +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&sort_on=" + sortOn.ToStringLower() +
-                "&sort_order=" + sortOrder.ToStringLower() +
-                "&offset=" + offset +
-                "&limit=" + limit +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/tags")
+                .Append(tags)
+                .Sort(sortOn, sortOrder)
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetListingsByTagsCompleted);
-        }
-
-        private static string GenerateParams(IEnumerable<string> searchParams)
-        {
-            StringBuilder result = new StringBuilder();
-            bool first = true;
-
-            foreach (string param in searchParams)
-            {
-                if (first)
-                {
-                    first = false;
-                }
-                else
-                {
-                    result.Append(" ");
-                }
-
-                result.Append(param);
-            }
-
-            return result.ToString();
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByTagsCompleted);
         }
 
         #endregion
