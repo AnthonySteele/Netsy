@@ -35,12 +35,6 @@ namespace Netsy.DataModel.ServerData
         public string Uri { get; set; }
 
         /// <summary>
-        /// Gets or sets the params of the method
-        /// </summary>
-        [DataMember(Name = "params")]
-        public string[] Params { get; set; }
-
-        /// <summary>
         /// Gets or sets the result type of the method
         /// </summary>
         [DataMember(Name = "type")]
