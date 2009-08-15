@@ -75,11 +75,12 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "shops/" + userId +
-                "?api_key=" + this.etsyContext.ApiKey +
-                "&detail_level=" + detailLevel.ToStringLower();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
+                .Append("shops/").Append(userId)
+                .AppendApiKey()
+                .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetShopDetailsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted);
         }
 
         /// <summary>
