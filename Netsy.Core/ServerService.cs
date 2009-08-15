@@ -61,10 +61,11 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "server/ping" + 
-                "?api_key=" + this.etsyContext.ApiKey;
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
+                .Append("server/ping")
+                .AppendApiKey();
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.PingCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.PingCompleted);
         }
 
         /// <summary>
@@ -78,10 +79,11 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "server/epoch" +
-            "?api_key=" + this.etsyContext.ApiKey;
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
+                .Append("server/epoch")
+                .AppendApiKey();
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetServerEpochCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetServerEpochCompleted);
         }
 
         /// <summary>
@@ -95,10 +97,11 @@ namespace Netsy.Core
                 return null;
             }
 
-            string url = this.etsyContext.BaseUrl + "/" +
-                "?api_key=" + this.etsyContext.ApiKey;
+           UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext)
+               .Append("/")
+               .AppendApiKey();
 
-            return ServiceHelper.GenerateRequest(this, new Uri(url), this.GetMethodTableCompleted);
+           return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetMethodTableCompleted);
         }
 
         #endregion
