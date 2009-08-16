@@ -69,102 +69,103 @@ namespace Netsy.Interfaces
         /// <summary>
         /// Get the details of a listing.
         /// </summary>
-        /// <param name="listingId"></param>
-        /// <param name="detailLevel"></param>
-        /// <returns></returns>
+        /// <param name="listingId">Specify the listing's numeric ID</param>
+        /// <param name="detailLevel">Control how much information to return</param>
+        /// <returns>the async state of the request</returns>
         IAsyncResult GetListingDetails(int listingId, DetailLevel detailLevel);
 
         /// <summary>
         /// Get all active listings on Etsy.
         /// </summary>
-        /// <param name="sortOn"></param>
-        /// <param name="sortOrder"></param>
-        /// <param name="offset"></param>
-        /// <param name="limit"></param>
-        /// <param name="detailLevel"></param>
-        /// <returns></returns>
+        /// <param name="sortOn">Specify the field to sort on</param>
+        /// <param name="sortOrder">Specify the direction to sort on</param>
+        /// <param name="offset">To page through large result sets</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">control how much information to return</param>
+        /// <returns>the async state of the request</returns>
         IAsyncResult GetAllListings(SortField sortOn, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Search for listings by category.
         /// </summary>
-        /// <param name="category"></param>
-        /// <param name="sortOrder"></param>
-        /// <param name="offset"></param>
-        /// <param name="limit"></param>
-        /// <param name="detailLevel"></param>
-        /// <returns></returns>
+        /// <param name="category">the category name</param>
+        /// <param name="sortOn">Specify the field to sort on</param>
+        /// <param name="sortOrder">Specify the direction to sort on</param>
+        /// <param name="offset">To page through large result sets</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">control how much information to return</param>
+        /// <returns>the async state of the request</returns>
         IAsyncResult GetListingsByCategory(string category, SortField sortOn, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Search for listings by average color of primary image.
         /// </summary>
-        /// <param name="color"></param>
-        /// <param name="wiggle"></param>
-        /// <param name="offset"></param>
-        /// <param name="limit"></param>
-        /// <param name="detailLevel"></param>
-        /// <returns></returns>
+        /// <param name="color">The average color of primary image</param>
+        /// <param name="wiggle">Specify the degree of tolerance for color matching; where 0 is the most accurate, and 15 is the leas</param>
+        /// <param name="offset">To page through large result sets</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">control how much information to return</param>
+        /// <returns>the async state of the request</returns>
         IAsyncResult GetListingsByColor(string color, int wiggle, int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Search for listings by keywords and average color of primary image.
         /// </summary>
-        /// <param name="keywords"></param>
-        /// <param name="color"></param>
-        /// <param name="wiggle"></param>
-        /// <param name="offset"></param>
-        /// <param name="limit"></param>
-        /// <param name="detailLevel"></param>
-        /// <returns></returns>
+        /// <param name="keywords">Specify keywords to search on, separated by spaces or semicolons. You can also use the operators AND and NOT to control keyword matching.</param>
+        /// <param name="color">Specify an HSV color</param>
+        /// <param name="wiggle">Specify the degree of tolerance for color matching; where 0 is the most accurate, and 15 is the least.</param>
+        /// <param name="offset">To page through large result sets</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">control how much information to return</param>
+        /// <returns>the async state of the request</returns>
         IAsyncResult GetListingsByColorAndKeywords(IEnumerable<string> keywords, string color, int wiggle, int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Get the featured listings on the front page for the current day.
         /// </summary>
-        /// <param name="offset"></param>
-        /// <param name="limit"></param>
-        /// <param name="detailLevel"></param>
-        /// <returns></returns>
+        /// <param name="offset">To page through large result sets</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">control how much information to return</param>
+        /// <returns>the async state of the request</returns>
         IAsyncResult GetFrontFeaturedListings(int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Search for listings by keyword.
         /// </summary>
-        /// <param name="searchTerms"></param>
-        /// <param name="sortOn"></param>
-        /// <param name="sortOrder"></param>
-        /// <param name="minPrince"></param>
-        /// <param name="maxPrice"></param>
-        /// <param name="searchDescription"></param>
-        /// <param name="offset"></param>
-        /// <param name="limit"></param>
-        /// <param name="detailLevel"></param>
-        /// <returns></returns>
+        /// <param name="searchTerms">Specify keywords to search on, separated by spaces or semicolons. You can also use the operators AND and NOT to control keyword matching.</param>
+        /// <param name="sortOn">Specify the field to sort on</param>
+        /// <param name="sortOrder">Specify the direction to sort on </param>
+        /// <param name="minPrince">Minimum for restricting price ranges. Values are in US dollars and may include cents.</param>
+        /// <param name="maxPrice">Maximum for restricting price ranges. Values are in US dollars and may include cents.</param>
+        /// <param name="searchDescription">If true, listing descriptions will count towards search matches. (This may produce less relevant results.)</param>
+        /// <param name="offset">To page through large result sets</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">control how much information to return</param>
+        /// <returns>the async state of the request</returns>
         IAsyncResult GetListingsByKeyword(IEnumerable<string> searchTerms, SortField sortOn, SortOrder sortOrder, decimal minPrince, decimal maxPrice, bool searchDescription, int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Search for listings by materials used.
         /// </summary>
-        /// <param name="materials"></param>
-        /// <param name="sortOn"></param>
-        /// <param name="sortOrder"></param>
-        /// <param name="offset"></param>
-        /// <param name="limit"></param>
-        /// <param name="detailLevel"></param>
-        /// <returns></returns>
+        /// <param name="materials">Specify one or more materials, separated by spaces or semicolons.</param>
+        /// <param name="sortOn">Specify the field to sort on</param>
+        /// <param name="sortOrder">Specify the direction to sort on </param>
+        /// <param name="offset">To page through large result sets</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">control how much information to return</param>
+        /// <returns>the async state of the request</returns>
         IAsyncResult GetListingsByMaterials(IEnumerable<string> materials, SortField sortOn, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Search for listings by tags.
         /// </summary>
-        /// <param name="tags"></param>
-        /// <param name="sortOn"></param>
-        /// <param name="sortOrder"></param>
-        /// <param name="offset"></param>
-        /// <param name="limit"></param>
-        /// <param name="detailLevel"></param>
-        /// <returns></returns>
+        /// <param name="tags">Specify one or more tags, separated by spaces or semicolons.</param>
+        /// <param name="sortOn">Specify the field to sort on</param>
+        /// <param name="sortOrder">Specify the direction to sort on </param>
+        /// <param name="offset">To page through large result sets</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">control how much information to return</param>
+        /// <returns>the async state of the request</returns>
         IAsyncResult GetListingsByTags(IEnumerable<string> tags, SortField sortOn, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel);
     }
 }
