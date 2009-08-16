@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.IntegrationTest.Server
+namespace Netsy.IntegrationTest.Listings
 {
     using System.Net;
     using System.Threading;
@@ -14,9 +14,9 @@ namespace Netsy.IntegrationTest.Server
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Netsy.Core;
     using Netsy.DataModel;
+    using Netsy.DataModel.ListingData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-    using Netsy.DataModel.ListingData;
 
     /// <summary>
     /// Test the GetAllListings function on the listings service

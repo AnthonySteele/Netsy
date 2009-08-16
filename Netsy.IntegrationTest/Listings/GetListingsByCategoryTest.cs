@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="GetListingDetailsTest.cs" company="AFS">
+// <copyright file="GetListingsByCategoryTest.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -19,23 +19,23 @@ namespace Netsy.IntegrationTest.Listings
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Test the GetListingDetails function on the listings service
+    /// Test the GetListingsByCategory function on the listings service
     /// </summary>
     [TestClass]
-    public class GetListingDetailsTest
+    public class GetListingsByCategoryTest
     {
         /// <summary>
         /// Test missing API key
         /// </summary>
         [TestMethod]
-        public void GetListingDetailsApiKeyMissingTest()
+        public void GetListingsByCategoryApiKeyMissingTest()
         {
             ResultEventArgs<Listings> result = null;
             IListingService listingService = new ListingsService(new EtsyContext(string.Empty));
-            listingService.GetListingDetailsCompleted += (s, e) => result = e;
+            listingService.GetListingsByCategoryCompleted += (s, e) => result = e;
 
             // ACT
-            listingService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
+            listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
 
             // check the data
             NetsyData.CheckResultFailure(result);
@@ -45,21 +45,21 @@ namespace Netsy.IntegrationTest.Listings
         /// Test invalid API key
         /// </summary>
         [TestMethod]
-        public void GetListingDetailApiKeyInvalidTest()
+        public void GetListingsByCategoryApiKeyInvalidTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
                 IListingService listingService = new ListingsService(new EtsyContext("InvalidKey"));
-                listingService.GetListingDetailsCompleted += (s, e) =>
+                listingService.GetListingsByCategoryCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                listingService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
+                listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -81,21 +81,21 @@ namespace Netsy.IntegrationTest.Listings
         /// Test success response
         /// </summary>
         [TestMethod]
-        public void GetListingDetailsCallTest()
+        public void GetListingsByCategoryCallTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
                 IListingService listingService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
-                listingService.GetListingDetailsCompleted += (s, e) =>
+                listingService.GetListingsByCategoryCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                listingService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
+                listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -106,8 +106,8 @@ namespace Netsy.IntegrationTest.Listings
                 Assert.IsNotNull(result);
                 NetsyData.CheckResultSuccess(result);
 
-                Assert.AreEqual(1, result.ResultValue.Count);
-                Assert.AreEqual(1, result.ResultValue.Results.Length);
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
                 Assert.IsNotNull(result.ResultValue.Params);
             }
         }
@@ -116,32 +116,32 @@ namespace Netsy.IntegrationTest.Listings
         /// Test retrieving listing details, all detail levels
         /// </summary>
         [TestMethod]
-        public void GetListingDetailsAllDetailLevelsTest()
+        public void GetListingsByCategoryAllDetailLevelsTest()
         {
-            TestGetListingDetails(DetailLevel.Low);
-            TestGetListingDetails(DetailLevel.Medium);
-            TestGetListingDetails(DetailLevel.High);
+            TestGetListingsByCategory(DetailLevel.Low);
+            TestGetListingsByCategory(DetailLevel.Medium);
+            TestGetListingsByCategory(DetailLevel.High);
         }
 
         /// <summary>
         /// Test retrieving listing details at the given detail level
         /// </summary>
         /// <param name="detailLevel">the given detail level</param>
-        private static void TestGetListingDetails(DetailLevel detailLevel)
+        private static void TestGetListingsByCategory(DetailLevel detailLevel)
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
                 IListingService listingService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
-                listingService.GetListingDetailsCompleted += (s, e) =>
+                listingService.GetListingsByCategoryCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                listingService.GetListingDetails(NetsyData.TestListingId, detailLevel);
+                listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -152,8 +152,8 @@ namespace Netsy.IntegrationTest.Listings
                 Assert.IsNotNull(result);
                 NetsyData.CheckResultSuccess(result);
 
-                Assert.AreEqual(1, result.ResultValue.Count);
-                Assert.AreEqual(1, result.ResultValue.Results.Length);
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
                 Assert.IsNotNull(result.ResultValue.Params);
             }
         }

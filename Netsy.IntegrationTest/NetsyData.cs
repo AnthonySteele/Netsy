@@ -39,6 +39,11 @@ namespace Netsy.IntegrationTest
         public const int TestListingId = 27861562;
 
         /// <summary>
+        /// The test category to use
+        /// </summary>
+        public const string TestCategory = "bags";
+
+        /// <summary>
         /// the user to test on
         /// </summary>
         public const string TestUserName = "ColonialSteele";
