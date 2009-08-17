@@ -60,6 +60,7 @@
     <Compile Include="FeedbackData\Feedbacks.cs" />
     <Compile Include="GiftGuide.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="HSVColor.cs" />
     <Compile Include="ListingData\Listing.cs" />
     <Compile Include="ListingData\ListingImage.cs" />
     <Compile Include="ListingData\Listings.cs" />
