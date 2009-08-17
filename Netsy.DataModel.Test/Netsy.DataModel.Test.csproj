@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="FeedbackCreateTest.cs" />
     <Compile Include="FeedbackParseTest.cs" />
+    <Compile Include="HSVColorCreateTest.cs" />
     <Compile Include="ListingCreateTest.cs" />
     <Compile Include="ListingParseTest.cs" />
     <Compile Include="MethodTableParseTest.cs" />

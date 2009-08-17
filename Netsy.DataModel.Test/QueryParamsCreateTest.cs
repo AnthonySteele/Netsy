@@ -15,7 +15,7 @@ namespace Netsy.DataModel.Test
     using Netsy.DataModel;
 
     /// <summary>
-    /// Test creating the user details
+    /// Test creating the query params
     /// </summary>
     [TestClass]
     public class QueryParamsCreateTest

@@ -12,7 +12,7 @@ namespace Netsy.DataModel.Test
     using Netsy.Helpers;
 
     /// <summary>
-    /// Test parsing string Json data into user details
+    /// Test parsing string Json data into listing details
     /// </summary>
     [TestClass]
     public class ListingParseTest

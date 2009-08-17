@@ -14,7 +14,7 @@ namespace Netsy.DataModel.Test
     using Netsy.DataModel.ListingData;
 
     /// <summary>
-    /// Test creating the user details
+    /// Test creating the listing
     /// </summary>
     [TestClass]
     public class ListingCreateTest

@@ -14,7 +14,7 @@ namespace Netsy.DataModel.Test
     using Netsy.Helpers;
 
     /// <summary>
-    /// Test deserializing the ping response
+    /// Test deserializing the server epoch response
     /// </summary>
     [TestClass]
     public class ServerEpochParseTest
