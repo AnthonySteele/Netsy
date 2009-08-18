@@ -7,10 +7,12 @@
 //-----------------------------------------------------------------------
 namespace Netsy.DataModel
 {
+    using System.Globalization;
+
     /// <summary>
     /// A color value as HSV (hue, saturation and value)
     /// </summary>
-    public class HsvColor
+    public class HsvColor : EtsyColor
     {
         /// <summary>
         /// Initializes a new instance of the HsvColor class from numeric values
@@ -26,7 +28,7 @@ namespace Netsy.DataModel
         }
 
         /// <summary>
-        /// Initializes a new instance of the HsvColor class from astring value
+        /// Initializes a new instance of the HsvColor class from a string value
         /// </summary>
         /// <param name="value">contains the full color value</param>
         public HsvColor(string value)
@@ -43,9 +45,9 @@ namespace Netsy.DataModel
                 // HSV color values seperated by semicolons
                 string[] values = value.Split(';');
 
-                this.Hue = int.Parse(values[0]);
-                this.Saturation = int.Parse(values[1]);
-                this.Value = int.Parse(values[2]);
+                this.Hue = int.Parse(values[0], CultureInfo.InvariantCulture);
+                this.Saturation = int.Parse(values[1], CultureInfo.InvariantCulture);
+                this.Value = int.Parse(values[2], CultureInfo.InvariantCulture);
             }
         }
 

@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EtsyColor.cs" />
+    <Compile Include="RGBColor.cs" />
     <Compile Include="DetailLevel.cs" />
     <Compile Include="EtsyContext.cs" />
     <Compile Include="FeedbackData\Feedback.cs" />

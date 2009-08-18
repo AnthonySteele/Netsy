@@ -87,13 +87,7 @@ namespace Netsy.Core
         /// <returns>the Uri builder</returns>
         public static UriBuilder Start(EtsyContext etsyContext, string basePath, int id)
         {
-            UriBuilder instance = new UriBuilder(etsyContext);
-            instance.Append(etsyContext.BaseUrl);
-            instance.Append(basePath);
-            instance.Append("/");
-            instance.Append(id);
-
-            return instance;
+            return Start(etsyContext, basePath, id.ToString());
         }
 
         /// <summary>
@@ -112,6 +106,19 @@ namespace Netsy.Core
             instance.Append(id);
 
             return instance;
+        }
+
+        /// <summary>
+        /// Start the Uri with the base uri and a path under that
+        /// </summary>
+        /// <param name="etsyContext">the etsy context</param>
+        /// <param name="basePath">the path on the base uri</param>
+        /// <param name="color">the color to append</param>
+        /// <returns>the Uri builder</returns>
+        public static UriBuilder Start(EtsyContext etsyContext, string basePath, EtsyColor color)
+        {
+            return Start(etsyContext, basePath, color.ToString());
+
         }
 
         /// <summary>
@@ -224,7 +231,7 @@ namespace Netsy.Core
         }
 
         /// <summary>
-        /// Append an optional uri param to the uri
+        /// Append a uri param to the uri, if the param has a value
         /// </summary>
         /// <param name="paramName">the param name</param>
         /// <param name="paramValue">the param value</param>
@@ -234,6 +241,22 @@ namespace Netsy.Core
             if (paramValue.HasValue)
             {
                 this.Param(paramName, paramValue.Value);
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Append a uri param to the uri, if the param has a value
+        /// </summary>
+        /// <param name="paramName">the param name</param>
+        /// <param name="paramValue">the param value</param>
+        /// <returns>the uri builder</returns>
+        public UriBuilder OptionalParam(string paramName, decimal? paramValue)
+        {
+            if (paramValue.HasValue)
+            {
+                return this.Param(paramName, paramValue.Value.ToString(CultureInfo.InvariantCulture));
             }
 
             return this;

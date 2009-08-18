@@ -11,8 +11,8 @@ namespace Netsy.Interfaces
     using System;
     using System.Collections.Generic;
 
-    using DataModel;
-    using DataModel.ListingData;
+    using Netsy.DataModel;
+    using Netsy.DataModel.ListingData;
 
     using Helpers;
 
@@ -106,7 +106,7 @@ namespace Netsy.Interfaces
         /// <param name="limit">Specify the number of results to return</param>
         /// <param name="detailLevel">control how much information to return</param>
         /// <returns>the async state of the request</returns>
-        IAsyncResult GetListingsByColor(string color, int wiggle, int offset, int limit, DetailLevel detailLevel);
+        IAsyncResult GetListingsByColor(EtsyColor color, int wiggle, int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Search for listings by keywords and average color of primary image.
@@ -118,7 +118,7 @@ namespace Netsy.Interfaces
         /// <param name="limit">Specify the number of results to return</param>
         /// <param name="detailLevel">control how much information to return</param>
         /// <returns>the async state of the request</returns>
-        IAsyncResult GetListingsByColorAndKeywords(IEnumerable<string> keywords, string color, int wiggle, int offset, int limit, DetailLevel detailLevel);
+        IAsyncResult GetListingsByColorAndKeywords(IEnumerable<string> keywords, EtsyColor color, int wiggle, int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Get the featured listings on the front page for the current day.
@@ -142,7 +142,7 @@ namespace Netsy.Interfaces
         /// <param name="limit">Specify the number of results to return</param>
         /// <param name="detailLevel">control how much information to return</param>
         /// <returns>the async state of the request</returns>
-        IAsyncResult GetListingsByKeyword(IEnumerable<string> searchTerms, SortField sortOn, SortOrder sortOrder, decimal minPrince, decimal maxPrice, bool searchDescription, int offset, int limit, DetailLevel detailLevel);
+        IAsyncResult GetListingsByKeyword(IEnumerable<string> searchTerms, SortField sortOn, SortOrder sortOrder, decimal? minPrince, decimal? maxPrice, bool searchDescription, int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Search for listings by materials used.
