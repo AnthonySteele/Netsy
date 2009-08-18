@@ -145,16 +145,16 @@ namespace Netsy.IntegrationTest.Listings
         [TestMethod]
         public void GetListingsByColorAllDetailLevelsTest()
         {
-            TestGetListingsByCategory(DetailLevel.Low);
-            TestGetListingsByCategory(DetailLevel.Medium);
-            TestGetListingsByCategory(DetailLevel.High);
+            TestGetListings(DetailLevel.Low);
+            TestGetListings(DetailLevel.Medium);
+            TestGetListings(DetailLevel.High);
         }
 
         /// <summary>
         /// Test retrieving listing details at the given detail level
         /// </summary>
         /// <param name="detailLevel">the given detail level</param>
-        private static void TestGetListingsByCategory(DetailLevel detailLevel)
+        private static void TestGetListings(DetailLevel detailLevel)
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))

@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="GetListingsByCategoryTest.cs" company="AFS">
+// <copyright file="GetListingsByColorAndKeywordsTest.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -8,6 +8,7 @@
 
 namespace Netsy.IntegrationTest.Listings
 {
+    using System.Collections.Generic;
     using System.Net;
     using System.Threading;
 
@@ -19,24 +20,46 @@ namespace Netsy.IntegrationTest.Listings
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Test the GetListingsByCategory function on the listings service
+    /// Test the GetListingsByColorTest function on the listings service
     /// </summary>
     [TestClass]
-    public class GetListingsByCategoryTest
+    public class GetListingsByColorAndKeywordsTest
     {
         /// <summary>
         /// Test missing API key
         /// </summary>
         [TestMethod]
-        public void GetListingsByCategoryApiKeyMissingTest()
+        public void GetListingsByColorAndKeywordsApiKeyMissingTest()
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
             IListingService listingService = new ListingsService(new EtsyContext(string.Empty));
-            listingService.GetListingsByCategoryCompleted += (s, e) => result = e;
+            listingService.GetListingsByColorAndKeywordsCompleted += (s, e) => result = e;
+
+            RgbColor testColor = new RgbColor("76B3DF");
 
             // ACT
-            listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
+            listingService.GetListingsByColorAndKeywords(TestKeywords(), testColor, 10, 0, 10, DetailLevel.Low);
+
+            // check the data
+            NetsyData.CheckResultFailure(result);
+        }
+
+        /// <summary>
+        /// Test missing API key
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByColorAndKeywordsWiggleTooLargeTest()
+        {
+            // ARRANGE
+            ResultEventArgs<Listings> result = null;
+            IListingService listingService = new ListingsService(new EtsyContext(string.Empty));
+            listingService.GetListingsByColorAndKeywordsCompleted += (s, e) => result = e;
+
+            RgbColor testColor = new RgbColor("76B3DF");
+
+            // ACT
+            listingService.GetListingsByColorAndKeywords(TestKeywords(), testColor, 100, 0, 10, DetailLevel.Low);
 
             // check the data
             NetsyData.CheckResultFailure(result);
@@ -46,21 +69,23 @@ namespace Netsy.IntegrationTest.Listings
         /// Test invalid API key
         /// </summary>
         [TestMethod]
-        public void GetListingsByCategoryApiKeyInvalidTest()
+        public void GetListingsByColorAndKeywordsApiKeyInvalidTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
                 IListingService listingService = new ListingsService(new EtsyContext("InvalidKey"));
-                listingService.GetListingsByCategoryCompleted += (s, e) =>
+                listingService.GetListingsByColorAndKeywordsCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
+                RgbColor testColor = new RgbColor("76B3DF");
+
                 // ACT
-                listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
+                listingService.GetListingsByColorAndKeywords(TestKeywords(), testColor, 10, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -82,21 +107,23 @@ namespace Netsy.IntegrationTest.Listings
         /// Test success response
         /// </summary>
         [TestMethod]
-        public void GetListingsByCategoryCallTest()
+        public void GetListingsByColorAndKeywordsCallTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
                 IListingService listingService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
-                listingService.GetListingsByCategoryCompleted += (s, e) =>
+                listingService.GetListingsByColorAndKeywordsCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
+                RgbColor testColor = new RgbColor("76B3DF");
+
                 // ACT
-                listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
+                listingService.GetListingsByColorAndKeywords(TestKeywords(), testColor, 10, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -108,7 +135,6 @@ namespace Netsy.IntegrationTest.Listings
                 NetsyData.CheckResultSuccess(result);
 
                 Assert.IsTrue(result.ResultValue.Count > 1);
-                Assert.AreEqual(10, result.ResultValue.Results.Length);
                 Assert.IsNotNull(result.ResultValue.Params);
             }
         }
@@ -117,7 +143,7 @@ namespace Netsy.IntegrationTest.Listings
         /// Test retrieving listing details, all detail levels
         /// </summary>
         [TestMethod]
-        public void GetListingsByCategoryAllDetailLevelsTest()
+        public void GetListingsByColorAndKeywordsAllDetailLevelsTest()
         {
             TestGetListings(DetailLevel.Low);
             TestGetListings(DetailLevel.Medium);
@@ -135,14 +161,16 @@ namespace Netsy.IntegrationTest.Listings
             {
                 ResultEventArgs<Listings> result = null;
                 IListingService listingService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
-                listingService.GetListingsByCategoryCompleted += (s, e) =>
+                listingService.GetListingsByColorAndKeywordsCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
+                RgbColor testColor = new RgbColor("76B3DF");
+
                 // ACT
-                listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, detailLevel);
+                listingService.GetListingsByColorAndKeywords(TestKeywords(), testColor, 10, 0, 10, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -154,9 +182,17 @@ namespace Netsy.IntegrationTest.Listings
                 NetsyData.CheckResultSuccess(result);
 
                 Assert.IsTrue(result.ResultValue.Count > 1);
-                Assert.AreEqual(10, result.ResultValue.Results.Length);
                 Assert.IsNotNull(result.ResultValue.Params);
             }
+        }
+
+        /// <summary>
+        /// Get test keywords
+        /// </summary>
+        /// <returns>a list of test keywords</returns>
+        private static IList<string> TestKeywords()
+        {
+            return new List<string> { "bags", "strap" };
         }
     }
 }
