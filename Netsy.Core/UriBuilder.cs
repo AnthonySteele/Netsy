@@ -118,7 +118,6 @@ namespace Netsy.Core
         public static UriBuilder Start(EtsyContext etsyContext, string basePath, EtsyColor color)
         {
             return Start(etsyContext, basePath, color.ToString());
-
         }
 
         /// <summary>

@@ -30,6 +30,7 @@ namespace Netsy.IntegrationTest.Shop
         [TestMethod]
         public void GetShopListingsByIdMissingApiKeyTest()
         {
+            // ARRANGE
             ResultEventArgs<Listings> result = null;
             IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
             shopsService.GetShopListingsCompleted += (s, e) => result = e;

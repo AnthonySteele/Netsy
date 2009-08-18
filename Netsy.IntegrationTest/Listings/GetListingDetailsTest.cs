@@ -30,6 +30,7 @@ namespace Netsy.IntegrationTest.Listings
         [TestMethod]
         public void GetListingDetailsApiKeyMissingTest()
         {
+            // ARRANGE
             ResultEventArgs<Listings> result = null;
             IListingService listingService = new ListingsService(new EtsyContext(string.Empty));
             listingService.GetListingDetailsCompleted += (s, e) => result = e;

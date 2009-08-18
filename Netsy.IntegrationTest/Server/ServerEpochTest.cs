@@ -30,6 +30,7 @@ namespace Netsy.IntegrationTest.Server
         [TestMethod]
         public void GetServerEpochApiKeyMissingTest()
         {
+            // ARRANGE
             ResultEventArgs<ServerEpoch> result = null;
             IServerService etsyServer = new ServerService(new EtsyContext(string.Empty));
             etsyServer.GetServerEpochCompleted += (s, e) => result = e;

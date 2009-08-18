@@ -31,6 +31,7 @@ namespace Netsy.IntegrationTest.Shop
         [TestMethod]
         public void GetFeaturedSellersMissingApiKeyTest()
         {
+            // ARRANGE
             ResultEventArgs<Shops> result = null;
             IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
             shopsService.GetFeaturedSellersCompleted += (s, e) => result = e;

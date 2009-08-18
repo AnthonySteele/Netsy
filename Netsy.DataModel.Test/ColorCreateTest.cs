@@ -61,7 +61,7 @@ namespace Netsy.DataModel.Test
         [TestMethod]
         public void RGBColorStringCreateTest()
         {
-            RgbColor color = new RgbColor("#123456");
+            RgbColor color = new RgbColor("123456");
             Assert.IsNotNull(color);
             Assert.AreEqual(18, color.Red);
             Assert.AreEqual(52, color.Green);

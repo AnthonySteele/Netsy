@@ -30,6 +30,7 @@ namespace Netsy.IntegrationTest.Server
         [TestMethod]
         public void PingApiKeyMissingTest()
         {
+            // ARRANGE
             ResultEventArgs<PingResult> result = null;
             IServerService stsyServer = new ServerService(new EtsyContext(string.Empty));
             stsyServer.PingCompleted += (s, e) => result = e;

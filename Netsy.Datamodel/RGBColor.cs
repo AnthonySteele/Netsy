@@ -42,10 +42,10 @@ namespace Netsy.DataModel
             }
             else
             {
-                // RGB color value is  a # followed by six hex digits
-                string redString = value.Substring(1, 2);
-                string greenString = value.Substring(3, 2);
-                string blueString = value.Substring(5, 2);
+                // RGB color value is six hex digits
+                string redString = value.Substring(0, 2);
+                string greenString = value.Substring(2, 2);
+                string blueString = value.Substring(4, 2);
 
                 this.Red = int.Parse(redString, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
                 this.Green = int.Parse(greenString, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
@@ -74,7 +74,7 @@ namespace Netsy.DataModel
         /// <returns>the RGB color as a string</returns>
         public override string ToString()
         {
-            return "#" + 
+            return 
                 this.Red.ToString("X", CultureInfo.InvariantCulture) +
                 this.Green.ToString("X", CultureInfo.InvariantCulture) +
                 this.Blue.ToString("X", CultureInfo.InvariantCulture);

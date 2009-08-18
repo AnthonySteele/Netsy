@@ -1,12 +1,12 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="GetFeaturedDetailsTest.cs" company="AFS">
+// <copyright file="GetListingsByColorTest.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.IntegrationTest.Shop
+namespace Netsy.IntegrationTest.Listings
 {
     using System.Net;
     using System.Threading;
@@ -19,24 +19,26 @@ namespace Netsy.IntegrationTest.Shop
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Test the GetFeaturedDetails function on the shop service
+    /// Test the GetListingsByColorTest function on the listings service
     /// </summary>
     [TestClass]
-    public class GetFeaturedDetailsTest
+    public class GetListingsByColorTest
     {
         /// <summary>
         /// Test missing API key
         /// </summary>
         [TestMethod]
-        public void GetFeaturedSellersMissingApiKeyTest()
+        public void GetListingsByColorApiKeyMissingTest()
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
-            shopsService.GetFeaturedDetailsCompleted += (s, e) => result = e;
+            IListingService listingService = new ListingsService(new EtsyContext(string.Empty));
+            listingService.GetListingsByColorCompleted += (s, e) => result = e;
+
+            RgbColor testColor = new RgbColor("76B3DF");
 
             // ACT
-            shopsService.GetFeaturedDetails(NetsyData.TestUserId, DetailLevel.Low);
+            listingService.GetListingsByColor(testColor, 10, 0, 10, DetailLevel.Low);
 
             // check the data
             NetsyData.CheckResultFailure(result);
@@ -46,26 +48,31 @@ namespace Netsy.IntegrationTest.Shop
         /// Test invalid API key
         /// </summary>
         [TestMethod]
-        public void GetFeaturedDetailsApiKeyInvalidTest()
+        public void GetListingsByColorApiKeyInvalidTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"));
-                shopsService.GetFeaturedDetailsCompleted += (s, e) =>
-                    {
-                        result = e;
-                        waitEvent.Set();
-                    };
+                IListingService listingService = new ListingsService(new EtsyContext("InvalidKey"));
+                listingService.GetListingsByColorCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                RgbColor testColor = new RgbColor("76B3DF");
 
                 // ACT
-                shopsService.GetFeaturedDetails(NetsyData.TestUserId, DetailLevel.Low);
+                listingService.GetListingsByColor(testColor, 10, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
                 Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
 
                 // check the data - should fail
                 Assert.IsNotNull(result);
@@ -76,25 +83,26 @@ namespace Netsy.IntegrationTest.Shop
         }
 
         /// <summary>
-        /// Test searching for etsy shops by name
+        /// Test success response
         /// </summary>
         [TestMethod]
-        public void GetFeaturedDetailsLowDetailTest()
+        public void GetListingsByColorCallTest()
         {
-            // ARANGE
+            // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-
-                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
-                shopsService.GetFeaturedDetailsCompleted += (s, e) =>
+                IListingService listingService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingService.GetListingsByColorCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
+                RgbColor testColor = new RgbColor("76B3DF");
+
                 // ACT
-                shopsService.GetFeaturedDetails(NetsyData.TestUserId, DetailLevel.Low);
+                listingService.GetListingsByColor(testColor, 10, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -102,45 +110,47 @@ namespace Netsy.IntegrationTest.Shop
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
+                Assert.IsNotNull(result);
                 NetsyData.CheckResultSuccess(result);
 
-                Assert.IsNotNull(result.ResultValue.Results);
-                Assert.IsTrue(result.ResultStatus.Success);
-                Assert.IsTrue(result.ResultValue.Count > 0);
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
             }
         }
 
         /// <summary>
-        /// Test retrieving featured details, all detail levels
+        /// Test retrieving listing details, all detail levels
         /// </summary>
         [TestMethod]
-        public void GetFeaturedDetailsAllDetailLevelsTest()
+        public void GetListingsByColorAllDetailLevelsTest()
         {
-            TestGetFeaturedDetails(DetailLevel.Low);
-            TestGetFeaturedDetails(DetailLevel.Medium);
-            TestGetFeaturedDetails(DetailLevel.High);
+            TestGetListingsByCategory(DetailLevel.Low);
+            TestGetListingsByCategory(DetailLevel.Medium);
+            TestGetListingsByCategory(DetailLevel.High);
         }
 
         /// <summary>
-        /// Test retrieving featured details at the given detail level
+        /// Test retrieving listing details at the given detail level
         /// </summary>
         /// <param name="detailLevel">the given detail level</param>
-        private static void TestGetFeaturedDetails(DetailLevel detailLevel)
+        private static void TestGetListingsByCategory(DetailLevel detailLevel)
         {
-            // ARANGE
+            // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-
-                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
-                shopsService.GetFeaturedDetailsCompleted += (s, e) =>
+                IListingService listingService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingService.GetListingsByColorCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
+                RgbColor testColor = new RgbColor("76B3DF");
+
                 // ACT
-                shopsService.GetFeaturedDetails(NetsyData.TestUserId, detailLevel);
+                listingService.GetListingsByColor(testColor, 10, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -148,11 +158,12 @@ namespace Netsy.IntegrationTest.Shop
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
+                Assert.IsNotNull(result);
                 NetsyData.CheckResultSuccess(result);
 
-                Assert.IsNotNull(result.ResultValue.Results);
-                Assert.IsTrue(result.ResultStatus.Success);
-                Assert.IsTrue(result.ResultValue.Count > 0);
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
             }
         }
     }

@@ -50,6 +50,7 @@
     <Compile Include="Listings\GetAllListingsTest.cs" />
     <Compile Include="Listings\GetListingDetailsTest.cs" />
     <Compile Include="Listings\GetListingsByCategoryTest.cs" />
+    <Compile Include="Listings\GetListingsByColorTest.cs" />
     <Compile Include="Shop\GetFeaturedDetailsTest.cs" />
     <Compile Include="Server\GetMethodTableTest.cs" />
     <Compile Include="Shop\GetShopDetailsTest.cs" />
