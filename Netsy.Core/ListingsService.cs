@@ -21,6 +21,12 @@ namespace Netsy.Core
     /// </summary>
     public class ListingsService : IListingService   
     {
+
+        /// <summary>
+        /// The maximum value for wiggle room
+        /// </summary>
+        private const int MaxWiggle = 15;
+
         /// <summary>
         /// the Etsy context data
         /// </summary>
@@ -166,6 +172,11 @@ namespace Netsy.Core
                 return null;
             }
 
+            if (!this.TestWiggle(wiggle, this.GetListingsByColorCompleted))
+            {
+                return null;
+            }
+
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/color", color)
                 .Param("wiggle", wiggle)
                 .OffsetLimit(offset, limit)
@@ -191,6 +202,11 @@ namespace Netsy.Core
                 return null;
             }
 
+            if (!this.TestWiggle(wiggle, this.GetListingsByColorAndKeywordsCompleted))
+            {
+                return null;
+            }
+            
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/color", color)
                 .Append("/keywords/").Append(keywords)
                 .Param("wiggle", wiggle)
@@ -306,5 +322,25 @@ namespace Netsy.Core
         }
 
         #endregion
+
+        /// <summary>
+        /// Test the wiggle room value
+        /// </summary>
+        /// <param name="wiggle">the wiggle room</param>
+        /// <param name="completedEvent">the event to fire on error</param>
+        /// <returns>true if the value is in range</returns>
+        private bool TestWiggle(int wiggle, EventHandler<ResultEventArgs<Listings>> completedEvent)
+        {
+            if ((wiggle < 0) || (wiggle > MaxWiggle))
+            {
+                ResultEventArgs<Listings> errorResult = new ResultEventArgs<Listings>(
+                    null,
+                    new ResultStatus("Wiggle must be in the range 0 to 15", null));
+                ServiceHelper.TestSendEvent(completedEvent, this, errorResult);
+                return false;
+            }
+
+            return true;
+        }
     }
 }

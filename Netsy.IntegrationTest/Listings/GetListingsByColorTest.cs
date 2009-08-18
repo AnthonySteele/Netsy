@@ -45,6 +45,26 @@ namespace Netsy.IntegrationTest.Listings
         }
 
         /// <summary>
+        /// Test missing API key
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByColorWiggleTooLargeTest()
+        {
+            // ARRANGE
+            ResultEventArgs<Listings> result = null;
+            IListingService listingService = new ListingsService(new EtsyContext(string.Empty));
+            listingService.GetListingsByColorCompleted += (s, e) => result = e;
+
+            RgbColor testColor = new RgbColor("76B3DF");
+
+            // ACT
+            listingService.GetListingsByColor(testColor, 100, 0, 10, DetailLevel.Low);
+
+            // check the data
+            NetsyData.CheckResultFailure(result);
+        }
+
+        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]
@@ -150,7 +170,7 @@ namespace Netsy.IntegrationTest.Listings
                 RgbColor testColor = new RgbColor("76B3DF");
 
                 // ACT
-                listingService.GetListingsByColor(testColor, 10, 0, 10, DetailLevel.Low);
+                listingService.GetListingsByColor(testColor, 10, 0, 10, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
