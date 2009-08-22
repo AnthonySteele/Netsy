@@ -1,0 +1,17 @@
+# .gitignore is to filter out files that git source control should ignore
+# see
+# http://www.lostechies.com/blogs/derickbailey/archive/2009/05/18/a-net-c-developer-s-gitignore-file.aspx
+
+# output files
+*.dll
+*.pdb
+*.cache
+
+# local preferences
+*.suo
+*.user
+
+# folders where the compiler puts stuff
+TestResults
+obj
+_ReSharper*
