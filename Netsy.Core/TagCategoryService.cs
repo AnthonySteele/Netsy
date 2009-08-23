@@ -64,9 +64,11 @@ namespace Netsy.Core
             if (!ServiceHelper.TestCallPrerequisites(this, this.GetTopCategoriesCompleted, this.etsyContext))
             {
                 return null;
-            } 
-            
-            throw new NotImplementedException();
+            }
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories");
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopCategoriesCompleted);
         }
 
         /// <summary>
@@ -80,8 +82,10 @@ namespace Netsy.Core
             {
                 return null;
             }
-            
-            throw new NotImplementedException();
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories", category).Append("children");
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildCategoriesCompleted);
         }
 
         /// <summary>
@@ -95,7 +99,9 @@ namespace Netsy.Core
                 return null;
             }
 
-            throw new NotImplementedException();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags");
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopTagsCompleted);
         }
 
         /// <summary>
@@ -110,7 +116,9 @@ namespace Netsy.Core
                 return null;
             }
 
-            throw new NotImplementedException();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags", tag).Append("children");
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildTagsCompleted);
         }
 
         #endregion

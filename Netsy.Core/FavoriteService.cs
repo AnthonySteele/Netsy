@@ -70,9 +70,14 @@ namespace Netsy.Core
             if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavorersOfListingCompleted, this.etsyContext))
             {
                 return null;
-            } 
-            
-            throw new NotImplementedException();
+            }
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings", listingId)
+                .Append("favorers")
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfListingCompleted);
         }
 
         /// <summary>
@@ -89,8 +94,13 @@ namespace Netsy.Core
             {
                 return null;
             }
-            
-            throw new NotImplementedException();
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", shopId)
+                .Append("favorers")
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfShopCompleted);
         }
 
         /// <summary>
@@ -108,7 +118,12 @@ namespace Netsy.Core
                 return null;
             }
 
-            throw new NotImplementedException();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", shopName)
+                .Append("favorers")
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfShopCompleted);
         }
 
         /// <summary>
@@ -126,7 +141,12 @@ namespace Netsy.Core
                 return null;
             }
 
-            throw new NotImplementedException();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+                .Append("favorites/listings")
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
         }
 
         /// <summary>
@@ -144,7 +164,12 @@ namespace Netsy.Core
                 return null;
             }
 
-            throw new NotImplementedException();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+                .Append("favorites/listings")
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
         }
 
         /// <summary>
@@ -162,7 +187,12 @@ namespace Netsy.Core
                 return null;
             }
 
-            throw new NotImplementedException();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+                .Append("favorites/shops")
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
         }
 
         /// <summary>
@@ -180,7 +210,12 @@ namespace Netsy.Core
                 return null;
             }
 
-            throw new NotImplementedException();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+                .Append("favorites/shops")
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
         }
 
         #endregion
