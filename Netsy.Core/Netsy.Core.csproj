@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E8808E8E-2F95-49AC-9E86-F8A18F2D2830}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -49,11 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FavoriteService.cs" />
+    <Compile Include="FeedbackService.cs" />
+    <Compile Include="GiftService.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ListingsService.cs" />
     <Compile Include="ServerService.cs" />
     <Compile Include="ServiceHelper.cs" />
     <Compile Include="ShopService.cs" />
+    <Compile Include="TagCategoryService.cs" />
     <Compile Include="UriBuilder.cs" />
     <Compile Include="UsersService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
