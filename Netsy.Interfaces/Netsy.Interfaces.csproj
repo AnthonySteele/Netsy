@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{51B16899-8756-4994-9424-E62F60044AA3}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -50,9 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IFavoriteService.cs" />
+    <Compile Include="IFeedbackService.cs" />
+    <Compile Include="IGiftService.cs" />
     <Compile Include="IListingService.cs" />
     <Compile Include="IServerService.cs" />
     <Compile Include="IShopService.cs" />
+    <Compile Include="ITagCategoryService.cs" />
     <Compile Include="IUsersService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

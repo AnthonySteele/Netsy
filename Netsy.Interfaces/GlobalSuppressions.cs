@@ -1,3 +1,11 @@
+//-----------------------------------------------------------------------
+// <copyright file="GlobalSuppressions.cs" company="AFS">
+//  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
+//  and is made available under the terms of the Microsoft Public License (Ms-PL)
+//  http://www.opensource.org/licenses/ms-pl.html
+// </copyright>
+//----------------------------------------------------------------------- 
+
 // This file is used by Code Analysis to maintain SuppressMessage 
 // attributes that are applied to this project. 
 // Project-level suppressions either have no target or are given 
