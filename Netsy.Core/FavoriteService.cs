@@ -10,12 +10,16 @@ namespace Netsy.Core
     using System;
 
     using Netsy.DataModel;
+    using Netsy.DataModel.ListingData;
+    using Netsy.DataModel.ShopData;
+    using Netsy.DataModel.UserData;
+    using Netsy.Helpers;
     using Netsy.Interfaces;
 
     /// <summary>
     /// Implementation of the favorite service
     /// </summary>
-    public class FavoriteService 
+    public class FavoriteService : IFavoriteService
     {
         /// <summary>
         /// the Etsy context data
@@ -30,5 +34,155 @@ namespace Netsy.Core
         {
             this.etsyContext = etsyContext;
         }
+
+        #region IFavoriteService Members
+
+        /// <summary>
+        /// GetFavorersOfListing completed event
+        /// </summary>
+        public event EventHandler<ResultEventArgs<Users>> GetFavorersOfListingCompleted;
+
+        /// <summary>
+        /// GetFavorersOfShop completed event
+        /// </summary>
+        public event EventHandler<ResultEventArgs<Users>> GetFavorersOfShopCompleted;
+
+        /// <summary>
+        /// GetFavoriteListingsOfUser completed event
+        /// </summary>
+        public event EventHandler<ResultEventArgs<Listings>> GetFavoriteListingsOfUserCompleted;
+
+        /// <summary>
+        /// GetFavoriteShopOfUser completed event
+        /// </summary>
+        public event EventHandler<ResultEventArgs<Shops>> GetFavoriteShopOfUserCompleted;
+
+        /// <summary>
+        /// Get all the users who call this listing a favorite.
+        /// </summary>
+        /// <param name="listingId">the listing's numeric ID</param>
+        /// <param name="offset">To page through large result sets, set offset to a multiple of limit</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">Control how much information to return</param>
+        /// <returns>The Async state of the request</returns>
+        public IAsyncResult GetFavorersOfListing(int listingId, int offset, int limit, DetailLevel detailLevel)
+        {
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavorersOfListingCompleted, this.etsyContext))
+            {
+                return null;
+            } 
+            
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Get all the users who call this shop a favorite.
+        /// </summary>
+        /// <param name="shopId">the shop's numeric ID</param>
+        /// <param name="offset">To page through large result sets, set offset to a multiple of limit</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">Control how much information to return</param>
+        /// <returns>The Async state of the request</returns>
+        public IAsyncResult GetFavorersOfShop(int shopId, int offset, int limit, DetailLevel detailLevel)
+        {
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavorersOfShopCompleted, this.etsyContext))
+            {
+                return null;
+            }
+            
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Get all the users who call this shop a favorite.
+        /// </summary>
+        /// <param name="shopName">the shop's name</param>
+        /// <param name="offset">To page through large result sets, set offset to a multiple of limit</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">Control how much information to return</param>
+        /// <returns>The Async state of the request</returns>
+        public IAsyncResult GetFavorersOfShop(string shopName, int offset, int limit, DetailLevel detailLevel)
+        {
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavorersOfShopCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Get the favorite listings of a user.
+        /// </summary>
+        /// <param name="userId">the user's numeric ID</param>
+        /// <param name="offset">To page through large result sets, set offset to a multiple of limit</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">Control how much information to return</param>
+        /// <returns>The Async state of the request</returns>
+        public IAsyncResult GetFavoriteListingsOfUser(int userId, int offset, int limit, DetailLevel detailLevel)
+        {
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteListingsOfUserCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Get the favorite listings of a user.
+        /// </summary>
+        /// <param name="userName">the user's name</param>
+        /// <param name="offset">To page through large result sets, set offset to a multiple of limit</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">Control how much information to return</param>
+        /// <returns>The Async state of the request</returns>
+        public IAsyncResult GetFavoriteListingsOfUser(string userName, int offset, int limit, DetailLevel detailLevel)
+        {
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteListingsOfUserCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Get the favorite shops of a user.
+        /// </summary>
+        /// <param name="userId">the user's numeric ID</param>
+        /// <param name="offset">To page through large result sets, set offset to a multiple of limit</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">Control how much information to return</param>
+        /// <returns>The Async state of the request</returns>
+        public IAsyncResult GetFavoriteShopOfUser(int userId, int offset, int limit, DetailLevel detailLevel)
+        {
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteShopOfUserCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Get the favorite shops of a user.
+        /// </summary>
+        /// <param name="userName">the user's name</param>
+        /// <param name="offset">To page through large result sets, set offset to a multiple of limit</param>
+        /// <param name="limit">Specify the number of results to return</param>
+        /// <param name="detailLevel">Control how much information to return</param>
+        /// <returns>The Async state of the request</returns>
+        public IAsyncResult GetFavoriteShopOfUser(string userName, int offset, int limit, DetailLevel detailLevel)
+        {
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteShopOfUserCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }
