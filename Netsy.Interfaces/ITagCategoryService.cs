@@ -8,24 +8,58 @@
 namespace Netsy.Interfaces
 {
     using System;
-    using DataModel;
 
-    using Helpers;
+    using Netsy.Helpers;
 
     /// <summary>
     /// Interface to Tag and Category Commands on the Etsy API
     /// </summary>
     public interface ITagCategoryService
     {
+        /// <summary>
+        /// GetTopCategories completed event
+        /// </summary>
         event EventHandler<ResultEventArgs<string>> GetTopCategoriesCompleted;
+
+        /// <summary>
+        /// GetChildCategories completed event
+        /// </summary>
         event EventHandler<ResultEventArgs<string>> GetChildCategoriesCompleted;
+
+        /// <summary>
+        /// GetTopTags completed event
+        /// </summary>
         event EventHandler<ResultEventArgs<string>> GetTopTagsCompleted;
+
+        /// <summary>
+        /// GetChildTags completed event
+        /// </summary>
         event EventHandler<ResultEventArgs<string>> GetChildTagsCompleted;
 
-         IAsyncResult GetTopCategories();
-         IAsyncResult GetChildCategories(string category);
+        /// <summary>
+        /// Get the list of current top level categories.
+        /// </summary>
+        /// <returns>The Async state of the request</returns>
+        IAsyncResult GetTopCategories();
 
-         IAsyncResult GetTopTags();
-         IAsyncResult GetChildTags(string category);
+        /// <summary>
+        /// Get the child categories of a category.
+        /// </summary>
+        /// <param name="category">the parent category</param>
+        /// <returns>The Async state of the request</returns>
+        IAsyncResult GetChildCategories(string category);
+
+        /// <summary>
+        /// Get the list of current top level tags.
+        /// </summary>
+        /// <returns>The Async state of the request</returns>
+        IAsyncResult GetTopTags();
+
+        /// <summary>
+        /// Get the child tags of a tag.
+        /// </summary>
+        /// <param name="tag">the parent tag</param>
+        /// <returns>The Async state of the request</returns>
+        IAsyncResult GetChildTags(string tag);
     }
 }
