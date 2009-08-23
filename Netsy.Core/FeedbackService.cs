@@ -70,9 +70,11 @@ namespace Netsy.Core
             if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackCompleted, this.etsyContext))
             {
                 return null;
-            } 
-            
-            throw new NotImplementedException();
+            }
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "feedback", feedbackId);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackCompleted);
         }
 
         /// <summary>
@@ -88,8 +90,12 @@ namespace Netsy.Core
             {
                 return null;
             }
-            
-            throw new NotImplementedException();
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+                .Append("feedback")
+                .OffsetLimit(offset, limit);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted);
         }
 
         /// <summary>
@@ -106,7 +112,11 @@ namespace Netsy.Core
                 return null;
             }
 
-            throw new NotImplementedException();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+                .Append("feedback")
+                .OffsetLimit(offset, limit);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted);
         }
 
         /// <summary>
@@ -123,7 +133,11 @@ namespace Netsy.Core
                 return null;
             }
 
-            throw new NotImplementedException();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+                .Append("feedback/buyer")
+                .OffsetLimit(offset, limit);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
         }
 
         /// <summary>
@@ -140,7 +154,11 @@ namespace Netsy.Core
                 return null;
             }
 
-            throw new NotImplementedException();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+                .Append("feedback/buyer")
+                .OffsetLimit(offset, limit);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
         }
 
         /// <summary>
@@ -155,9 +173,13 @@ namespace Netsy.Core
             if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackForOtherCompleted, this.etsyContext))
             {
                 return null;
-            } 
-            
-            throw new NotImplementedException();
+            }
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+                .Append("feedback/others")
+                .OffsetLimit(offset, limit);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOtherCompleted);
         }
 
         /// <summary>
@@ -173,8 +195,12 @@ namespace Netsy.Core
             {
                 return null;
             }
-            
-            throw new NotImplementedException();
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+                .Append("feedback/others")
+                .OffsetLimit(offset, limit);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOtherCompleted);
         }
 
         /// <summary>
@@ -190,8 +216,12 @@ namespace Netsy.Core
             {
                 return null;
             }
-                        
-            throw new NotImplementedException();
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+                .Append("feedback/seller")
+                .OffsetLimit(offset, limit);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
         }
 
         /// <summary>
@@ -208,7 +238,11 @@ namespace Netsy.Core
                 return null;
             }
 
-            throw new NotImplementedException();
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+                .Append("feedback/seller")
+                .OffsetLimit(offset, limit);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
         }
 
         #endregion

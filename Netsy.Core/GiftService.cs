@@ -54,9 +54,11 @@ namespace Netsy.Core
             if (!ServiceHelper.TestCallPrerequisites(this, this.GetGiftGuidesCompleted, this.etsyContext))
             {
                 return null;
-            } 
-            
-            throw new NotImplementedException();
+            }
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "gift-guides");
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuidesCompleted);
         }
 
         /// <summary>
@@ -73,8 +75,13 @@ namespace Netsy.Core
             {
                 return null;
             }
-            
-            throw new NotImplementedException();
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "gift-guides", guideId)
+                .Append("listings")
+                .OffsetLimit(offset, limit)
+                .DetailLevel(detailLevel);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuidesCompleted);
         }
 
         #endregion
