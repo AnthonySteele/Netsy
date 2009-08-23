@@ -9,12 +9,11 @@ namespace Netsy.Interfaces
 {
     using System;
 
-    using DataModel;
-    using DataModel.ListingData;
-    using DataModel.ShopData;
-    using DataModel.UserData;
-
-    using Helpers;
+    using Netsy.DataModel;
+    using Netsy.DataModel.ListingData;
+    using Netsy.DataModel.ShopData;
+    using Netsy.DataModel.UserData;
+    using Netsy.Helpers;
 
     /// <summary>
     /// Interface to Favorites Commands on the etsy API
