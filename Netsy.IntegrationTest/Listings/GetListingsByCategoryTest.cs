@@ -32,11 +32,11 @@ namespace Netsy.IntegrationTest.Listings
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IListingService listingService = new ListingsService(new EtsyContext(string.Empty));
-            listingService.GetListingsByCategoryCompleted += (s, e) => result = e;
+            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
+            listingsService.GetListingsByCategoryCompleted += (s, e) => result = e;
 
             // ACT
-            listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
+            listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
 
             // check the data
             NetsyData.CheckResultFailure(result);
@@ -52,15 +52,15 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingService listingService = new ListingsService(new EtsyContext("InvalidKey"));
-                listingService.GetListingsByCategoryCompleted += (s, e) =>
+                IListingsService listingsService = new ListingsService(new EtsyContext("InvalidKey"));
+                listingsService.GetListingsByCategoryCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
+                listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -88,15 +88,15 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingService listingService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
-                listingService.GetListingsByCategoryCompleted += (s, e) =>
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingsByCategoryCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
+                listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -134,15 +134,15 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingService listingService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
-                listingService.GetListingsByCategoryCompleted += (s, e) =>
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingsByCategoryCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                listingService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, detailLevel);
+                listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT

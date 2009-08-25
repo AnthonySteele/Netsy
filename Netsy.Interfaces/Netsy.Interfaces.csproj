@@ -53,7 +53,7 @@
     <Compile Include="IFavoriteService.cs" />
     <Compile Include="IFeedbackService.cs" />
     <Compile Include="IGiftService.cs" />
-    <Compile Include="IListingService.cs" />
+    <Compile Include="IListingsService.cs" />
     <Compile Include="IServerService.cs" />
     <Compile Include="IShopService.cs" />
     <Compile Include="ITagCategoryService.cs" />

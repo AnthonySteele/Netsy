@@ -19,7 +19,7 @@ namespace Netsy.Core
     /// <summary>
     /// Implementation of the listings service
     /// </summary>
-    public class ListingsService : IListingService   
+    public class ListingsService : IListingsService   
     {
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Netsy.Core
             this.etsyContext = etsyContext;
         }
 
-        #region IListingService Members
+        #region IListingsService Members
 
         /// <summary>
         /// GetListingDetails completed event

@@ -32,11 +32,11 @@ namespace Netsy.IntegrationTest.Listings
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IListingService listingService = new ListingsService(new EtsyContext(string.Empty));
-            listingService.GetListingDetailsCompleted += (s, e) => result = e;
+            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
+            listingsService.GetListingDetailsCompleted += (s, e) => result = e;
 
             // ACT
-            listingService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
+            listingsService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
 
             // check the data
             NetsyData.CheckResultFailure(result);
@@ -52,15 +52,15 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingService listingService = new ListingsService(new EtsyContext("InvalidKey"));
-                listingService.GetListingDetailsCompleted += (s, e) =>
+                IListingsService listingsService = new ListingsService(new EtsyContext("InvalidKey"));
+                listingsService.GetListingDetailsCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                listingService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
+                listingsService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -88,15 +88,15 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingService listingService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
-                listingService.GetListingDetailsCompleted += (s, e) =>
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingDetailsCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                listingService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
+                listingsService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -134,15 +134,15 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingService listingService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
-                listingService.GetListingDetailsCompleted += (s, e) =>
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingDetailsCompleted += (s, e) =>
                 {
                     result = e;
                     waitEvent.Set();
                 };
 
                 // ACT
-                listingService.GetListingDetails(NetsyData.TestListingId, detailLevel);
+                listingsService.GetListingDetails(NetsyData.TestListingId, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT

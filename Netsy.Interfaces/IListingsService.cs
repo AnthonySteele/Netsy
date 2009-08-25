@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IListingService.cs" company="AFS">
+// <copyright file="IListingsService.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -17,9 +17,9 @@ namespace Netsy.Interfaces
     using Helpers;
 
     /// <summary>
-    /// Interface to listing functions on the Etsy API
+    /// Interface to listings functions on the Etsy API
     /// </summary>
-    public interface IListingService
+    public interface IListingsService
     {
         /// <summary>
         /// GetListingDetails completed event
