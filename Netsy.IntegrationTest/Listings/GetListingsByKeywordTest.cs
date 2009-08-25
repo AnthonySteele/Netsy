@@ -8,7 +8,15 @@
 
 namespace Netsy.IntegrationTest.Listings
 {
+    using System.Collections.Generic;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using Netsy.Core;
+    using Netsy.DataModel;
+    using Netsy.DataModel.ListingData;
+    using Netsy.Helpers;
+    using Netsy.Interfaces;
 
     /// <summary>
     /// Test the GetListingsByKeyword Api function
@@ -16,5 +24,24 @@ namespace Netsy.IntegrationTest.Listings
     [TestClass]
     public class GetListingsByKeywordTest
     {
+        /// <summary>
+        /// Test missing API key
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByKeywordApiKeyMissingTest()
+        {
+            // ARRANGE
+            ResultEventArgs<Listings> result = null;
+            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
+            listingsService.GetListingsByKeywordCompleted += (s, e) => result = e;
+
+            List<string> searchTerms = new List<string>();
+
+            // ACT
+            listingsService.GetListingsByKeyword(searchTerms, SortField.Created, SortOrder.Up, null, null, false, 0, 10, DetailLevel.Low);
+
+            // check the data
+            NetsyData.CheckResultFailure(result);
+        }
     }
 }

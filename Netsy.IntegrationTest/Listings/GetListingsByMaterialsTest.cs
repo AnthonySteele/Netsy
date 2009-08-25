@@ -8,7 +8,15 @@
 
 namespace Netsy.IntegrationTest.Listings
 {
+    using System.Collections.Generic;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using Netsy.Core;
+    using Netsy.DataModel;
+    using Netsy.DataModel.ListingData;
+    using Netsy.Helpers;
+    using Netsy.Interfaces;
 
     /// <summary>
     /// Test the GetListingsByMaterials Api function
@@ -16,5 +24,24 @@ namespace Netsy.IntegrationTest.Listings
     [TestClass]
     public class GetListingsByMaterialsTest
     {
+        /// <summary>
+        /// Test missing API key
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByMaterialsApiKeyMissingTest()
+        {
+            // ARRANGE
+            ResultEventArgs<Listings> result = null;
+            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
+            listingsService.GetListingsByMaterialsCompleted += (s, e) => result = e;
+
+            List<string> materials = new List<string>();
+
+            // ACT
+            listingsService.GetListingsByMaterials(materials, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
+
+            // check the data
+            NetsyData.CheckResultFailure(result);
+        }
     }
 }
