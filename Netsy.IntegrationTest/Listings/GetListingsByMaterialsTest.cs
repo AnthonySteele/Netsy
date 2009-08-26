@@ -83,5 +83,90 @@ namespace Netsy.IntegrationTest.Listings
                 Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
             }
         }
+
+        /// <summary>
+        /// Test success response
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByMaterialsCallTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingsByMaterialsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                List<string> materials = new List<string> { "cotton" };
+
+                // ACT
+                listingsService.GetListingsByMaterials(materials, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
+
+        /// <summary>
+        /// Test retrieving listings ny keyword, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByMaterialsAllDetailLevelsTest()
+        {
+            TestGetListingsByMaterials(DetailLevel.Low);
+            TestGetListingsByMaterials(DetailLevel.Medium);
+            TestGetListingsByMaterials(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Test GetListingsByMaterials at the given detail level
+        /// </summary>
+        /// <param name="detailLevel">the detail level</param>
+        private static void TestGetListingsByMaterials(DetailLevel detailLevel)
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingsByMaterialsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                List<string> materials = new List<string> { "cotton" };
+
+                // ACT
+                listingsService.GetListingsByMaterials(materials, SortField.Created, SortOrder.Up, 0, 10, detailLevel);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
     }
 }

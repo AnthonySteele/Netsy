@@ -79,5 +79,85 @@ namespace Netsy.IntegrationTest.Listings
             }
         }
 
+        /// <summary>
+        /// Test success response
+        /// </summary>
+        [TestMethod]
+        public void GetFrontFeaturedListingsCallTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetFrontFeaturedListingsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                listingsService.GetFrontFeaturedListings(0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
+
+        /// <summary>
+        /// Test retrieving front featured listings, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetFrontFeaturedListingsAllDetailLevelsTest()
+        {
+            TestGetFrontFeaturedListings(DetailLevel.Low);
+            TestGetFrontFeaturedListings(DetailLevel.Medium);
+            TestGetFrontFeaturedListings(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Get front featured listings at the given detail level
+        /// </summary>
+        /// <param name="detailLevel">the detail level to use</param>
+        private static void TestGetFrontFeaturedListings(DetailLevel detailLevel)
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetFrontFeaturedListingsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                listingsService.GetFrontFeaturedListings(0, 10, detailLevel);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
     }
 }

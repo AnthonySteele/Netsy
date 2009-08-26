@@ -265,7 +265,7 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/keywords")
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/keywords/")
                 .Append(searchTerms)
                 .Sort(sortOn, sortOrder)
                 .OptionalParam("min_price", minPrice)
@@ -294,7 +294,7 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/materials")
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/materials/")
                 .Append(materials)
                 .Sort(sortOn, sortOrder)
                 .OffsetLimit(offset, limit)
@@ -320,7 +320,7 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/tags")
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/tags/")
                 .Append(tags)
                 .Sort(sortOn, sortOrder)
                 .OffsetLimit(offset, limit)

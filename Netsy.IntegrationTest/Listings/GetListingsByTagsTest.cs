@@ -83,5 +83,91 @@ namespace Netsy.IntegrationTest.Listings
                 Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
             }
         }
+
+
+        /// <summary>
+        /// Test success response
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByTagsCallTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingsByTagsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                List<string> tags = new List<string> { "bag" };
+
+                // ACT
+                listingsService.GetListingsByTags(tags, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
+
+        /// <summary>
+        /// Test retrieving listings ny keyword, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByTagsAllDetailLevelsTest()
+        {
+            TestGetListingsByTags(DetailLevel.Low);
+            TestGetListingsByTags(DetailLevel.Medium);
+            TestGetListingsByTags(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Test getting listings by tags at the appropriate detail level
+        /// </summary>
+        /// <param name="detailLevel">he detail level</param>
+        private static void TestGetListingsByTags(DetailLevel detailLevel)
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingsByTagsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                List<string> tags = new List<string> { "bag" };
+
+                // ACT
+                listingsService.GetListingsByTags(tags, SortField.Created, SortOrder.Up, 0, 10, detailLevel);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
     }
 }

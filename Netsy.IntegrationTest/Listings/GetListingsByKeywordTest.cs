@@ -102,5 +102,91 @@ namespace Netsy.IntegrationTest.Listings
                 Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
             }
         }
+
+        /// <summary>
+        /// Test success response
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByKeywordCallTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingsByKeywordCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                List<string> searchTerms = new List<string> { "bags" };
+
+                // ACT
+                listingsService.GetListingsByKeyword(searchTerms, SortField.Created, SortOrder.Up, null, null, false, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
+
+        /// <summary>
+        /// Test retrieving listings ny keyword, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByKeywordAllDetailLevelsTest()
+        {
+            TestGetListingsByKeyword(DetailLevel.Low);
+            TestGetListingsByKeyword(DetailLevel.Medium);
+            TestGetListingsByKeyword(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Test retrieving listings ny keyword, at the appropriate detail level
+        /// </summary>
+        /// <param name="detailLevel">the detail level</param>
+        private static void TestGetListingsByKeyword(DetailLevel detailLevel)
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingsByKeywordCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                List<string> searchTerms = new List<string> { "bags" };
+
+                // ACT
+                listingsService.GetListingsByKeyword(searchTerms, SortField.Created, SortOrder.Up, null, null, false, 0, 10, detailLevel);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
+
     }
 }
