@@ -135,14 +135,14 @@ namespace Netsy.Interfaces
         /// <param name="searchTerms">Specify keywords to search on, separated by spaces or semicolons. You can also use the operators AND and NOT to control keyword matching.</param>
         /// <param name="sortOn">Specify the field to sort on</param>
         /// <param name="sortOrder">Specify the direction to sort on </param>
-        /// <param name="minPrince">Minimum for restricting price ranges. Values are in US dollars and may include cents.</param>
+        /// <param name="minPrice">Minimum for restricting price ranges. Values are in US dollars and may include cents.</param>
         /// <param name="maxPrice">Maximum for restricting price ranges. Values are in US dollars and may include cents.</param>
         /// <param name="searchDescription">If true, listing descriptions will count towards search matches. (This may produce less relevant results.)</param>
         /// <param name="offset">To page through large result sets</param>
         /// <param name="limit">Specify the number of results to return</param>
         /// <param name="detailLevel">control how much information to return</param>
         /// <returns>the async state of the request</returns>
-        IAsyncResult GetListingsByKeyword(IEnumerable<string> searchTerms, SortField sortOn, SortOrder sortOrder, decimal? minPrince, decimal? maxPrice, bool searchDescription, int offset, int limit, DetailLevel detailLevel);
+        IAsyncResult GetListingsByKeyword(IEnumerable<string> searchTerms, SortField sortOn, SortOrder sortOrder, decimal? minPrice, decimal? maxPrice, bool searchDescription, int offset, int limit, DetailLevel detailLevel);
         
         /// <summary>
         /// Search for listings by materials used.

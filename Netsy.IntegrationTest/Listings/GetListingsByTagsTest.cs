@@ -9,6 +9,8 @@
 namespace Netsy.IntegrationTest.Listings
 {
     using System.Collections.Generic;
+    using System.Net;
+    using System.Threading;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -42,6 +44,44 @@ namespace Netsy.IntegrationTest.Listings
 
             // check the data
             NetsyData.CheckResultFailure(result);
+        }
+
+        /// <summary>
+        /// Test invalid API key
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByTagsApiKeyInvalidTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingsService listingsService = new ListingsService(new EtsyContext("InvalidKey"));
+                listingsService.GetListingsByTagsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                List<string> tags = new List<string> { "bag" };
+
+                // ACT
+                listingsService.GetListingsByTags(tags, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+
+                // check the data - should fail
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.ResultStatus);
+                Assert.IsFalse(result.ResultStatus.Success);
+                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
         }
     }
 }

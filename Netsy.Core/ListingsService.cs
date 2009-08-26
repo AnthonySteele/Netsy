@@ -243,24 +243,32 @@ namespace Netsy.Core
         /// <param name="searchTerms">Specify keywords to search on, separated by spaces or semicolons. You can also use the operators AND and NOT to control keyword matching.</param>
         /// <param name="sortOn">Specify the field to sort on</param>
         /// <param name="sortOrder">Specify the direction to sort on </param>
-        /// <param name="minPrince">Minimum for restricting price ranges. Values are in US dollars and may include cents.</param>
+        /// <param name="minPrice">Minimum for restricting price ranges. Values are in US dollars and may include cents.</param>
         /// <param name="maxPrice">Maximum for restricting price ranges. Values are in US dollars and may include cents.</param>
         /// <param name="searchDescription">If true, listing descriptions will count towards search matches. (This may produce less relevant results.)</param>
         /// <param name="offset">To page through large result sets</param>
         /// <param name="limit">Specify the number of results to return</param>
         /// <param name="detailLevel">control how much information to return</param>
         /// <returns>the async state of the request</returns>
-        public IAsyncResult GetListingsByKeyword(IEnumerable<string> searchTerms, SortField sortOn, SortOrder sortOrder, decimal? minPrince, decimal? maxPrice, bool searchDescription, int offset, int limit, DetailLevel detailLevel)
+        public IAsyncResult GetListingsByKeyword(IEnumerable<string> searchTerms, SortField sortOn, SortOrder sortOrder, decimal? minPrice, decimal? maxPrice, bool searchDescription, int offset, int limit, DetailLevel detailLevel)
         {
             if (!ServiceHelper.TestCallPrerequisites(this, this.GetListingsByKeywordCompleted, this.etsyContext))
             {
                 return null;
             }
 
+            // error if the given min price is more than the given max price
+            if (minPrice.HasValue && maxPrice.HasValue && (minPrice.Value > maxPrice.Value))
+            {
+                var errorResult = new ResultEventArgs<Listings>(null, new ResultStatus("Invalid price range", null));
+                ServiceHelper.TestSendEvent(this.GetListingsByKeywordCompleted, this, errorResult);
+                return null;
+            }
+
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/keywords")
                 .Append(searchTerms)
                 .Sort(sortOn, sortOrder)
-                .OptionalParam("min_price", minPrince)
+                .OptionalParam("min_price", minPrice)
                 .OptionalParam("max_price", maxPrice)
                 .Param("search_description", searchDescription)
                 .OffsetLimit(offset, limit)
