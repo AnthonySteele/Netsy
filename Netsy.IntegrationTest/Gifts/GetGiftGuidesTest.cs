@@ -75,5 +75,39 @@ namespace Netsy.IntegrationTest.Gifts
                 Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
             }
         }
+
+        /// <summary>
+        /// Test gift guide retrieval
+        /// </summary>
+        [TestMethod]
+        public void GetGiftGuidesGetTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IGiftService giftService = new GiftService(new EtsyContext(NetsyData.EtsyApiKey));
+                giftService.GetGiftGuidesCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                giftService.GetGiftGuides();
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsNotNull(result.ResultValue.Results);
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.IsTrue(result.ResultValue.Count > 0);
+            }
+        }
     }
 }
