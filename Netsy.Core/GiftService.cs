@@ -81,7 +81,7 @@ namespace Netsy.Core
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuidesCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuideListingsCompleted);
         }
 
         #endregion

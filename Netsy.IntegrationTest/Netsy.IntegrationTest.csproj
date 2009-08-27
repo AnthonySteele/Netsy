@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gifts\GetGiftGuideListingsTest.cs" />
+    <Compile Include="Gifts\GetGiftGuidesTest.cs" />
     <Compile Include="Listings\GetAllListingsTest.cs" />
     <Compile Include="Listings\GetFrontFeaturedListingsTest.cs" />
     <Compile Include="Listings\GetListingDetailsTest.cs" />
