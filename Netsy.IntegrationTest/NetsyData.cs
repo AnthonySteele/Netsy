@@ -39,6 +39,16 @@ namespace Netsy.IntegrationTest
         public const int TestListingId = 27861562;
 
         /// <summary>
+        /// The gift guide id to test on
+        /// </summary>
+        public const int TestGiftGuideId = 168;
+
+        /// <summary>
+        /// The bad gift guide id to test on
+        /// </summary>
+        public const int TestBadGiftGuideId = 1;
+
+        /// <summary>
         /// The test category to use
         /// </summary>
         public const string TestCategory = "bags";
