@@ -140,5 +140,49 @@ namespace Netsy.IntegrationTest.Gifts
                 Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
             }
         }
+
+        /// <summary>
+        /// Test retrieving shop details, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetGiftGuideListingsAllDetailLevelsTest()
+        {
+            TestGetGiftGuideListings(DetailLevel.Low);
+            TestGetGiftGuideListings(DetailLevel.Medium);
+            TestGetGiftGuideListings(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Test gift guide retrieval at the given detal level
+        /// </summary>
+        /// <param name="detailLevel">the detail level</param>
+        private static void TestGetGiftGuideListings(DetailLevel detailLevel)
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IGiftService giftService = new GiftService(new EtsyContext(NetsyData.EtsyApiKey));
+                giftService.GetGiftGuideListingsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                giftService.GetGiftGuideListings(NetsyData.TestGiftGuideId, 0, 10, detailLevel);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.ResultStatus);
+                Assert.IsFalse(result.ResultStatus.Success);
+                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
+        }
     }
 }
