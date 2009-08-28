@@ -8,6 +8,7 @@
 
 namespace Netsy.DataModel.ListingData
 {
+    using System;
     using System.Runtime.Serialization;
 
     using Helpers;
@@ -55,7 +56,16 @@ namespace Netsy.DataModel.ListingData
             set
             {
                 this.stateString = value;
-                this.stateEnum = value.Parse<ListingState>();
+                
+                // translate "sold_out" to SoldOut"- the underscore (not there in the docs) causes trouble 
+                if (string.Equals(this.stateString, "sold_out", StringComparison.OrdinalIgnoreCase))
+                {
+                    this.stateEnum = ListingState.SoldOut;
+                }
+                else
+                {
+                    this.stateEnum = value.Parse<ListingState>();                    
+                }
             }
         }
 

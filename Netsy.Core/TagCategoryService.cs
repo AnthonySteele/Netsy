@@ -38,22 +38,22 @@ namespace Netsy.Core
         /// <summary>
         /// GetTopCategories completed event
         /// </summary>
-        public event EventHandler<ResultEventArgs<string>> GetTopCategoriesCompleted;
+        public event EventHandler<ResultEventArgs<StringResults>> GetTopCategoriesCompleted;
 
         /// <summary>
         /// GetChildCategories completed event
         /// </summary>
-        public event EventHandler<ResultEventArgs<string>> GetChildCategoriesCompleted;
+        public event EventHandler<ResultEventArgs<StringResults>> GetChildCategoriesCompleted;
 
         /// <summary>
         /// GetTopTags completed event
         /// </summary>
-        public event EventHandler<ResultEventArgs<string>> GetTopTagsCompleted;
+        public event EventHandler<ResultEventArgs<StringResults>> GetTopTagsCompleted;
 
         /// <summary>
         /// GetChildTags completed event
         /// </summary>
-        public event EventHandler<ResultEventArgs<string>> GetChildTagsCompleted;
+        public event EventHandler<ResultEventArgs<StringResults>> GetChildTagsCompleted;
 
         /// <summary>
         /// Get the list of current top level categories.

@@ -53,7 +53,7 @@
     <Compile Include="QueryParamsCreateTest.cs" />
     <Compile Include="QueryParamsParseTest.cs" />
     <Compile Include="ShopParseTest.cs" />
-    <Compile Include="TagsCategoriesParseTest.cs" />
+    <Compile Include="TagCategoryParseTest.cs" />
     <Compile Include="UserCreateTest.cs" />
     <Compile Include="UserParseTest.cs" />
   </ItemGroup>

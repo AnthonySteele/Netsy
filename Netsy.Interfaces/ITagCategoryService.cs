@@ -9,6 +9,8 @@ namespace Netsy.Interfaces
 {
     using System;
 
+    using Netsy.DataModel;
+
     using Netsy.Helpers;
 
     /// <summary>
@@ -19,22 +21,22 @@ namespace Netsy.Interfaces
         /// <summary>
         /// GetTopCategories completed event
         /// </summary>
-        event EventHandler<ResultEventArgs<string>> GetTopCategoriesCompleted;
+        event EventHandler<ResultEventArgs<StringResults>> GetTopCategoriesCompleted;
 
         /// <summary>
         /// GetChildCategories completed event
         /// </summary>
-        event EventHandler<ResultEventArgs<string>> GetChildCategoriesCompleted;
+        event EventHandler<ResultEventArgs<StringResults>> GetChildCategoriesCompleted;
 
         /// <summary>
         /// GetTopTags completed event
         /// </summary>
-        event EventHandler<ResultEventArgs<string>> GetTopTagsCompleted;
+        event EventHandler<ResultEventArgs<StringResults>> GetTopTagsCompleted;
 
         /// <summary>
         /// GetChildTags completed event
         /// </summary>
-        event EventHandler<ResultEventArgs<string>> GetChildTagsCompleted;
+        event EventHandler<ResultEventArgs<StringResults>> GetChildTagsCompleted;
 
         /// <summary>
         /// Get the list of current top level categories.

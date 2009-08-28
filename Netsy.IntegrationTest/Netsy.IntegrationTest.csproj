@@ -63,6 +63,10 @@
     <Compile Include="Shop\GetShopDetailsTest.cs" />
     <Compile Include="Shop\GetShopListingsTest.cs" />
     <Compile Include="Shop\GetShopsByNameTest.cs" />
+    <Compile Include="TagCategory\GetChildCategoriesTest.cs" />
+    <Compile Include="TagCategory\GetChildTagsTest.cs" />
+    <Compile Include="TagCategory\GetTopCategoriesTest.cs" />
+    <Compile Include="TagCategory\GetTopTagsTest.cs" />
     <Compile Include="Users\GetUserDetailsTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NetsyData.cs" />
