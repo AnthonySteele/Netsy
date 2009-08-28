@@ -16,7 +16,7 @@ namespace Netsy.DataModel.Test
     /// Test parsing of tags data 
     /// </summary>
     [TestClass]
-    public class TagsCategoriesParseTest
+    public class TagCategoryParseTest
     {
         /// <summary>
         /// The sample server response top-level tags data 

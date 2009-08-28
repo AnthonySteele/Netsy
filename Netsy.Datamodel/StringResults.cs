@@ -11,19 +11,20 @@ namespace Netsy.DataModel
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// A data packet containing users
+    /// A data packet containing just strings
+    /// Used by lists of tags and categories
     /// </summary>
     [DataContract]
     public class StringResults
     {
         /// <summary>
-        /// Gets or sets how many users were returned
+        /// Gets or sets how many strings were returned
         /// </summary>
         [DataMember(Name = "count")]
         public int Count { get; set; }
 
         /// <summary>
-        /// Gets or sets the result users
+        /// Gets or sets the result strings
         /// </summary>
         [DataMember(Name = "results")]
         public string[] Results { get; set; }
