@@ -51,7 +51,7 @@ namespace Netsy.IntegrationTest
         /// <summary>
         /// The bad gift guide id to test on
         /// </summary>
-        public const int TestBadGiftGuideId = -1;
+        public const int TestBadGiftGuideId = 1;
 
         /// <summary>
         /// The test category to use

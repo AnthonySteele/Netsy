@@ -153,11 +153,10 @@ namespace Netsy.IntegrationTest.Favorites
                 // check that the event was fired, did not time out
                 Assert.IsTrue(signalled, "Not signalled");
 
-                // check the data - should fail
+                // check the data - should suceed without results
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.ResultStatus);
-                Assert.IsFalse(result.ResultStatus.Success);
-                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+                Assert.AreEqual(0, result.ResultValue.Count);
             }
         }
 
@@ -191,6 +190,76 @@ namespace Netsy.IntegrationTest.Favorites
                 Assert.IsNotNull(result.ResultStatus);
                 Assert.IsFalse(result.ResultStatus.Success);
                 Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
+        }
+
+        /// <summary>
+        /// Test retrieval
+        /// </summary>
+        [TestMethod]
+        public void GetFavoriteListingsOfUserGetTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                favoritesService.GetFavoriteListingsOfUser(NetsyData.TestUserId, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should succeed
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
+
+        /// <summary>
+        /// Test retrieval
+        /// </summary>
+        [TestMethod]
+        public void GetFavoriteListingsOfUserGetByNameTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                favoritesService.GetFavoriteListingsOfUser(NetsyData.TestUserName, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should succeed
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
             }
         }
     }

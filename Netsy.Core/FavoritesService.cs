@@ -96,7 +96,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", shopId)
-                .Append("favorers")
+                .Append("/favorers")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
@@ -119,7 +119,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", shopName)
-                .Append("favorers")
+                .Append("/favorers")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
@@ -142,7 +142,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
-                .Append("favorites/listings")
+                .Append("/favorites/listings")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
@@ -165,7 +165,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
-                .Append("favorites/listings")
+                .Append("/favorites/listings")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
@@ -188,7 +188,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
-                .Append("favorites/shops")
+                .Append("/favorites/shops")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
@@ -211,7 +211,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
-                .Append("favorites/shops")
+                .Append("/favorites/shops")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
