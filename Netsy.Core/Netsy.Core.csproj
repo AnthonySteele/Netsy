@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FavoriteService.cs" />
+    <Compile Include="FavoritesService.cs" />
     <Compile Include="FeedbackService.cs" />
     <Compile Include="GiftService.cs" />
     <Compile Include="GlobalSuppressions.cs" />

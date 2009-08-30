@@ -36,7 +36,7 @@ namespace Netsy.IntegrationTest.Gifts
             giftService.GetGiftGuideListingsCompleted += (s, e) => result = e;
 
             // ACT
-            giftService.GetGiftGuideListings(1, 0, 10, DetailLevel.Low);
+            giftService.GetGiftGuideListings(NetsyData.TestGiftGuideId, 0, 10, DetailLevel.Low);
 
             // check the data
             NetsyData.CheckResultFailure(result);
@@ -60,7 +60,7 @@ namespace Netsy.IntegrationTest.Gifts
                     };
 
                 // ACT
-                giftService.GetGiftGuideListings(NetsyData.TestBadGiftGuideId, 0, 10, DetailLevel.Low);
+                giftService.GetGiftGuideListings(NetsyData.TestGiftGuideId, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT

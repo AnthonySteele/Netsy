@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="IFavoriteService.cs" />
+    <Compile Include="IFavoritesService.cs" />
     <Compile Include="IFeedbackService.cs" />
     <Compile Include="IGiftService.cs" />
     <Compile Include="IListingsService.cs" />

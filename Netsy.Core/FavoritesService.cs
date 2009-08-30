@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FavoriteService.cs" company="AFS">
+// <copyright file="FavoritesService.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -19,7 +19,7 @@ namespace Netsy.Core
     /// <summary>
     /// Implementation of the favorite service
     /// </summary>
-    public class FavoriteService : IFavoriteService
+    public class FavoritesService : IFavoritesService
     {
         /// <summary>
         /// the Etsy context data
@@ -27,15 +27,15 @@ namespace Netsy.Core
         private readonly EtsyContext etsyContext;
 
         /// <summary>
-        /// Initializes a new instance of the FavoriteService class
+        /// Initializes a new instance of the FavoritesService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        public FavoriteService(EtsyContext etsyContext)
+        public FavoritesService(EtsyContext etsyContext)
         {
             this.etsyContext = etsyContext;
         }
 
-        #region IFavoriteService Members
+        #region IFavoritesService Members
 
         /// <summary>
         /// GetFavorersOfListing completed event
@@ -55,7 +55,7 @@ namespace Netsy.Core
         /// <summary>
         /// GetFavoriteShopOfUser completed event
         /// </summary>
-        public event EventHandler<ResultEventArgs<Shops>> GetFavoriteShopOfUserCompleted;
+        public event EventHandler<ResultEventArgs<Shops>> GetFavoriteShopsOfUserCompleted;
 
         /// <summary>
         /// Get all the users who call this listing a favorite.
@@ -180,9 +180,9 @@ namespace Netsy.Core
         /// <param name="limit">Specify the number of results to return</param>
         /// <param name="detailLevel">Control how much information to return</param>
         /// <returns>The Async state of the request</returns>
-        public IAsyncResult GetFavoriteShopOfUser(int userId, int offset, int limit, DetailLevel detailLevel)
+        public IAsyncResult GetFavoriteShopsOfUser(int userId, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteShopOfUserCompleted, this.etsyContext))
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteShopsOfUserCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -192,7 +192,7 @@ namespace Netsy.Core
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted);
         }
 
         /// <summary>
@@ -203,9 +203,9 @@ namespace Netsy.Core
         /// <param name="limit">Specify the number of results to return</param>
         /// <param name="detailLevel">Control how much information to return</param>
         /// <returns>The Async state of the request</returns>
-        public IAsyncResult GetFavoriteShopOfUser(string userName, int offset, int limit, DetailLevel detailLevel)
+        public IAsyncResult GetFavoriteShopsOfUser(string userName, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteShopOfUserCompleted, this.etsyContext))
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteShopsOfUserCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -215,7 +215,7 @@ namespace Netsy.Core
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted);
         }
 
         #endregion

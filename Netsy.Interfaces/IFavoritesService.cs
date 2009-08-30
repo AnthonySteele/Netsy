@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IFavoriteService.cs" company="AFS">
+// <copyright file="IFavoritesService.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -18,7 +18,7 @@ namespace Netsy.Interfaces
     /// <summary>
     /// Interface to Favorites Commands on the etsy API
     /// </summary>
-    public interface IFavoriteService
+    public interface IFavoritesService
     {
         /// <summary>
         /// GetFavorersOfListing completed event
@@ -38,7 +38,7 @@ namespace Netsy.Interfaces
         /// <summary>
         /// GetFavoriteShopOfUser completed event
         /// </summary>
-        event EventHandler<ResultEventArgs<Shops>> GetFavoriteShopOfUserCompleted;
+        event EventHandler<ResultEventArgs<Shops>> GetFavoriteShopsOfUserCompleted;
 
         /// <summary>
         /// Get all the users who call this listing a favorite.
@@ -98,7 +98,7 @@ namespace Netsy.Interfaces
         /// <param name="limit">Specify the number of results to return</param>
         /// <param name="detailLevel">Control how much information to return</param>
         /// <returns>The Async state of the request</returns>
-        IAsyncResult GetFavoriteShopOfUser(int userId, int offset, int limit, DetailLevel detailLevel);
+        IAsyncResult GetFavoriteShopsOfUser(int userId, int offset, int limit, DetailLevel detailLevel);
 
         /// <summary>
         /// Get the favorite shops of a user.
@@ -108,6 +108,6 @@ namespace Netsy.Interfaces
         /// <param name="limit">Specify the number of results to return</param>
         /// <param name="detailLevel">Control how much information to return</param>
         /// <returns>The Async state of the request</returns>
-        IAsyncResult GetFavoriteShopOfUser(string userName, int offset, int limit, DetailLevel detailLevel);
+        IAsyncResult GetFavoriteShopsOfUser(string userName, int offset, int limit, DetailLevel detailLevel);
     }
 }

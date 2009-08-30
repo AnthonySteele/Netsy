@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Favorites\GetFavorersOfListingTest.cs" />
+    <Compile Include="Favorites\GetFavorersOfShopTest.cs" />
+    <Compile Include="Favorites\GetFavoriteListingsOfUserTest.cs" />
+    <Compile Include="Favorites\GetFavoriteShopsOfUserTest.cs" />
     <Compile Include="Gifts\GetGiftGuideListingsTest.cs" />
     <Compile Include="Gifts\GetGiftGuidesTest.cs" />
     <Compile Include="Listings\GetAllListingsTest.cs" />
