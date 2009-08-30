@@ -203,7 +203,7 @@ namespace Netsy.DataModel.UserData
         /// Gets or sets the date and time that the user was favorited
         /// </summary>
         [DataMember(Name = "favorite_creation_epoch")]
-        public DateTime FavoriteCreationEpoch { get; set; }
+        public string FavoriteCreationEpoch { get; set; }
 
         /// <summary>
         /// Gets or sets the user's status 

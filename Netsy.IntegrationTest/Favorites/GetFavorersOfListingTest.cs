@@ -79,7 +79,7 @@ namespace Netsy.IntegrationTest.Favorites
         /// Test invalid listing key
         /// </summary>
         [TestMethod]
-        public void GetFavorersOfListingLIstingIdInvalidTest()
+        public void GetFavorersOfListingListingIdInvalidTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -105,6 +105,41 @@ namespace Netsy.IntegrationTest.Favorites
                 Assert.IsNotNull(result.ResultStatus);
                 Assert.IsFalse(result.ResultStatus.Success);
                 Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
+        }
+
+        /// <summary>
+        /// Test retrieval
+        /// </summary>
+        [TestMethod]
+        public void GetFavorersOfListingGetTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Users> result = null;
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                favoritesService.GetFavorersOfListingCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                favoritesService.GetFavorersOfListing(NetsyData.TestListingId, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should succeed
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
             }
         }
     }

@@ -153,7 +153,7 @@ namespace Netsy.IntegrationTest.Gifts
         }
 
         /// <summary>
-        /// Test gift guide retrieval at the given detal level
+        /// Test gift guide retrieval at the given detail level
         /// </summary>
         /// <param name="detailLevel">the detail level</param>
         private static void TestGetGiftGuideListings(DetailLevel detailLevel)

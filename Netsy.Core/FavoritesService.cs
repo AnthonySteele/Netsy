@@ -73,7 +73,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings", listingId)
-                .Append("favorers")
+                .Append("/favorers")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
