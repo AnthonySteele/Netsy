@@ -93,7 +93,7 @@ namespace Netsy.IntegrationTest.Favorites
                     };
 
                 // ACT
-                favoritesService.GetFavorersOfListing(1, 0, 10, DetailLevel.Low);
+                favoritesService.GetFavorersOfListing(NetsyData.TestBadListingId, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT

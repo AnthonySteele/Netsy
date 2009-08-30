@@ -34,9 +34,14 @@ namespace Netsy.IntegrationTest
         public const int TestUserId = 7394192;
 
         /// <summary>
-        /// the listing to test on
+        /// the id of the listing to test on
         /// </summary>
         public const int TestListingId = 27861562;
+
+        /// <summary>
+        /// An invalid listing id for testing
+        /// </summary>
+        public const int TestBadListingId = 1;
 
         /// <summary>
         /// The gift guide id to test on
@@ -54,9 +59,19 @@ namespace Netsy.IntegrationTest
         public const string TestCategory = "bags";
 
         /// <summary>
-        /// the user to test on
+        /// the name of the user to test on
         /// </summary>
         public const string TestUserName = "ColonialSteele";
+
+        /// <summary>
+        /// an invalid user name
+        /// </summary>
+        public const string TestBadUserName = "ERTZFZ_BadUserName";
+
+        /// <summary>
+        /// an invalid user id
+        /// </summary>
+        public const int TestBadUserId = 1;
 
         /// <summary>
         /// Check that the result was sucessfull

@@ -36,7 +36,25 @@ namespace Netsy.IntegrationTest.Favorites
             favoritesService.GetFavorersOfShopCompleted += (s, e) => result = e;
 
             // ACT
-            favoritesService.GetFavorersOfShop(NetsyData.TestListingId, 0, 10, DetailLevel.Low);
+            favoritesService.GetFavorersOfShop(NetsyData.TestUserId, 0, 10, DetailLevel.Low);
+
+            // check the data
+            NetsyData.CheckResultFailure(result);
+        }
+
+        /// <summary>
+        /// Test missing API key
+        /// </summary>
+        [TestMethod]
+        public void GetFavorersOfShopByNameMissingApiKeyTest()
+        {
+            // ARRANGE
+            ResultEventArgs<Users> result = null;
+            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty));
+            favoritesService.GetFavorersOfShopCompleted += (s, e) => result = e;
+
+            // ACT
+            favoritesService.GetFavorersOfShop(NetsyData.TestUserName, 0, 10, DetailLevel.Low);
 
             // check the data
             NetsyData.CheckResultFailure(result);
@@ -60,7 +78,7 @@ namespace Netsy.IntegrationTest.Favorites
                 };
 
                 // ACT
-                favoritesService.GetFavorersOfShop(NetsyData.TestListingId, 0, 10, DetailLevel.Low);
+                favoritesService.GetFavorersOfShop(NetsyData.TestUserId, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -79,7 +97,40 @@ namespace Netsy.IntegrationTest.Favorites
         /// Test invalid API key
         /// </summary>
         [TestMethod]
-        public void GetFavorersOfShopListingIdInvalidTest()
+        public void GetFavorersOfShopByNameApiKeyInvalidTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Users> result = null;
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext("InvalidKey"));
+                favoritesService.GetFavorersOfShopCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                favoritesService.GetFavorersOfShop(NetsyData.TestUserName, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should fail
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.ResultStatus);
+                Assert.IsFalse(result.ResultStatus.Success);
+                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
+        }
+
+        /// <summary>
+        /// Test invalid API key
+        /// </summary>
+        [TestMethod]
+        public void GetFavorersOfShopShopIdInvalidTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -93,7 +144,40 @@ namespace Netsy.IntegrationTest.Favorites
                 };
 
                 // ACT
-                favoritesService.GetFavorersOfShop(1, 0, 10, DetailLevel.Low);
+                favoritesService.GetFavorersOfShop(NetsyData.TestBadUserId, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should fail
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.ResultStatus);
+                Assert.IsFalse(result.ResultStatus.Success);
+                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
+        }
+
+        /// <summary>
+        /// Test invalid API key
+        /// </summary>
+        [TestMethod]
+        public void GetFavorersOfShopShopNameInvalidTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Users> result = null;
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                favoritesService.GetFavorersOfShopCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                favoritesService.GetFavorersOfShop(NetsyData.TestBadUserName, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT

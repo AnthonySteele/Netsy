@@ -93,7 +93,7 @@ namespace Netsy.IntegrationTest.Gifts
                 };
 
                 // ACT
-                giftService.GetGiftGuideListings(1, 0, 10, DetailLevel.Low);
+                giftService.GetGiftGuideListings(NetsyData.TestBadGiftGuideId, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT

@@ -44,6 +44,24 @@ namespace Netsy.IntegrationTest.Favorites
         }
 
         /// <summary>
+        /// Test missing API key
+        /// </summary>
+        [TestMethod]
+        public void GetFavoriteShopsOfUserByNameMissingApiKeyTest()
+        {
+            // ARRANGE
+            ResultEventArgs<Shops> result = null;
+            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty));
+            favoritesService.GetFavoriteShopsOfUserCompleted += (s, e) => result = e;
+
+            // ACT
+            favoritesService.GetFavoriteShopsOfUser(NetsyData.TestUserName, 0, 10, DetailLevel.Low);
+
+            // check the data
+            NetsyData.CheckResultFailure(result);
+        }
+
+        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]
@@ -80,6 +98,39 @@ namespace Netsy.IntegrationTest.Favorites
         /// Test invalid API key
         /// </summary>
         [TestMethod]
+        public void GetFavoriteShopsOfUserByNameApiKeyInvalidTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Shops> result = null;
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext("InvalidKey"));
+                favoritesService.GetFavoriteShopsOfUserCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                favoritesService.GetFavoriteShopsOfUser(NetsyData.TestUserName, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should fail
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.ResultStatus);
+                Assert.IsFalse(result.ResultStatus.Success);
+                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
+        }
+
+        /// <summary>
+        /// Test invalid API key
+        /// </summary>
+        [TestMethod]
         public void GetFavoriteShopsOfUserShopIdInvalidTest()
         {
             // ARRANGE
@@ -94,7 +145,40 @@ namespace Netsy.IntegrationTest.Favorites
                 };
 
                 // ACT
-                favoritesService.GetFavoriteShopsOfUser(1, 0, 10, DetailLevel.Low);
+                favoritesService.GetFavoriteShopsOfUser(NetsyData.TestBadUserId, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should fail
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.ResultStatus);
+                Assert.IsFalse(result.ResultStatus.Success);
+                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
+        }
+
+        /// <summary>
+        /// Test invalid API key
+        /// </summary>
+        [TestMethod]
+        public void GetFavoriteShopsOfUserShopNameInvalidTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Shops> result = null;
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                favoritesService.GetFavoriteShopsOfUserCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                favoritesService.GetFavoriteShopsOfUser(NetsyData.TestBadUserName, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
