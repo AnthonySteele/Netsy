@@ -83,7 +83,7 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories", category).Append("children");
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories", category).Append("/children");
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildCategoriesCompleted);
         }
@@ -116,7 +116,7 @@ namespace Netsy.Core
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags", tag).Append("children");
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags", tag).Append("/children");
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildTagsCompleted);
         }
