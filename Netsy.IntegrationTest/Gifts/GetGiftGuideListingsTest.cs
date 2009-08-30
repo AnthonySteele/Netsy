@@ -135,9 +135,11 @@ namespace Netsy.IntegrationTest.Gifts
 
                 // check the data
                 Assert.IsNotNull(result);
-                Assert.IsNotNull(result.ResultStatus);
-                Assert.IsFalse(result.ResultStatus.Success);
-                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
             }
         }
 
@@ -179,9 +181,11 @@ namespace Netsy.IntegrationTest.Gifts
 
                 // check the data
                 Assert.IsNotNull(result);
-                Assert.IsNotNull(result.ResultStatus);
-                Assert.IsFalse(result.ResultStatus.Success);
-                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
             }
         }
     }

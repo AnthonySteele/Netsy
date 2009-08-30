@@ -77,7 +77,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "gift-guides", guideId)
-                .Append("listings")
+                .Append("/listings")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
