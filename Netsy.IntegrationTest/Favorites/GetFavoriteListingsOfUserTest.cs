@@ -262,5 +262,97 @@ namespace Netsy.IntegrationTest.Favorites
                 Assert.IsNotNull(result.ResultValue.Params);
             }
         }
+
+        /// <summary>
+        /// Test retrieving GetFavoriteListingsOfUser, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetFavoriteListingsOfUserAllDetailLevelsTest()
+        {
+            TestGetFavoriteListingsOfUser(DetailLevel.Low);
+            TestGetFavoriteListingsOfUser(DetailLevel.Medium);
+            TestGetFavoriteListingsOfUser(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Test retrieving GetFavoriteListingsOfUser by name, all detail levels
+        /// </summary>
+        [TestMethod]
+        public void GetFavoriteListingsOfUserByNameAllDetailLevelsTest()
+        {
+            TestGetFavoriteListingsOfUserByName(DetailLevel.Low);
+            TestGetFavoriteListingsOfUserByName(DetailLevel.Medium);
+            TestGetFavoriteListingsOfUserByName(DetailLevel.High);
+        }
+
+        /// <summary>
+        /// Test GetFavoriteListingsOfUser at the given detail level
+        /// </summary>
+        /// <param name="detailLevel">the given detail level</param>
+        private static void TestGetFavoriteListingsOfUser(DetailLevel detailLevel)
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                favoritesService.GetFavoriteListingsOfUser(NetsyData.TestUserId, 0, 10, detailLevel);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should succeed
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
+
+        /// <summary>
+        /// Test GetFavoriteListingsOfUser by name at the given detail level
+        /// </summary>
+        /// <param name="detailLevel">the given detail level</param>
+        private static void TestGetFavoriteListingsOfUserByName(DetailLevel detailLevel)
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                favoritesService.GetFavoriteListingsOfUser(NetsyData.TestUserName, 0, 10, detailLevel);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should succeed
+                Assert.IsNotNull(result);
+                NetsyData.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
     }
 }
