@@ -41,6 +41,11 @@ namespace Netsy.DataModel.ListingData
         /// <summary>
         /// The listing is voodoo, man
         /// </summary>
-        Alchemy
+        Alchemy,
+
+        /// <summary>
+        /// It happens, but is not in the docs, so I don't know what it means
+        /// </summary>
+        Edit
     }
 }
