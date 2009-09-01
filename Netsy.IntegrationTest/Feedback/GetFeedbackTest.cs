@@ -79,7 +79,7 @@ namespace Netsy.IntegrationTest.Feedback
         /// Test invalid Feedback id
         /// </summary>
         [TestMethod]
-        public void GetFeebackIdInvalidTest()
+        public void GetFeedbackIdInvalidTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -106,6 +106,37 @@ namespace Netsy.IntegrationTest.Feedback
                 //Assert.IsNotNull(result.ResultStatus);
                 //Assert.IsFalse(result.ResultStatus.Success);
                 //Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+            }
+        }
+
+
+        /// <summary>
+        /// test valid retrieval
+        /// </summary>
+        [TestMethod]
+        public void GetFeedbackGetTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Feedbacks> result = null;
+                IFeedbackService feedbackService = new FeedbackService(new EtsyContext(NetsyData.EtsyApiKey));
+                feedbackService.GetFeedbackCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                feedbackService.GetFeedback(NetsyData.TestFeedbackId);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                NetsyData.CheckResultSuccess(result);
+                Assert.AreEqual(1, result.ResultValue.Count);
             }
         }
     }
