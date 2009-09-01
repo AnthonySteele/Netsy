@@ -126,5 +126,65 @@ namespace Netsy.IntegrationTest.Feedback
                 Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
             }
         }
+
+        /// <summary>
+        /// Test retrieval
+        /// </summary>
+        [TestMethod]
+        public void GetFeebackAsSellerGetTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Feedbacks> result = null;
+                IFeedbackService feedbackService = new FeedbackService(new EtsyContext(NetsyData.EtsyApiKey));
+                feedbackService.GetFeedbackAsSellerCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                feedbackService.GetFeedbackAsSeller(NetsyData.TestUserId, 0, 10);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should suceed
+                NetsyData.CheckResultSuccess(result);
+            }
+        }
+
+        /// <summary>
+        /// Test retrieval by name
+        /// </summary>
+        [TestMethod]
+        public void GetFeebackAsSellerByNameGetTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Feedbacks> result = null;
+                IFeedbackService feedbackService = new FeedbackService(new EtsyContext(NetsyData.EtsyApiKey));
+                feedbackService.GetFeedbackAsSellerCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                feedbackService.GetFeedbackAsSeller(NetsyData.TestUserName, 0, 10);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data - should suceed
+                NetsyData.CheckResultSuccess(result);
+            }
+        }
     }
 }
