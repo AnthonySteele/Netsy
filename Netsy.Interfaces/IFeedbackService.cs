@@ -35,7 +35,7 @@ namespace Netsy.Interfaces
         /// <summary>
         /// GetFeedbackForOther completed event
         /// </summary>
-        event EventHandler<ResultEventArgs<Feedbacks>> GetFeedbackForOtherCompleted;
+        event EventHandler<ResultEventArgs<Feedbacks>> GetFeedbackForOthersCompleted;
 
         /// <summary>
         /// GetFeedbackAsSeller completed event

@@ -51,6 +51,11 @@
     <Compile Include="Favorites\GetFavorersOfShopTest.cs" />
     <Compile Include="Favorites\GetFavoriteListingsOfUserTest.cs" />
     <Compile Include="Favorites\GetFavoriteShopsOfUserTest.cs" />
+    <Compile Include="Feedback\GetFeedbackAsBuyerTest.cs" />
+    <Compile Include="Feedback\GetFeedbackAsSellerTest.cs" />
+    <Compile Include="Feedback\GetFeedbackForOthersTest.cs" />
+    <Compile Include="Feedback\GetFeedbackForUserTest.cs" />
+    <Compile Include="Feedback\GetFeedbackTest.cs" />
     <Compile Include="Gifts\GetGiftGuideListingsTest.cs" />
     <Compile Include="Gifts\GetGiftGuidesTest.cs" />
     <Compile Include="Listings\GetAllListingsTest.cs" />

@@ -54,6 +54,16 @@ namespace Netsy.IntegrationTest
         public const int TestBadGiftGuideId = 1;
 
         /// <summary>
+        /// The feedback id to test on
+        /// </summary>
+        public const int TestFeedbackId = 1;
+
+        /// <summary>
+        /// An Invalid feedback id to test on
+        /// </summary>
+        public const int TestBadFeedbackId = 123456789;
+
+        /// <summary>
         /// The test category to use
         /// </summary>
         public const string TestCategory = "bags";

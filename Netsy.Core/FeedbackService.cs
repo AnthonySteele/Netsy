@@ -53,7 +53,7 @@ namespace Netsy.Core
         /// <summary>
         /// GetFeedbackForOther completed event
         /// </summary>
-        public event EventHandler<ResultEventArgs<Feedbacks>> GetFeedbackForOtherCompleted;
+        public event EventHandler<ResultEventArgs<Feedbacks>> GetFeedbackForOthersCompleted;
 
         /// <summary>
         /// GetFeedbackAsSeller completed event
@@ -92,7 +92,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
-                .Append("feedback")
+                .Append("/feedback")
                 .OffsetLimit(offset, limit);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted);
@@ -113,7 +113,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
-                .Append("feedback")
+                .Append("/feedback")
                 .OffsetLimit(offset, limit);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted);
@@ -134,7 +134,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
-                .Append("feedback/buyer")
+                .Append("/feedback/buyer")
                 .OffsetLimit(offset, limit);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
@@ -155,7 +155,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
-                .Append("feedback/buyer")
+                .Append("/feedback/buyer")
                 .OffsetLimit(offset, limit);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
@@ -170,16 +170,16 @@ namespace Netsy.Core
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFeedbackForOthers(int userId, int offset, int limit)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackForOtherCompleted, this.etsyContext))
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackForOthersCompleted, this.etsyContext))
             {
                 return null;
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
-                .Append("feedback/others")
+                .Append("/feedback/others")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOtherCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted);
         }
 
         /// <summary>
@@ -191,16 +191,16 @@ namespace Netsy.Core
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFeedbackForOthers(string userName, int offset, int limit)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackForOtherCompleted, this.etsyContext))
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackForOthersCompleted, this.etsyContext))
             {
                 return null;
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
-                .Append("feedback/others")
+                .Append("/feedback/others")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOtherCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted);
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
-                .Append("feedback/seller")
+                .Append("/feedback/seller")
                 .OffsetLimit(offset, limit);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
@@ -239,7 +239,7 @@ namespace Netsy.Core
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
-                .Append("feedback/seller")
+                .Append("/feedback/seller")
                 .OffsetLimit(offset, limit);
 
             return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
