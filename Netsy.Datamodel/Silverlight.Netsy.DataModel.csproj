@@ -53,16 +53,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DetailLevel.cs" />
+    <Compile Include="EtsyColor.cs" />
     <Compile Include="EtsyContext.cs" />
     <Compile Include="FeedbackData\Feedbacks.cs" />
     <Compile Include="GiftGuide.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="HSVColor.cs" />
     <Compile Include="ListingData\Listings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryParams.cs" />
+    <Compile Include="RGBColor.cs" />
     <Compile Include="ServerData\Method.cs" />
     <Compile Include="SortField.cs" />
     <Compile Include="SortOrder.cs" />
+    <Compile Include="StringResults.cs" />
     <Compile Include="UserData\User.cs" />
     <Compile Include="UserData\Users.cs" />
     <Compile Include="UserData\UserStatus.cs" />

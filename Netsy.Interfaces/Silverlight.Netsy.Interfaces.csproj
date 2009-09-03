@@ -51,9 +51,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="IListingService.cs" />
+    <Compile Include="IFavoritesService.cs" />
+    <Compile Include="IFeedbackService.cs" />
+    <Compile Include="IGiftService.cs" />
+    <Compile Include="IListingsService.cs" />
     <Compile Include="IServerService.cs" />
     <Compile Include="IShopService.cs" />
+    <Compile Include="ITagCategoryService.cs" />
     <Compile Include="IUsersService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

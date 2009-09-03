@@ -87,7 +87,7 @@ namespace Netsy.Core
         /// <returns>the Uri builder</returns>
         public static UriBuilder Start(EtsyContext etsyContext, string basePath, int id)
         {
-            return Start(etsyContext, basePath, id.ToString());
+            return Start(etsyContext, basePath, id.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>

@@ -278,7 +278,7 @@ namespace Netsy.IntegrationTest.Favorites
         /// Test retrieving GetFavoriteShopsOfUser by name, all detail levels
         /// </summary>
         [TestMethod]
-        public void GetFavoriteShpsOfUserByNameAllDetailLevelsTest()
+        public void GetFavoriteShopsOfUserByNameAllDetailLevelsTest()
         {
             TestGetFavoriteShopsOfUserByName(DetailLevel.Low);
             TestGetFavoriteShopsOfUserByName(DetailLevel.Medium);

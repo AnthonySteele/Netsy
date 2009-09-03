@@ -131,7 +131,7 @@ namespace Netsy.IntegrationTest.Feedback
         /// Test retrieval
         /// </summary>
         [TestMethod]
-        public void GetFeebackAsSellerGetTest()
+        public void GetFeedbackAsSellerGetTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -161,7 +161,7 @@ namespace Netsy.IntegrationTest.Feedback
         /// Test retrieval by name
         /// </summary>
         [TestMethod]
-        public void GetFeebackAsSellerByNameGetTest()
+        public void GetFeedbackAsSellerByNameGetTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))

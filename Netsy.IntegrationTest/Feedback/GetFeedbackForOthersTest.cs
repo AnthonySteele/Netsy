@@ -65,7 +65,7 @@ namespace Netsy.IntegrationTest.Feedback
         /// Test invalid API key
         /// </summary>
         [TestMethod]
-        public void GetFeebackForOthersApiKeyInvalidTest()
+        public void GetFeedbackForOthersApiKeyInvalidTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -99,7 +99,7 @@ namespace Netsy.IntegrationTest.Feedback
         /// Test invalid API key
         /// </summary>
         [TestMethod]
-        public void GetFeebackForOthersByNameApiKeyInvalidTest()
+        public void GetFeedbackForOthersByNameApiKeyInvalidTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -132,7 +132,7 @@ namespace Netsy.IntegrationTest.Feedback
         /// Test retrieval
         /// </summary>
         [TestMethod]
-        public void GetFeebackForOthersGetTest()
+        public void GetFeedbackForOthersGetTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -162,7 +162,7 @@ namespace Netsy.IntegrationTest.Feedback
         /// Test retrieval by name
         /// </summary>
         [TestMethod]
-        public void GetFeebackForOthersByNameGetTest()
+        public void GetFeedbackForOthersByNameGetTest()
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
