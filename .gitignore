@@ -6,6 +6,7 @@
 *.dll
 *.pdb
 *.cache
+*.xap
 
 # local preferences
 *.suo
@@ -15,6 +16,7 @@
 TestResults
 obj
 _ReSharper*
+Bin
 
 
 # Code analysis output
