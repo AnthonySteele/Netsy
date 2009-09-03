@@ -159,18 +159,6 @@ namespace Netsy.Core
         }
 
         /// <summary>
-        /// Append part of a url
-        /// </summary>
-        /// <param name="value">the value to append</param>
-        /// <returns>the Uri builder</returns>
-        public UriBuilder Append(int value)
-        {
-            this.result.Append(value.ToString(CultureInfo.InvariantCulture));
-
-            return this;
-        }
-
-        /// <summary>
         /// Append a uri param to the uri
         /// </summary>
         /// <param name="paramName">the param name</param>
@@ -203,17 +191,6 @@ namespace Netsy.Core
         /// <param name="paramValue">the param value</param>
         /// <returns>the uri builder</returns>
         public UriBuilder Param(string paramName, int paramValue)
-        {
-            return this.Param(paramName, paramValue.ToString(CultureInfo.InvariantCulture));
-        }
-
-        /// <summary>
-        /// Append a uri param to the uri
-        /// </summary>
-        /// <param name="paramName">the param name</param>
-        /// <param name="paramValue">the param value</param>
-        /// <returns>the uri builder</returns>
-        public UriBuilder Param(string paramName, decimal paramValue)
         {
             return this.Param(paramName, paramValue.ToString(CultureInfo.InvariantCulture));
         }
@@ -301,16 +278,6 @@ namespace Netsy.Core
         public UriBuilder DetailLevel(DetailLevel detailLevel)
         {
             return this.Param("detail_level", detailLevel.ToStringLower());
-        }
-
-        /// <summary>
-        /// Append a sort field to the uri
-        /// </summary>
-        /// <param name="sortField">the sort field</param>
-        /// <returns>the uri builder</returns>
-        public UriBuilder SortOn(SortField sortField)
-        {
-            return this.Param("sort_on", sortField.ToStringLower());
         }
 
         /// <summary>
