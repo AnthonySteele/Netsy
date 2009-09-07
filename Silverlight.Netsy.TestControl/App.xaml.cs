@@ -8,26 +8,39 @@ namespace Silverlight.Netsy.TestControl
     using System;
     using System.Windows;
 
+    using global::Netsy.DataModel;
+
+    using Microsoft.Practices.Unity;
+
     /// <summary>
     /// Application class
     /// </summary>
     public partial class App : Application
     {
         /// <summary>
-        /// The API key to use 
-        /// </summary>
-        private const string EtsyApiKey = "rfc35bh98q3a9hvccfsxe4cc";
-
-        /// <summary>
         /// Initializes a new instance of the App class
         /// </summary>
         public App()
         {
+            InitialiseContainer();
+
             this.Startup += this.Application_Startup;
             this.Exit += this.Application_Exit;
             this.UnhandledException += this.Application_UnhandledException;
 
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Initialise the Unity IOC Container
+        /// </summary>
+        private static void InitialiseContainer()
+        {
+            IUnityContainer container = new UnityContainer();
+
+            UnityConfiguration.RegisterEtsyContext(container);
+            UnityConfiguration.RegisterServiceTypes(container);
+            ViewModelLocator.Container = container;
         }
 
         /// <summary>
@@ -39,7 +52,7 @@ namespace Silverlight.Netsy.TestControl
         {
             string userId = e.InitParams["UserId"];
 
-            MainPage mainPage = new MainPage(int.Parse(userId), EtsyApiKey);
+            MainPage mainPage = new MainPage(int.Parse(userId), UnityConfiguration.EtsyApiKey);
 
             this.RootVisual = mainPage;
         }

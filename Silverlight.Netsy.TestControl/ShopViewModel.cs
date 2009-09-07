@@ -8,11 +8,25 @@
 
 namespace Silverlight.Netsy.TestControl
 {
+    using global::Netsy.Interfaces;
+
     /// <summary>
     /// View Model for shop view
     /// </summary>
     public class ShopViewModel
     {
+        /// <summary>
+        /// The service to use to retrieve shop data
+        /// </summary>
+        private IShopService shopService;
 
+        /// <summary>
+        /// Initializes a new instance of the ShopViewModel class 
+        /// </summary>
+        /// <param name="shopService">the shop service</param>
+        public ShopViewModel(IShopService shopService)
+        {
+            this.shopService = shopService;
+        }
     }
 }
