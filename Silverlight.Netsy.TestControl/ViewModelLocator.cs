@@ -22,6 +22,14 @@ namespace Silverlight.Netsy.TestControl
         public static IUnityContainer Container { get; set; }
 
         /// <summary>
+        /// Gets the main page view model
+        /// </summary>
+        public static MainPageViewModel MainPageViewModel
+        {
+            get { return Container.Resolve<MainPageViewModel>(); }
+        }
+        
+        /// <summary>
         /// Gets the shop control view model
         /// </summary>
         public static ShopViewModel ShopViewModel

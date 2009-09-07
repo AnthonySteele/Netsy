@@ -13,7 +13,7 @@ namespace Silverlight.Netsy.TestControl
     /// <summary>
     /// View Model for shop view
     /// </summary>
-    public class ShopViewModel
+    public class ShopViewModel : BaseViewModel
     {
         /// <summary>
         /// The service to use to retrieve shop data
