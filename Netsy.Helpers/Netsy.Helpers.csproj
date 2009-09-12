@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeHelpers.cs" />
     <Compile Include="EnumHelpers.cs" />
     <Compile Include="NetsyException.cs" />
     <Compile Include="GenericEventArgs.cs" />
