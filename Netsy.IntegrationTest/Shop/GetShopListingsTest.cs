@@ -12,11 +12,11 @@ namespace Netsy.IntegrationTest.Shop
     using System.Threading;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Netsy.Core;
+
     using Netsy.DataModel;
-    using Netsy.DataModel.ListingData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
+    using Netsy.Services;
 
     /// <summary>
     /// Test the GetShopListings function on the shop service

@@ -14,11 +14,10 @@ namespace Netsy.IntegrationTest.Listings
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-    using Netsy.Core;
     using Netsy.DataModel;
-    using Netsy.DataModel.ListingData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
+    using Netsy.Services;
 
     /// <summary>
     /// Test the GetListingsByMaterials Api function

@@ -9,16 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Netsy.vsmdi = Netsy.vsmdi
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.Helpers", "Netsy.Helpers\Netsy.Helpers.csproj", "{4CA5613E-5096-4F76-8B5A-64CDCE49521F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.Interfaces", "Netsy.Interfaces\Netsy.Interfaces.csproj", "{51B16899-8756-4994-9424-E62F60044AA3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.DataModel", "Netsy.Datamodel\Netsy.DataModel.csproj", "{996A24F6-AAAF-4D00-B400-2B530192D857}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.DataModel.Test", "Netsy.DataModel.Test\Netsy.DataModel.Test.csproj", "{1E7884B2-5EED-490E-A854-4EFDA472ED18}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.Core", "Netsy.Core\Netsy.Core.csproj", "{E8808E8E-2F95-49AC-9E86-F8A18F2D2830}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.IntegrationTest", "Netsy.IntegrationTest\Netsy.IntegrationTest.csproj", "{CB24AD3D-1FFF-47E0-B161-F01E0EDD7D32}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy", "Netsy\Netsy.csproj", "{1E1D68D7-D36C-4AB3-9476-75EB4687323B}"
@@ -34,26 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4CA5613E-5096-4F76-8B5A-64CDCE49521F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CA5613E-5096-4F76-8B5A-64CDCE49521F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CA5613E-5096-4F76-8B5A-64CDCE49521F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CA5613E-5096-4F76-8B5A-64CDCE49521F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{51B16899-8756-4994-9424-E62F60044AA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51B16899-8756-4994-9424-E62F60044AA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51B16899-8756-4994-9424-E62F60044AA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51B16899-8756-4994-9424-E62F60044AA3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{996A24F6-AAAF-4D00-B400-2B530192D857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{996A24F6-AAAF-4D00-B400-2B530192D857}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{996A24F6-AAAF-4D00-B400-2B530192D857}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{996A24F6-AAAF-4D00-B400-2B530192D857}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E7884B2-5EED-490E-A854-4EFDA472ED18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E7884B2-5EED-490E-A854-4EFDA472ED18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E7884B2-5EED-490E-A854-4EFDA472ED18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E7884B2-5EED-490E-A854-4EFDA472ED18}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8808E8E-2F95-49AC-9E86-F8A18F2D2830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8808E8E-2F95-49AC-9E86-F8A18F2D2830}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8808E8E-2F95-49AC-9E86-F8A18F2D2830}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8808E8E-2F95-49AC-9E86-F8A18F2D2830}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CB24AD3D-1FFF-47E0-B161-F01E0EDD7D32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CB24AD3D-1FFF-47E0-B161-F01E0EDD7D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB24AD3D-1FFF-47E0-B161-F01E0EDD7D32}.Release|Any CPU.ActiveCfg = Release|Any CPU

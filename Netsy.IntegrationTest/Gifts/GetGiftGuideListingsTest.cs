@@ -10,13 +10,12 @@ namespace Netsy.IntegrationTest.Gifts
     using System.Net;
     using System.Threading;
 
-    using Netsy.Core;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     using Netsy.DataModel;
-    using Netsy.DataModel.ListingData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Netsy.Services;
 
     /// <summary>
     /// Test the GetGiftGuideListings API Function

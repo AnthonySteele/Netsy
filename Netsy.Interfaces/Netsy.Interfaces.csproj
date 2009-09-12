@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{51B16899-8756-4994-9424-E62F60044AA3}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -62,16 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Netsy.Interfaces.snk" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Netsy.Datamodel\Netsy.DataModel.csproj">
-      <Project>{996A24F6-AAAF-4D00-B400-2B530192D857}</Project>
-      <Name>Netsy.DataModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Netsy.Helpers\Netsy.Helpers.csproj">
-      <Project>{4CA5613E-5096-4F76-8B5A-64CDCE49521F}</Project>
-      <Name>Netsy.Helpers</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">

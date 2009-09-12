@@ -11,13 +11,12 @@ namespace Netsy.IntegrationTest.Feedback
     using System.Net;
     using System.Threading;
 
-    using Netsy.Core;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     using Netsy.DataModel;
-    using Netsy.DataModel.FeedbackData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Netsy.Services;
 
     /// <summary>
     /// Test the GetFeedbackAsSeller API Function

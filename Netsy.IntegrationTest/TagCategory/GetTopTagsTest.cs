@@ -11,15 +11,12 @@ namespace Netsy.IntegrationTest.TagCategory
     using System.Net;
     using System.Threading;
 
-    using Core;
-
-    using DataModel;
-
-    using Helpers;
-
-    using Interfaces;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using Netsy.DataModel;
+    using Netsy.Helpers;
+    using Netsy.Interfaces;
+    using Netsy.Services;
 
     /// <summary>
     /// Test the GetTopTags API function

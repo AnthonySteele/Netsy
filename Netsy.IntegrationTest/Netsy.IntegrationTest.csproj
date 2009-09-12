@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{CB24AD3D-1FFF-47E0-B161-F01E0EDD7D32}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -86,30 +86,18 @@
     <Compile Include="Server\ServerEpochTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Netsy.Core\Netsy.Core.csproj">
-      <Project>{E8808E8E-2F95-49AC-9E86-F8A18F2D2830}</Project>
-      <Name>Netsy.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Netsy.Datamodel\Netsy.DataModel.csproj">
-      <Project>{996A24F6-AAAF-4D00-B400-2B530192D857}</Project>
-      <Name>Netsy.DataModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Netsy.Helpers\Netsy.Helpers.csproj">
-      <Project>{4CA5613E-5096-4F76-8B5A-64CDCE49521F}</Project>
-      <Name>Netsy.Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Netsy.Interfaces\Netsy.Interfaces.csproj">
-      <Project>{51B16899-8756-4994-9424-E62F60044AA3}</Project>
-      <Name>Netsy.Interfaces</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Netsy.IntegrationTest.snk" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
       <Link>CodeAnalysisDictionary.xml</Link>
     </CodeAnalysisDictionary>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Netsy\Netsy.csproj">
+      <Project>{1E1D68D7-D36C-4AB3-9476-75EB4687323B}</Project>
+      <Name>Netsy</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,13 +10,12 @@ namespace Netsy.IntegrationTest.Favorites
     using System.Net;
     using System.Threading;
 
-    using Netsy.Core;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     using Netsy.DataModel;
-    using Netsy.DataModel.UserData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Netsy.Services;
 
     /// <summary>
     ///  Test the GetFavorersOfShop API function

@@ -12,11 +12,11 @@ namespace Netsy.IntegrationTest.Server
     using System.Threading;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Netsy.Core;
+
     using Netsy.DataModel;
-    using Netsy.DataModel.ServerData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
+    using Netsy.Services;
 
     /// <summary>
     /// Test the ping funcion on the server service

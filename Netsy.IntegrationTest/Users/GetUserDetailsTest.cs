@@ -12,11 +12,11 @@ namespace Netsy.IntegrationTest.Users
     using System.Threading;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Netsy.Core;
+
     using Netsy.DataModel;
-    using Netsy.DataModel.UserData;
     using Netsy.Helpers;
     using Netsy.Interfaces;
+    using Netsy.Services;
 
     /// <summary>
     /// Test etsy users retrieval
