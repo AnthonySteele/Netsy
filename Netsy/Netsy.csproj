@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1E1D68D7-D36C-4AB3-9476-75EB4687323B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Netsy</RootNamespace>
+    <AssemblyName>Netsy</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Netsy.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataModel\DetailLevel.cs" />
+    <Compile Include="DataModel\EtsyColor.cs" />
+    <Compile Include="DataModel\EtsyContext.cs" />
+    <Compile Include="DataModel\Feedback.cs" />
+    <Compile Include="DataModel\FeedbackDisposition.cs" />
+    <Compile Include="DataModel\Feedbacks.cs" />
+    <Compile Include="DataModel\GiftGuide.cs" />
+    <Compile Include="DataModel\HSVColor.cs" />
+    <Compile Include="DataModel\Listing.cs" />
+    <Compile Include="DataModel\ListingImage.cs" />
+    <Compile Include="DataModel\Listings.cs" />
+    <Compile Include="DataModel\ListingState.cs" />
+    <Compile Include="DataModel\Method.cs" />
+    <Compile Include="DataModel\MethodTable.cs" />
+    <Compile Include="DataModel\PingResult.cs" />
+    <Compile Include="DataModel\QueryParams.cs" />
+    <Compile Include="DataModel\RGBColor.cs" />
+    <Compile Include="DataModel\ServerEpoch.cs" />
+    <Compile Include="DataModel\Shop.cs" />
+    <Compile Include="DataModel\Shops.cs" />
+    <Compile Include="DataModel\ShopSection.cs" />
+    <Compile Include="DataModel\SortField.cs" />
+    <Compile Include="DataModel\SortOrder.cs" />
+    <Compile Include="DataModel\StringResults.cs" />
+    <Compile Include="DataModel\User.cs" />
+    <Compile Include="DataModel\Users.cs" />
+    <Compile Include="DataModel\UserStatus.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\DateTimeHelpers.cs" />
+    <Compile Include="Helpers\EnumHelpers.cs" />
+    <Compile Include="Helpers\GenericEventArgs.cs" />
+    <Compile Include="Helpers\GlobalSuppressions.cs" />
+    <Compile Include="Helpers\JsonSerializerHelper.cs" />
+    <Compile Include="Helpers\NetsyException.cs" />
+    <Compile Include="Helpers\ResultEventArgs.cs" />
+    <Compile Include="Helpers\ResultStatus.cs" />
+    <Compile Include="Helpers\StringHelpers.cs" />
+    <Compile Include="Interfaces\IFavoritesService.cs" />
+    <Compile Include="Interfaces\IFeedbackService.cs" />
+    <Compile Include="Interfaces\IGiftService.cs" />
+    <Compile Include="Interfaces\IListingsService.cs" />
+    <Compile Include="Interfaces\IServerService.cs" />
+    <Compile Include="Interfaces\IShopService.cs" />
+    <Compile Include="Interfaces\ITagCategoryService.cs" />
+    <Compile Include="Interfaces\IUsersService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
+      <Link>CodeAnalysisDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Netsy.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
