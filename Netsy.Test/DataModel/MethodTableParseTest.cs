@@ -7,11 +7,10 @@
 //----------------------------------------------------------------------- 
 namespace Netsy.Test.DataModel
 {
-    using Helpers;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using Netsy.DataModel;
+    using Netsy.Helpers;
 
     /// <summary>
     /// Test parsing the method table data
