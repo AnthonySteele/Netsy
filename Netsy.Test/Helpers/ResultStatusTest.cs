@@ -8,6 +8,8 @@
 
 namespace Netsy.Test.Helpers
 {
+    using System.Net;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using Netsy.Helpers;
@@ -28,6 +30,7 @@ namespace Netsy.Test.Helpers
 
             Assert.IsNotNull(status);
             Assert.IsTrue(status.Success);
+            Assert.AreEqual(WebExceptionStatus.Success, status.WebStatus);
         }
 
         /// <summary>
