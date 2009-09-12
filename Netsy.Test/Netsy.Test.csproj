@@ -59,6 +59,7 @@
     <Compile Include="DataModel\UserCreateTest.cs" />
     <Compile Include="DataModel\UserParseTest.cs" />
     <Compile Include="Helpers\DateTimeHelpersTest.cs" />
+    <Compile Include="Helpers\EnumHelpersTest.cs" />
     <Compile Include="Helpers\ResultStatusTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

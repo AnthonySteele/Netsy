@@ -20,7 +20,6 @@ namespace Netsy.Test.Helpers
     [TestClass]
     public class DateTimeHelpersTest
     {
-
         /// <summary>
         /// Test epoch-date to DateTime conversion with a zero date
         /// </summary>
@@ -47,7 +46,6 @@ namespace Netsy.Test.Helpers
 
             Assert.AreEqual(1969, result.Year);
         }
-
 
         /// <summary>
         /// Test epoch-date to DateTime conversion with a positive  date
