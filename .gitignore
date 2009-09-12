@@ -8,6 +8,10 @@
 *.cache
 *.xap
 
+# test state
+*.vsmdi
+*.testrunconfig
+
 # local preferences
 *.suo
 *.user
