@@ -10,7 +10,7 @@ namespace Netsy.Helpers
     using System;
 
     /// <summary>
-    /// Helpers on enumerations
+    /// Generic helpers on enumerations
     /// </summary>
     public static class EnumHelpers
     {
@@ -19,7 +19,7 @@ namespace Netsy.Helpers
         /// </summary>
         /// <typeparam name="T">the enum type</typeparam>
         /// <param name="value">the value to parse</param>
-        /// <returns>the parsed valeu</returns>
+        /// <returns>the parsed value</returns>
         public static T Parse<T>(this string value) 
         {
             return (T)Enum.Parse(typeof(T), value, true);
