@@ -99,15 +99,13 @@ namespace Netsy.IntegrationTest.Feedback
                 // check that the event was fired, did not time out
                 Assert.IsTrue(signalled, "Not signalled");
 
-                NetsyData.CheckResultSuccess(result);
-                //// check the data - should fail
-                //Assert.IsNotNull(result);
-                //Assert.IsNotNull(result.ResultStatus);
-                //Assert.IsFalse(result.ResultStatus.Success);
-                //Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+                // check the data - should fail
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.ResultStatus);
+                Assert.IsFalse(result.ResultStatus.Success);
+                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
             }
         }
-
 
         /// <summary>
         /// test valid retrieval

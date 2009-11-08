@@ -167,7 +167,7 @@ namespace Netsy.IntegrationTest.Listings
                     waitEvent.Set();
                 };
 
-                RgbColor testColor = new RgbColor("76B3DF");
+                RgbColor testColor = new RgbColor("FFFFFF");
 
                 // ACT
                 listingsService.GetListingsByColor(testColor, 10, 0, 10, detailLevel);
@@ -181,7 +181,7 @@ namespace Netsy.IntegrationTest.Listings
                 Assert.IsNotNull(result);
                 NetsyData.CheckResultSuccess(result);
 
-                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.IsTrue(result.ResultValue.Count > 1, "No records found");
                 Assert.AreEqual(10, result.ResultValue.Results.Length);
                 Assert.IsNotNull(result.ResultValue.Params);
             }
