@@ -9,7 +9,8 @@
 namespace Netsy.DataModel
 {
     using System.Runtime.Serialization;
-    using Netsy.DataModel;
+
+    using Netsy.Helpers;
 
     /// <summary>
     /// Details on an etsy shop
@@ -17,8 +18,22 @@ namespace Netsy.DataModel
     /// Shop records extend user records to include information about the seller's shop. 
     /// </summary>
     [DataContract]
-    public class Shop: User
+    public class Shop : User
     {
+        #region private 
+
+        /// <summary>
+        /// The listing count as a string
+        /// </summary>
+        private string listingCountString;
+
+        /// <summary>
+        /// The listing count as an integer
+        /// </summary>
+        private int? listingCountInt;
+
+        #endregion
+
         #region low detail
 
         /// <summary>
@@ -40,10 +55,39 @@ namespace Netsy.DataModel
         public string CreationEpoch { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of active listings in the shop.
+        /// Gets or sets the number of active listings in the shop as a string.
         /// </summary>
         [DataMember(Name = "listing_count")]
-        public int ListingCount { get; set; }
+        public string ListingCount
+        {
+            get
+            {
+                return this.listingCountString;
+            }
+
+            set
+            {
+                this.listingCountString = value;
+                this.listingCountInt = value.ParseIntNullable();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the number of active listings in the shop
+        /// </summary>
+        public int? ListingCountInt
+        {
+            get
+            {
+                return this.listingCountInt;
+            }
+
+            set
+            {
+                this.listingCountInt = value;
+                this.listingCountString = value.ToString();
+            }
+        }
 
         #endregion
 

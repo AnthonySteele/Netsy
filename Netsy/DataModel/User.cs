@@ -32,6 +32,16 @@ namespace Netsy.DataModel
         /// </summary>
         private UserStatus statusEnum;
 
+        /// <summary>
+        /// The User's gender as a string
+        /// </summary>
+        private string genderString;
+
+        /// <summary>
+        /// The user's gender as an enum
+        /// </summary>
+        private Gender genderEnum;
+
         #endregion
 
         #region low detail
@@ -98,7 +108,34 @@ namespace Netsy.DataModel
         /// Gets or sets the user's gender (female, male, or private).
         /// </summary>
         [DataMember(Name = "gender")]
-        public string Gender { get; set; }
+        public string GenderString
+        {
+            get
+            {
+                return this.genderString;
+            }
+
+            set
+            {
+                this.genderString = value;
+                if (string.IsNullOrEmpty(value))
+                {
+                    this.genderEnum = Gender.Unknown;
+                }
+                else
+                {
+                    this.genderEnum = value.Parse<Gender>();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the user's gender as an enum
+        /// </summary>
+        public Gender GenderEnum
+        {
+            get { return this.genderEnum;  }
+        }
 
         /// <summary>
         /// Gets or sets the user's latitude (may be blank).

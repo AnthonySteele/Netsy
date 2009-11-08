@@ -151,11 +151,16 @@ namespace Netsy.IntegrationTest.Favorites
                 // check that the event was fired, did not time out
                 Assert.IsTrue(signalled, "Not signalled");
 
-                // check the data - should fail
+                // check the data 
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.ResultStatus);
-                Assert.IsFalse(result.ResultStatus.Success);
-                Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
+
+                // doesn't fail, returns zero count
+                Assert.IsTrue(result.ResultStatus.Success);
+                Assert.AreEqual(0, result.ResultValue.Count);
+
+                //Assert.IsFalse(result.ResultStatus.Success);
+                //Assert.AreEqual(WebExceptionStatus.ProtocolError, result.ResultStatus.WebStatus);
             }
         }
 

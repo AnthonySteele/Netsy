@@ -55,6 +55,7 @@
     <Compile Include="DataModel\DetailLevel.cs" />
     <Compile Include="DataModel\EtsyColor.cs" />
     <Compile Include="DataModel\EtsyContext.cs" />
+    <Compile Include="DataModel\Gender.cs" />
     <Compile Include="DataModel\Feedback.cs" />
     <Compile Include="DataModel\FeedbackDisposition.cs" />
     <Compile Include="DataModel\Feedbacks.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Helpers\EnumHelpers.cs" />
     <Compile Include="Helpers\GenericEventArgs.cs" />
     <Compile Include="Helpers\GlobalSuppressions.cs" />
+    <Compile Include="Helpers\IntHelpers.cs" />
     <Compile Include="Helpers\JsonSerializerHelper.cs" />
     <Compile Include="Helpers\NetsyException.cs" />
     <Compile Include="Helpers\ResultEventArgs.cs" />

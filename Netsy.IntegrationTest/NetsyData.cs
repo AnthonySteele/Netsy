@@ -36,7 +36,7 @@ namespace Netsy.IntegrationTest
         /// <summary>
         /// the id of the listing to test on
         /// </summary>
-        public const int TestListingId = 27861562;
+        public const int TestListingId = 27325457;
 
         /// <summary>
         /// An invalid listing id for testing

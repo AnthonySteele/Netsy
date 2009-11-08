@@ -73,5 +73,52 @@ namespace Netsy.Test.DataModel
             User user = new User();
             user.StatusString = "goofy";
         }
+
+        /// <summary>
+        /// Test setting the user gender to male
+        /// </summary>
+        [TestMethod]
+        public void UserSetGenderMaleTest()
+        {
+            User user = new User();
+            user.GenderString = "male";
+
+            Assert.AreEqual(Gender.Male, user.GenderEnum);
+        }
+
+        /// <summary>
+        /// Test setting the user gender to female
+        /// </summary>
+        [TestMethod]
+        public void UserSetGenderFemaleTest()
+        {
+            User user = new User();
+            user.GenderString = "female";
+
+            Assert.AreEqual(Gender.Female, user.GenderEnum);
+        }
+
+        /// <summary>
+        /// Test setting the user gender to private
+        /// </summary>
+        [TestMethod]
+        public void UserSetGenderPrivateTest()
+        {
+            User user = new User();
+            user.GenderString = "private";
+
+            Assert.AreEqual(Gender.Private, user.GenderEnum);
+        }
+
+        /// <summary>
+        /// Test setting the user gender to a bad value
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void UserSetGenderBadValueTest()
+        {
+            User user = new User();
+            user.GenderString = "neuter";
+        }
     }
 }

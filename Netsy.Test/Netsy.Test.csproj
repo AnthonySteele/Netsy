@@ -61,6 +61,7 @@
     <Compile Include="Helpers\DateTimeHelpersTest.cs" />
     <Compile Include="Helpers\EnumHelpersTest.cs" />
     <Compile Include="Helpers\GenericEventArgsTest.cs" />
+    <Compile Include="Helpers\IntHelpersTest.cs" />
     <Compile Include="Helpers\ResultStatusTest.cs" />
     <Compile Include="Helpers\StringHelpersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

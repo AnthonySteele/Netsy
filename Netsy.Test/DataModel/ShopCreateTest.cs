@@ -53,6 +53,29 @@ namespace Netsy.Test.DataModel
         }
 
         /// <summary>
+        /// Test that that shop count is readable as int when set 
+        /// </summary>
+        [TestMethod]
+        public void ShopListingCountSetTest()
+        {
+            Shop shop = new Shop();
+            shop.ListingCount = "1";
+            Assert.IsTrue(shop.ListingCountInt.HasValue);
+            Assert.AreEqual(1, shop.ListingCountInt.Value);
+        }
+
+        /// <summary>
+        /// Test that that shop count is not readable as int when not set 
+        /// </summary>
+        [TestMethod]
+        public void ShopListingCountSetNullTest()
+        {
+            Shop shop = new Shop();
+            shop.ListingCount = "null";
+            Assert.IsFalse(shop.ListingCountInt.HasValue);
+        }
+
+        /// <summary>
         /// Test simple creation of a shop section
         /// </summary>
         [TestMethod]
@@ -61,7 +84,6 @@ namespace Netsy.Test.DataModel
             ShopSection shopSection = new ShopSection();
             Assert.IsNotNull(shopSection);
         }
-
 
         /// <summary>
         /// Test simple creation of shops
