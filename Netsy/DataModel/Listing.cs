@@ -32,6 +32,26 @@ namespace Netsy.DataModel
         /// </summary>
         private ListingState stateEnum;
 
+        /// <summary>
+        /// Creation datetime, in epoch seconds
+        /// </summary>
+        private double creationEpoch;
+
+        /// <summary>
+        /// Creation date, as DateTime
+        /// </summary>
+        private DateTime creationDate;
+
+        /// <summary>
+        /// Ending datetime, in epoch seconds
+        /// </summary>
+        private double endingEpoch;
+
+        /// <summary>
+        /// Ending datetime, as DateTime
+        /// </summary>
+        private DateTime endingDate;
+
         #endregion
 
         #region low detail
@@ -132,7 +152,36 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time the listing was posted, in epoch seconds.
         /// </summary>
         [DataMember(Name = "creation_epoch")]
-        public double CreationEpoch { get; set; }
+        public double CreationEpoch 
+        {
+            get
+            {
+                return this.creationEpoch;
+            }
+
+            set
+            {
+                this.creationEpoch = value;
+                this.creationDate = this.creationEpoch.ToDateTimeFromEpoch();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date and time the feedback was posted, as Date time
+        /// </summary>
+        public DateTime CreationDate
+        {
+            get
+            {
+                return this.creationDate;
+            }
+
+            set
+            {
+                this.creationDate = value;
+                this.creationEpoch = this.creationDate.ToEpochFromDateTime();
+            }
+        }
         
         #endregion
 
@@ -172,7 +221,36 @@ namespace Netsy.DataModel
         /// Gets or sets the listing's expiration date and time, in epoch seconds.
         /// </summary>
         [DataMember(Name = "ending_epoch")]
-        public double EndingEpoch { get; set; }
+        public double EndingEpoch
+        {
+            get
+            {
+                return this.endingEpoch;
+            }
+
+            set
+            {
+                this.endingEpoch = value;
+                this.endingDate = this.endingEpoch.ToDateTimeFromEpoch();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date and time the feedback was posted, as Date time
+        /// </summary>
+        public DateTime EndingDate
+        {
+            get
+            {
+                return this.endingDate;
+            }
+
+            set
+            {
+                this.endingDate = value;
+                this.endingEpoch = this.endingDate.ToEpochFromDateTime();
+            }
+        }
         
         /// <summary>
         /// Gets or sets the numeric ID of the user who posted the item. (User IDs are also shop IDs).

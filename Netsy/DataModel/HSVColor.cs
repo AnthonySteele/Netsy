@@ -10,7 +10,7 @@ namespace Netsy.DataModel
     using System.Globalization;
 
     /// <summary>
-    /// A color value as HSV (hue, saturation and value)
+    /// A color value as HSV (Hue, Saturation and Value)
     /// </summary>
     public class HsvColor : EtsyColor
     {

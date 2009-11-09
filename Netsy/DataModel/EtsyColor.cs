@@ -10,7 +10,7 @@ namespace Netsy.DataModel
 {
     /// <summary>
     /// Base class for colors in Hsv or Rgb
-    /// The important method is ToString() which is on Object
+    /// The important method is ToString() on Object, which is used to put it into Urls 
     /// </summary>
     public abstract class EtsyColor
     {

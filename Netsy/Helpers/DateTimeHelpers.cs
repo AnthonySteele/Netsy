@@ -26,9 +26,19 @@ namespace Netsy.Helpers
         /// <see cref="http://stackoverflow.com/questions/249721/how-to-convert-datetime-from-json-to-c"/>
         /// <param name="epochTime">the count of seconds since 1970</param>
         /// <returns>The value converted into a DateTime</returns>
-        public static DateTime ToDateTimeFromEpoch(this int epochTime)
+        public static DateTime ToDateTimeFromEpoch(this double epochTime)
         {
             return unixEpochStart.AddSeconds(epochTime);
+        }
+
+        /// <summary>
+        /// Convert a .Net DateTome to an epoch time
+        /// </summary>
+        /// <param name="dateTime">the datetime value</param>
+        /// <returns>The value converted into count of seconds since 1970</returns>
+        public static double ToEpochFromDateTime(this DateTime dateTime)
+        {
+            return (dateTime - unixEpochStart).TotalSeconds;
         }
     }
 }

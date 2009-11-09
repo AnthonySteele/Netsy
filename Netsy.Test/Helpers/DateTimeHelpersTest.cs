@@ -24,9 +24,10 @@ namespace Netsy.Test.Helpers
         /// Test epoch-date to DateTime conversion with a zero date
         /// </summary>
         [TestMethod]
-        public void EpochZeroTest()
+        public void EpochZeroToDateTimeFromEpochTest()
         {
-            DateTime result = 0.ToDateTimeFromEpoch();
+            const double Value = 0.0;
+            DateTime result = Value.ToDateTimeFromEpoch();
 
             Assert.AreEqual(1970, result.Year);
             Assert.AreEqual(1, result.Month);
@@ -40,9 +41,10 @@ namespace Netsy.Test.Helpers
         /// Test epoch-date to DateTime conversion with a negative date
         /// </summary>
         [TestMethod]
-        public void EpochNegativeTest()
+        public void EpochNegativeToDateTimeFromEpochTest()
         {
-            DateTime result = (-100).ToDateTimeFromEpoch();
+            const double Value = -100.0;
+            DateTime result = Value.ToDateTimeFromEpoch();
 
             Assert.AreEqual(1969, result.Year);
         }
@@ -51,9 +53,10 @@ namespace Netsy.Test.Helpers
         /// Test epoch-date to DateTime conversion with a positive  date
         /// </summary>
         [TestMethod]
-        public void EpochPositiveTest()
+        public void EpochPositiveToDateTimeFromEpochTest()
         {
-            DateTime result = 100.ToDateTimeFromEpoch();
+            const double Value = 100.0;
+            DateTime result = Value.ToDateTimeFromEpoch();
 
             Assert.AreEqual(1970, result.Year);
         }
@@ -62,9 +65,10 @@ namespace Netsy.Test.Helpers
         /// Test with the millenium epoch
         /// </summary>
         [TestMethod]
-        public void EpochMilleniumDateTest()
+        public void EpochMilleniumDateToDateTimeFromEpochTest()
         {
-            DateTime millenium = 946684800.ToDateTimeFromEpoch();
+            const double Value = 946684800.0;
+            DateTime millenium = Value.ToDateTimeFromEpoch();
 
             Assert.AreEqual(2000, millenium.Year);
             Assert.AreEqual(1, millenium.Month);
@@ -73,6 +77,56 @@ namespace Netsy.Test.Helpers
             Assert.AreEqual(0, millenium.Hour);
             Assert.AreEqual(0, millenium.Minute);
             Assert.AreEqual(0, millenium.Second);
+        }
+
+        /// <summary>
+        /// Test epoch-date to DateTime conversion with a zero date
+        /// </summary>
+        [TestMethod]
+        public void EpochZeroToEpochFromDateTimeTest()
+        {
+            DateTime value = new DateTime(1970, 1, 1, 0, 0, 0);
+            double result = value.ToEpochFromDateTime();
+
+            Assert.AreEqual(0, result);
+        }
+
+        /// <summary>
+        /// Test epoch-date to DateTime conversion with a negative date
+        /// </summary>
+        [TestMethod]
+        public void EpochNegativeToEpochFromDateTimeTest()
+        {
+            DateTime value = new DateTime(1969, 1, 1, 0, 0, 0);
+            double result = value.ToEpochFromDateTime();
+
+            Assert.IsTrue(result < 0);
+        }
+
+        /// <summary>
+        /// Test epoch-date to DateTime conversion with a positive  date
+        /// </summary>
+        [TestMethod]
+        public void EpochPositiveToEpochFromDateTimeTest()
+        {
+            DateTime value = new DateTime(1971, 1, 1, 0, 0, 0);
+            double result = value.ToEpochFromDateTime();
+
+            Assert.IsTrue(result > 0);
+        }
+
+        /// <summary>
+        /// Test with the millenium epoch
+        /// </summary>
+        [TestMethod]
+        public void EpochMilleniumDateToEpochFromDateTimeTest()
+        {
+            DateTime value = new DateTime(2000, 1, 1, 0, 0, 0);
+            double result = value.ToEpochFromDateTime();
+
+            const double ExpectedValue = 946684800.0;
+
+            Assert.AreEqual(ExpectedValue, result);
         }
     }
 }
