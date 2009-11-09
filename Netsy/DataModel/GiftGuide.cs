@@ -8,7 +8,10 @@
 
 namespace Netsy.DataModel
 {
+    using System;
     using System.Runtime.Serialization;
+
+    using Netsy.Helpers;
 
     /// <summary>
     /// Etsy gift guides data. Fields from http://developer.etsy.com/docs#gift_guides
@@ -18,6 +21,20 @@ namespace Netsy.DataModel
     [DataContract]
     public class GiftGuide
     {
+        #region private
+
+        /// <summary>
+        /// Creation datetime, in epoch seconds
+        /// </summary>
+        private double creationEpoch;
+
+        /// <summary>
+        /// Creation date, as DateTime
+        /// </summary>
+        private DateTime creationDate;
+
+        #endregion
+
         /// <summary>
         /// Gets or sets the numeric ID for this guide.
         /// </summary>
@@ -28,7 +45,36 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time the date and time the gift guide was created, in epoch seconds.
         /// </summary>
         [DataMember(Name = "creation_tsz_epoch")]
-        public double CreationEpoch { get; set; }
+        public double CreationEpoch
+        {
+            get
+            {
+                return this.creationEpoch;
+            }
+
+            set
+            {
+                this.creationEpoch = value;
+                this.creationDate = this.creationEpoch.ToDateTimeFromEpoch();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date and time the feedback was posted, as Date time
+        /// </summary>
+        public DateTime CreationDate
+        {
+            get
+            {
+                return this.creationDate;
+            }
+
+            set
+            {
+                this.creationDate = value;
+                this.creationEpoch = this.creationDate.ToEpochFromDateTime();
+            }
+        }
 
         /// <summary>
         /// Gets or sets a short description of the guide

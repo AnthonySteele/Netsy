@@ -19,7 +19,7 @@ namespace Netsy.DataModel
         private const string DefaultBaseUrl = "http://beta-api.etsy.com/v1/";
 
         /// <summary>
-        /// Creates a new instance of the Etsy context with a base URl and APi key
+        /// Initializes a new instance of the EtsyContext class with a base URl and API key
         /// </summary>
         /// <param name="baseUrl">the base Url to use</param>
         /// <param name="apiKey">the API key to use</param>
@@ -30,7 +30,7 @@ namespace Netsy.DataModel
         }
 
         /// <summary>
-        /// Creates a new instance of the Etsy context with a base URl and APi key
+        /// Initializes a new instance of the EtsyContext class with a base URl and APi key
         /// </summary>
         /// <param name="apiKey">the API key to use</param>
         public EtsyContext(string apiKey)

@@ -60,7 +60,7 @@
     <Compile Include="DataModel\FeedbackDisposition.cs" />
     <Compile Include="DataModel\Feedbacks.cs" />
     <Compile Include="DataModel\GiftGuide.cs" />
-    <Compile Include="DataModel\HSVColor.cs" />
+    <Compile Include="DataModel\HsvColor.cs" />
     <Compile Include="DataModel\Listing.cs" />
     <Compile Include="DataModel\ListingImage.cs" />
     <Compile Include="DataModel\Listings.cs" />

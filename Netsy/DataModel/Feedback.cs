@@ -8,7 +8,10 @@
 
 namespace Netsy.DataModel
 {
+    using System;
     using System.Runtime.Serialization;
+
+    using Netsy.Helpers;
 
     /// <summary>
     /// Etsy Feedback data. Fields from  http://developer.etsy.com/docs#feedback
@@ -17,6 +20,20 @@ namespace Netsy.DataModel
     /// </summary>
     public class Feedback
     {
+        #region private
+
+        /// <summary>
+        /// Creation datetime, in epoch seconds
+        /// </summary>
+        private double creationEpoch;
+
+        /// <summary>
+        /// Creation date, as DateTime
+        /// </summary>
+        private DateTime creationDate;
+
+        #endregion
+
         /// <summary>
         /// Gets or sets the numeric ID for the feeback record.
         /// </summary>
@@ -45,7 +62,36 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time the feedback was posted, in epoch seconds.
         /// </summary>
         [DataMember(Name = "creation_epoch")]
-        public double CreationEpoch { get; set; }
+        public double CreationEpoch
+        {
+            get
+            {
+                return this.creationEpoch;
+            }
+            
+            set
+            {
+                this.creationEpoch = value;
+                this.creationDate = this.creationEpoch.ToDateTimeFromEpoch();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date and time the feedback was posted, as Date time
+        /// </summary>
+        public DateTime CreationDate
+        {
+            get
+            {
+                return this.creationDate;
+            }
+
+            set
+            {
+                this.creationDate = value;
+                this.creationEpoch = this.creationDate.ToEpochFromDateTime();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the user ID of the person user leaving the feedback.

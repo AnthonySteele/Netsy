@@ -11,7 +11,7 @@ namespace Netsy.DataModel
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// A data packet containing Listings
+    /// A data packet containing Feedbacks
     /// </summary>
     [DataContract]
     public class Feedbacks
