@@ -53,7 +53,6 @@ namespace Netsy.DataModel
         [DataMember(Name = "image_url_430xN")]
         public string ImageUrl430XN { get; set; }
 
-
         /// <summary>
         /// Gets or sets the average color of the listing's primary image, in HSV format.
         /// </summary>

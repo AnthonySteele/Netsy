@@ -8,6 +8,7 @@
 
 namespace Netsy.DataModel
 {
+    using System;
     using System.Runtime.Serialization;
 
     using Netsy.Helpers;
@@ -32,6 +33,16 @@ namespace Netsy.DataModel
         /// </summary>
         private int? listingCountInt;
 
+        /// <summary>
+        /// Creation datetime, in epoch seconds
+        /// </summary>
+        private double creationEpoch;
+
+        /// <summary>
+        /// Creation date, as DateTime
+        /// </summary>
+        private DateTime creationDate;
+
         #endregion
 
         #region low detail
@@ -52,7 +63,35 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time the shop was created, in epoch seconds.
         /// </summary>
         [DataMember(Name = "creation_epoch")]
-        public string CreationEpoch { get; set; }
+        public double CreationEpoch
+        {
+            get
+            {
+                return this.creationEpoch;
+            }
+            set
+            {
+                this.creationEpoch = value;
+                this.creationDate = this.creationEpoch.ToDateTimeFromEpoch();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date and time the shop was created, as Date time
+        /// </summary>
+        public DateTime CreationDate
+        {
+            get
+            {
+                return this.creationDate;
+            }
+
+            set
+            {
+                this.creationDate = value;
+                this.creationEpoch = this.creationDate.ToEpochFromDateTime();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the number of active listings in the shop as a string.

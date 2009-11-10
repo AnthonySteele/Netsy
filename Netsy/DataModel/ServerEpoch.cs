@@ -17,7 +17,7 @@ namespace Netsy.DataModel
     public class ServerEpoch
     {
         /// <summary>
-        /// Gets or sets how many users were returned
+        /// Gets or sets how many results were returned
         /// </summary>
         [DataMember(Name = "count")]
         public int Count { get; set; }

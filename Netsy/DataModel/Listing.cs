@@ -52,6 +52,16 @@ namespace Netsy.DataModel
         /// </summary>
         private DateTime endingDate;
 
+        /// <summary>
+        ///  Favourite creation datetime, in epoch seconds
+        /// </summary>
+        private double favoriteCreationEpoch;
+
+        /// <summary>
+        ///  Favourite creation datetime, as datetime
+        /// </summary>
+        private DateTime favoriteCreationDate;
+
         #endregion
 
         #region low detail
@@ -167,7 +177,7 @@ namespace Netsy.DataModel
         }
 
         /// <summary>
-        /// Gets or sets the date and time the feedback was posted, as Date time
+        /// Gets or sets the date and time the listing was posted, as Date time
         /// </summary>
         public DateTime CreationDate
         {
@@ -332,7 +342,36 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time that the user was favorited (only available in the command getFavoriteListingsOfUser.)
         /// </summary>
         [DataMember(Name = "favorite_creation_epoch")]
-        public string FavoriteCreationEpoch { get; set; }
+        public double FavoriteCreationEpoch
+        {
+            get
+            {
+                return this.favoriteCreationEpoch;
+            }
+
+            set
+            {
+                this.favoriteCreationEpoch = value;
+                this.favoriteCreationDate = this.favoriteCreationEpoch.ToDateTimeFromEpoch();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date and time the feedback was posted, as Date time
+        /// </summary>
+        public DateTime FavoriteCreationDate
+        {
+            get
+            {
+                return this.favoriteCreationDate;
+            }
+
+            set
+            {
+                this.favoriteCreationDate = value;
+                this.favoriteCreationEpoch = this.favoriteCreationDate.ToEpochFromDateTime();
+            }
+        }
 
         #endregion
     }
