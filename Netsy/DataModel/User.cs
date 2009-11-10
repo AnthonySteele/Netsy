@@ -8,6 +8,7 @@
 
 namespace Netsy.DataModel
 {
+    using System;
     using System.Runtime.Serialization;
 
     using Netsy.Helpers;
@@ -41,6 +42,16 @@ namespace Netsy.DataModel
         /// The user's gender as an enum
         /// </summary>
         private Gender genderEnum;
+
+        /// <summary>
+        /// Creation datetime, in epoch seconds
+        /// </summary>
+        private double favoriteCreationEpoch;
+
+        /// <summary>
+        /// Creation date, as DateTime
+        /// </summary>
+        private DateTime favoriteCreationDate;
 
         #endregion
 
@@ -239,7 +250,36 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time that the user was favorited
         /// </summary>
         [DataMember(Name = "favorite_creation_epoch")]
-        public string FavoriteCreationEpoch { get; set; }
+        public double FavoriteCreationEpoch
+        {
+            get
+            {
+                return this.favoriteCreationEpoch;
+            }
+
+            set
+            {
+                this.favoriteCreationEpoch = value;
+                this.favoriteCreationDate = this.favoriteCreationEpoch.ToDateTimeFromEpoch();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date and time that the user was favorited, as datetime
+        /// </summary>
+        public DateTime FavoriteCreationDate
+        {
+            get
+            {
+                return this.favoriteCreationDate;
+            }
+
+            set
+            {
+                this.favoriteCreationDate = value;
+                this.favoriteCreationEpoch = this.favoriteCreationDate.ToEpochFromDateTime();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the user's status 

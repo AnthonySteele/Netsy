@@ -63,5 +63,83 @@ namespace Netsy.Test.DataModel
             Listing listing = new Listing();
             listing.State = "goofy";
         }
+
+        /// <summary>
+        /// Test setting creation epoch
+        /// </summary>
+        [TestMethod]
+        public void CreationEpochTest()
+        {
+            Listing listing = new Listing();
+            listing.CreationEpoch = 1;
+
+            Assert.AreEqual(1, listing.CreationEpoch);
+            Helper.AssertDateIs(listing.CreationDate, 1970, 1, 1, 0, 0, 1);
+        }
+
+        /// <summary>
+        /// Test setting creation date
+        /// </summary>
+        [TestMethod]
+        public void CreationDateTest()
+        {
+            Listing listing = new Listing();
+            listing.CreationDate = new DateTime(1970, 1, 1);
+
+            Assert.AreEqual(new DateTime(1970, 1, 1), listing.CreationDate);
+            Assert.AreEqual(0, listing.CreationEpoch);
+        }
+
+        /// <summary>
+        /// Test setting creation epoch
+        /// </summary>
+        [TestMethod]
+        public void EndingEpochTest()
+        {
+            Listing listing = new Listing();
+            listing.EndingEpoch = 1;
+
+            Assert.AreEqual(1, listing.EndingEpoch);
+            Helper.AssertDateIs(listing.EndingDate, 1970, 1, 1, 0, 0, 1);
+        }
+
+        /// <summary>
+        /// Test setting creation date
+        /// </summary>
+        [TestMethod]
+        public void EndingDateTest()
+        {
+            Listing listing = new Listing();
+            listing.EndingDate = new DateTime(1970, 1, 1);
+
+            Assert.AreEqual(new DateTime(1970, 1, 1), listing.EndingDate);
+            Assert.AreEqual(0, listing.EndingEpoch);
+        }
+
+        /// <summary>
+        /// Test setting creation epoch
+        /// </summary>
+        [TestMethod]
+        public void FavoriteCreationEpochTest()
+        {
+            Listing listing = new Listing();
+            listing.FavoriteCreationEpoch = 1;
+
+            Assert.AreEqual(1, listing.FavoriteCreationEpoch);
+            Helper.AssertDateIs(listing.FavoriteCreationDate, 1970, 1, 1, 0, 0, 1);
+        }
+
+        /// <summary>
+        /// Test setting creation date
+        /// </summary>
+        [TestMethod]
+        public void FavoriteCreationDateTest()
+        {
+            Listing listing = new Listing();
+            listing.FavoriteCreationDate = new DateTime(1970, 1, 1);
+
+            Assert.AreEqual(new DateTime(1970, 1, 1), listing.FavoriteCreationDate);
+            Assert.AreEqual(0, listing.FavoriteCreationEpoch);
+        }
     }
 }

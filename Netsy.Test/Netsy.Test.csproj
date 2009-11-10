@@ -46,6 +46,7 @@
     <Compile Include="DataModel\ColorCreateTest.cs" />
     <Compile Include="DataModel\FeedbackCreateTest.cs" />
     <Compile Include="DataModel\FeedbackParseTest.cs" />
+    <Compile Include="DataModel\GiftGuideCreateTest.cs" />
     <Compile Include="DataModel\ListingCreateTest.cs" />
     <Compile Include="DataModel\ListingParseTest.cs" />
     <Compile Include="DataModel\MethodTableParseTest.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="DataModel\TagCategoryParseTest.cs" />
     <Compile Include="DataModel\UserCreateTest.cs" />
     <Compile Include="DataModel\UserParseTest.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="Helpers\DateTimeHelpersTest.cs" />
     <Compile Include="Helpers\EnumHelpersTest.cs" />
     <Compile Include="Helpers\GenericEventArgsTest.cs" />

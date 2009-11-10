@@ -69,7 +69,7 @@
     <Compile Include="DataModel\MethodTable.cs" />
     <Compile Include="DataModel\PingResult.cs" />
     <Compile Include="DataModel\QueryParams.cs" />
-    <Compile Include="DataModel\RGBColor.cs" />
+    <Compile Include="DataModel\RgbColor.cs" />
     <Compile Include="DataModel\ServerEpoch.cs" />
     <Compile Include="DataModel\Shop.cs" />
     <Compile Include="DataModel\Shops.cs" />
