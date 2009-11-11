@@ -24,6 +24,11 @@ namespace Netsy.Test.DataModel
         public const string ShopLowDetailData = @"{""count"":1,""results"":[{""user_name"":""Fred"",""user_id"":1234,""url"":""http:\/\/www.etsy.com\/shop.php?user_id=1234"",""image_url_25x25"":""http:\/\/ny-image2.etsy.com\/iusa_25x25.6043378.jpg"",""image_url_30x30"":""http:\/\/ny-image2.etsy.com\/iusa_30x30.6043378.jpg"",""image_url_50x50"":""http:\/\/ny-image2.etsy.com\/iusa_50x50.6043378.jpg"",""image_url_75x75"":""http:\/\/ny-image2.etsy.com\/iusa_75x75.6043378.jpg"",""join_epoch"":1242567472.15,""city"":""London"",""banner_image_url"":""http:\/\/ny-image0.etsy.com\/iusb_760x100.6367692.jpg"",""last_updated_epoch"":1247867743.85,""creation_epoch"":1242575846.16,""listing_count"":8}],""params"":{""user_id"":1234,""detail_level"":""low""},""type"":""shop""}";
 
         /// <summary>
+        /// Data on shops with low detail level
+        /// </summary>
+        public const string ShopLowDetailDataWithNullCreationDate = @"{""count"":1,""results"":[{""user_name"":""Fred"",""user_id"":1234,""url"":""http:\/\/www.etsy.com\/shop.php?user_id=1234"",""image_url_25x25"":""http:\/\/ny-image2.etsy.com\/iusa_25x25.6043378.jpg"",""image_url_30x30"":""http:\/\/ny-image2.etsy.com\/iusa_30x30.6043378.jpg"",""image_url_50x50"":""http:\/\/ny-image2.etsy.com\/iusa_50x50.6043378.jpg"",""image_url_75x75"":""http:\/\/ny-image2.etsy.com\/iusa_75x75.6043378.jpg"",""join_epoch"":1242567472.15,""city"":""London"",""banner_image_url"":""http:\/\/ny-image0.etsy.com\/iusb_760x100.6367692.jpg"",""last_updated_epoch"":1247867743.85,""creation_epoch"":null,""listing_count"":8}],""params"":{""user_id"":1234,""detail_level"":""low""},""type"":""shop""}";
+
+        /// <summary>
         /// Data on shops with medium detail level
         /// </summary>
         public const string ShopMediumDetailData = @"{""count"":1,""results"":[{""user_name"":""Fred"",""user_id"":1234,""url"":""http:\/\/www.etsy.com\/shop.php?user_id=1234"",""image_url_25x25"":""http:\/\/ny-image2.etsy.com\/iusa_25x25.6043378.jpg"",""image_url_30x30"":""http:\/\/ny-image2.etsy.com\/iusa_30x30.6043378.jpg"",""image_url_50x50"":""http:\/\/ny-image2.etsy.com\/iusa_50x50.6043378.jpg"",""image_url_75x75"":""http:\/\/ny-image2.etsy.com\/iusa_75x75.6043378.jpg"",""join_epoch"":1242567472.15,""city"":""London"",""gender"":""private"",""lat"":51.4985,""lon"":-0.1318,""transaction_buy_count"":1,""transaction_sold_count"":2,""is_seller"":true,""was_featured_seller"":false,""materials"":[""Fabric"",""buttons"",""cogs"",""brass"",""lace"",""satin"",""cotton""],""last_login_epoch"":1248902764.22,""banner_image_url"":""http:\/\/ny-image0.etsy.com\/iusb_760x100.6367692.jpg"",""last_updated_epoch"":1249293900.49,""creation_epoch"":1242575846.16,""listing_count"":7,""shop_name"":""Fred"",""title"":""Freds clothing"",""sale_message"":""Thank you for purchasing from Fred.""}],""params"":{""user_id"":1234,""detail_level"":""medium""},""type"":""shop""}";
@@ -58,6 +63,17 @@ namespace Netsy.Test.DataModel
 
             Assert.AreEqual("http://www.etsy.com/shop.php?user_id=1234", shop1.Url);
             Assert.AreEqual("http://ny-image0.etsy.com/iusb_760x100.6367692.jpg", shop1.BannerImageUrl);
+        }
+
+        /// <summary>
+        /// Test that the shops at low detail with null creation date can be parsed
+        /// </summary>
+        [TestMethod]
+        public void ShopLowDetailWithNullCreationDateParseTest()
+        {
+            Shops shops = ShopLowDetailDataWithNullCreationDate.Deserialize<Shops>();
+
+            Assert.IsNotNull(shops);
         }
 
         /// <summary>

@@ -47,6 +47,48 @@ namespace Netsy.Test.Helpers
             DateTime result = Value.ToDateTimeFromEpoch();
 
             Assert.AreEqual(1969, result.Year);
+            Assert.AreEqual(12, result.Month);
+            Assert.AreEqual(31, result.Day);
+            Assert.AreEqual(23, result.Hour);
+            Assert.AreEqual(58, result.Minute);
+            Assert.AreEqual(20, result.Second);
+        }
+
+        /// <summary>
+        /// Test converting a null string to nullable date
+        /// </summary>
+        [TestMethod]
+        public void NullEpochDateTest()
+        {
+            const string Value = null;
+            DateTime? result = Value.ToDateTimeFromEpoch();
+
+            Assert.IsFalse(result.HasValue);
+        }
+
+        /// <summary>
+        /// Test converting am empty string to nullable date
+        /// </summary>
+        [TestMethod]
+        public void EmptyEpochDateTest()
+        {
+            string value = string.Empty;
+            DateTime? result = value.ToDateTimeFromEpoch();
+
+            Assert.IsFalse(result.HasValue);
+        }
+
+        /// <summary>
+        /// Test converting an invalid string to nullable date
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void InvalidEpochDateTest()
+        {
+            const string Value = "fish";
+            DateTime? result = Value.ToDateTimeFromEpoch();
+
+            Assert.IsFalse(result.HasValue);
         }
 
         /// <summary>

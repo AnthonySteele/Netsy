@@ -36,12 +36,12 @@ namespace Netsy.DataModel
         /// <summary>
         /// Creation datetime, in epoch seconds
         /// </summary>
-        private double creationEpoch;
+        private string creationEpoch;
 
         /// <summary>
         /// Creation date, as DateTime
         /// </summary>
-        private DateTime creationDate;
+        private DateTime? creationDate;
 
         #endregion
 
@@ -63,12 +63,13 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time the shop was created, in epoch seconds.
         /// </summary>
         [DataMember(Name = "creation_epoch")]
-        public double CreationEpoch
+        public string CreationEpoch
         {
             get
             {
                 return this.creationEpoch;
             }
+
             set
             {
                 this.creationEpoch = value;
@@ -79,7 +80,7 @@ namespace Netsy.DataModel
         /// <summary>
         /// Gets or sets the date and time the shop was created, as Date time
         /// </summary>
-        public DateTime CreationDate
+        public DateTime? CreationDate
         {
             get
             {
