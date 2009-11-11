@@ -16,7 +16,7 @@ namespace Netsy.DataModel
         /// <summary>
         /// Unknown default value
         /// </summary>
-        Unknown,
+        Unknown = 0,
 
         /// <summary>
         /// The listing is active
