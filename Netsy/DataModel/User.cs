@@ -46,12 +46,22 @@ namespace Netsy.DataModel
         /// <summary>
         /// Creation datetime, in epoch seconds
         /// </summary>
-        private double favoriteCreationEpoch;
+        private string favoriteCreationEpoch;
 
         /// <summary>
         /// Creation date, as DateTime
         /// </summary>
-        private DateTime favoriteCreationDate;
+        private DateTime? favoriteCreationDate;
+
+        /// <summary>
+        /// Last logOn, in epoch seconds
+        /// </summary>
+        private string lastLogOn;
+
+        /// <summary>
+        /// Last logOn date, as DateTime
+        /// </summary>
+        private DateTime? lastLogOnDate;
 
         #endregion
 
@@ -194,7 +204,36 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time of the user's last login (can be null)
         /// </summary>
         [DataMember(Name = "last_login_epoch")]
-        public string LastLogOn { get; set; }
+        public string LastLogOn
+        {
+            get
+            {
+                return this.lastLogOn; 
+            }
+
+            set
+            {
+                this.lastLogOn = value;
+                this.lastLogOnDate = this.lastLogOn.ToDateTimeFromEpoch();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date and time of the user's last login as DateTime
+        /// </summary>
+        public DateTime? LastLogOnDate
+        {
+            get
+            {
+                return this.lastLogOnDate;
+            }
+
+            set
+            {
+                this.lastLogOnDate = value;
+                this.LastLogOn = this.lastLogOnDate.ToEpochFromDateTime();
+            }
+        }
 
         #endregion
 
@@ -250,7 +289,7 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time that the user was favorited
         /// </summary>
         [DataMember(Name = "favorite_creation_epoch")]
-        public double FavoriteCreationEpoch
+        public string FavoriteCreationEpoch
         {
             get
             {
@@ -267,7 +306,7 @@ namespace Netsy.DataModel
         /// <summary>
         /// Gets or sets the date and time that the user was favorited, as datetime
         /// </summary>
-        public DateTime FavoriteCreationDate
+        public DateTime? FavoriteCreationDate
         {
             get
             {

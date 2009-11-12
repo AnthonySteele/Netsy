@@ -36,10 +36,10 @@ namespace Netsy.Test.DataModel
         public void CreationEpochTest()
         {
             GiftGuide giftGuide = new GiftGuide();
-            giftGuide.CreationEpoch = 1;
+            giftGuide.CreationEpoch = "1";
 
-            Assert.AreEqual(1, giftGuide.CreationEpoch);
-            Helper.AssertDateIs(giftGuide.CreationDate, 1970, 1, 1, 0, 0, 1);
+            Assert.AreEqual("1", giftGuide.CreationEpoch);
+            Helper.AssertDateIs(giftGuide.CreationDate.Value, 1970, 1, 1, 0, 0, 1);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Netsy.Test.DataModel
             giftGuide.CreationDate = new DateTime(1970, 1, 1);
 
             Assert.AreEqual(new DateTime(1970, 1, 1), giftGuide.CreationDate);
-            Assert.AreEqual(0, giftGuide.CreationEpoch);
+            Assert.AreEqual("0", giftGuide.CreationEpoch);
         }
     }
 }

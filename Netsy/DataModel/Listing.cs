@@ -35,32 +35,32 @@ namespace Netsy.DataModel
         /// <summary>
         /// Creation datetime, in epoch seconds
         /// </summary>
-        private double creationEpoch;
+        private string creationEpoch;
 
         /// <summary>
         /// Creation date, as DateTime
         /// </summary>
-        private DateTime creationDate;
+        private DateTime? creationDate;
 
         /// <summary>
         /// Ending datetime, in epoch seconds
         /// </summary>
-        private double endingEpoch;
+        private string endingEpoch;
 
         /// <summary>
         /// Ending datetime, as DateTime
         /// </summary>
-        private DateTime endingDate;
+        private DateTime? endingDate;
 
         /// <summary>
         ///  Favourite creation datetime, in epoch seconds
         /// </summary>
-        private double favoriteCreationEpoch;
+        private string favoriteCreationEpoch;
 
         /// <summary>
         ///  Favourite creation datetime, as datetime
         /// </summary>
-        private DateTime favoriteCreationDate;
+        private DateTime? favoriteCreationDate;
 
         #endregion
 
@@ -162,7 +162,7 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time the listing was posted, in epoch seconds.
         /// </summary>
         [DataMember(Name = "creation_epoch")]
-        public double CreationEpoch 
+        public string CreationEpoch 
         {
             get
             {
@@ -179,7 +179,7 @@ namespace Netsy.DataModel
         /// <summary>
         /// Gets or sets the date and time the listing was posted, as Date time
         /// </summary>
-        public DateTime CreationDate
+        public DateTime? CreationDate
         {
             get
             {
@@ -231,7 +231,7 @@ namespace Netsy.DataModel
         /// Gets or sets the listing's expiration date and time, in epoch seconds.
         /// </summary>
         [DataMember(Name = "ending_epoch")]
-        public double EndingEpoch
+        public string EndingEpoch
         {
             get
             {
@@ -248,7 +248,7 @@ namespace Netsy.DataModel
         /// <summary>
         /// Gets or sets the date and time the feedback was posted, as Date time
         /// </summary>
-        public DateTime EndingDate
+        public DateTime? EndingDate
         {
             get
             {
@@ -342,7 +342,7 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time that the user was favorited (only available in the command getFavoriteListingsOfUser.)
         /// </summary>
         [DataMember(Name = "favorite_creation_epoch")]
-        public double FavoriteCreationEpoch
+        public string FavoriteCreationEpoch
         {
             get
             {
@@ -359,7 +359,7 @@ namespace Netsy.DataModel
         /// <summary>
         /// Gets or sets the date and time the feedback was posted, as Date time
         /// </summary>
-        public DateTime FavoriteCreationDate
+        public DateTime? FavoriteCreationDate
         {
             get
             {

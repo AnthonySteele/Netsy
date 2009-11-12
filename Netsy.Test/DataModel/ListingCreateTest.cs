@@ -71,10 +71,10 @@ namespace Netsy.Test.DataModel
         public void CreationEpochTest()
         {
             Listing listing = new Listing();
-            listing.CreationEpoch = 1;
+            listing.CreationEpoch = "1";
 
-            Assert.AreEqual(1, listing.CreationEpoch);
-            Helper.AssertDateIs(listing.CreationDate, 1970, 1, 1, 0, 0, 1);
+            Assert.AreEqual("1", listing.CreationEpoch);
+            Helper.AssertDateIs(listing.CreationDate.Value, 1970, 1, 1, 0, 0, 1);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Netsy.Test.DataModel
             listing.CreationDate = new DateTime(1970, 1, 1);
 
             Assert.AreEqual(new DateTime(1970, 1, 1), listing.CreationDate);
-            Assert.AreEqual(0, listing.CreationEpoch);
+            Assert.AreEqual("0", listing.CreationEpoch);
         }
 
         /// <summary>
@@ -97,10 +97,10 @@ namespace Netsy.Test.DataModel
         public void EndingEpochTest()
         {
             Listing listing = new Listing();
-            listing.EndingEpoch = 1;
+            listing.EndingEpoch = "1";
 
-            Assert.AreEqual(1, listing.EndingEpoch);
-            Helper.AssertDateIs(listing.EndingDate, 1970, 1, 1, 0, 0, 1);
+            Assert.AreEqual("1", listing.EndingEpoch);
+            Helper.AssertDateIs(listing.EndingDate.Value, 1970, 1, 1, 0, 0, 1);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Netsy.Test.DataModel
             listing.EndingDate = new DateTime(1970, 1, 1);
 
             Assert.AreEqual(new DateTime(1970, 1, 1), listing.EndingDate);
-            Assert.AreEqual(0, listing.EndingEpoch);
+            Assert.AreEqual("0", listing.EndingEpoch);
         }
 
         /// <summary>
@@ -123,10 +123,10 @@ namespace Netsy.Test.DataModel
         public void FavoriteCreationEpochTest()
         {
             Listing listing = new Listing();
-            listing.FavoriteCreationEpoch = 1;
+            listing.FavoriteCreationEpoch = "1";
 
-            Assert.AreEqual(1, listing.FavoriteCreationEpoch);
-            Helper.AssertDateIs(listing.FavoriteCreationDate, 1970, 1, 1, 0, 0, 1);
+            Assert.AreEqual("1", listing.FavoriteCreationEpoch);
+            Helper.AssertDateIs(listing.FavoriteCreationDate.Value, 1970, 1, 1, 0, 0, 1);
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace Netsy.Test.DataModel
             listing.FavoriteCreationDate = new DateTime(1970, 1, 1);
 
             Assert.AreEqual(new DateTime(1970, 1, 1), listing.FavoriteCreationDate);
-            Assert.AreEqual(0, listing.FavoriteCreationEpoch);
+            Assert.AreEqual("0", listing.FavoriteCreationEpoch);
         }
     }
 }
