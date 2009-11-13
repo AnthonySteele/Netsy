@@ -30,6 +30,18 @@ namespace Netsy.Test.DataModel
         }
 
         /// <summary>
+        /// Test that the shop has no CreationDate by default
+        /// </summary>
+        [TestMethod]
+        public void ShopDatesNullByDefaultTest()
+        {
+            Shop shop = new Shop();
+
+            Assert.IsTrue(string.IsNullOrEmpty(shop.CreationEpoch));
+            Assert.IsFalse(shop.CreationDate.HasValue);
+        }
+
+        /// <summary>
         /// Test that that shop is not on vacation by default
         /// </summary>
         [TestMethod]
@@ -71,8 +83,47 @@ namespace Netsy.Test.DataModel
         public void ShopListingCountSetNullTest()
         {
             Shop shop = new Shop();
+
             shop.ListingCount = "null";
             Assert.IsFalse(shop.ListingCountInt.HasValue);
+        }
+
+        /// <summary>
+        /// Test setting creation epoch
+        /// </summary>
+        [TestMethod]
+        public void ShopCreationEpochTest()
+        {
+            Shop shop = new Shop();
+            shop.CreationEpoch = "1";
+
+            Assert.AreEqual("1", shop.CreationEpoch);
+            Helper.AssertDateIs(shop.CreationDate.Value, 1970, 1, 1, 0, 0, 1);
+        }
+
+        /// <summary>
+        /// Test that the creation date can be set to a null date
+        /// </summary>
+        [TestMethod]
+        public void ShopEpochNullTest()
+        {
+            Shop shop = new Shop();
+            shop.CreationEpoch = string.Empty;
+
+            Assert.IsFalse(shop.CreationDate.HasValue);
+        }
+
+        /// <summary>
+        /// Test setting creation date
+        /// </summary>
+        [TestMethod]
+        public void ShopCreationDateTest()
+        {
+            Shop shop = new Shop();
+            shop.CreationDate = new DateTime(1970, 1, 1);
+
+            Assert.AreEqual(new DateTime(1970, 1, 1), shop.CreationDate);
+            Assert.AreEqual("0", shop.CreationEpoch);
         }
 
         /// <summary>

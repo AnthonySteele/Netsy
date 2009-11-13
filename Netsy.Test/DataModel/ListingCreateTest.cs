@@ -20,13 +20,31 @@ namespace Netsy.Test.DataModel
     public class ListingCreateTest
     {
         /// <summary>
-        /// Test simple creation of a user
+        /// Test simple creation of a listing
         /// </summary>
         [TestMethod]
         public void ListingSimpleCreateTest()
         {
             Listing listing = new Listing();
             Assert.IsNotNull(listing);
+        }
+
+        /// <summary>
+        /// Test that the listing has no CreationDate by default
+        /// </summary>
+        [TestMethod]
+        public void ListingDatesNullByDefaultTest()
+        {
+            Listing shop = new Listing();
+
+            Assert.IsTrue(string.IsNullOrEmpty(shop.CreationEpoch));
+            Assert.IsFalse(shop.CreationDate.HasValue);
+
+            Assert.IsTrue(string.IsNullOrEmpty(shop.FavoriteCreationEpoch));
+            Assert.IsFalse(shop.FavoriteCreationDate.HasValue);
+            
+            Assert.IsTrue(string.IsNullOrEmpty(shop.EndingEpoch));
+            Assert.IsFalse(shop.EndingDate.HasValue);
         }
 
         /// <summary>
@@ -78,6 +96,18 @@ namespace Netsy.Test.DataModel
         }
 
         /// <summary>
+        /// Test that the creation date can be set to a null date
+        /// </summary>
+        [TestMethod]
+        public void ListingEpochNullTest()
+        {
+            Listing listing = new Listing();
+            listing.CreationEpoch = string.Empty;
+
+            Assert.IsFalse(listing.CreationDate.HasValue);
+        }
+
+        /// <summary>
         /// Test setting creation date
         /// </summary>
         [TestMethod]
@@ -104,6 +134,18 @@ namespace Netsy.Test.DataModel
         }
 
         /// <summary>
+        /// Test that the ending date can be set to a null date
+        /// </summary>
+        [TestMethod]
+        public void ListingEndingEpochNullTest()
+        {
+            Listing listing = new Listing();
+            listing.EndingEpoch = string.Empty;
+
+            Assert.IsFalse(listing.EndingDate.HasValue);
+        }
+
+        /// <summary>
         /// Test setting creation date
         /// </summary>
         [TestMethod]
@@ -127,6 +169,18 @@ namespace Netsy.Test.DataModel
 
             Assert.AreEqual("1", listing.FavoriteCreationEpoch);
             Helper.AssertDateIs(listing.FavoriteCreationDate.Value, 1970, 1, 1, 0, 0, 1);
+        }
+
+        /// <summary>
+        /// Test that the ending date can be set to a null date
+        /// </summary>
+        [TestMethod]
+        public void ListingFavoriteCreationEpochNullTest()
+        {
+            Listing listing = new Listing();
+            listing.FavoriteCreationEpoch = string.Empty;
+
+            Assert.IsFalse(listing.FavoriteCreationDate.HasValue);
         }
 
         /// <summary>
