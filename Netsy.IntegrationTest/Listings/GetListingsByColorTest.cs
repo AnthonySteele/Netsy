@@ -167,10 +167,10 @@ namespace Netsy.IntegrationTest.Listings
                     waitEvent.Set();
                 };
 
-                RgbColor testColor = new RgbColor("FFFFFF");
+                RgbColor testColor = new RgbColor("FEFEFE");
 
                 // ACT
-                listingsService.GetListingsByColor(testColor, 10, 0, 10, detailLevel);
+                listingsService.GetListingsByColor(testColor, 10, 10, 10, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -181,7 +181,7 @@ namespace Netsy.IntegrationTest.Listings
                 Assert.IsNotNull(result);
                 NetsyData.CheckResultSuccess(result);
 
-                Assert.IsTrue(result.ResultValue.Count > 1, "No records found");
+                Assert.IsTrue(result.ResultValue.Count > 1, "No results found");
                 Assert.AreEqual(10, result.ResultValue.Results.Length);
                 Assert.IsNotNull(result.ResultValue.Params);
             }
