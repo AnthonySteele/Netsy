@@ -66,7 +66,7 @@ namespace Netsy.IntegrationTest
         /// <summary>
         /// The test category to use
         /// </summary>
-        public const string TestCategory = "bags";
+        public const string TestCategory = "jewelry";
 
         /// <summary>
         /// the name of the user to test on
