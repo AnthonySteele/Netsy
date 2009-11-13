@@ -23,17 +23,29 @@ namespace Netsy.Test.DataModel
         /// Test simple creation
         /// </summary>
         [TestMethod]
-        public void SimpleCreateTest()
+        public void GiftGuideSimpleCreateTest()
         {
             GiftGuide giftGuide = new GiftGuide();
             Assert.IsNotNull(giftGuide);
         }
 
         /// <summary>
+        /// Test that the gift guide has no CreationDate by default
+        /// </summary>
+        [TestMethod]
+        public void GiftGuideDatesNullByDefaultTest()
+        {
+            GiftGuide giftGuide = new GiftGuide();
+
+            Assert.IsTrue(string.IsNullOrEmpty(giftGuide.CreationEpoch));
+            Assert.IsFalse(giftGuide.CreationDate.HasValue);
+        }
+
+        /// <summary>
         /// Test setting creation epoch
         /// </summary>
         [TestMethod]
-        public void CreationEpochTest()
+        public void GiftGuideCreationEpochTest()
         {
             GiftGuide giftGuide = new GiftGuide();
             giftGuide.CreationEpoch = "1";
@@ -43,10 +55,22 @@ namespace Netsy.Test.DataModel
         }
 
         /// <summary>
+        /// Test that the creation date can be set to a null date
+        /// </summary>
+        [TestMethod]
+        public void GiftGuideEpochNullTest()
+        {
+            GiftGuide giftGuide = new GiftGuide();
+            giftGuide.CreationEpoch = string.Empty;
+
+            Assert.IsFalse(giftGuide.CreationDate.HasValue);
+        }
+
+        /// <summary>
         /// Test setting creation date
         /// </summary>
         [TestMethod]
-        public void CreationDateTest()
+        public void GiftGuideCreationDateTest()
         {
             GiftGuide giftGuide = new GiftGuide();
             giftGuide.CreationDate = new DateTime(1970, 1, 1);
