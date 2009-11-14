@@ -60,7 +60,7 @@
     <Compile Include="DataModel\Feedbacks.cs" />
     <Compile Include="DataModel\Gender.cs" />
     <Compile Include="DataModel\GiftGuide.cs" />
-    <Compile Include="DataModel\HSVColor.cs" />
+    <Compile Include="DataModel\HsvColor.cs" />
     <Compile Include="DataModel\Listing.cs" />
     <Compile Include="DataModel\ListingImage.cs" />
     <Compile Include="DataModel\Listings.cs" />
@@ -69,7 +69,7 @@
     <Compile Include="DataModel\MethodTable.cs" />
     <Compile Include="DataModel\PingResult.cs" />
     <Compile Include="DataModel\QueryParams.cs" />
-    <Compile Include="DataModel\RGBColor.cs" />
+    <Compile Include="DataModel\RgbColor.cs" />
     <Compile Include="DataModel\ServerEpoch.cs" />
     <Compile Include="DataModel\Shop.cs" />
     <Compile Include="DataModel\Shops.cs" />
