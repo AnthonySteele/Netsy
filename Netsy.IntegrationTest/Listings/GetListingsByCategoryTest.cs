@@ -39,7 +39,7 @@ namespace Netsy.IntegrationTest.Listings
             listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // check the data
                 Assert.IsNotNull(result);
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsTrue(result.ResultValue.Count > 1, "No Results found");
                 Assert.AreEqual(10, result.ResultValue.Results.Length);
@@ -130,6 +130,8 @@ namespace Netsy.IntegrationTest.Listings
         /// <param name="detailLevel">the given detail level</param>
         private static void TestGetListings(DetailLevel detailLevel)
         {
+            TestHelpers.WaitABit();
+
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
@@ -151,7 +153,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // check the data
                 Assert.IsNotNull(result);
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsTrue(result.ResultValue.Count > 1, "No results retreived");
                 Assert.AreEqual(10, result.ResultValue.Results.Length);

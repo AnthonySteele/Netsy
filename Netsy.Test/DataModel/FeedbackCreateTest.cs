@@ -39,7 +39,7 @@ namespace Netsy.Test.DataModel
         {
             Feedback feedback = new Feedback();
 
-            Assert.IsTrue(string.IsNullOrEmpty(feedback.CreationEpoch));
+            Assert.IsFalse(feedback.CreationEpoch.HasValue);
             Assert.IsFalse(feedback.CreationDate.HasValue);
         }
 
@@ -50,7 +50,7 @@ namespace Netsy.Test.DataModel
         public void FeedBackEpochOneTest()
         {
             Feedback feedback = new Feedback();
-            feedback.CreationEpoch = "1";
+            feedback.CreationEpoch = 1;
             
             Assert.IsTrue(feedback.CreationDate.HasValue);
             Helper.AssertDateIs(feedback.CreationDate.Value, 1970, 1, 1, 0, 0, 1);
@@ -63,7 +63,7 @@ namespace Netsy.Test.DataModel
         public void FeedBackEpochNullTest()
         {
             Feedback feedback = new Feedback();
-            feedback.CreationEpoch = string.Empty;
+            feedback.CreationEpoch = null;
 
             Assert.IsFalse(feedback.CreationDate.HasValue);
         }
@@ -78,7 +78,7 @@ namespace Netsy.Test.DataModel
             feedback.CreationDate = new DateTime(1970, 1, 1);
 
             Assert.AreEqual(new DateTime(1970, 1, 1), feedback.CreationDate);
-            Assert.AreEqual("0", feedback.CreationEpoch);
+            Assert.AreEqual(0, feedback.CreationEpoch);
         }
     }
 }

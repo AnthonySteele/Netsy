@@ -39,7 +39,7 @@ namespace Netsy.IntegrationTest.Shop
             shopsService.GetShopDetails(NetsyData.TestUserId, DetailLevel.Low);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Netsy.IntegrationTest.Shop
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsNotNull(result.ResultValue.Params);
                 Assert.IsNotNull(result.ResultValue.Results);
@@ -146,7 +146,7 @@ namespace Netsy.IntegrationTest.Shop
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsNotNull(result.ResultValue.Params);
                 Assert.IsNotNull(result.ResultValue.Results);

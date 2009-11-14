@@ -82,34 +82,5 @@ namespace Netsy.IntegrationTest
         /// an invalid user id
         /// </summary>
         public const int TestBadUserId = 1;
-
-        /// <summary>
-        /// Check that the result was sucessfull
-        /// </summary>
-        /// <typeparam name="T">the type of result data</typeparam>
-        /// <param name="result">the data to inspect</param>
-        public static void CheckResultSuccess<T>(ResultEventArgs<T> result)
-        {
-            Assert.IsNotNull(result, "Result is null");
-            Assert.IsNotNull(result.ResultStatus, "Result Status is null");
-
-            Assert.IsNull(result.ResultStatus.Exception, "Has exception:" + result.ResultStatus.Exception);
-            Assert.IsNull(result.ResultStatus.ErrorMessage, "Has error message:" + result.ResultStatus.ErrorMessage);
-
-            Assert.IsTrue(result.ResultStatus.Success, "Call failed");
-            Assert.IsNotNull(result.ResultValue, "Result value is null");
-        }
-
-        /// <summary>
-        /// Check that the result was a failure
-        /// </summary>
-        /// <typeparam name="T">the type of result data</typeparam>
-        /// <param name="result">the data to inspect</param>
-        public static void CheckResultFailure<T>(ResultEventArgs<T> result)
-        {
-            Assert.IsNotNull(result, "Result is null");
-            Assert.IsNotNull(result.ResultStatus, "Result Status is null");
-            Assert.IsFalse(result.ResultStatus.Success, "Call was expected to fail");
-        }
     }
 }

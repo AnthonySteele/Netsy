@@ -37,7 +37,7 @@ namespace Netsy.Test.DataModel
         {
             GiftGuide giftGuide = new GiftGuide();
 
-            Assert.IsTrue(string.IsNullOrEmpty(giftGuide.CreationEpoch));
+            Assert.IsFalse(giftGuide.CreationEpoch.HasValue);
             Assert.IsFalse(giftGuide.CreationDate.HasValue);
         }
 
@@ -48,9 +48,9 @@ namespace Netsy.Test.DataModel
         public void GiftGuideCreationEpochTest()
         {
             GiftGuide giftGuide = new GiftGuide();
-            giftGuide.CreationEpoch = "1";
+            giftGuide.CreationEpoch = 1;
 
-            Assert.AreEqual("1", giftGuide.CreationEpoch);
+            Assert.AreEqual(1, giftGuide.CreationEpoch);
             Helper.AssertDateIs(giftGuide.CreationDate.Value, 1970, 1, 1, 0, 0, 1);
         }
 
@@ -61,7 +61,7 @@ namespace Netsy.Test.DataModel
         public void GiftGuideEpochNullTest()
         {
             GiftGuide giftGuide = new GiftGuide();
-            giftGuide.CreationEpoch = string.Empty;
+            giftGuide.CreationEpoch = null;
 
             Assert.IsFalse(giftGuide.CreationDate.HasValue);
         }
@@ -76,7 +76,7 @@ namespace Netsy.Test.DataModel
             giftGuide.CreationDate = new DateTime(1970, 1, 1);
 
             Assert.AreEqual(new DateTime(1970, 1, 1), giftGuide.CreationDate);
-            Assert.AreEqual("0", giftGuide.CreationEpoch);
+            Assert.AreEqual(0, giftGuide.CreationEpoch);
         }
     }
 }

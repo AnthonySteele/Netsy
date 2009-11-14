@@ -39,7 +39,7 @@ namespace Netsy.IntegrationTest.Feedback
             feedbackService.GetFeedbackForUser(NetsyData.TestUserId, 0, 10);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Netsy.IntegrationTest.Feedback
             feedbackService.GetFeedbackForUser(NetsyData.TestUserName, 0, 10);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Netsy.IntegrationTest.Feedback
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data - should suceed
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
             }
         }
 
@@ -182,7 +182,7 @@ namespace Netsy.IntegrationTest.Feedback
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data - should suceed
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
             }
         }
     }

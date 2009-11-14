@@ -38,7 +38,7 @@ namespace Netsy.IntegrationTest.Feedback
             feedbackService.GetFeedback(NetsyData.TestFeedbackId);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Netsy.IntegrationTest.Feedback
                 // check that the event was fired, did not time out
                 Assert.IsTrue(signalled, "Not signalled");
 
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
                 Assert.AreEqual(1, result.ResultValue.Count);
             }
         }

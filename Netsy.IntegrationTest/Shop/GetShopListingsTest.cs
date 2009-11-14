@@ -39,7 +39,7 @@ namespace Netsy.IntegrationTest.Shop
             shopsService.GetShopListings(NetsyData.TestUserId, SortField.Created, SortOrder.Up, 0, 0, 10, DetailLevel.Low);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Netsy.IntegrationTest.Shop
             shopsService.GetShopListings(NetsyData.TestUserName, SortField.Created, SortOrder.Up, 0, 0, 10, DetailLevel.Low);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Netsy.IntegrationTest.Shop
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsNotNull(result.ResultValue.Results);
                 Assert.IsTrue(result.ResultStatus.Success);
@@ -187,7 +187,7 @@ namespace Netsy.IntegrationTest.Shop
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsNotNull(result.ResultValue.Results);
                 Assert.IsTrue(result.ResultStatus.Success);
@@ -244,7 +244,7 @@ namespace Netsy.IntegrationTest.Shop
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsNotNull(result.ResultValue.Results);
                 Assert.IsTrue(result.ResultStatus.Success);
@@ -279,7 +279,7 @@ namespace Netsy.IntegrationTest.Shop
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsNotNull(result.ResultValue.Results);
                 Assert.IsTrue(result.ResultStatus.Success);

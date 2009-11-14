@@ -39,7 +39,7 @@ namespace Netsy.IntegrationTest.Listings
             listingsService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // check the data
                 Assert.IsNotNull(result);
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.AreEqual(1, result.ResultValue.Count);
                 Assert.AreEqual(1, result.ResultValue.Results.Length);
@@ -151,7 +151,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // check the data
                 Assert.IsNotNull(result);
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.AreEqual(1, result.ResultValue.Count);
                 Assert.AreEqual(1, result.ResultValue.Results.Length);
