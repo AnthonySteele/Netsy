@@ -11,6 +11,13 @@ namespace Netsy.Helpers
     using System;
 
     /// <summary>
+    ///  delegate type for handling results
+    /// </summary>
+    /// <typeparam name="T">The type of results</typeparam>
+    /// <param name="resultData">the results data</param>
+    public delegate void ResultsReceivedHandler<T>(ResultEventArgs<T> resultData);
+
+    /// <summary>
     /// Generic event arguments that wrap a pair of objects - result data, result status
     /// </summary>
     /// <typeparam name="T">The result data type wrapped by these event args</typeparam>

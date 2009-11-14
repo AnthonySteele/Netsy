@@ -49,7 +49,7 @@ namespace Netsy.IntegrationTest
         }
 
         /// <summary>
-        /// A shoirt pause for the Etsy Server to catch up
+        /// A short pause for the Etsy Server to catch up
         /// </summary>
         public static void WaitABit()
         {
