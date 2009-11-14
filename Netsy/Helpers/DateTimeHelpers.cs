@@ -9,6 +9,7 @@
 namespace Netsy.Helpers
 {
     using System;
+    using System.Globalization;
 
     /// <summary>
     /// Extension methods on dates and times
@@ -43,7 +44,7 @@ namespace Netsy.Helpers
                 return null;
             }
 
-            return double.Parse(epochTime).ToDateTimeFromEpoch();
+            return double.Parse(epochTime, CultureInfo.InvariantCulture).ToDateTimeFromEpoch();
         }
 
         /// <summary>
@@ -65,7 +66,7 @@ namespace Netsy.Helpers
         {
             if (dateTime.HasValue)
             {
-                return dateTime.Value.ToEpochFromDateTime().ToString();
+                return dateTime.Value.ToEpochFromDateTime().ToString(CultureInfo.InvariantCulture);
             }
                 
             return "null";
