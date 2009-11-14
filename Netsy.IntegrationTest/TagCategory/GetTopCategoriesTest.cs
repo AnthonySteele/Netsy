@@ -38,7 +38,7 @@ namespace Netsy.IntegrationTest.TagCategory
             tagCategoryService.GetTopCategories();
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Netsy.IntegrationTest.TagCategory
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsNotNull(result.ResultValue.Results);
                 Assert.IsTrue(result.ResultStatus.Success);

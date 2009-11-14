@@ -39,7 +39,7 @@ namespace Netsy.IntegrationTest.Server
             etsyServer.GetServerEpoch();
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Netsy.IntegrationTest.Server
 
                 // check the data
                 Assert.IsNotNull(result);
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.ResultStatus);

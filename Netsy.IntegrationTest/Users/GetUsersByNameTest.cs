@@ -38,7 +38,7 @@ namespace Netsy.IntegrationTest.Users
             etsyUsers.GetUsersByName("Fred", 0, 3, DetailLevel.Low);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Netsy.IntegrationTest.Users
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsNotNull(result.ResultValue.Params);
                 Assert.IsNotNull(result.ResultValue.Results);
@@ -150,7 +150,7 @@ namespace Netsy.IntegrationTest.Users
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsNotNull(result.ResultValue.Params);
                 Assert.IsNotNull(result.ResultValue.Results);

@@ -50,8 +50,8 @@ namespace Netsy.Test.Helpers
         [TestMethod]
         public void NullStringEpochDateTest()
         {
-            const string Value = null;
-            DateTime? result = Value.ToDateTimeFromEpoch();
+            double? value = null;
+            DateTime? result = value.ToDateTimeFromEpoch();
 
             Assert.IsFalse(result.HasValue);
         }
@@ -62,21 +62,8 @@ namespace Netsy.Test.Helpers
         [TestMethod]
         public void EmptyStringEpochDateTest()
         {
-            string value = string.Empty;
+            double? value = null;
             DateTime? result = value.ToDateTimeFromEpoch();
-
-            Assert.IsFalse(result.HasValue);
-        }
-
-        /// <summary>
-        /// Test converting an invalid string to nullable date
-        /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
-        public void InvalidStringEpochDateTest()
-        {
-            const string Value = "fish";
-            DateTime? result = Value.ToDateTimeFromEpoch();
 
             Assert.IsFalse(result.HasValue);
         }
@@ -87,8 +74,8 @@ namespace Netsy.Test.Helpers
         [TestMethod]
         public void ValidStringEpochDateTest()
         {
-            const string Value = "1";
-            DateTime? result = Value.ToDateTimeFromEpoch();
+            double? value = 1;
+            DateTime? result = value.ToDateTimeFromEpoch();
 
             Assert.IsTrue(result.HasValue);
             Helper.AssertDateIs(result.Value, 1970, 1, 1, 0, 0, 1);
@@ -124,8 +111,8 @@ namespace Netsy.Test.Helpers
         [TestMethod]
         public void EpochMilleniumDateStringToDateTimeFromEpochTest()
         {
-            const string Value = "946684800.0";
-            DateTime? millenium = Value.ToDateTimeFromEpoch();
+            double? value = 946684800.0;
+            DateTime? millenium = value.ToDateTimeFromEpoch();
 
             Assert.IsTrue(millenium.HasValue);
             Helper.AssertDateIs(millenium.Value, 2000, 1, 1, 0, 0, 0);
@@ -188,8 +175,8 @@ namespace Netsy.Test.Helpers
         public void NullDateToEpochStringTest()
         {
             DateTime? value = null;
-            string result = value.ToEpochFromDateTime();
-            Assert.AreEqual("null", result);
+            double? result = value.ToEpochFromDateTime();
+            Assert.IsFalse(result.HasValue);
         }
 
         /// <summary>
@@ -199,8 +186,9 @@ namespace Netsy.Test.Helpers
         public void ZeroEpochDateToEpochStringTest()
         {
             DateTime? value = new DateTime(1970, 1, 1, 0, 0, 0);
-            string result = value.ToEpochFromDateTime();
-            Assert.AreEqual("0", result);
+            double? result = value.ToEpochFromDateTime();
+            Assert.IsTrue(result.HasValue);
+            Assert.AreEqual(0, result.Value);
         }
 
         /// <summary>
@@ -210,8 +198,8 @@ namespace Netsy.Test.Helpers
         public void MilleniumEpochDateToEpochStringTest()
         {
             DateTime? value = new DateTime(2000, 1, 1, 0, 0, 0);
-            string result = value.ToEpochFromDateTime();
-            Assert.AreEqual("946684800", result);
+            double? result = value.ToEpochFromDateTime();
+            Assert.AreEqual(946684800, result);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Netsy.IntegrationTest.Listings
             listingsService.GetListingsByMaterials(materials, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // check the data
                 Assert.IsNotNull(result);
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsTrue(result.ResultValue.Count > 1);
                 Assert.AreEqual(10, result.ResultValue.Results.Length);
@@ -160,7 +160,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // check the data
                 Assert.IsNotNull(result);
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsTrue(result.ResultValue.Count > 1);
                 Assert.AreEqual(10, result.ResultValue.Results.Length);

@@ -46,7 +46,7 @@ namespace Netsy.DataModel
         /// <summary>
         /// Creation datetime, in epoch seconds
         /// </summary>
-        private string favoriteCreationEpoch;
+        private double? favoriteCreationEpoch;
 
         /// <summary>
         /// Creation date, as DateTime
@@ -56,7 +56,7 @@ namespace Netsy.DataModel
         /// <summary>
         /// Last logOn, in epoch seconds
         /// </summary>
-        private string lastLogOn;
+        private double? lastLogOn;
 
         /// <summary>
         /// Last logOn date, as DateTime
@@ -204,7 +204,7 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time of the user's last login (can be null)
         /// </summary>
         [DataMember(Name = "last_login_epoch")]
-        public string LastLogOn
+        public double? LastLogOn
         {
             get
             {
@@ -289,7 +289,7 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time that the user was favorited
         /// </summary>
         [DataMember(Name = "favorite_creation_epoch")]
-        public string FavoriteCreationEpoch
+        public double? FavoriteCreationEpoch
         {
             get
             {

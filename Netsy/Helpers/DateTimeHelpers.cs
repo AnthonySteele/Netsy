@@ -37,14 +37,14 @@ namespace Netsy.Helpers
         /// </summary>
         /// <param name="epochTime">the count of seconds since 1970</param>
         /// <returns>The value converted into a DateTime</returns>
-        public static DateTime? ToDateTimeFromEpoch(this string epochTime)
+        public static DateTime? ToDateTimeFromEpoch(this double? epochTime)
         {
-            if (string.IsNullOrEmpty(epochTime))
+            if (epochTime.HasValue)
             {
-                return null;
+                return epochTime.Value.ToDateTimeFromEpoch();
             }
 
-            return double.Parse(epochTime, CultureInfo.InvariantCulture).ToDateTimeFromEpoch();
+            return null;
         }
 
         /// <summary>
@@ -62,14 +62,14 @@ namespace Netsy.Helpers
         /// </summary>
         /// <param name="dateTime">the datetime value</param>
         /// <returns>The value converted into count of seconds since 1970</returns>
-        public static string ToEpochFromDateTime(this DateTime? dateTime)
+        public static double? ToEpochFromDateTime(this DateTime? dateTime)
         {
             if (dateTime.HasValue)
             {
-                return dateTime.Value.ToEpochFromDateTime().ToString(CultureInfo.InvariantCulture);
+                return dateTime.Value.ToEpochFromDateTime();
             }
-                
-            return "null";
+
+            return null;
         }
     }
 }

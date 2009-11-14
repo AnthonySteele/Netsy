@@ -37,7 +37,7 @@ namespace Netsy.Test.DataModel
         {
             Shop shop = new Shop();
 
-            Assert.IsTrue(string.IsNullOrEmpty(shop.CreationEpoch));
+            Assert.IsFalse(shop.CreationEpoch.HasValue);
             Assert.IsFalse(shop.CreationDate.HasValue);
         }
 
@@ -95,9 +95,9 @@ namespace Netsy.Test.DataModel
         public void ShopCreationEpochTest()
         {
             Shop shop = new Shop();
-            shop.CreationEpoch = "1";
+            shop.CreationEpoch = 1;
 
-            Assert.AreEqual("1", shop.CreationEpoch);
+            Assert.AreEqual(1, shop.CreationEpoch);
             Helper.AssertDateIs(shop.CreationDate.Value, 1970, 1, 1, 0, 0, 1);
         }
 
@@ -108,7 +108,7 @@ namespace Netsy.Test.DataModel
         public void ShopEpochNullTest()
         {
             Shop shop = new Shop();
-            shop.CreationEpoch = string.Empty;
+            shop.CreationEpoch = null;
 
             Assert.IsFalse(shop.CreationDate.HasValue);
         }
@@ -123,7 +123,7 @@ namespace Netsy.Test.DataModel
             shop.CreationDate = new DateTime(1970, 1, 1);
 
             Assert.AreEqual(new DateTime(1970, 1, 1), shop.CreationDate);
-            Assert.AreEqual("0", shop.CreationEpoch);
+            Assert.AreEqual(0, shop.CreationEpoch);
         }
 
         /// <summary>

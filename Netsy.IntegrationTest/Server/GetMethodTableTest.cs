@@ -39,7 +39,7 @@ namespace Netsy.IntegrationTest.Server
             serverService.GetMethodTable();
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Netsy.IntegrationTest.Server
 
                 // check the data
                 Assert.IsNotNull(result);
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsTrue(result.ResultValue.Count > 1);
                 Assert.IsTrue(result.ResultValue.Results.Length > 1);

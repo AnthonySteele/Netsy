@@ -38,7 +38,7 @@ namespace Netsy.IntegrationTest.Favorites
             favoritesService.GetFavorersOfShop(NetsyData.TestUserId, 0, 10, DetailLevel.Low);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Netsy.IntegrationTest.Favorites
             favoritesService.GetFavorersOfShop(NetsyData.TestUserName, 0, 10, DetailLevel.Low);
 
             // check the data
-            NetsyData.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result);
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // check the data - should succeed
                 Assert.IsNotNull(result);
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsTrue(result.ResultValue.Count > 1);
                 Assert.AreEqual(10, result.ResultValue.Results.Length);
@@ -253,7 +253,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // check the data - should succeed
                 Assert.IsNotNull(result);
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsTrue(result.ResultValue.Count > 1);
                 Assert.AreEqual(10, result.ResultValue.Results.Length);
@@ -343,7 +343,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // check the data - should succeed
                 Assert.IsNotNull(result);
-                NetsyData.CheckResultSuccess(result);
+                TestHelpers.CheckResultSuccess(result);
 
                 Assert.IsTrue(result.ResultValue.Count > 1);
                 Assert.AreEqual(10, result.ResultValue.Results.Length);
