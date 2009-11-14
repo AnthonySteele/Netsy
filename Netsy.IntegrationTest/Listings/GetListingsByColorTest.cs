@@ -133,7 +133,7 @@ namespace Netsy.IntegrationTest.Listings
                 Assert.IsNotNull(result);
                 NetsyData.CheckResultSuccess(result);
 
-                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.IsTrue(result.ResultValue.Count > 1, "No results retreived");
                 Assert.AreEqual(10, result.ResultValue.Results.Length);
                 Assert.IsNotNull(result.ResultValue.Params);
             }
