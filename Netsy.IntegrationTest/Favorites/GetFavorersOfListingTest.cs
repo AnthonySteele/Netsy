@@ -159,6 +159,8 @@ namespace Netsy.IntegrationTest.Favorites
         /// <param name="detailLevel">the given detail level</param>
         private static void TestGetFavorersOfListing(DetailLevel detailLevel)
         {
+            TestHelpers.WaitABit();
+
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {

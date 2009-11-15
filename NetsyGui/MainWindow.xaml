@@ -7,14 +7,13 @@
             <Button Content="Reload" x:Name="reload" Click="ReloadClick" />
         </StackPanel>
         <Grid>
-            <ListBox x:Name="listingsDisplay" ItemsSource="{Binding}">  
+            <ListBox ItemsSource="{Binding Listings}">  
                 <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical" Margin="5,0,0,5">
                         <TextBlock FontWeight="Bold" Text="{Binding Title}"></TextBlock>
-                        <Image Source="{Binding ImageUrl155X125}" HorizontalAlignment="Left"></Image> 
-                        <TextBlock Text="{Binding Price}"></TextBlock>
-                        <TextBlock Text="{Binding CurrencyCode}"></TextBlock>
+                        <Image Source="{Binding ThumbnailImageUrl}" HorizontalAlignment="Left"></Image> 
+                        <TextBlock Text="{Binding PriceData}"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
                 </ListBox.ItemTemplate>

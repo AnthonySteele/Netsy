@@ -7,13 +7,10 @@
 //----------------------------------------------------------------------- 
 namespace NetsyGui
 {
-    using System.Collections.ObjectModel;
     using System.Windows;
     using System.Windows.Threading;
 
     using Netsy.DataModel;
-    using Netsy.Helpers;
-    using Netsy.Interfaces;
     using Netsy.Services;
 
     /// <summary>
@@ -22,58 +19,16 @@ namespace NetsyGui
     public partial class MainWindow : Window
     {
         /// <summary>
-        /// the listings shown on the gui
-        /// </summary>
-        private readonly ObservableCollection<Listing> listings = new ObservableCollection<Listing>();
-
-        /// <summary>
         /// Initializes a new instance of the MainWindow class
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
-            this.listingsDisplay.DataContext = this.listings;
-            this.RequestFrontFeaturedListings();
-        }
 
-        /// <summary>
-        /// Request Listings data
-        /// </summary>
-        private void RequestFrontFeaturedListings()
-        {
-            const string EtsyApiKey = "rfc35bh98q3a9hvccfsxe4cc";
+            ViewModelLocator.Container.RegisterInstance(typeof(Dispatcher), this.Dispatcher);
+            this.DataContext = ViewModelLocator.Container.Resolve<MainWindowViewModel>();
 
-            IListingsService listingsService = new ListingsService(new EtsyContext(EtsyApiKey));
-            listingsService.GetFrontFeaturedListingsCompleted += this.FrontFeaturedListingsReceived;
-
-            // ACT
-            listingsService.GetFrontFeaturedListings(0, 10, DetailLevel.Medium);
-        }
-
-        /// <summary>
-        /// Callback for when Listings data has been received
-        /// </summary>
-        /// <param name="sender">event sender</param>
-        /// <param name="e">event params</param>
-        private void FrontFeaturedListingsReceived(object sender, ResultEventArgs<Listings> e)
-        {
-            this.Dispatcher.Invoke(
-                DispatcherPriority.Normal,
-                new ResultsReceivedHandler<Listings>(this.FrontFeaturedListingsReceivedSync), 
-                e);
-        }
-
-        /// <summary>
-        /// Listings data has been received, on the right thread
-        /// </summary>
-        /// <param name="listingsReceived">the listings</param>
-        private void FrontFeaturedListingsReceivedSync(ResultEventArgs<Listings> listingsReceived)
-        {
-            this.listings.Clear();
-            foreach (Listing item in listingsReceived.ResultValue.Results)
-            {
-                this.listings.Add(item);
-            }
+            this.LoadListings();
         }
 
         /// <summary>
@@ -83,7 +38,13 @@ namespace NetsyGui
         /// <param name="e">the event params</param>
         private void ReloadClick(object sender, RoutedEventArgs e)
         {
-            this.RequestFrontFeaturedListings();
+            this.LoadListings();
+        }
+
+        private void LoadListings()
+        {
+            MainWindowViewModel viewModel = (MainWindowViewModel)this.DataContext;
+            viewModel.RequestFrontFeaturedListings();
         }
     }
 }

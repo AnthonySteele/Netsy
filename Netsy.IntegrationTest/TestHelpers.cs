@@ -53,7 +53,7 @@ namespace Netsy.IntegrationTest
         /// </summary>
         public static void WaitABit()
         {
-            Thread.Sleep(800);
+            Thread.Sleep(500);
         }
     }
 }
