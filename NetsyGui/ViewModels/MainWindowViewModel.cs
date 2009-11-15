@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace NetsyGui
+namespace NetsyGui.ViewModels
 {
     using System.Collections.ObjectModel;
     using System.Windows.Threading;
@@ -18,7 +18,7 @@ namespace NetsyGui
     /// <summary>
     /// View model for the main window
     /// </summary>
-    public class MainWindowViewModel
+    public class MainWindowViewModel : BaseViewModel
     {
         /// <summary>
         /// the listings shown on the gui
@@ -39,6 +39,11 @@ namespace NetsyGui
         /// Number of items to retrieve
         /// </summary>
         private const int ItemPerPage = 12;
+
+        /// <summary>
+        /// the page index into the results
+        /// </summary>
+        private int pageNumber = 1;
 
         /// <summary>
         /// Initializes a new instance of the MainWindowViewModel class
@@ -62,11 +67,66 @@ namespace NetsyGui
         }
 
         /// <summary>
+        /// Gets the page index into the results
+        /// </summary>
+        public int PageNumber
+        {
+            get
+            {
+                return this.pageNumber;
+            }
+
+            private set
+            {
+                if (this.pageNumber != value)
+                {
+                    this.pageNumber = value;
+                    this.OnPropertyChanged("PageNumber");
+                }
+            }
+        }
+
+        /// <summary>
         /// Request Listings data
         /// </summary>
         public void RequestFrontFeaturedListings()
         {
-            this.listingsService.GetFrontFeaturedListings(0, ItemPerPage, DetailLevel.Medium);
+            int offset = (this.PageNumber - 1) * ItemPerPage;
+
+            this.listingsService.GetFrontFeaturedListings(offset, ItemPerPage, DetailLevel.Medium);
+        }
+
+        /// <summary>
+        /// Show the next page of results
+        /// </summary>
+        public void NextPage()
+        {
+            this.PageNumber++;
+            this.RequestFrontFeaturedListings();
+        }
+
+        /// <summary>
+        /// Show the previous page of results
+        /// </summary>
+        public void PreviousPage()
+        {
+            if (this.pageNumber > 1)
+            {
+                this.PageNumber--;
+                this.RequestFrontFeaturedListings();
+            }
+        }
+
+        /// <summary>
+        /// Show the first page of results
+        /// </summary>
+        public void FirstPage()
+        {
+            if (this.PageNumber > 1)
+            {
+                this.pageNumber = 1;
+                this.RequestFrontFeaturedListings();
+            }
         }
 
         /// <summary>

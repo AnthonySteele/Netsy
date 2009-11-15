@@ -63,8 +63,16 @@ namespace NetsyGui
             const string EtsyApiKey = "rfc35bh98q3a9hvccfsxe4cc";
             RegisterInstance(typeof(EtsyContext), new EtsyContext(EtsyApiKey));
 
-            container.RegisterType<IListingsService, ListingsService>();
+            // register the services 
             container.RegisterType<IFavoritesService, FavoritesService>();
+            container.RegisterType<IFeedbackService, FeedbackService>();
+            container.RegisterType<IGiftService, GiftService>();
+            container.RegisterType<IListingsService, ListingsService>();
+            container.RegisterType<IServerService, ServerService>();
+            container.RegisterType<IShopService, ShopService>();
+            container.RegisterType<IFavoritesService, FavoritesService>();
+            container.RegisterType<ITagCategoryService, TagCategoryService>();
+            container.RegisterType<IUsersService, UsersService>();
         }
     }
 }
