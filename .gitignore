@@ -28,3 +28,6 @@ Bin
 *.CodeAnalysisLog.xml
 *.lastcodeanalysissucceeded
 
+# files from imported dlls
+Microsoft.Practices.ObjectBuilder2.xml
+Microsoft.Practices.Unity.xml

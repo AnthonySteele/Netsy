@@ -10,6 +10,8 @@ namespace NetsyGui
     using System.Windows;
     using System.Windows.Threading;
 
+    using NetsyGui.ViewModels;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -25,7 +27,15 @@ namespace NetsyGui
             ViewModelLocator.RegisterInstance(typeof(Dispatcher), this.Dispatcher);
             this.DataContext = ViewModelLocator.Resolve<MainWindowViewModel>();
 
-            this.LoadListings();
+            this.ViewModel.RequestFrontFeaturedListings();
+        }
+
+        private MainWindowViewModel ViewModel
+        {
+            get
+            {
+                return this.DataContext as MainWindowViewModel;
+            }
         }
 
         /// <summary>
@@ -35,16 +45,26 @@ namespace NetsyGui
         /// <param name="e">the event params</param>
         private void ReloadClick(object sender, RoutedEventArgs e)
         {
-            this.LoadListings();
+            this.ViewModel.RequestFrontFeaturedListings();
         }
 
-        /// <summary>
-        /// Start the lo0ad of listings
-        /// </summary>
-        private void LoadListings()
+        private void FirstClick(object sender, RoutedEventArgs e)
         {
-            MainWindowViewModel viewModel = (MainWindowViewModel)this.DataContext;
-            viewModel.RequestFrontFeaturedListings();
+            this.ViewModel.FirstPage();
+            this.ViewModel.RequestFrontFeaturedListings();
         }
+
+        private void PreviousClick(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.PreviousPage();
+            this.ViewModel.RequestFrontFeaturedListings();
+        }
+
+        private void NextClick(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.NextPage();
+            this.ViewModel.RequestFrontFeaturedListings();
+        }
+
     }
 }

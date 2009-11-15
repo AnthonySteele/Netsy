@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace NetsyGui
+namespace NetsyGui.ViewModels
 {
     using System.Globalization;
 
@@ -15,7 +15,7 @@ namespace NetsyGui
     /// <summary>
     /// View model for and Etsy listing
     /// </summary>
-    public class ListingViewModel
+    public class ListingViewModel : BaseViewModel
     {
         /// <summary>
         /// Initializes a new instance of the ListingViewModel class

@@ -3,9 +3,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Netsy Gui" Height="600" Width="600">
     <DockPanel>
-        <StackPanel DockPanel.Dock="Top">
-            <Button Content="Reload" x:Name="reload" Click="ReloadClick" />
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Button Content="Reload" x:Name="reloadButton" Click="ReloadClick" />
+            <Button Content="First" x:Name="firstButton" Click="FirstClick" />
+            <Button Content="Previous" x:Name="previousButton" Click="PreviousClick" />
+            <Button Content="Next" x:Name="nextButton" Click="NextClick" />
         </StackPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <Label 
+                    DockPanel.Dock="Left"
+                    VerticalAlignment="Center" 
+                    Content="Etsy gui" />
+            </StatusBarItem>
+        </StatusBar>
         <Grid>
             <ListBox ItemsSource="{Binding Listings}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ItemsPanel>
