@@ -1,5 +1,15 @@
-﻿namespace NetsyGui
+﻿//-----------------------------------------------------------------------
+// <copyright file="ViewModelLocator.cs" company="AFS">
+//  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
+//  and is made available under the terms of the Microsoft Public License (Ms-PL)
+//  http://www.opensource.org/licenses/ms-pl.html
+// </copyright>
+//----------------------------------------------------------------------- 
+
+namespace NetsyGui
 {
+    using System;
+
     using Microsoft.Practices.Unity;
 
     using Netsy.DataModel;
@@ -7,27 +17,51 @@
     using Netsy.Services;
 
     /// <summary>
-    /// class to hold the only singleton we'll need - the IOC container
+    /// Class to hold the only singleton we'll need - the IOC container
     /// </summary>
     public static class ViewModelLocator
     {
+        /// <summary>
+        /// The IOC container
+        /// </summary>
+        private static readonly IUnityContainer container = new UnityContainer();
+
+        /// <summary>
+        /// Initializes static members of the ViewModelLocator class
+        /// </summary>
         static ViewModelLocator()
         {
-            Container = new UnityContainer();
-            RegisterTypes(Container);
+            RegisterTypes();
         }
 
-        public static IUnityContainer Container
+        /// <summary>
+        /// Register an instance in the unity container
+        /// </summary>
+        /// <param name="type">The type to register</param>
+        /// <param name="instance">the instance to register</param>
+        public static void RegisterInstance(Type type, object instance)
         {
-            get;
-            set;
+            container.RegisterInstance(type, instance); 
         }
 
-        private static void RegisterTypes(IUnityContainer container)
+        /// <summary>
+        /// Resolve an object from  in the IOC container
+        /// </summary>
+        /// <typeparam name="T">The type to resolve</typeparam>
+        /// <returns>the new object</returns>
+        public static T Resolve<T>()
+        {
+            return container.Resolve<T>();
+        }
+
+        /// <summary>
+        /// Register the types into the IOC container
+        /// </summary>
+        private static void RegisterTypes()
         {
             // the etsy context can be a singleton
             const string EtsyApiKey = "rfc35bh98q3a9hvccfsxe4cc";
-            container.RegisterInstance(typeof(EtsyContext), new EtsyContext(EtsyApiKey));
+            RegisterInstance(typeof(EtsyContext), new EtsyContext(EtsyApiKey));
 
             container.RegisterType<IListingsService, ListingsService>();
             container.RegisterType<IFavoritesService, FavoritesService>();
