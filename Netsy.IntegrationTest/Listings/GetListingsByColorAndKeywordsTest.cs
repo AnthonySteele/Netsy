@@ -156,6 +156,8 @@ namespace Netsy.IntegrationTest.Listings
         /// <param name="detailLevel">the given detail level</param>
         private static void TestGetListings(DetailLevel detailLevel)
         {
+            TestHelpers.WaitABit();
+
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
