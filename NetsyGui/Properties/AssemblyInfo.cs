@@ -1,6 +1,13 @@
-﻿using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
+﻿//-----------------------------------------------------------------------
+// <copyright file="AssemblyInfo.cs" company="AFS">
+//  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
+//  and is made available under the terms of the Microsoft Public License (Ms-PL)
+//  http://www.opensource.org/licenses/ms-pl.html
+// </copyright>
+//----------------------------------------------------------------------- 
+
+using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -10,9 +17,9 @@ using System.Windows;
 [assembly: AssemblyTitle("NetsyGui")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("AFS")]
 [assembly: AssemblyProduct("NetsyGui")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2009")]
+[assembly: AssemblyCopyright("Copyright © AFS 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,6 +27,7 @@ using System.Windows;
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
+[assembly: CLSCompliant(true)]
 
 //In order to begin building localizable applications, set 
 //<UICulture>CultureYouAreCodingWith</UICulture> in your .csproj file

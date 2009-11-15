@@ -75,5 +75,15 @@ namespace NetsyGui
                 this.listings.Add(item);
             }
         }
+
+        /// <summary>
+        /// Click handler for the reload biutton
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the event params</param>
+        private void ReloadClick(object sender, RoutedEventArgs e)
+        {
+            this.RequestFrontFeaturedListings();
+        }
     }
 }
