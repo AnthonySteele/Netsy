@@ -10,9 +10,6 @@ namespace NetsyGui
     using System.Windows;
     using System.Windows.Threading;
 
-    using Netsy.DataModel;
-    using Netsy.Services;
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -25,8 +22,8 @@ namespace NetsyGui
         {
             InitializeComponent();
 
-            ViewModelLocator.Container.RegisterInstance(typeof(Dispatcher), this.Dispatcher);
-            this.DataContext = ViewModelLocator.Container.Resolve<MainWindowViewModel>();
+            ViewModelLocator.RegisterInstance(typeof(Dispatcher), this.Dispatcher);
+            this.DataContext = ViewModelLocator.Resolve<MainWindowViewModel>();
 
             this.LoadListings();
         }
@@ -41,6 +38,9 @@ namespace NetsyGui
             this.LoadListings();
         }
 
+        /// <summary>
+        /// Start the lo0ad of listings
+        /// </summary>
         private void LoadListings()
         {
             MainWindowViewModel viewModel = (MainWindowViewModel)this.DataContext;

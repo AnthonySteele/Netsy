@@ -1,23 +1,50 @@
-﻿namespace NetsyGui
+﻿//-----------------------------------------------------------------------
+// <copyright file="ListingViewModel.cs" company="AFS">
+//  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
+//  and is made available under the terms of the Microsoft Public License (Ms-PL)
+//  http://www.opensource.org/licenses/ms-pl.html
+// </copyright>
+//----------------------------------------------------------------------- 
+
+namespace NetsyGui
 {
+    using System.Globalization;
+
     using Netsy.DataModel;
 
+    /// <summary>
+    /// View model for and Etsy listing
+    /// </summary>
     public class ListingViewModel
     {
-        public Listing Listing
+        /// <summary>
+        /// Initializes a new instance of the ListingViewModel class
+        /// </summary>
+        /// <param name="listing">the listing data to show</param>
+        public ListingViewModel(Listing listing)
         {
-            get;
-            set; 
+            this.Listing = listing;
         }
 
+        /// <summary>
+        /// Gets the listing 
+        /// </summary>
+        public Listing Listing { get; private set;  }
+
+        /// <summary>
+        /// Gets the string to display for price
+        /// </summary>
         public string PriceData
         {
             get
             {
-                return "$" + string.Format("{0:0.00}", Listing.Price) + " " + Listing.CurrencyCode;
+                return "$" + string.Format(CultureInfo.InvariantCulture, "{0:0.00}", Listing.Price) + " " + Listing.CurrencyCode;
             }
         }
 
+        /// <summary>
+        /// Gets the listing title
+        /// </summary>
         public string Title
         {
             get
@@ -26,6 +53,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the image url to show for the Listing thumbnail
+        /// </summary>
         public string ThumbnailImageUrl
         {
             get
