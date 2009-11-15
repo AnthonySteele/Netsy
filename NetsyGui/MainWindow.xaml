@@ -2,18 +2,23 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Netsy Gui" Height="500" Width="500">
-    <Grid>
-        <ListBox x:Name="listingsDisplay" Margin="5" ItemsSource="{Binding}">  
-            <ListBox.ItemTemplate>
-            <DataTemplate>
-                <StackPanel Orientation="Vertical" Margin="0,0,0,10">
-                    <TextBlock Text="{Binding Title}"></TextBlock>
-                    <Image Source="{Binding ImageUrl50X50}" HorizontalAlignment="Left"></Image> 
-                    <TextBlock Text="{Binding Price}"></TextBlock>
-                    <TextBlock Text="{Binding CurrencyCode}"></TextBlock>
-                </StackPanel>
-            </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top">
+            <Button Content="Reload" x:Name="reload" Click="ReloadClick" />
+        </StackPanel>
+        <Grid>
+            <ListBox x:Name="listingsDisplay" ItemsSource="{Binding}">  
+                <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" Margin="5,0,0,5">
+                        <TextBlock FontWeight="Bold" Text="{Binding Title}"></TextBlock>
+                        <Image Source="{Binding ImageUrl155X125}" HorizontalAlignment="Left"></Image> 
+                        <TextBlock Text="{Binding Price}"></TextBlock>
+                        <TextBlock Text="{Binding CurrencyCode}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </DockPanel>
 </Window>
