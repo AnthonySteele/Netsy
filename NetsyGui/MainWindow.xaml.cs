@@ -22,10 +22,9 @@ namespace NetsyGui
         /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
-
             ViewModelLocator.RegisterInstance(typeof(Dispatcher), this.Dispatcher);
-            this.DataContext = ViewModelLocator.Resolve<MainWindowViewModel>();
+
+            InitializeComponent();
 
             this.ViewModel.RequestFrontFeaturedListings();
         }

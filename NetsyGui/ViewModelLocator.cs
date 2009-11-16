@@ -16,6 +16,8 @@ namespace NetsyGui
     using Netsy.Interfaces;
     using Netsy.Services;
 
+    using ViewModels;
+
     /// <summary>
     /// Class to hold the only singleton we'll need - the IOC container
     /// </summary>
@@ -52,6 +54,18 @@ namespace NetsyGui
         public static T Resolve<T>()
         {
             return container.Resolve<T>();
+        }
+
+        /// <summary>
+        /// Gets a new main window view model
+        /// </summary>
+        /// <returns>the view model</returns>
+        public static MainWindowViewModel MainWindowViewModel
+        {
+            get
+            {
+                return Resolve<MainWindowViewModel>();
+            }
         }
 
         /// <summary>

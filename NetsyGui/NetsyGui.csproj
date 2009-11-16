@@ -44,9 +44,6 @@
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
@@ -73,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="MainWindowViewModelCommand.cs" />
     <Compile Include="ValueConverters\WidthToColumnCountValueConverter.cs" />
     <Compile Include="ViewModels\ListingViewModel.cs" />
