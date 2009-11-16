@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainWindowViewModelCommand.cs" />
+    <Compile Include="ValueConverters\WidthToColumnCountValueConverter.cs" />
     <Compile Include="ViewModels\ListingViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
