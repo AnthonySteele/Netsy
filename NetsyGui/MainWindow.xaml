@@ -2,9 +2,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ValueConverters="clr-namespace:NetsyGui.ValueConverters"
+    xmlns:NetsyGui="clr-namespace:NetsyGui"
     Title="Netsy Gui" 
     Height="600" Width="600"
-    x:Name="mainWindow">
+    x:Name="mainWindow"
+    DataContext="{x:Static NetsyGui:ViewModelLocator.MainWindowViewModel}">
     <Window.Resources>
         <ValueConverters:WidthToColumnCountValueConverter x:Key="WidthToColumnCountValueConverter" />
     </Window.Resources>

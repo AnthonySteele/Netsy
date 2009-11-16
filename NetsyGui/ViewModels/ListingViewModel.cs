@@ -18,12 +18,22 @@ namespace NetsyGui.ViewModels
     public class ListingViewModel : BaseViewModel
     {
         /// <summary>
+        /// The symbol for the listing's currency
+        /// </summary>
+        private string currencySymbol;
+
+        /// <summary>
         /// Initializes a new instance of the ListingViewModel class
         /// </summary>
         /// <param name="listing">the listing data to show</param>
         public ListingViewModel(Listing listing)
         {
             this.Listing = listing;
+
+            if (! string.IsNullOrEmpty(listing.CurrencyCode))
+            {
+                this.currencySymbol = Helpers.CurrencySymbolFromCurrencyCode(listing.CurrencyCode);
+            }
         }
 
         /// <summary>
@@ -38,7 +48,7 @@ namespace NetsyGui.ViewModels
         {
             get
             {
-                return "$" + string.Format(CultureInfo.InvariantCulture, "{0:0.00}", Listing.Price) + " " + Listing.CurrencyCode;
+                return this.currencySymbol + string.Format(CultureInfo.InvariantCulture, "{0:0.00}", Listing.Price) + " " + Listing.CurrencyCode;
             }
         }
 
