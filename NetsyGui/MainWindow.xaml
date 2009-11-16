@@ -1,7 +1,14 @@
 ﻿<Window x:Class="NetsyGui.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Netsy Gui" Height="600" Width="600">
+    xmlns:ValueConverters="clr-namespace:NetsyGui.ValueConverters"
+    Title="Netsy Gui" 
+    Height="600" Width="600"
+    x:Name="mainWindow">
+    <Window.Resources>
+        <ValueConverters:WidthToColumnCountValueConverter x:Key="WidthToColumnCountValueConverter" />
+    </Window.Resources>
+
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Button Content="Reload" x:Name="reloadButton" Click="ReloadClick" />
@@ -21,7 +28,7 @@
             <ListBox ItemsSource="{Binding Listings}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="3"/>
+                        <UniformGrid Columns="{Binding ElementName=mainWindow, Path=ActualWidth, Converter={StaticResource WidthToColumnCountValueConverter}}"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
