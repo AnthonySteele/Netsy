@@ -5,12 +5,10 @@
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
-namespace NetsyGui
+namespace NetsyGui.Main
 {
     using System.Windows;
     using System.Windows.Threading;
-
-    using NetsyGui.ViewModels;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -29,6 +27,9 @@ namespace NetsyGui
             this.ViewModel.RequestFrontFeaturedListings();
         }
 
+        /// <summary>
+        /// Gets the view model
+        /// </summary>
         private MainWindowViewModel ViewModel
         {
             get
@@ -36,34 +37,5 @@ namespace NetsyGui
                 return this.DataContext as MainWindowViewModel;
             }
         }
-
-        /// <summary>
-        /// Click handler for the reload biutton
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event params</param>
-        private void ReloadClick(object sender, RoutedEventArgs e)
-        {
-            this.ViewModel.RequestFrontFeaturedListings();
-        }
-
-        private void FirstClick(object sender, RoutedEventArgs e)
-        {
-            this.ViewModel.FirstPage();
-            this.ViewModel.RequestFrontFeaturedListings();
-        }
-
-        private void PreviousClick(object sender, RoutedEventArgs e)
-        {
-            this.ViewModel.PreviousPage();
-            this.ViewModel.RequestFrontFeaturedListings();
-        }
-
-        private void NextClick(object sender, RoutedEventArgs e)
-        {
-            this.ViewModel.NextPage();
-            this.ViewModel.RequestFrontFeaturedListings();
-        }
-
     }
 }

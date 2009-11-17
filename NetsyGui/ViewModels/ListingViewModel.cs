@@ -20,7 +20,7 @@ namespace NetsyGui.ViewModels
         /// <summary>
         /// The symbol for the listing's currency
         /// </summary>
-        private string currencySymbol;
+        private readonly string currencySymbol;
 
         /// <summary>
         /// Initializes a new instance of the ListingViewModel class
@@ -28,6 +28,7 @@ namespace NetsyGui.ViewModels
         /// <param name="listing">the listing data to show</param>
         public ListingViewModel(Listing listing)
         {
+            // todo - remove this, copy the fields needed
             this.Listing = listing;
 
             if (! string.IsNullOrEmpty(listing.CurrencyCode))

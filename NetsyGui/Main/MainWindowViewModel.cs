@@ -6,14 +6,18 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace NetsyGui.ViewModels
+namespace NetsyGui.Main
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Globalization;
     using System.Windows.Threading;
 
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
+
+    using NetsyGui.ViewModels;
 
     /// <summary>
     /// View model for the main window
@@ -46,6 +50,11 @@ namespace NetsyGui.ViewModels
         private int pageNumber = 1;
 
         /// <summary>
+        /// The text to display on the status bar
+        /// </summary>
+        private string statusText;
+
+        /// <summary>
         /// Initializes a new instance of the MainWindowViewModel class
         /// </summary>
         /// <param name="listingsService">the listing service to use</param>
@@ -56,6 +65,8 @@ namespace NetsyGui.ViewModels
             this.listingsService = listingsService;
 
             this.listingsService.GetFrontFeaturedListingsCompleted += this.FrontFeaturedListingsReceived;
+
+            this.StatusText = "Etsy Gui";
         }
 
         /// <summary>
@@ -67,7 +78,7 @@ namespace NetsyGui.ViewModels
         }
 
         /// <summary>
-        /// Gets the page index into the results
+        /// Gets or sets the page index into the results
         /// </summary>
         public int PageNumber
         {
@@ -76,12 +87,32 @@ namespace NetsyGui.ViewModels
                 return this.pageNumber;
             }
 
-            private set
+            set
             {
                 if (this.pageNumber != value)
                 {
                     this.pageNumber = value;
                     this.OnPropertyChanged("PageNumber");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the status bar text
+        /// </summary>
+        public string StatusText
+        {
+            get
+            {
+                return this.statusText;
+            }
+
+            set
+            {
+                if (this.statusText != value)
+                {
+                    this.statusText = value;
+                    this.OnPropertyChanged("StatusText");
                 }
             }
         }
@@ -94,6 +125,7 @@ namespace NetsyGui.ViewModels
             int offset = (this.PageNumber - 1) * ItemPerPage;
 
             this.listingsService.GetFrontFeaturedListings(offset, ItemPerPage, DetailLevel.Medium);
+            this.StatusText = "Getting front featured listings";
         }
 
         /// <summary>
@@ -149,8 +181,25 @@ namespace NetsyGui.ViewModels
         /// <param name="listingsReceived">the listings</param>
         private void FrontFeaturedListingsReceivedSync(ResultEventArgs<Listings> listingsReceived)
         {
+            if (!listingsReceived.ResultStatus.Success)
+            {
+                this.StatusText = "Failed to load listings";
+                return;
+            }
+
+            this.DisplayListings(listingsReceived.ResultValue.Results);
+            this.StatusText = string.Format(CultureInfo.InvariantCulture, "Loaded {0} front listings", this.listings.Count);
+            CommandLocator.MainWindowCanExecuteChanged();
+        }
+
+        /// <summary>
+        /// Diplay the listings
+        /// </summary>
+        /// <param name="listingsData">the listings to display</param>
+        private void DisplayListings(IEnumerable<Listing> listingsData)
+        {
             this.listings.Clear();
-            foreach (Listing item in listingsReceived.ResultValue.Results)
+            foreach (Listing item in listingsData)
             {
                 ListingViewModel viewModel = new ListingViewModel(item);
                 this.listings.Add(viewModel);

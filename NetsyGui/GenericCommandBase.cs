@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="MainWindowViewModelCommand.cs" company="AFS">
+// <copyright file="GenericCommandBase.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -11,12 +11,11 @@ namespace NetsyGui
     using System;
     using System.Windows.Input;
 
-    using NetsyGui.ViewModels;
-
     /// <summary>
-    /// Base class for command handlers on the main window view model that implements ICommand
+    /// Base class for command handlers on a view model that implements ICommand
     /// </summary>
-    public abstract class MainWindowViewModelCommand : ICommand
+    /// <typeparam name="T">the type of view model</typeparam>
+    public abstract class GenericCommandBase<T> : ICommand where T : class 
     {
         #region ICommand Members
 
@@ -33,15 +32,13 @@ namespace NetsyGui
         /// <returns>true if the command can execute</returns>
         public bool CanExecute(object parameter)
         {
-            MainWindowViewModel viewModel = parameter as MainWindowViewModel;
+            T value = parameter as T;
             if (parameter != null)
             {
-                return this.CanExecuteViewModel(viewModel);
+                return this.CanExecuteOnValue(value);
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         /// <summary>
@@ -50,10 +47,10 @@ namespace NetsyGui
         /// <param name="parameter">the command data</param>
         public void Execute(object parameter)
         {
-            MainWindowViewModel viewModel = parameter as MainWindowViewModel;
+            T value = parameter as T;
             if (parameter != null)
             {
-                this.ExecuteViewModel(viewModel);
+                this.ExecuteOnValue(value);
             }
         }
 
@@ -73,9 +70,9 @@ namespace NetsyGui
         /// <summary>
         /// Call CanExecute with a ViewModel as parameter
         /// </summary>
-        /// <param name="viewModel">the view model</param>
+        /// <param name="value">the view model</param>
         /// <returns>true if the command can execute</returns>
-        public virtual bool CanExecuteViewModel(MainWindowViewModel viewModel)
+        public virtual bool CanExecuteOnValue(T value)
         {
             // the default implementation always allows the command to fire
             return true;
@@ -84,7 +81,7 @@ namespace NetsyGui
         /// <summary>
         /// Execute the command with a ViewModel as parameter
         /// </summary>
-        /// <param name="viewModel">the view model</param>
-        public abstract void ExecuteViewModel(MainWindowViewModel viewModel);
+        /// <param name="value">the view model</param>
+        public abstract void ExecuteOnValue(T value);
     }
 }
