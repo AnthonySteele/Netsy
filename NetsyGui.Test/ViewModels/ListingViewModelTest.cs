@@ -24,11 +24,17 @@ namespace NetsyGui.Test.ViewModels
         /// Test creating a Listing view model
         /// </summary>
         [TestMethod]
-        public void CreateTest()
+        public void ListingViewModelCreateTest()
         {
-            ListingViewModel viewModel = new ListingViewModel(new Listing());
+            Listing listing = new Listing();
+            listing.Quantity = 42;
+            listing.Title = "fish";
+
+            ListingViewModel viewModel = new ListingViewModel(listing);
             
             Assert.IsNotNull(viewModel);
+            Assert.AreEqual(42, viewModel.Quantity);
+            Assert.AreEqual("fish", viewModel.Title);
         }
     }
 }
