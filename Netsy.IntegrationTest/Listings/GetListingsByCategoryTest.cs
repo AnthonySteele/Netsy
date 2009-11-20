@@ -96,7 +96,7 @@ namespace Netsy.IntegrationTest.Listings
                 };
 
                 // ACT
-                listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
+                listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Price, SortOrder.Up, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -109,6 +109,41 @@ namespace Netsy.IntegrationTest.Listings
 
                 Assert.IsTrue(result.ResultValue.Count > 1, "No Results found");
                 Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
+
+        /// <summary>
+        /// Test success response
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByCategoryEmptyCategoryTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingsByCategoryCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                listingsService.GetListingsByCategory(NetsyData.TestBadCategory, SortField.Price, SortOrder.Up, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                TestHelpers.CheckResultSuccess(result);
+
+                Assert.AreEqual(0, result.ResultValue.Count, "Results found");
+                Assert.AreEqual(0, result.ResultValue.Results.Length);
                 Assert.IsNotNull(result.ResultValue.Params);
             }
         }
@@ -144,7 +179,7 @@ namespace Netsy.IntegrationTest.Listings
                 };
 
                 // ACT
-                listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, detailLevel);
+                listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Price, SortOrder.Up, 0, 10, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT

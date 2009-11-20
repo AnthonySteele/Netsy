@@ -8,10 +8,6 @@
 
 namespace Netsy.IntegrationTest
 {
-    using Helpers;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     /// <summary>
     /// Helpers on integration tests
     /// Input data and output inspection
@@ -31,7 +27,7 @@ namespace Netsy.IntegrationTest
         /// <summary>
         /// the user to test on
         /// </summary>
-        public const int TestUserId = 7394192;
+        public const int TestUserId = 6267462;
 
         /// <summary>
         /// the id of the listing to test on
@@ -64,14 +60,19 @@ namespace Netsy.IntegrationTest
         public const int TestBadFeedbackId = 123456789;
 
         /// <summary>
-        /// The test category to use
+        /// The test category to use for results
         /// </summary>
         public const string TestCategory = "jewelry";
 
         /// <summary>
+        /// The test category to use for no results
+        /// </summary>
+        public const string TestBadCategory = "04BogusStufzzz";
+
+        /// <summary>
         /// the name of the user to test on
         /// </summary>
-        public const string TestUserName = "ColonialSteele";
+        public const string TestUserName = "coucousalut";
 
         /// <summary>
         /// an invalid user name

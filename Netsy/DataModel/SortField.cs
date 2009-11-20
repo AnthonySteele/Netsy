@@ -26,6 +26,11 @@ namespace Netsy.DataModel
         /// <summary>
         /// Sort by price
         /// </summary>
-        Price
+        Price,
+
+        /// <summary>
+        /// Sort by search relevance
+        /// </summary>
+        Score
     }
 }
