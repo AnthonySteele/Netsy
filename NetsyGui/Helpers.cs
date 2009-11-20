@@ -11,6 +11,7 @@ namespace NetsyGui
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Text;
 
     /// <summary>
     /// UI helper methods
@@ -42,6 +43,33 @@ namespace NetsyGui
             }
 
             return codesCache[isoCurrencyCode];
+        }
+
+        /// <summary>
+        /// Convert values to a string sperated by commas
+        /// </summary>
+        /// <typeparam name="T">the type of values</typeparam>
+        /// <param name="values">the values</param>
+        /// <returns>the values in a string</returns>
+        public static string ToCsv<T>(this IEnumerable<T> values)
+        {
+            StringBuilder result = new StringBuilder();
+            bool first = true;
+
+            foreach (T value in values)
+            {
+                result.Append(value.ToString());
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    result.Append(", ");
+                }
+            }
+
+            return result.ToString();
         }
     }
 }
