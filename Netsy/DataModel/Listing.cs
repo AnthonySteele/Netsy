@@ -23,7 +23,7 @@ namespace Netsy.DataModel
         #region private
 
         /// <summary>
-        /// The listing state as a strung
+        /// The listing state as a string
         /// </summary>
         private string stateString;
 

@@ -8,9 +8,12 @@
 
 namespace NetsyGui.ViewModels
 {
+    using System;
     using System.Globalization;
+    using System.Windows;
 
     using Netsy.DataModel;
+    using NetsyGui;
 
     /// <summary>
     /// View model for and Etsy listing
@@ -43,6 +46,41 @@ namespace NetsyGui.ViewModels
         private readonly decimal price;
 
         /// <summary>
+        /// Date when the listing was created
+        /// </summary>
+        private readonly DateTime? created;
+
+        /// <summary>
+        ///  date when the listing is ending
+        /// </summary>
+        private readonly DateTime? ending;
+
+        /// <summary>
+        /// the tags on this item
+        /// </summary>
+        private readonly string tags;
+
+        /// <summary>
+        /// The materials used
+        /// </summary>
+        private readonly string materials;
+
+        /// <summary>
+        /// the name of the user who is selling it
+        /// </summary>
+        private readonly string userName;
+
+        /// <summary>
+        /// the id of the user selling it
+        /// </summary>
+        private readonly int userId;
+
+        /// <summary>
+        /// The quantity avialable
+        /// </summary>
+        private readonly int quantity;
+
+        /// <summary>
         /// Initializes a new instance of the ListingViewModel class
         /// </summary>
         /// <param name="listing">the listing data to show</param>
@@ -52,6 +90,13 @@ namespace NetsyGui.ViewModels
             this.thumbnailImageUrl = listing.ImageUrl155X125;
             this.currencyCode = listing.CurrencyCode;
             this.price = (decimal)listing.Price;
+            this.created = listing.CreationDate;
+            this.ending = listing.EndingDate;
+            this.userName = listing.UserName;
+            this.userId = listing.UserId;
+            this.quantity = listing.Quantity;
+            this.tags = listing.Tags.ToCsv();
+            this.materials = listing.Materials.ToCsv();
 
             if (!string.IsNullOrEmpty(listing.CurrencyCode))
             {
@@ -79,11 +124,84 @@ namespace NetsyGui.ViewModels
         }
 
         /// <summary>
+        /// Gets data data for display
+        /// </summary>
+        public string DateDisplay
+        {
+            get
+            {
+                if (this.created.HasValue)
+                {
+                    string result = this.created.Value.ToShortDateString();
+                    if (this.ending.HasValue)
+                    {
+                        result += " to " + this.ending.Value.ToShortDateString();
+                    }
+
+                    return result;
+                }
+
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
         /// Gets the image url to show for the Listing thumbnail
         /// </summary>
         public string ThumbnailImageUrl
         {
             get { return this.thumbnailImageUrl; }
+        }
+
+        /// <summary>
+        /// Gets the tags on the item
+        /// </summary>
+        public string Tags
+        {
+            get { return this.tags; }
+        }
+
+        /// <summary>
+        /// Gets the materials used
+        /// </summary>
+        public string Materials
+        {
+            get { return this.materials; }
+        }
+
+        /// <summary>
+        /// Gets a value that is visible if there are materials
+        /// </summary>
+        public Visibility HasMaterials
+        {
+            get
+            {
+                return string.IsNullOrEmpty(this.Materials) ? Visibility.Collapsed : Visibility.Visible; 
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of the user who is selling it
+        /// </summary>
+        public string UserName
+        {
+            get { return this.userName; }
+        }
+
+        /// <summary>
+        /// Gets the id of the user who is selling it
+        /// </summary>
+        public int UserId
+        {
+            get { return this.userId; }
+        }
+
+        /// <summary>
+        /// Gets the number of items avaialable
+        /// </summary>
+        public int Quantity
+        {
+            get { return this.quantity; }
         }
     }
 }

@@ -38,7 +38,12 @@
                         <StackPanel Orientation="Vertical" Margin="2,2,2,2">
                             <TextBlock FontWeight="Bold" Text="{Binding Title}" TextWrapping="Wrap"></TextBlock>
                             <Image Source="{Binding ThumbnailImageUrl}" HorizontalAlignment="Left" Stretch="None"></Image>
-                            <TextBlock Text="{Binding PriceData}" TextWrapping="Wrap"></TextBlock>
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Left" Text="{Binding PriceData}" ></TextBlock>
+                                <TextBlock DockPanel.Dock="Right" TextAlignment="Right" Text="{Binding Quantity}" ></TextBlock>
+                            </DockPanel>
+                            <TextBlock Text="{Binding UserName}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
