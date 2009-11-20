@@ -53,6 +53,11 @@ namespace NetsyGui
         /// <returns>the values in a string</returns>
         public static string ToCsv<T>(this IEnumerable<T> values)
         {
+            if (values == null)
+            {
+                return string.Empty;
+            }
+
             StringBuilder result = new StringBuilder();
             bool first = true;
 

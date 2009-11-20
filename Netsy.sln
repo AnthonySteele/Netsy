@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.Test", "Netsy.Test\Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetsyGui", "NetsyGui\NetsyGui.csproj", "{AFFE4BEB-F656-4062-BD4E-40CCBA13C223}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetsyGui.Test", "NetsyGui.Test\NetsyGui.Test.csproj", "{417A0E95-7C18-4DB4-B901-EABD0198D167}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Netsy.vsmdi
@@ -42,6 +44,10 @@ Global
 		{AFFE4BEB-F656-4062-BD4E-40CCBA13C223}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFFE4BEB-F656-4062-BD4E-40CCBA13C223}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFFE4BEB-F656-4062-BD4E-40CCBA13C223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{417A0E95-7C18-4DB4-B901-EABD0198D167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{417A0E95-7C18-4DB4-B901-EABD0198D167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{417A0E95-7C18-4DB4-B901-EABD0198D167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{417A0E95-7C18-4DB4-B901-EABD0198D167}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
