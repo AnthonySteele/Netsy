@@ -8,6 +8,7 @@
 *.cache
 *.xap
 *.exe
+*.exe.manifest
 
 # test state
 *.vsmdi

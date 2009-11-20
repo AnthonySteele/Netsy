@@ -23,24 +23,41 @@ namespace NetsyGui.ViewModels
         private readonly string currencySymbol;
 
         /// <summary>
+        /// The Listing's Display title text
+        /// </summary>
+        private readonly string title;
+
+        /// <summary>
+        /// The image url
+        /// </summary>
+        private readonly string thumbnailImageUrl;
+
+        /// <summary>
+        /// The three-letter currency code
+        /// </summary>
+        private readonly string currencyCode;
+
+        /// <summary>
+        /// the listing price
+        /// </summary>
+        private readonly decimal price;
+
+        /// <summary>
         /// Initializes a new instance of the ListingViewModel class
         /// </summary>
         /// <param name="listing">the listing data to show</param>
         public ListingViewModel(Listing listing)
         {
-            // todo - remove this, copy the fields needed
-            this.Listing = listing;
+            this.title = listing.Title;
+            this.thumbnailImageUrl = listing.ImageUrl155X125;
+            this.currencyCode = listing.CurrencyCode;
+            this.price = (decimal)listing.Price;
 
-            if (! string.IsNullOrEmpty(listing.CurrencyCode))
+            if (!string.IsNullOrEmpty(listing.CurrencyCode))
             {
                 this.currencySymbol = Helpers.CurrencySymbolFromCurrencyCode(listing.CurrencyCode);
             }
         }
-
-        /// <summary>
-        /// Gets the listing 
-        /// </summary>
-        public Listing Listing { get; private set;  }
 
         /// <summary>
         /// Gets the string to display for price
@@ -49,7 +66,7 @@ namespace NetsyGui.ViewModels
         {
             get
             {
-                return this.currencySymbol + string.Format(CultureInfo.InvariantCulture, "{0:0.00}", Listing.Price) + " " + Listing.CurrencyCode;
+                return this.currencySymbol + string.Format(CultureInfo.InvariantCulture, "{0:0.00}", this.price) + " " + this.currencyCode;
             }
         }
 
@@ -58,10 +75,7 @@ namespace NetsyGui.ViewModels
         /// </summary>
         public string Title
         {
-            get
-            {
-                return Listing.Title;
-            }
+            get { return this.title; }
         }
 
         /// <summary>
@@ -69,10 +83,7 @@ namespace NetsyGui.ViewModels
         /// </summary>
         public string ThumbnailImageUrl
         {
-            get
-            {
-                return Listing.ImageUrl155X125;
-            }
+            get { return this.thumbnailImageUrl; }
         }
     }
 }
