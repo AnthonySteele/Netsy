@@ -8,6 +8,7 @@
 namespace Netsy.Helpers
 {
     using System;
+    using System.Threading;
 
     /// <summary>
     /// Generic helpers on enumerations
@@ -22,7 +23,15 @@ namespace Netsy.Helpers
         /// <returns>the parsed value</returns>
         public static T Parse<T>(this string value) 
         {
-            return (T)Enum.Parse(typeof(T), value, true);
+            try
+            {
+                return (T)Enum.Parse(typeof(T), value, true);
+            }
+            catch (Exception ex)
+            {
+                string message = "Value " + value + " not found in enum " + typeof(T);
+                throw new NetsyException(message, ex);
+            }
         }
     }
 }

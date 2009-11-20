@@ -121,6 +121,43 @@ namespace Netsy.IntegrationTest.Listings
         }
 
         /// <summary>
+        /// Test success response, sorting by score
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByMaterialsSortByScoreTest()
+        {
+            // ARRANGE
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Listings> result = null;
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                listingsService.GetListingsByMaterialsCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                List<string> materials = new List<string> { "cotton" };
+
+                // ACT
+                listingsService.GetListingsByMaterials(materials, SortField.Score, SortOrder.Up, 0, 10, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result);
+                TestHelpers.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.AreEqual(10, result.ResultValue.Results.Length);
+                Assert.IsNotNull(result.ResultValue.Params);
+            }
+        }
+
+        /// <summary>
         /// Test retrieving listings ny keyword, all detail levels
         /// </summary>
         [TestMethod]
@@ -137,6 +174,8 @@ namespace Netsy.IntegrationTest.Listings
         /// <param name="detailLevel">the detail level</param>
         private static void TestGetListingsByMaterials(DetailLevel detailLevel)
         {
+            TestHelpers.WaitABit();
+
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
