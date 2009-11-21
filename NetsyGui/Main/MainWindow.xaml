@@ -43,6 +43,7 @@
                                 <TextBlock DockPanel.Dock="Right" TextAlignment="Right" Text="{Binding Quantity}" ></TextBlock>
                             </DockPanel>
                             <TextBlock Text="{Binding UserName}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock><Hyperlink><TextBlock Text="{Binding UserName}" /></Hyperlink></TextBlock>
                             <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
