@@ -33,9 +33,9 @@ namespace NetsyGui
         private static readonly MainWindowFirstPageCommand mainWindowFirstPageCommand = new MainWindowFirstPageCommand();
 
         /// <summary>
-        /// The main window "reload" command
+        /// The main window "load listings" command
         /// </summary>
-        private static readonly MainWindowReloadCommand mainWindowReloadCommand = new MainWindowReloadCommand();
+        private static MainWindowLoadFrontFeaturedListingsCommand mainWindowLoadFrontFeaturedListingsCommand;
 
         /// <summary>
         /// Gets the next page command
@@ -62,11 +62,19 @@ namespace NetsyGui
         }
 
         /// <summary>
-        /// Gets the reload command
+        /// Gets the load listings command
         /// </summary>
-        public static ICommand MainWindowReloadCommand
+        public static ICommand MainWindowLoadFrontFeaturedListingsCommand
         {
-            get { return mainWindowReloadCommand; }
+            get
+            {
+                if (mainWindowLoadFrontFeaturedListingsCommand == null)
+                {
+                   mainWindowLoadFrontFeaturedListingsCommand = Locator.Resolve<MainWindowLoadFrontFeaturedListingsCommand>();
+                }
+
+                return mainWindowLoadFrontFeaturedListingsCommand;
+            }
         }
 
         /// <summary>
@@ -77,7 +85,11 @@ namespace NetsyGui
            mainWindowNextPageCommand.OnCanExecuteChanged();
            mainWindowFirstPageCommand.OnCanExecuteChanged();
            mainWindowPreviousPageCommand.OnCanExecuteChanged();
-           mainWindowReloadCommand.OnCanExecuteChanged();
+
+           if (mainWindowLoadFrontFeaturedListingsCommand != null)
+           {
+               mainWindowLoadFrontFeaturedListingsCommand.OnCanExecuteChanged();
+           }
         }
     }
 }

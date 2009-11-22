@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ViewModelLocator.cs" company="AFS">
+// <copyright file="Locator.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -21,7 +21,7 @@ namespace NetsyGui
     /// <summary>
     /// Class to hold the only singleton we'll need - the IOC container
     /// </summary>
-    public static class ViewModelLocator
+    public static class Locator
     {
         /// <summary>
         /// The IOC container
@@ -29,9 +29,9 @@ namespace NetsyGui
         private static readonly IUnityContainer container = new UnityContainer();
 
         /// <summary>
-        /// Initializes static members of the ViewModelLocator class
+        /// Initializes static members of the Locator class
         /// </summary>
-        static ViewModelLocator()
+        static Locator()
         {
             RegisterTypes();
         }
@@ -51,15 +51,15 @@ namespace NetsyGui
         /// <summary>
         /// Register an instance in the unity container
         /// </summary>
-        /// <param name="type">The type to register</param>
         /// <param name="instance">the instance to register</param>
-        public static void RegisterInstance(Type type, object instance)
+        public static void RegisterInstance(object instance)
         {
-            container.RegisterInstance(type, instance); 
+            Type objectType = instance.GetType();
+            container.RegisterInstance(objectType, instance); 
         }
 
         /// <summary>
-        /// Resolve an object from  in the IOC container
+        /// Resolve an object from the IOC container
         /// </summary>
         /// <typeparam name="T">The type to resolve</typeparam>
         /// <returns>the new object</returns>
@@ -75,7 +75,7 @@ namespace NetsyGui
         {
             // the etsy context can be a singleton
             const string EtsyApiKey = "rfc35bh98q3a9hvccfsxe4cc";
-            RegisterInstance(typeof(EtsyContext), new EtsyContext(EtsyApiKey));
+            RegisterInstance(new EtsyContext(EtsyApiKey));
 
             // register the services 
             container.RegisterType<IFavoritesService, FavoritesService>();

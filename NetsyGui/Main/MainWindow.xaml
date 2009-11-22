@@ -6,14 +6,14 @@
     Title="Netsy Gui" 
     Height="600" Width="600"
     x:Name="mainWindow"
-    DataContext="{x:Static NetsyGui:ViewModelLocator.MainWindowViewModel}">
+    DataContext="{x:Static NetsyGui:Locator.MainWindowViewModel}">
     <Window.Resources>
         <ValueConverters:WidthToColumnCountValueConverter x:Key="WidthToColumnCountValueConverter" />
     </Window.Resources>
 
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <Button Content="Reload" Command="{x:Static NetsyGui:CommandLocator.MainWindowReloadCommand}" CommandParameter="{Binding}" />
+            <Button Content="Reload" Command="{x:Static NetsyGui:CommandLocator.MainWindowLoadFrontFeaturedListingsCommand}" CommandParameter="{Binding}" />
             <Button Content="First" Command="{x:Static NetsyGui:CommandLocator.MainWindowFirstPageCommand}" CommandParameter="{Binding}" />
             <Button Content="Previous" Command="{x:Static NetsyGui:CommandLocator.MainWindowPreviousPageCommand}" CommandParameter="{Binding}" />
             <Button Content="Next" Command="{x:Static NetsyGui:CommandLocator.MainWindowNextPageCommand}" CommandParameter="{Binding}" />

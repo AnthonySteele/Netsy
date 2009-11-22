@@ -22,7 +22,7 @@ namespace NetsyGui.Main
             if (value.PageNumber > 1)
             {
                 value.PageNumber--;
-                value.RequestFrontFeaturedListings();
+                CommandLocator.MainWindowLoadFrontFeaturedListingsCommand.Execute(value);
             }
         }
 

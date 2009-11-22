@@ -20,7 +20,7 @@ namespace NetsyGui.Main
         public override void ExecuteOnValue(MainWindowViewModel value)
         {
             value.PageNumber++;
-            value.RequestFrontFeaturedListings();
+            CommandLocator.MainWindowLoadFrontFeaturedListingsCommand.Execute(value);
         }
     }
 }

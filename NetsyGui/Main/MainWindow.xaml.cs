@@ -20,22 +20,10 @@ namespace NetsyGui.Main
         /// </summary>
         public MainWindow()
         {
-            ViewModelLocator.RegisterInstance(typeof(Dispatcher), this.Dispatcher);
+            // Other classes will use this instance when they need a dispatcher
+            Locator.RegisterInstance(this.Dispatcher);
 
             InitializeComponent();
-
-            this.ViewModel.RequestFrontFeaturedListings();
-        }
-
-        /// <summary>
-        /// Gets the view model
-        /// </summary>
-        private MainWindowViewModel ViewModel
-        {
-            get
-            {
-                return this.DataContext as MainWindowViewModel;
-            }
         }
     }
 }
