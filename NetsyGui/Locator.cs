@@ -18,6 +18,8 @@ namespace NetsyGui
 
     using NetsyGui.Main;
 
+    using Shop;
+
     /// <summary>
     /// Class to hold the only singleton we'll need - the IOC container
     /// </summary>
@@ -39,12 +41,22 @@ namespace NetsyGui
         /// <summary>
         /// Gets a new main window view model
         /// </summary>
-        /// <returns>the view model</returns>
         public static MainWindowViewModel MainWindowViewModel
         {
             get
             {
                 return Resolve<MainWindowViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets a new shop window view model
+        /// </summary>
+        public static ShopWindowViewModel ShopWindowViewModel
+        {
+            get
+            {
+                return Resolve<ShopWindowViewModel>();
             }
         }
 

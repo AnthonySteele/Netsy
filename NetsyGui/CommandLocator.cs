@@ -38,6 +38,11 @@ namespace NetsyGui
         private static MainWindowLoadFrontFeaturedListingsCommand mainWindowLoadFrontFeaturedListingsCommand;
 
         /// <summary>
+        /// The command to show the User's shop
+        /// </summary>
+        private static ListingViewModelShowUserCommand listingViewModelShowUserCommand;
+
+        /// <summary>
         /// Gets the next page command
         /// </summary>
         public static ICommand MainWindowNextPageCommand
@@ -78,6 +83,22 @@ namespace NetsyGui
         }
 
         /// <summary>
+        /// Gets the command to show the User
+        /// </summary>
+        public static ICommand ShowUserCommand
+        {
+            get
+            {
+                if (listingViewModelShowUserCommand == null)
+                {
+                    listingViewModelShowUserCommand = Locator.Resolve<ListingViewModelShowUserCommand>();
+                }
+
+                return listingViewModelShowUserCommand;
+            }
+        }
+
+        /// <summary>
         /// Trigger re-evaluating the CanExecute state of main window commands
         /// </summary>
         public static void MainWindowCanExecuteChanged()
@@ -90,6 +111,11 @@ namespace NetsyGui
            {
                mainWindowLoadFrontFeaturedListingsCommand.OnCanExecuteChanged();
            }
+
+            if (listingViewModelShowUserCommand != null)
+            {
+                listingViewModelShowUserCommand.OnCanExecuteChanged();
+            }
         }
     }
 }

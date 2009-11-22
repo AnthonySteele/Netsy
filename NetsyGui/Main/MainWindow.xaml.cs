@@ -8,7 +8,6 @@
 namespace NetsyGui.Main
 {
     using System.Windows;
-    using System.Windows.Threading;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml

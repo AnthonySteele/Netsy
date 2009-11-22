@@ -98,6 +98,7 @@ namespace NetsyGui.Main
 
             string status = string.Format(CultureInfo.InvariantCulture, "Loaded {0} front listings on page {1}", this.currentViewModel.Listings.Count, this.currentViewModel.PageNumber);
             this.currentViewModel.StatusText = status;
+
             CommandLocator.MainWindowCanExecuteChanged();
         }
     }

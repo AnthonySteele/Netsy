@@ -86,6 +86,7 @@
     <Compile Include="GenericCommandBase.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Main\ListingViewModelShowUserCommand.cs" />
     <Compile Include="Main\MainWindowLoadFrontFeaturedListingsCommand.cs" />
     <Compile Include="Shop\ShopWindow.xaml.cs">
       <DependentUpon>ShopWindow.xaml</DependentUpon>

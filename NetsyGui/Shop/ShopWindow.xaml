@@ -1,7 +1,10 @@
 ﻿<Window x:Class="NetsyGui.Shop.ShopWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="ShopWindow" Height="300" Width="300">
+    xmlns:NetsyGui="clr-namespace:NetsyGui"
+    Title="Shop" 
+    Height="300" Width="300"
+    DataContext="{x:Static NetsyGui:Locator.ShopWindowViewModel}">
     <Grid>
         
     </Grid>

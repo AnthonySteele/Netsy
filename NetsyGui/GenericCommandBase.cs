@@ -30,7 +30,7 @@ namespace NetsyGui
         /// </summary>
         /// <param name="parameter">the method data</param>
         /// <returns>true if the command can execute</returns>
-        public bool CanExecute(object parameter)
+        public virtual bool CanExecute(object parameter)
         {
             T value = parameter as T;
             if (parameter != null)
