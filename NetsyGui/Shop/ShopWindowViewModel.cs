@@ -15,6 +15,29 @@ namespace NetsyGui.Shop
     /// </summary>
     public class ShopWindowViewModel : BaseViewModel
     {
+        /// <summary>
+        /// the Id of the user/shop being shown
+        /// </summary>
+        private int userId;
 
+        /// <summary>
+        /// Gets or sets the Id of the user/shop being shown
+        /// </summary>
+        public int UserId
+        {
+            get
+            {
+                return this.userId;
+            }
+
+            set
+            {
+                if (this.userId != value)
+                {
+                    this.userId = value;
+                    this.OnPropertyChanged("UserId");
+                }
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace NetsyGui.ViewModels
     using NetsyGui;
 
     /// <summary>
-    /// View model for and Etsy listing
+    /// View model for an Etsy listing
     /// </summary>
     public class ListingViewModel : BaseViewModel
     {
