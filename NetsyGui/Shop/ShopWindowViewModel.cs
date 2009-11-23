@@ -21,6 +21,11 @@ namespace NetsyGui.Shop
         private int userId;
 
         /// <summary>
+        /// the status bar text
+        /// </summary>
+        private string statusText;
+
+        /// <summary>
         /// Gets or sets the Id of the user/shop being shown
         /// </summary>
         public int UserId
@@ -39,5 +44,30 @@ namespace NetsyGui.Shop
                 }
             }
         }
+
+        /// <summary>
+        /// Gets or sets the status bar text
+        /// </summary>
+        public string StatusText
+        {
+            get
+            {
+                return this.statusText;
+            }
+
+            set
+            {
+                if (this.statusText != value)
+                {
+                    this.statusText = value;
+                    this.OnPropertyChanged("StatusText");
+                }
+            }            
+        }
+
+        /// <summary>
+        /// Gets or sets the shop's data
+        /// </summary>
+        public ShopViewModel ShopViewModel { get; set; }
     }
 }

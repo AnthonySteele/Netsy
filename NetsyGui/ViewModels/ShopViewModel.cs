@@ -94,6 +94,30 @@ namespace NetsyGui.ViewModels
         private string policyAdditional;
 
         /// <summary>
+        /// Initializes a new instance of the ShopViewModel class
+        /// </summary>
+        /// <param name="shop">the shop data to read</param>
+        public ShopViewModel(Shop shop)
+        {
+            this.CreationDate = shop.CreationDate;
+            this.BannerImageUrl = shop.BannerImageUrl;
+            this.Name = shop.ShopName;
+            this.Title = shop.Title;
+
+            this.SaleMessage = shop.SaleMessage;
+            this.Announcement = shop.Announcement;
+            this.IsVacation = shop.IsVacationFlag;
+            this.VacationMessage = shop.VacationMessage;
+            this.CurrencyCode = shop.CurrencyCode;
+
+            this.PolicyWelcome = shop.PolicyWelcome;
+            this.PolicyPayment = shop.PolicyPayment;
+            this.PolicyShipping = shop.PolicyShipping;
+            this.PolicyRefunds = shop.PolicyRefunds;
+            this.PolicyAdditional = shop.PolicyAdditional;
+        }
+
+        /// <summary>
         /// Gets or sets the Creation date
         /// </summary>
         public DateTime? CreationDate
@@ -105,7 +129,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.creationDate = value;
+                if (this.creationDate != value)
+                {
+                    this.creationDate = value;
+                    this.OnPropertyChanged("CreationDate");
+                }
             }
         }
 
@@ -121,7 +149,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.bannerImageUrl = value;
+                if (this.bannerImageUrl != value)
+                {
+                    this.bannerImageUrl = value;
+                    this.OnPropertyChanged("BannerImageUrl");
+                }
             }
         }
 
@@ -137,7 +169,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.name = value;
+                if (this.name != value)
+                {
+                    this.name = value;
+                    this.OnPropertyChanged("Name");
+                } 
             }
         }
 
@@ -153,7 +189,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.title = value;
+                if (this.title != value)
+                {
+                    this.title = value;
+                    this.OnPropertyChanged("Title");
+                }
             }
         }
 
@@ -169,7 +209,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.saleMessage = value;
+                if (this.saleMessage != value)
+                {
+                    this.saleMessage = value;
+                    this.OnPropertyChanged("SaleMessage");
+                }
             }
         }
 
@@ -185,7 +229,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.announcement = value;
+                if (this.announcement != value)
+                {
+                    this.announcement = value;
+                    this.OnPropertyChanged("Announcement");
+                }
             }
         }
 
@@ -201,7 +249,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.isVacation = value;
+                if (this.isVacation != value)
+                {
+                    this.isVacation = value;
+                    this.OnPropertyChanged("IsVacation");
+                }
             }
         }
 
@@ -217,7 +269,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.vacationMessage = value;
+                if (this.vacationMessage != value)
+                {
+                    this.vacationMessage = value;
+                    this.OnPropertyChanged("VacationMessage");
+                }
             }
         }
 
@@ -233,7 +289,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.currencyCode = value;
+                if (this.currencyCode != value)
+                {
+                    this.currencyCode = value;
+                    this.OnPropertyChanged("CurrencyCode");
+                }
             }
         }
 
@@ -249,7 +309,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.policyWelcome = value;
+                if (this.policyWelcome != value)
+                {
+                    this.policyWelcome = value;
+                    this.OnPropertyChanged("PolicyWelcome");
+                }
             }
         }
 
@@ -265,7 +329,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.policyPayment = value;
+                if (this.policyPayment != value)
+                {
+                    this.policyPayment = value;
+                    this.OnPropertyChanged("PolicyPayment");
+                }
             }
         }
 
@@ -281,7 +349,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.policyShipping = value;
+                if (this.policyShipping != value)
+                {
+                    this.policyShipping = value;
+                    this.OnPropertyChanged("PolicyShipping");
+                }
             }
         }
 
@@ -297,7 +369,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.policyRefunds = value;
+                if (this.policyRefunds != value)
+                {
+                    this.policyRefunds = value;
+                    this.OnPropertyChanged("PolicyRefunds");
+                }
             }
         }
 
@@ -313,7 +389,11 @@ namespace NetsyGui.ViewModels
 
             set
             {
-                this.policyAdditional = value;
+                if (this.policyAdditional != value)
+                {
+                    this.policyAdditional = value;
+                    this.OnPropertyChanged("PolicyAdditional");
+                }
             }
         }
 

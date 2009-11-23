@@ -40,7 +40,7 @@ namespace NetsyGui.Main
         /// <summary>
         /// Initializes a new instance of the MainWindowLoadFrontFeaturedListingsCommand class.
         /// </summary>
-        /// <param name="listingsService">the lsistings service</param>
+        /// <param name="listingsService">the listings service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
         public MainWindowLoadFrontFeaturedListingsCommand(IListingsService listingsService, Dispatcher dispatcher)
         {

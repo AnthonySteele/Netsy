@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ListingViewModelTest.cs" />
+    <Compile Include="ViewModels\ShopViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NetsyGui\NetsyGui.csproj">
