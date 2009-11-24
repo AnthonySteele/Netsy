@@ -33,8 +33,15 @@ namespace NetsyGui.Main
         /// <param name="value">the listing view model</param>
         public override void ExecuteOnValue(ListingViewModel value)
         {
-            ShopWindow shopWindow = new ShopWindow(value.UserId);
-            shopWindow.Show();
+            ShopWindow shopWindow = new ShopWindow();
+
+            ShopWindowViewModel shopViewModel = shopWindow.DataContext as ShopWindowViewModel;
+            if (shopViewModel != null)
+            {
+                shopViewModel.UserId = value.UserId;
+                CommandLocator.ShopWindowLoadShopCommand.Execute(shopViewModel);
+                shopWindow.Show();
+            }
         }
     }
 }

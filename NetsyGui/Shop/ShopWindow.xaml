@@ -5,7 +5,14 @@
     Title="Shop" 
     Height="300" Width="300"
     DataContext="{x:Static NetsyGui:Locator.ShopWindowViewModel}">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <Label 
+                    DockPanel.Dock="Left"
+                    VerticalAlignment="Center" 
+                    Content="{Binding StatusText}" />
+            </StatusBarItem>
+        </StatusBar>
+    </DockPanel>
 </Window>

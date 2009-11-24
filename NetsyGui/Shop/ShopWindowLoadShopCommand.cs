@@ -92,16 +92,12 @@ namespace NetsyGui.Shop
             {
                 this.currentViewModel.StatusText = "No shop found";
                 return;
-                
             }
 
             Shop firstShop = shopsReceived.ResultValue.Results[0];
             this.currentViewModel.ShopViewModel = new ShopViewModel(firstShop);
 
             this.currentViewModel.StatusText = "Loaded shop details";
-
-            CommandLocator.MainWindowCanExecuteChanged();
         }
-
     }
 }

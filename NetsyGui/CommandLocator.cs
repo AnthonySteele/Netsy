@@ -12,6 +12,8 @@ namespace NetsyGui
 
     using NetsyGui.Main;
 
+    using Shop;
+
     /// <summary>
     /// Class used to put commands into XAML
     /// </summary>
@@ -41,6 +43,11 @@ namespace NetsyGui
         /// The command to show the User's shop
         /// </summary>
         private static ListingViewModelShowUserCommand listingViewModelShowUserCommand;
+
+        /// <summary>
+        /// Command to load the shop data
+        /// </summary>
+        private static ShopWindowLoadShopCommand shopWindowLoadShopCommand;
 
         /// <summary>
         /// Gets the next page command
@@ -95,6 +102,22 @@ namespace NetsyGui
                 }
 
                 return listingViewModelShowUserCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the command to load the shop data
+        /// </summary>
+        public static ShopWindowLoadShopCommand ShopWindowLoadShopCommand
+        {
+            get
+            {
+                if (shopWindowLoadShopCommand == null)
+                {
+                    shopWindowLoadShopCommand = Locator.Resolve<ShopWindowLoadShopCommand>();
+                }
+
+                return shopWindowLoadShopCommand;
             }
         }
 

@@ -18,8 +18,7 @@ namespace NetsyGui.Shop
         /// <summary>
         /// Initializes a new instance of the ShopWindow class
         /// </summary>
-        /// <param name="userId">The Id of the user to show</param>
-        public ShopWindow(int userId)
+        public ShopWindow()
         {
             InitializeComponent();
         }
