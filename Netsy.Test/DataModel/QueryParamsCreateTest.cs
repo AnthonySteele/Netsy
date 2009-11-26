@@ -13,6 +13,7 @@ namespace Netsy.Test.DataModel
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using Netsy.DataModel;
+    using Netsy.Helpers;
 
     /// <summary>
     /// Test creating the query params
@@ -46,7 +47,7 @@ namespace Netsy.Test.DataModel
         /// Test setting the user status to a bad value
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(NetsyException))]
         public void UserDetailsSetDetailLevelBadValueTest()
         {
             QueryParams queryParams = new QueryParams();

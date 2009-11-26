@@ -56,7 +56,7 @@ namespace Netsy.Test.Helpers
         /// Test parse failure
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(NetsyException))]
         public void EnumParseFailsTest()
         {
             TestEnum result = "fssssh".Parse<TestEnum>();
