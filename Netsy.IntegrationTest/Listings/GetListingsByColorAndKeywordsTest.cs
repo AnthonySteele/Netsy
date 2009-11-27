@@ -134,7 +134,7 @@ namespace Netsy.IntegrationTest.Listings
                 Assert.IsNotNull(result);
                 TestHelpers.CheckResultSuccess(result);
 
-                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.IsTrue(result.ResultValue.Count > 0, "No items found");
                 Assert.IsNotNull(result.ResultValue.Params);
             }
         }

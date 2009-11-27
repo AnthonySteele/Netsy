@@ -14,6 +14,7 @@ namespace Netsy.IntegrationTest.Favorites
 
     using Netsy.DataModel;
     using Netsy.Helpers;
+    using Netsy.IntegrationTest.Listings;
     using Netsy.Interfaces;
     using Netsy.Services;
 
@@ -23,6 +24,19 @@ namespace Netsy.IntegrationTest.Favorites
     [TestClass]
     public class GetFavorersOfListingTest
     {
+        /// <summary>
+        /// the listing id to use
+        /// </summary>
+        private readonly int testListingId;
+
+        /// <summary>
+        /// Initializes a new instance of the GetFavorersOfListingTest class
+        /// </summary>
+        public GetFavorersOfListingTest()
+        {
+            this.testListingId = TestIdHelper.RetrieveTestListingId();            
+        }
+
         /// <summary>
         /// Test missing API key
         /// </summary>
@@ -35,7 +49,7 @@ namespace Netsy.IntegrationTest.Favorites
             favoritesService.GetFavorersOfListingCompleted += (s, e) => result = e;
 
             // ACT
-            favoritesService.GetFavorersOfListing(NetsyData.TestListingId, 0, 10, DetailLevel.Low);
+            favoritesService.GetFavorersOfListing(this.testListingId, 0, 10, DetailLevel.Low);
 
             // check the data
             TestHelpers.CheckResultFailure(result);
@@ -59,7 +73,7 @@ namespace Netsy.IntegrationTest.Favorites
                 };
 
                 // ACT
-                favoritesService.GetFavorersOfListing(NetsyData.TestListingId, 0, 10, DetailLevel.Low);
+                favoritesService.GetFavorersOfListing(this.testListingId, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -125,7 +139,7 @@ namespace Netsy.IntegrationTest.Favorites
                 };
 
                 // ACT
-                favoritesService.GetFavorersOfListing(NetsyData.TestListingId, 0, 10, DetailLevel.Low);
+                favoritesService.GetFavorersOfListing(this.testListingId, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -148,16 +162,16 @@ namespace Netsy.IntegrationTest.Favorites
         [TestMethod]
         public void GetFavorersOfListingAllDetailLevelsTest()
         {
-            TestGetFavorersOfListing(DetailLevel.Low);
-            TestGetFavorersOfListing(DetailLevel.Medium);
-            TestGetFavorersOfListing(DetailLevel.High);
+            this.TestGetFavorersOfListing(DetailLevel.Low);
+            this.TestGetFavorersOfListing(DetailLevel.Medium);
+            this.TestGetFavorersOfListing(DetailLevel.High);
         }
 
         /// <summary>
         /// Test retrieving FavorersOfListing at the given detail level
         /// </summary>
         /// <param name="detailLevel">the given detail level</param>
-        private static void TestGetFavorersOfListing(DetailLevel detailLevel)
+        private void TestGetFavorersOfListing(DetailLevel detailLevel)
         {
             TestHelpers.WaitABit();
 
@@ -173,7 +187,7 @@ namespace Netsy.IntegrationTest.Favorites
                 };
 
                 // ACT
-                favoritesService.GetFavorersOfListing(NetsyData.TestListingId, 0, 10, detailLevel);
+                favoritesService.GetFavorersOfListing(this.testListingId, 0, 10, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
