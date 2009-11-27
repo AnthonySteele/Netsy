@@ -26,6 +26,11 @@ namespace NetsyGui.Shop
         private string statusText;
 
         /// <summary>
+        /// The shop
+        /// </summary>
+        private ShopViewModel shop; 
+
+        /// <summary>
         /// Gets or sets the Id of the user/shop being shown
         /// </summary>
         public int UserId
@@ -68,6 +73,21 @@ namespace NetsyGui.Shop
         /// <summary>
         /// Gets or sets the shop's data
         /// </summary>
-        public ShopViewModel ShopViewModel { get; set; }
+        public ShopViewModel Shop
+        {
+            get
+            {
+                return this.shop;
+            }
+            
+            set
+            {
+                if (this.shop != value)
+                {
+                    this.shop = value;
+                    this.OnPropertyChanged("Shop");
+                }                
+            }
+        }
     }
 }

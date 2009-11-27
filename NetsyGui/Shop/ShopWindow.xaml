@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:NetsyGui="clr-namespace:NetsyGui"
     Title="Shop" 
-    Height="300" Width="300"
+    Height="300"
     DataContext="{x:Static NetsyGui:Locator.ShopWindowViewModel}">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -14,5 +14,10 @@
                     Content="{Binding StatusText}" />
             </StatusBarItem>
         </StatusBar>
+        <StackPanel>
+            <TextBlock FontWeight="Bold" Text="{Binding Shop.Name}" TextWrapping="Wrap"></TextBlock>
+            <Image Source="{Binding Shop.BannerImageUrl}" HorizontalAlignment="Left" Stretch="None"></Image>
+            <TextBlock FontWeight="Bold" Text="{Binding Shop.Title}" TextWrapping="Wrap"></TextBlock>
+        </StackPanel>
     </DockPanel>
 </Window>

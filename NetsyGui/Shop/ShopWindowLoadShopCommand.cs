@@ -95,7 +95,7 @@ namespace NetsyGui.Shop
             }
 
             Shop firstShop = shopsReceived.ResultValue.Results[0];
-            this.currentViewModel.ShopViewModel = new ShopViewModel(firstShop);
+            this.currentViewModel.Shop = new ShopViewModel(firstShop);
 
             this.currentViewModel.StatusText = "Loaded shop details";
         }
