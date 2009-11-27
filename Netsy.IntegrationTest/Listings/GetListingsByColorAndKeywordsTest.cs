@@ -26,6 +26,11 @@ namespace Netsy.IntegrationTest.Listings
     public class GetListingsByColorAndKeywordsTest
     {
         /// <summary>
+        /// The default colour wiggle room
+        /// </summary>
+        private const int DefaultWiggle = 12;
+
+        /// <summary>
         /// Test missing API key
         /// </summary>
         [TestMethod]
@@ -39,7 +44,7 @@ namespace Netsy.IntegrationTest.Listings
             RgbColor testColor = new RgbColor("76B3DF");
 
             // ACT
-            listingsService.GetListingsByColorAndKeywords(TestKeywords(), testColor, 10, 0, 10, DetailLevel.Low);
+            listingsService.GetListingsByColorAndKeywords(TestKeywords(), testColor, DefaultWiggle, 0, 10, DetailLevel.Low);
 
             // check the data
             TestHelpers.CheckResultFailure(result);
@@ -85,7 +90,7 @@ namespace Netsy.IntegrationTest.Listings
                 RgbColor testColor = new RgbColor("76B3DF");
 
                 // ACT
-                listingsService.GetListingsByColorAndKeywords(TestKeywords(), testColor, 10, 0, 10, DetailLevel.Low);
+                listingsService.GetListingsByColorAndKeywords(TestKeywords(), testColor, DefaultWiggle, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -123,7 +128,7 @@ namespace Netsy.IntegrationTest.Listings
                 RgbColor testColor = new RgbColor("76B3DF");
 
                 // ACT
-                listingsService.GetListingsByColorAndKeywords(TestKeywords(), testColor, 10, 0, 10, DetailLevel.Low);
+                listingsService.GetListingsByColorAndKeywords(TestKeywords(), testColor, DefaultWiggle, 0, 10, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -172,7 +177,7 @@ namespace Netsy.IntegrationTest.Listings
                 RgbColor testColor = new RgbColor("76B3DF");
 
                 // ACT
-                listingsService.GetListingsByColorAndKeywords(TestKeywords(), testColor, 10, 0, 10, detailLevel);
+                listingsService.GetListingsByColorAndKeywords(TestKeywords(), testColor, DefaultWiggle, 0, 10, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -183,7 +188,7 @@ namespace Netsy.IntegrationTest.Listings
                 Assert.IsNotNull(result);
                 TestHelpers.CheckResultSuccess(result);
 
-                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.IsTrue(result.ResultValue.Count > 0, "No listings found");
                 Assert.IsNotNull(result.ResultValue.Params);
             }
         }
