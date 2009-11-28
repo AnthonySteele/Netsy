@@ -8,11 +8,15 @@
     x:Name="mainWindow"
     DataContext="{x:Static NetsyGui:Locator.MainWindowViewModel}">
     <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <Button Content="Reload Front Listings" Command="{x:Static NetsyGui:CommandLocator.MainWindowLoadFrontFeaturedListingsCommand}" CommandParameter="{Binding}" />
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="1">
+            <Button Content="Get Front Listings" Command="{x:Static NetsyGui:CommandLocator.MainWindowLoadFrontFeaturedListingsCommand}" CommandParameter="{Binding}" />
             <Button Content="First" Command="{x:Static NetsyGui:CommandLocator.MainWindowFirstPageCommand}" CommandParameter="{Binding}" />
             <Button Content="Previous" Command="{x:Static NetsyGui:CommandLocator.MainWindowPreviousPageCommand}" CommandParameter="{Binding}" />
             <Button Content="Next" Command="{x:Static NetsyGui:CommandLocator.MainWindowNextPageCommand}" CommandParameter="{Binding}" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="1">
+            <Button Content="Get Listings by Keyword" Command="{x:Static NetsyGui:CommandLocator.MainWindowLoadListingsByKeywordCommand}" CommandParameter="{Binding}" />
+            <TextBox Text="{Binding Path=ListingKeywords, UpdateSourceTrigger=PropertyChanged}" MinWidth="100" MaxWidth="200" Margin="4,0,0,0" KeyUp="ListingKeywordsKeyUp" />
         </StackPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>

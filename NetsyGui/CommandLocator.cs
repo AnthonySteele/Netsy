@@ -40,6 +40,11 @@ namespace NetsyGui
         private static MainWindowLoadFrontFeaturedListingsCommand mainWindowLoadFrontFeaturedListingsCommand;
 
         /// <summary>
+        /// The main windpw "load listings by keyword" command
+        /// </summary>
+        private static MainWindowLoadListingsByKeywordCommand mainWindowLoadListingsByKeywordCommand;
+
+        /// <summary>
         /// The command to show the User's shop
         /// </summary>
         private static ListingViewModelShowUserCommand listingViewModelShowUserCommand;
@@ -86,6 +91,22 @@ namespace NetsyGui
                 }
 
                 return mainWindowLoadFrontFeaturedListingsCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the load listings command
+        /// </summary>
+        public static ICommand MainWindowLoadListingsByKeywordCommand
+        {
+            get
+            {
+                if (mainWindowLoadListingsByKeywordCommand == null)
+                {
+                    mainWindowLoadListingsByKeywordCommand = Locator.Resolve<MainWindowLoadListingsByKeywordCommand>();
+                }
+
+                return mainWindowLoadListingsByKeywordCommand;
             }
         }
 
@@ -138,6 +159,11 @@ namespace NetsyGui
             if (listingViewModelShowUserCommand != null)
             {
                 listingViewModelShowUserCommand.OnCanExecuteChanged();
+            }
+
+            if (mainWindowLoadListingsByKeywordCommand != null)
+            {
+                mainWindowLoadListingsByKeywordCommand.OnCanExecuteChanged();
             }
         }
     }

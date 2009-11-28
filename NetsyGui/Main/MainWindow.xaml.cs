@@ -8,6 +8,7 @@
 namespace NetsyGui.Main
 {
     using System.Windows;
+    using System.Windows.Input;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,6 +24,20 @@ namespace NetsyGui.Main
             Locator.RegisterInstance(this.Dispatcher);
 
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Handler for key press in the listing keywords
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the event params</param>
+        private void ListingKeywordsKeyUp(object sender, KeyEventArgs e)
+        {
+            // on enter, execute the command 
+            if (e.Key == Key.Return)
+            {
+                CommandLocator.MainWindowLoadListingsByKeywordCommand.Execute(this.DataContext);
+            }
         }
     }
 }

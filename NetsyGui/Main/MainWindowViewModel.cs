@@ -8,14 +8,7 @@
 
 namespace NetsyGui.Main
 {
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Globalization;
-    using System.Windows.Threading;
-
-    using Netsy.DataModel;
-    using Netsy.Helpers;
-    using Netsy.Interfaces;
 
     using NetsyGui.ViewModels;
 
@@ -24,7 +17,6 @@ namespace NetsyGui.Main
     /// </summary>
     public class MainWindowViewModel : BaseViewModel
     {
-
         /// <summary>
         /// Number of items to retrieve
         /// </summary>
@@ -44,6 +36,11 @@ namespace NetsyGui.Main
         /// The text to display on the status bar
         /// </summary>
         private string statusText;
+
+        /// <summary>
+        /// Keywords for listings
+        /// </summary>
+        private string listingKeywords;
 
         /// <summary>
         /// Initializes a new instance of the MainWindowViewModel class
@@ -98,6 +95,26 @@ namespace NetsyGui.Main
                 {
                     this.statusText = value;
                     this.OnPropertyChanged("StatusText");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the listing keywords
+        /// </summary>
+        public string ListingKeywords
+        {
+            get
+            {
+                return this.listingKeywords;
+            }
+
+            set
+            {
+                if (this.listingKeywords != value)
+                {
+                    this.listingKeywords = value;
+                    this.OnPropertyChanged("ListingKeywords");
                 }
             }
         }
