@@ -66,6 +66,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\Listings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListingSmall.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,6 +93,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLocator.cs" />
+    <Compile Include="Controls\Listings.xaml.cs">
+      <DependentUpon>Listings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListingSmall.xaml.cs">
+      <DependentUpon>ListingSmall.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GenericCommandBase.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers.cs" />

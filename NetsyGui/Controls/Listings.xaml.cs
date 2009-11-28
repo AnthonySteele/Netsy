@@ -1,0 +1,25 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="Listings.xaml.cs" company="AFS">
+//  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
+//  and is made available under the terms of the Microsoft Public License (Ms-PL)
+//  http://www.opensource.org/licenses/ms-pl.html
+// </copyright>
+//----------------------------------------------------------------------- 
+namespace NetsyGui.Controls
+{
+    using System.Windows.Controls;
+
+    /// <summary>
+    /// Interaction logic for Listings.xaml
+    /// </summary>
+    public partial class Listings : UserControl
+    {
+        /// <summary>
+        /// Initializes a new instance of the Listings class
+        /// </summary>
+        public Listings()
+        {
+            InitializeComponent();
+        }
+    }
+}
