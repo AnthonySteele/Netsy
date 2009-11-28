@@ -2,8 +2,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:NetsyGui="clr-namespace:NetsyGui"
-    Title="Shop" 
-    Height="300"
+    Title="{Binding Shop.Name}" 
+    Width="800"
+    Height="500"
     DataContext="{x:Static NetsyGui:Locator.ShopWindowViewModel}">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -14,10 +15,12 @@
                     Content="{Binding StatusText}" />
             </StatusBarItem>
         </StatusBar>
-        <StackPanel>
-            <TextBlock FontWeight="Bold" Text="{Binding Shop.Name}" TextWrapping="Wrap"></TextBlock>
-            <Image Source="{Binding Shop.BannerImageUrl}" HorizontalAlignment="Left" Stretch="None"></Image>
-            <TextBlock FontWeight="Bold" Text="{Binding Shop.Title}" TextWrapping="Wrap"></TextBlock>
+        <StackPanel HorizontalAlignment="Stretch">
+            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding Shop.Title}" TextWrapping="Wrap"></TextBlock>
+            <Image Source="{Binding Shop.BannerImageUrl}" HorizontalAlignment="Center" Stretch="None"></Image>
+            <TextBlock FontWeight="Bold" Text="{Binding Shop.SaleMessage}" TextWrapping="Wrap"></TextBlock>
+            <TextBlock FontWeight="Bold" Text="{Binding Shop.Announcement}" TextWrapping="Wrap"></TextBlock>
+            <TextBlock FontWeight="Bold" Text="{Binding Shop.PolicyWelcome}" TextWrapping="Wrap"></TextBlock>
         </StackPanel>
     </DockPanel>
 </Window>
