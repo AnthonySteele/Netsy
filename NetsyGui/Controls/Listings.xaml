@@ -10,7 +10,8 @@
         <ListBox 
                 x:Name="listingsListBox"
                 ItemsSource="{Binding}" 
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="{Binding ElementName=listingsListBox, Path=ActualWidth, Converter={StaticResource WidthToColumnCountValueConverter}}"/>

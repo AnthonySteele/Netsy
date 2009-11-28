@@ -8,6 +8,8 @@
 
 namespace NetsyGui.Shop
 {
+    using System.Collections.ObjectModel;
+
     using ViewModels;
 
     /// <summary>
@@ -15,6 +17,16 @@ namespace NetsyGui.Shop
     /// </summary>
     public class ShopWindowViewModel : BaseViewModel
     {
+        /// <summary>
+        /// the number of listings to show at once
+        /// </summary>
+        public const int ListingsPerPage = 12;
+
+        /// <summary>
+        /// The shop's listings
+        /// </summary>
+        private readonly ObservableCollection<ListingViewModel> listings = new ObservableCollection<ListingViewModel>();
+
         /// <summary>
         /// the Id of the user/shop being shown
         /// </summary>
@@ -26,7 +38,7 @@ namespace NetsyGui.Shop
         private string statusText;
 
         /// <summary>
-        /// The shop
+        /// The shop to display
         /// </summary>
         private ShopViewModel shop; 
 
@@ -87,6 +99,17 @@ namespace NetsyGui.Shop
                     this.shop = value;
                     this.OnPropertyChanged("Shop");
                 }                
+            }
+        }
+
+        /// <summary>
+        /// Gets the shop's listings
+        /// </summary>
+        public ObservableCollection<ListingViewModel> Listings
+        {
+            get
+            {
+                return this.listings;
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="MainWindowLoadListingsByKeywordCommand.cs" company="AFS">
+// <copyright file="MainWindowLoadListingsByKeywordsCommand.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -21,7 +21,7 @@ namespace NetsyGui.Main
     /// <summary>
     /// Command to load front featured listings on the main window
     /// </summary>
-    public class MainWindowLoadListingsByKeywordCommand : GenericCommandBase<MainWindowViewModel>
+    public class MainWindowLoadListingsByKeywordsCommand : GenericCommandBase<MainWindowViewModel>
     {
         /// <summary>
         /// The service to return listings
@@ -44,11 +44,11 @@ namespace NetsyGui.Main
         private string searchTerms;
 
         /// <summary>
-        /// Initializes a new instance of the MainWindowLoadListingsByKeywordCommand class.
+        /// Initializes a new instance of the MainWindowLoadListingsByKeywordsCommand class.
         /// </summary>
         /// <param name="listingsService">the listings service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
-        public MainWindowLoadListingsByKeywordCommand(IListingsService listingsService, Dispatcher dispatcher)
+        public MainWindowLoadListingsByKeywordsCommand(IListingsService listingsService, Dispatcher dispatcher)
         {
             this.dispatcher = dispatcher;
             this.listingsService = listingsService;

@@ -42,7 +42,7 @@ namespace NetsyGui
         /// <summary>
         /// The main windpw "load listings by keyword" command
         /// </summary>
-        private static MainWindowLoadListingsByKeywordCommand mainWindowLoadListingsByKeywordCommand;
+        private static MainWindowLoadListingsByKeywordsCommand mainWindowLoadListingsByKeywordsCommand;
 
         /// <summary>
         /// The command to show the User's shop
@@ -53,6 +53,11 @@ namespace NetsyGui
         /// Command to load the shop data
         /// </summary>
         private static ShopWindowLoadShopCommand shopWindowLoadShopCommand;
+
+        /// <summary>
+        /// Command to load shop listings
+        /// </summary>
+        private static ShopWindowLoadListingsCommand shopWindowLoadListingsCommand;
 
         /// <summary>
         /// Gets the next page command
@@ -101,12 +106,12 @@ namespace NetsyGui
         {
             get
             {
-                if (mainWindowLoadListingsByKeywordCommand == null)
+                if (mainWindowLoadListingsByKeywordsCommand == null)
                 {
-                    mainWindowLoadListingsByKeywordCommand = Locator.Resolve<MainWindowLoadListingsByKeywordCommand>();
+                    mainWindowLoadListingsByKeywordsCommand = Locator.Resolve<MainWindowLoadListingsByKeywordsCommand>();
                 }
 
-                return mainWindowLoadListingsByKeywordCommand;
+                return mainWindowLoadListingsByKeywordsCommand;
             }
         }
 
@@ -143,6 +148,22 @@ namespace NetsyGui
         }
 
         /// <summary>
+        /// Gets the shop listings
+        /// </summary>
+        public static ICommand ShopWindowLoadListingsCommand
+        {
+            get
+            {
+                if (shopWindowLoadListingsCommand == null)
+                {
+                    shopWindowLoadListingsCommand = Locator.Resolve<ShopWindowLoadListingsCommand>();
+                }
+
+                return shopWindowLoadListingsCommand;
+            }
+        }
+
+        /// <summary>
         /// Trigger re-evaluating the CanExecute state of main window commands
         /// </summary>
         public static void MainWindowCanExecuteChanged()
@@ -161,9 +182,9 @@ namespace NetsyGui
                 listingViewModelShowUserCommand.OnCanExecuteChanged();
             }
 
-            if (mainWindowLoadListingsByKeywordCommand != null)
+            if (mainWindowLoadListingsByKeywordsCommand != null)
             {
-                mainWindowLoadListingsByKeywordCommand.OnCanExecuteChanged();
+                mainWindowLoadListingsByKeywordsCommand.OnCanExecuteChanged();
             }
         }
     }

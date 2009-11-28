@@ -40,6 +40,7 @@ namespace NetsyGui.Main
             {
                 shopViewModel.UserId = value.UserId;
                 CommandLocator.ShopWindowLoadShopCommand.Execute(shopViewModel);
+                CommandLocator.ShopWindowLoadListingsCommand.Execute(shopViewModel);
                 shopWindow.Show();
             }
         }

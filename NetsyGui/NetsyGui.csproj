@@ -108,6 +108,7 @@
     <Compile Include="Shop\ShopWindow.xaml.cs">
       <DependentUpon>ShopWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Shop\ShopWindowLoadListingsCommand.cs" />
     <Compile Include="Shop\ShopWindowLoadShopCommand.cs" />
     <Compile Include="Shop\ShopWindowViewModel.cs" />
     <Compile Include="ValueConverters\WidthToColumnCountValueConverter.cs" />
