@@ -76,9 +76,19 @@ namespace Netsy.DataModel
         public override string ToString()
         {
             return 
-                this.Red.ToString("X", CultureInfo.InvariantCulture) +
-                this.Green.ToString("X", CultureInfo.InvariantCulture) +
-                this.Blue.ToString("X", CultureInfo.InvariantCulture);
+                TwoDigitsHex(this.Red) + 
+                TwoDigitsHex(this.Green) + 
+                TwoDigitsHex(this.Blue);
+        }
+
+        /// <summary>
+        /// Turn the number into two hex digits, with leading zero
+        /// </summary>
+        /// <param name="value">the number to transform</param>
+        /// <returns>the hex string</returns>
+        private static string TwoDigitsHex(int value)
+        {
+            return value.ToString("X", CultureInfo.InvariantCulture).PadLeft(2, '0');
         }
     }
 }

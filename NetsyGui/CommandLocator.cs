@@ -60,6 +60,11 @@ namespace NetsyGui
         private static ShopWindowLoadListingsCommand shopWindowLoadListingsCommand;
 
         /// <summary>
+        /// Command to load listings by colour
+        /// </summary>
+        private static MainWindowLoadListingsByColorCommand mainWindowLoadListingsByColorCommand;
+
+        /// <summary>
         /// Gets the next page command
         /// </summary>
         public static ICommand MainWindowNextPageCommand
@@ -148,7 +153,7 @@ namespace NetsyGui
         }
 
         /// <summary>
-        /// Gets the shop listings
+        /// Gets the shop listings command
         /// </summary>
         public static ICommand ShopWindowLoadListingsCommand
         {
@@ -161,6 +166,22 @@ namespace NetsyGui
 
                 return shopWindowLoadListingsCommand;
             }
+        }
+
+        /// <summary>
+        /// Gets the listings by color command
+        /// </summary>
+        public static ICommand MainWindowLoadListingsByColorCommand
+        {
+            get
+            {
+                if (mainWindowLoadListingsByColorCommand == null)
+                {
+                    mainWindowLoadListingsByColorCommand = Locator.Resolve<MainWindowLoadListingsByColorCommand>(); 
+                }
+
+                return mainWindowLoadListingsByColorCommand;
+            }            
         }
 
         /// <summary>
@@ -185,6 +206,11 @@ namespace NetsyGui
             if (mainWindowLoadListingsByKeywordsCommand != null)
             {
                 mainWindowLoadListingsByKeywordsCommand.OnCanExecuteChanged();
+            }
+
+            if (mainWindowLoadListingsByColorCommand != null)
+            {
+                mainWindowLoadListingsByColorCommand.OnCanExecuteChanged();
             }
         }
     }

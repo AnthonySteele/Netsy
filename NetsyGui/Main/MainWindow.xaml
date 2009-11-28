@@ -18,6 +18,10 @@
             <Button Content="Get Listings by Keyword" Command="{x:Static NetsyGui:CommandLocator.MainWindowLoadListingsByKeywordCommand}" CommandParameter="{Binding}" />
             <TextBox Text="{Binding Path=ListingKeywords, UpdateSourceTrigger=PropertyChanged}" MinWidth="100" MaxWidth="200" Margin="4,0,0,0" KeyUp="ListingKeywordsKeyUp" />
         </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="1">
+            <Button Content="Get Listings by Colour" Command="{x:Static NetsyGui:CommandLocator.MainWindowLoadListingsByColorCommand}" CommandParameter="{Binding}" />
+            <TextBox Text="{Binding Path=ColourText, UpdateSourceTrigger=PropertyChanged}" MinWidth="100" MaxWidth="200" Margin="4,0,0,0" KeyUp="ListingColorKeyUp" />
+        </StackPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
                 <Label 

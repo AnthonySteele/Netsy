@@ -39,5 +39,19 @@ namespace NetsyGui.Main
                 CommandLocator.MainWindowLoadListingsByKeywordCommand.Execute(this.DataContext);
             }
         }
+
+        /// <summary>
+        /// Handler for key press in the color
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the event params</param>
+        private void ListingColorKeyUp(object sender, KeyEventArgs e)
+        {
+            // on enter, execute the command 
+            if (e.Key == Key.Return)
+            {
+                CommandLocator.MainWindowLoadListingsByColorCommand.Execute(this.DataContext);
+            }
+        }
     }
 }

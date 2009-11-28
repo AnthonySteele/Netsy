@@ -43,6 +43,11 @@ namespace NetsyGui.Main
         private string listingKeywords;
 
         /// <summary>
+        /// color for listings
+        /// </summary>
+        private string colourText;
+
+        /// <summary>
         /// Initializes a new instance of the MainWindowViewModel class
         /// </summary>
         public MainWindowViewModel()
@@ -115,6 +120,26 @@ namespace NetsyGui.Main
                 {
                     this.listingKeywords = value;
                     this.OnPropertyChanged("ListingKeywords");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the color for listings
+        /// </summary>
+        public string ColourText
+        {
+            get
+            {
+                return this.colourText;
+            }
+
+            set
+            {
+                if (this.colourText != value)
+                {
+                    this.colourText = value;
+                    this.OnPropertyChanged("ColourText");
                 }
             }
         }

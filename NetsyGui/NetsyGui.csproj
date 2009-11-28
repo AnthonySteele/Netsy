@@ -104,6 +104,7 @@
     <Compile Include="Helpers.cs" />
     <Compile Include="Main\ListingViewModelShowUserCommand.cs" />
     <Compile Include="Main\MainWindowLoadFrontFeaturedListingsCommand.cs" />
+    <Compile Include="Main\MainWindowLoadListingsByColorCommand.cs" />
     <Compile Include="Main\MainWindowLoadListingsByKeywordsCommand.cs" />
     <Compile Include="Shop\ShopWindow.xaml.cs">
       <DependentUpon>ShopWindow.xaml</DependentUpon>
