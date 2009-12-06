@@ -19,9 +19,14 @@ namespace NetsyGui.ViewModels
     public class ShopViewModel : BaseViewModel
     {
         /// <summary>
-        /// the list of shop-section objects
+        /// the full URL to the shops's banner image.
         /// </summary>
-        private readonly ObservableCollection<ShopSection> sections = new ObservableCollection<ShopSection>();
+        private string bannerImageUrl;
+
+        /// <summary>
+        /// last updated date
+        /// </summary>
+        private DateTime? lastUpdated;
 
         /// <summary>
         /// Creation date
@@ -29,15 +34,15 @@ namespace NetsyGui.ViewModels
         private DateTime? creationDate;
 
         /// <summary>
-        /// the full URL to the shops's banner image.
+        /// The number of active listings in the shop.
         /// </summary>
-        private string bannerImageUrl;
+        private int ListingCount;
 
         /// <summary>
         /// The shop name
         /// </summary>
         private string name;
-
+        
         /// <summary>
         /// a brief heading for the shop's main page.
         /// </summary>
@@ -92,6 +97,11 @@ namespace NetsyGui.ViewModels
         /// any additional policy information the seller provides (may be blank).
         /// </summary>
         private string policyAdditional;
+
+        /// <summary>
+        /// the list of shop-section objects
+        /// </summary>
+        private readonly ObservableCollection<ShopSection> sections = new ObservableCollection<ShopSection>();
 
         /// <summary>
         /// Initializes a new instance of the ShopViewModel class

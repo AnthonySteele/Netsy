@@ -127,7 +127,7 @@ namespace NetsyGui.Main
         /// <summary>
         /// Gets or sets the color for listings
         /// </summary>
-        public string ColourText
+        public string ColorText
         {
             get
             {
@@ -139,7 +139,7 @@ namespace NetsyGui.Main
                 if (this.colourText != value)
                 {
                     this.colourText = value;
-                    this.OnPropertyChanged("ColourText");
+                    this.OnPropertyChanged("ColorText");
                 }
             }
         }

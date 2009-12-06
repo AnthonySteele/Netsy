@@ -9,6 +9,7 @@
 namespace NetsyGui.ViewModels
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Windows;
 
@@ -21,9 +22,14 @@ namespace NetsyGui.ViewModels
     public class ListingViewModel : BaseViewModel
     {
         /// <summary>
-        /// The symbol for the listing's currency
+        /// The numeric ID for this listing
         /// </summary>
-        private readonly string currencySymbol;
+        private readonly int listingId;
+
+        /// <summary>
+        /// The listing state
+        /// </summary>
+        private readonly string state;
 
         /// <summary>
         /// The Listing's Display title text
@@ -31,29 +37,49 @@ namespace NetsyGui.ViewModels
         private readonly string title;
 
         /// <summary>
-        /// The image url
+        /// the listing Url
         /// </summary>
-        private readonly string thumbnailImageUrl;
+        private readonly Uri url;
 
         /// <summary>
-        /// The three-letter currency code
+        /// The full URL to a 25x25 thumbnail of the listing's image.
         /// </summary>
-        private readonly string currencyCode;
+        private readonly Uri imageUrl25X25;
 
         /// <summary>
-        /// the listing price
+        /// The full URL to a 50x50 thumbnail of the listing's image.
         /// </summary>
-        private readonly decimal price;
+        private readonly Uri imageUrl50X50;
+
+        /// <summary>
+        /// The full URL to a 75x75 thumbnail of the listing's image.
+        /// </summary>
+        private readonly Uri imageUrl75X75;
+
+        /// <summary>
+        /// The full URL to a 155x125 thumbnail of the listing's image.
+        /// </summary>
+        private readonly Uri imageUrl155X125;
+
+        /// <summary>
+        /// The full URL to a 200x200 thumbnail of the listing's image.
+        /// </summary>
+        private readonly Uri imageUrl200X200;
+
+        /// <summary>
+        /// The full URL to the listing's image, always 430 pixels wide.
+        /// </summary>
+        private readonly Uri imageUrl430XN;
 
         /// <summary>
         /// Date when the listing was created
         /// </summary>
-        private readonly DateTime? created;
+        private readonly DateTime? creationDate;
 
         /// <summary>
-        ///  date when the listing is ending
+        /// How many times the item has been viewed.
         /// </summary>
-        private readonly DateTime? ending;
+        private readonly int views;
 
         /// <summary>
         /// the tags on this item
@@ -66,9 +92,24 @@ namespace NetsyGui.ViewModels
         private readonly string materials;
 
         /// <summary>
-        /// the name of the user who is selling it
+        /// the listing price
         /// </summary>
-        private readonly string userName;
+        private readonly decimal price;
+
+        /// <summary>
+        /// The three-letter currency code
+        /// </summary>
+        private readonly string currencyCode;
+
+        /// <summary>
+        /// The symbol for the listing's currency, e.g. "$" or "£"
+        /// </summary>
+        private readonly string currencySymbol;
+        
+        /// <summary>
+        ///  date when the listing is ending
+        /// </summary>
+        private readonly DateTime? endingDate;
 
         /// <summary>
         /// the id of the user selling it
@@ -76,9 +117,32 @@ namespace NetsyGui.ViewModels
         private readonly int userId;
 
         /// <summary>
-        /// The quantity avialable
+        /// the name of the user who is selling it
+        /// </summary>
+        private readonly string userName;
+
+        /// <summary>
+        /// The quantity available
         /// </summary>
         private readonly int quantity;
+
+        private EtsyColor color;
+
+        private string description;
+
+        private double? latitude;
+        private double? longitude;
+
+        private string city;
+
+        private int? sectionId;
+
+        private string sectionTitle;
+
+        private ObservableCollection<ListingImageViewModel> AllImages;
+
+        private DateTime? favoriteCreationDate;
+        private double? score;
 
         /// <summary>
         /// Initializes a new instance of the ListingViewModel class
@@ -86,17 +150,37 @@ namespace NetsyGui.ViewModels
         /// <param name="listing">the listing data to show</param>
         public ListingViewModel(Listing listing)
         {
+            this.listingId = listing.ListingId;
+            this.state = listing.State;
             this.title = listing.Title;
-            this.thumbnailImageUrl = listing.ImageUrl155X125;
-            this.currencyCode = listing.CurrencyCode;
-            this.price = (decimal)listing.Price;
-            this.created = listing.CreationDate;
-            this.ending = listing.EndingDate;
-            this.userName = listing.UserName;
-            this.userId = listing.UserId;
-            this.quantity = listing.Quantity;
+            this.url = new Uri(listing.Url);
+            this.imageUrl25X25 = new Uri(listing.ImageUrl25X25);
+            this.imageUrl50X50 = new Uri(listing.ImageUrl50X50);
+            this.imageUrl75X75 = new Uri(listing.ImageUrl75X75);
+            this.imageUrl155X125 = new Uri(listing.ImageUrl155X125);
+            this.imageUrl200X200 = new Uri(listing.ImageUrl200X200);
+            this.imageUrl430XN = new Uri(listing.ImageUrl430XN);
+
+            this.creationDate = listing.CreationDate;
+            this.views = listing.Views;
             this.tags = listing.Tags.ToCsv();
             this.materials = listing.Materials.ToCsv();
+            this.price = (decimal)listing.Price;
+            this.currencyCode = listing.CurrencyCode;
+            this.endingDate = listing.EndingDate;
+
+            this.userId = listing.UserId;
+            this.userName = listing.UserName;
+            this.quantity = listing.Quantity;
+            this.color = listing.Color;
+            this.description = listing.Description;
+            this.latitude = listing.Latitude;
+            this.longitude = listing.Longitude;
+            this.city = listing.City;
+            this.sectionId = listing.SectionId;
+            this.sectionTitle = listing.SectionTitle;
+            this.favoriteCreationDate = listing.FavoriteCreationDate;
+            this.score = listing.Score;
 
             if (!string.IsNullOrEmpty(listing.CurrencyCode))
             {
@@ -105,7 +189,9 @@ namespace NetsyGui.ViewModels
         }
 
         /// <summary>
-        /// Gets the string to display for price
+        /// Gets the string to display for price, 
+        /// Including currency code and formatted amount
+        /// e.g. "$12.40 US"
         /// </summary>
         public string PriceData
         {
@@ -115,6 +201,22 @@ namespace NetsyGui.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the numeric ID for this listing
+        /// </summary>
+        public int ListingId
+        {
+            get { return this.listingId; }
+        }
+
+        /// <summary>
+        /// Gets the listing state
+        /// </summary>
+        public string State
+        {
+            get { return this.state; }
+        }
+        
         /// <summary>
         /// Gets the listing title
         /// </summary>
@@ -130,12 +232,12 @@ namespace NetsyGui.ViewModels
         {
             get
             {
-                if (this.created.HasValue)
+                if (this.creationDate.HasValue)
                 {
-                    string result = this.created.Value.ToShortDateString();
-                    if (this.ending.HasValue)
+                    string result = this.creationDate.Value.ToShortDateString();
+                    if (this.endingDate.HasValue)
                     {
-                        result += " to " + this.ending.Value.ToShortDateString();
+                        result += " to " + this.endingDate.Value.ToShortDateString();
                     }
 
                     return result;
@@ -143,14 +245,6 @@ namespace NetsyGui.ViewModels
 
                 return string.Empty;
             }
-        }
-
-        /// <summary>
-        /// Gets the image url to show for the Listing thumbnail
-        /// </summary>
-        public string ThumbnailImageUrl
-        {
-            get { return this.thumbnailImageUrl; }
         }
 
         /// <summary>
@@ -202,6 +296,17 @@ namespace NetsyGui.ViewModels
         public int Quantity
         {
             get { return this.quantity; }
+        }
+
+        /// <summary>
+        /// Gets how many times the item has been viewed.
+        /// </summary>
+        public int Views
+        {
+            get
+            {
+                return this.views;
+            }
         }
     }
 }

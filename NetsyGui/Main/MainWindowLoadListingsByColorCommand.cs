@@ -62,14 +62,14 @@ namespace NetsyGui.Main
         {
             this.currentViewModel = value;
 
-            if (string.IsNullOrEmpty(value.ColourText))
+            if (string.IsNullOrEmpty(value.ColorText))
             {
                 value.StatusText = "Enter a color";
                 return;
             }
 
             const int MaxWiggle = 15;
-            this.color = value.ColourText.Trim();
+            this.color = value.ColorText.Trim();
             RgbColor rgbColor = new RgbColor(this.color);
             this.listingsService.GetListingsByColor(rgbColor, MaxWiggle, 0, MainWindowViewModel.ItemPerPage, DetailLevel.Medium);
             string status = string.Format(CultureInfo.InvariantCulture, "Getting {0} listings for color {1}", MainWindowViewModel.ItemPerPage, this.color);

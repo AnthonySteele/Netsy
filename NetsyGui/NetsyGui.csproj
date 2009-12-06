@@ -43,11 +43,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="UIAutomationProvider">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -99,9 +94,8 @@
     <Compile Include="Controls\ListingSmall.xaml.cs">
       <DependentUpon>ListingSmall.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GenericCommandBase.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers.cs" />
+    <Compile Include="CurrencySymbolLookup.cs" />
     <Compile Include="Main\ListingViewModelShowUserCommand.cs" />
     <Compile Include="Main\MainWindowLoadFrontFeaturedListingsCommand.cs" />
     <Compile Include="Main\MainWindowLoadListingsByColorCommand.cs" />
@@ -113,6 +107,7 @@
     <Compile Include="Shop\ShopWindowLoadShopCommand.cs" />
     <Compile Include="Shop\ShopWindowViewModel.cs" />
     <Compile Include="ValueConverters\WidthToColumnCountValueConverter.cs" />
+    <Compile Include="ViewModels\ListingImageViewModel.cs" />
     <Compile Include="ViewModels\ListingViewModel.cs" />
     <Compile Include="Main\MainWindowFirstPageCommand.cs" />
     <Compile Include="Main\MainWindowNextPageCommand.cs" />
