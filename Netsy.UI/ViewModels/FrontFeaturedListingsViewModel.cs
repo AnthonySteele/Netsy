@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ListingsViewModel.cs" company="AFS">
+// <copyright file="FrontFeaturedListingsViewModel.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -39,7 +39,7 @@ namespace Netsy.UI.ViewModels
         {
             this.dispatcher = dispatcher;
             this.listingsService = listingsService;
-            this.listingsService.GetFrontFeaturedListingsCompleted += this.FrontFeaturedListingsReceived;
+            this.listingsService.GetFrontFeaturedListingsCompleted += this.ListingsReceived;
        
             this.MakeCommands();
         }
@@ -65,12 +65,12 @@ namespace Netsy.UI.ViewModels
         /// </summary>
         /// <param name="sender">event sender</param>
         /// <param name="e">event params</param>
-        private void FrontFeaturedListingsReceived(object sender, ResultEventArgs<Listings> e)
+        private void ListingsReceived(object sender, ResultEventArgs<Listings> e)
         {
             // put it onto the Ui thread
             this.dispatcher.Invoke(
                 DispatcherPriority.Normal,
-                new ResultsReceivedHandler<Listings>(this.FrontFeaturedListingsReceivedSync),
+                new ResultsReceivedHandler<Listings>(this.ListingsReceivedSync),
                 e);
         }
 
@@ -78,7 +78,7 @@ namespace Netsy.UI.ViewModels
         /// Listings data has been received
         /// </summary>
         /// <param name="listingsReceived">the listings</param>
-        private void FrontFeaturedListingsReceivedSync(ResultEventArgs<Listings> listingsReceived)
+        private void ListingsReceivedSync(ResultEventArgs<Listings> listingsReceived)
         {
             if (!listingsReceived.ResultStatus.Success)
             {

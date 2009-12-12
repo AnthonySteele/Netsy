@@ -75,6 +75,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\ColorKeywordListings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\FrontListings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -101,6 +105,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ColorKeywordListings.xaml.cs">
+      <DependentUpon>ColorKeywordListings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FrontListings.xaml.cs">
       <DependentUpon>FrontListings.xaml</DependentUpon>
     </Compile>

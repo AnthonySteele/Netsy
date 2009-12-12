@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.WpfUI
+namespace Netsy.WpfUI.Windows.Main
 {
     using Netsy.UI.ViewModels;
 
@@ -21,6 +21,11 @@ namespace Netsy.WpfUI
         private readonly FrontFeaturedListingsViewModel frontListingsViewModel;
 
         /// <summary>
+        /// The view model for listings by color ahnd keyword
+        /// </summary>
+        private readonly ColorKeywordsListingsViewModel colorKeywordsViewModel;
+
+        /// <summary>
         /// The text to display on the status bar
         /// </summary>
         private string statusText;
@@ -29,10 +34,15 @@ namespace Netsy.WpfUI
         /// Initializes a new instance of the MainWindowViewModel class
         /// </summary>
         /// <param name="frontFeaturedListingsViewModel">the view model for front featured listings</param>
-        public MainWindowViewModel(FrontFeaturedListingsViewModel frontFeaturedListingsViewModel)
+        /// <param name="colorKeywordsViewModel">the view model for listings by color and keyword</param>
+        public MainWindowViewModel(
+            FrontFeaturedListingsViewModel frontFeaturedListingsViewModel,
+            ColorKeywordsListingsViewModel colorKeywordsViewModel)
         {
             this.StatusText = "Netsy WPF UI";
+
             this.frontListingsViewModel = frontFeaturedListingsViewModel;
+            this.colorKeywordsViewModel = colorKeywordsViewModel;
         }
 
         /// <summary>
@@ -63,6 +73,17 @@ namespace Netsy.WpfUI
             get
             {
                 return this.frontListingsViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for front listings
+        /// </summary>
+        public ColorKeywordsListingsViewModel ColorKeywordsViewModel
+        {
+            get
+            {
+                return this.colorKeywordsViewModel;
             }
         }
     }
