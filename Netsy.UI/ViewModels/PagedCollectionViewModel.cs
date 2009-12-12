@@ -17,7 +17,7 @@ namespace Netsy.UI.ViewModels
     /// Subclass must set the loadPageCommand
     /// </summary>
     /// <typeparam name="T">The type of item in the collection</typeparam>
-    public class PagedCollectionViewModel<T> : BaseViewModel where T : class 
+    public abstract class PagedCollectionViewModel<T> : BaseViewModel where T : class 
     {
         /// <summary>
         /// the listings shown on the gui

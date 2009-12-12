@@ -18,18 +18,8 @@ namespace Netsy.UI.ViewModels.Listings
     /// <summary>
     /// View model for a collection of listings from the front featured listings service
     /// </summary>
-    public class ColorListingsViewModel : PagedCollectionViewModel<ListingViewModel>
+    public class ColorListingsViewModel : ListingsServiceViewModel
     {
-        /// <summary>
-        /// The service to return listings
-        /// </summary>
-        private readonly IListingsService listingsService;
-
-        /// <summary>
-        /// The theading dispatcher
-        /// </summary>
-        private readonly Dispatcher dispatcher;
-
         /// <summary>
         /// The color to match
         /// </summary>
@@ -41,11 +31,9 @@ namespace Netsy.UI.ViewModels.Listings
         /// <param name="listingsService">the listings service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
         public ColorListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
+            : base(listingsService, dispatcher)
         {
-            this.dispatcher = dispatcher;
-            this.listingsService = listingsService;
-            this.listingsService.GetListingsByColorCompleted += this.ListingsReceived;
-
+            this.ListingsService.GetListingsByColorCompleted += this.ListingsReceived;
             this.MakeCommands();
         }
 
@@ -70,6 +58,15 @@ namespace Netsy.UI.ViewModels.Listings
         }
 
         /// <summary>
+        /// Show the success message
+        /// </summary>
+        protected override void ShowLoadedSuccessMessage()
+        {
+            string status = string.Format(CultureInfo.InvariantCulture, "Loaded {0} listings by color on page {1}", this.Items.Count, this.PageNumber);
+            this.StatusText = status;
+        }
+        
+        /// <summary>
         /// Create the load command 
         /// </summary>
         private void MakeCommands()
@@ -77,35 +74,20 @@ namespace Netsy.UI.ViewModels.Listings
             this.LoadPageCommand = new DelegateCommand<ListingViewModel>(
                 item =>
                 {
-                    if (!this.HasSearchParams())
+                    if (string.IsNullOrEmpty(this.ColorText))
                     {
                         this.StatusText = "Enter the color";
                         return;
                     }
 
-                    const int MaxWiggle = 15;
                     RgbColor rgbColor = this.ConvertColor();
 
                     int offset = (this.PageNumber - 1) * this.ItemsPerPage;
 
-                    this.listingsService.GetListingsByColor(rgbColor, MaxWiggle, offset, this.ItemsPerPage, DetailLevel.Medium);
+                    this.ListingsService.GetListingsByColor(rgbColor, Constants.MaxColorWiggle, offset, this.ItemsPerPage, DetailLevel.Medium);
                     string status = string.Format(CultureInfo.InvariantCulture, "Getting {0} listings by color on page {1}", this.ItemsPerPage, this.PageNumber);
                     this.StatusText = status;
                 });
-        }
-
-        /// <summary>
-        /// Have search params been entered
-        /// </summary>
-        /// <returns>true if the UI has text entered</returns>
-        private bool HasSearchParams()
-        {
-            if (string.IsNullOrEmpty(this.ColorText))
-            {
-                return false;
-            }
-
-            return true;
         }
 
         /// <summary>
@@ -127,43 +109,6 @@ namespace Netsy.UI.ViewModels.Listings
             }
 
             return rgbColor;
-        }
-
-        /// <summary>
-        /// Callback for when Listings data has been received
-        /// </summary>
-        /// <param name="sender">event sender</param>
-        /// <param name="e">event params</param>
-        private void ListingsReceived(object sender, ResultEventArgs<Listings> e)
-        {
-            // put it onto the Ui thread
-            this.dispatcher.Invoke(
-                DispatcherPriority.Normal,
-                new ResultsReceivedHandler<Listings>(this.ListingsReceivedSync),
-                e);
-        }
-
-        /// <summary>
-        /// Listings data has been received
-        /// </summary>
-        /// <param name="listingsReceived">the listings</param>
-        private void ListingsReceivedSync(ResultEventArgs<Listings> listingsReceived)
-        {
-            if (!listingsReceived.ResultStatus.Success)
-            {
-                this.StatusText = "Failed to load listings by color " + listingsReceived.ResultStatus.ErrorMessage;
-                return;
-            }
-
-            this.Items.Clear();
-            foreach (Listing item in listingsReceived.ResultValue.Results)
-            {
-                ListingViewModel viewModel = new ListingViewModel(item);
-                this.Items.Add(viewModel);
-            }
-
-            string status = string.Format(CultureInfo.InvariantCulture, "Loaded {0} listings by color on page {1}", this.Items.Count, this.PageNumber);
-            this.StatusText = status;
         }
     }
 }

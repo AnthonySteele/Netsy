@@ -16,5 +16,10 @@ namespace Netsy.UI.ViewModels
         /// The default number of items per page
         /// </summary>
         public const int DefaultItemsPerPage = 12;
+
+        /// <summary>
+        /// The largest value for Color wiggle values
+        /// </summary>
+        public const int MaxColorWiggle = 15;
     }
 }

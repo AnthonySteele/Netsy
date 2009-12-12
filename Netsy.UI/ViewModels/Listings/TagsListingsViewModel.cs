@@ -1,10 +1,11 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="KeywordsListingsViewModel.cs" company="AFS">
+// <copyright file="TagsListingsViewModel.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
+
 namespace Netsy.UI.ViewModels.Listings
 {
     using System.Collections.Generic;
@@ -16,43 +17,43 @@ namespace Netsy.UI.ViewModels.Listings
     using Netsy.UI.Commands;
 
     /// <summary>
-    /// View model for a collection of listings from the front featured listings service
+    /// View model for a collection of listings from the istings by tags service
     /// </summary>
-    public class KeywordsListingsViewModel : ListingsServiceViewModel
+    public class TagsListingsViewModel : ListingsServiceViewModel
     {
         /// <summary>
-        /// The keywords to match
+        /// The tags to match
         /// </summary>
-        private string keywords;
+        private string tags;
 
         /// <summary>
-        /// Initializes a new instance of the KeywordsListingsViewModel class.
+        /// Initializes a new instance of the TagsListingsViewModel class.
         /// </summary>
         /// <param name="listingsService">the listings service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
-        public KeywordsListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
+        public TagsListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
             : base(listingsService, dispatcher)
         {
-            this.ListingsService.GetListingsByKeywordCompleted += this.ListingsReceived;
+            this.ListingsService.GetListingsByTagsCompleted += this.ListingsReceived;
             this.MakeCommands();
         }
 
         /// <summary>
-        /// Gets or sets the keywords to match
+        /// Gets or sets the Tags to match
         /// </summary>
-        public string Keywords
+        public string Tags
         {
             get
             {
-                return this.keywords;
+                return this.tags;
             }
 
             set
             {
-                if (this.keywords != value)
+                if (this.tags != value)
                 {
-                    this.keywords = value;
-                    this.OnPropertyChanged("Keywords");
+                    this.tags = value;
+                    this.OnPropertyChanged("Tags");
                 }
             }
         }
@@ -62,10 +63,10 @@ namespace Netsy.UI.ViewModels.Listings
         /// </summary>
         protected override void ShowLoadedSuccessMessage()
         {
-            string status = string.Format(CultureInfo.InvariantCulture, "Loaded {0} listings by keyword on page {1}", this.Items.Count, this.PageNumber);
+            string status = string.Format(CultureInfo.InvariantCulture, "Loaded {0} listings by tags on page {1}", this.Items.Count, this.PageNumber);
             this.StatusText = status;
         }
-        
+
         /// <summary>
         /// Create the load command 
         /// </summary>
@@ -74,20 +75,13 @@ namespace Netsy.UI.ViewModels.Listings
             this.LoadPageCommand = new DelegateCommand<ListingViewModel>(
                 item =>
                 {
-                    if (string.IsNullOrEmpty(this.Keywords))
-                    {
-                        this.StatusText = "Enter one or more keywords";
-                        return;
-                    }
-
                     int offset = (this.PageNumber - 1) * this.ItemsPerPage;
-                    IEnumerable<string> keywordArray = this.Keywords.ToEnumerable();
+                    IEnumerable<string> tagsArray = this.Tags.ToEnumerable();
 
-                    this.ListingsService.GetListingsByKeyword(keywordArray, SortField.Score, SortOrder.Down,  null, null, true, offset, this.ItemsPerPage, DetailLevel.Medium);
-                    string status = string.Format(CultureInfo.InvariantCulture, "Getting {0} listings by keyword on page {1}", this.ItemsPerPage, this.PageNumber);
+                    this.ListingsService.GetListingsByTags(tagsArray, SortField.Score, SortOrder.Down, offset, this.ItemsPerPage, DetailLevel.Medium);
+                    string status = string.Format(CultureInfo.InvariantCulture, "Getting {0} listings by tags on page {1}", this.ItemsPerPage, this.PageNumber);
                     this.StatusText = status;
                 });
         }
-
     }
 }

@@ -61,5 +61,27 @@ namespace Netsy.UI.ViewModels
                     this.Listing.CurrencyCode;
             }
         }
+
+        /// <summary>
+        /// Gets data data for display
+        /// </summary>
+        public string DateDisplay
+        {
+            get
+            {
+                if (this.Listing.CreationDate.HasValue)
+                {
+                    string result = this.Listing.CreationDate.Value.ToShortDateString();
+                    if (this.Listing.EndingDate.HasValue)
+                    {
+                        result += " to " + this.Listing.EndingDate.Value.ToShortDateString();
+                    }
+
+                    return result;
+                }
+
+                return string.Empty;
+            }
+        }
     }
 }

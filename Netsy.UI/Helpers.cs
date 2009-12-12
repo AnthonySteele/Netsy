@@ -47,5 +47,20 @@ namespace Netsy.UI
 
             return result.ToString();
         }
+
+        /// <summary>
+        /// Split a string into a list at spaces and commas
+        /// </summary>
+        /// <param name="value">the string to convert</param>
+        /// <returns>words in an enumerable</returns>
+        public static IEnumerable<string> ToEnumerable(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return new string[0];
+            }
+
+            return value.Split(new[] { ',', ' ' });
+        }
     }
 }

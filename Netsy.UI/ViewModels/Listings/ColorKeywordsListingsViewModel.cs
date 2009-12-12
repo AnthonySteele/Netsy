@@ -12,25 +12,14 @@ namespace Netsy.UI.ViewModels.Listings
     using System.Windows.Threading;
 
     using Netsy.DataModel;
-    using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.UI.Commands;
 
     /// <summary>
-    /// View model for a collection of listings from the front featured listings service
+    /// View model for a collection of listings from the color and keyword listings service
     /// </summary>
-    public class ColorKeywordsListingsViewModel : PagedCollectionViewModel<ListingViewModel>
+    public class ColorKeywordsListingsViewModel : ListingsServiceViewModel
     {
-        /// <summary>
-        /// The service to return listings
-        /// </summary>
-        private readonly IListingsService listingsService;
-
-        /// <summary>
-        /// The theading dispatcher
-        /// </summary>
-        private readonly Dispatcher dispatcher;
-
         /// <summary>
         /// The color to match
         /// </summary>
@@ -47,11 +36,9 @@ namespace Netsy.UI.ViewModels.Listings
         /// <param name="listingsService">the listings service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
         public ColorKeywordsListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
+            : base(listingsService, dispatcher)
         {
-            this.dispatcher = dispatcher;
-            this.listingsService = listingsService;
-            this.listingsService.GetListingsByColorAndKeywordsCompleted += this.ListingsReceived;
-
+            this.ListingsService.GetListingsByColorAndKeywordsCompleted += this.ListingsReceived;
             this.MakeCommands();
         }
 
@@ -96,6 +83,15 @@ namespace Netsy.UI.ViewModels.Listings
         }
 
         /// <summary>
+        /// Show the success message
+        /// </summary>
+        protected override void ShowLoadedSuccessMessage()
+        {
+            string status = string.Format(CultureInfo.InvariantCulture, "Loaded {0} listings by color and keyword on page {1}", this.Items.Count, this.PageNumber);
+            this.StatusText = status;
+        }
+
+        /// <summary>
         /// Create the load command 
         /// </summary>
         private void MakeCommands()
@@ -109,13 +105,12 @@ namespace Netsy.UI.ViewModels.Listings
                         return;
                     }
 
-                    const int MaxWiggle = 15;
                     RgbColor rgbColor = this.ConvertColor();
 
                     int offset = (this.PageNumber - 1) * this.ItemsPerPage;
                     IEnumerable<string> keywordArray = this.ConvertKeywords();
 
-                    this.listingsService.GetListingsByColorAndKeywords(keywordArray, rgbColor, MaxWiggle, offset, this.ItemsPerPage, DetailLevel.Medium);
+                    this.ListingsService.GetListingsByColorAndKeywords(keywordArray, rgbColor, Constants.MaxColorWiggle, offset, this.ItemsPerPage, DetailLevel.Medium);
                     string status = string.Format(CultureInfo.InvariantCulture, "Getting {0} listings by color and keyword on page {1}", this.ItemsPerPage, this.PageNumber);
                     this.StatusText = status;
                 });
@@ -173,43 +168,6 @@ namespace Netsy.UI.ViewModels.Listings
             }
 
             return rgbColor;
-        }
-
-        /// <summary>
-        /// Callback for when Listings data has been received
-        /// </summary>
-        /// <param name="sender">event sender</param>
-        /// <param name="e">event params</param>
-        private void ListingsReceived(object sender, ResultEventArgs<Listings> e)
-        {
-            // put it onto the Ui thread
-            this.dispatcher.Invoke(
-                DispatcherPriority.Normal,
-                new ResultsReceivedHandler<Listings>(this.ListingsReceivedSync),
-                e);
-        }
-
-        /// <summary>
-        /// Listings data has been received
-        /// </summary>
-        /// <param name="listingsReceived">the listings</param>
-        private void ListingsReceivedSync(ResultEventArgs<Listings> listingsReceived)
-        {
-            if (!listingsReceived.ResultStatus.Success)
-            {
-                this.StatusText = "Failed to load listings by color and keyword " + listingsReceived.ResultStatus.ErrorMessage;
-                return;
-            }
-
-            this.Items.Clear();
-            foreach (Listing item in listingsReceived.ResultValue.Results)
-            {
-                ListingViewModel viewModel = new ListingViewModel(item);
-                this.Items.Add(viewModel);
-            }
-
-            string status = string.Format(CultureInfo.InvariantCulture, "Loaded {0} listings by color and keyword on page {1}", this.Items.Count, this.PageNumber);
-            this.StatusText = status;
         }
     }
 }
