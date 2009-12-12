@@ -18,7 +18,7 @@ namespace Netsy.WpfUI
         /// <summary>
         /// The view model for front listings
         /// </summary>
-        private readonly ListingsViewModel frontListingsViewModel;
+        private readonly FrontFeaturedListingsViewModel frontListingsViewModel;
 
         /// <summary>
         /// The text to display on the status bar
@@ -28,10 +28,11 @@ namespace Netsy.WpfUI
         /// <summary>
         /// Initializes a new instance of the MainWindowViewModel class
         /// </summary>
-        public MainWindowViewModel()
+        /// <param name="frontFeaturedListingsViewModel">the view model for front featured listings</param>
+        public MainWindowViewModel(FrontFeaturedListingsViewModel frontFeaturedListingsViewModel)
         {
             this.StatusText = "Netsy WPF UI";
-            this.frontListingsViewModel = new ListingsViewModel();
+            this.frontListingsViewModel = frontFeaturedListingsViewModel;
         }
 
         /// <summary>
@@ -57,7 +58,7 @@ namespace Netsy.WpfUI
         /// <summary>
         /// Gets the view model for front listings
         /// </summary>
-        public ListingsViewModel FrontListings
+        public FrontFeaturedListingsViewModel FrontFeaturedListings
         {
             get
             {

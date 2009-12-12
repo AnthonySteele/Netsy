@@ -1,4 +1,4 @@
-﻿<Window x:Class="Netsy.WpfUI.MainWindow"
+﻿<Window x:Class="Netsy.WpfUI.Windows.Main.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:Netsy.WpfUI.Controls"
@@ -6,19 +6,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TabControl>
             <TabItem Header="_Front Items">
-                <Controls:FrontListings  DataContext="{Binding FrontListings}" />
+                <Controls:FrontListings  DataContext="{Binding FrontFeaturedListings}" />
             </TabItem>
             <TabItem Header="_Other stuff">
             </TabItem>
         </TabControl>
-        <StatusBar Grid.Row="1">
-            <StatusBarItem>
-                <Label Content="{Binding StatusText}" />
-            </StatusBarItem>
-        </StatusBar>
     </Grid>
 </Window>

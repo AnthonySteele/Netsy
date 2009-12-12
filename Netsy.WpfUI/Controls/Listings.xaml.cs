@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Items.xaml.cs" company="AFS">
+// <copyright file="Listings.xaml.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -15,7 +15,7 @@ namespace Netsy.WpfUI.Controls
     public partial class Listings : UserControl
     {
         /// <summary>
-        /// Initializes a new instance of the Items class
+        /// Initializes a new instance of the Listings class
         /// </summary>
         public Listings()
         {

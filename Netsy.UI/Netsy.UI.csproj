@@ -64,16 +64,13 @@
     <Compile Include="ValueConverters\WidthToColumnCountValueConverter.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Constants.cs" />
-    <Compile Include="ViewModels\FeedbacksViewModel.cs" />
     <Compile Include="ViewModels\FeedbackViewModel.cs" />
-    <Compile Include="ViewModels\GiftGuidesViewModel.cs" />
-    <Compile Include="ViewModels\ListingsViewModel.cs" />
     <Compile Include="ViewModels\GiftGuideViewModel.cs" />
     <Compile Include="ViewModels\ListingImageViewModel.cs" />
+    <Compile Include="ViewModels\FrontFeaturedListingsViewModel.cs" />
     <Compile Include="ViewModels\ListingViewModel.cs" />
-    <Compile Include="ViewModels\ShopsViewModel.cs" />
+    <Compile Include="ViewModels\PagedCollectionViewModel.cs" />
     <Compile Include="ViewModels\ShopViewModel.cs" />
-    <Compile Include="ViewModels\UsersViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

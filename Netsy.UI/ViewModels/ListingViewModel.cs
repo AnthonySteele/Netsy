@@ -7,6 +7,8 @@
 //----------------------------------------------------------------------- 
 namespace Netsy.UI.ViewModels
 {
+    using System.Globalization;
+
     using Netsy.DataModel;
 
     /// <summary>
@@ -20,12 +22,22 @@ namespace Netsy.UI.ViewModels
         private readonly Listing listing;
 
         /// <summary>
+        /// The currency cymbol, e.g. "$" or "£"
+        /// </summary>
+        private readonly string currencySymbol = string.Empty;
+
+        /// <summary>
         /// Initializes a new instance of the ListingViewModel class
         /// </summary>
         /// <param name="listing">the listing Data transfer object</param>
         public ListingViewModel(Listing listing)
         {
             this.listing = listing;
+
+            if (!string.IsNullOrEmpty(listing.CurrencyCode))
+            {
+                this.currencySymbol = CurrencySymbolLookup.CurrencySymbolFromCurrencyCode(listing.CurrencyCode);
+            }
         }
 
         /// <summary>
@@ -34,6 +46,20 @@ namespace Netsy.UI.ViewModels
         public Listing Listing
         {
             get { return this.listing; }
+        }
+
+        /// <summary>
+        /// Gets the price display data 
+        /// </summary>
+        public string PriceData
+        {
+            get
+            {
+                return this.currencySymbol + 
+                    string.Format(CultureInfo.InvariantCulture, "{0:0.00}", this.Listing.Price) + 
+                    " " + 
+                    this.Listing.CurrencyCode;
+            }
         }
     }
 }

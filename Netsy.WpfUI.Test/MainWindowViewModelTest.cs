@@ -22,7 +22,7 @@ namespace Netsy.WpfUI.Test
         [TestMethod]
         public void MainWindowViewModelCreateTest()
         {
-            MainWindowViewModel viewModel = new MainWindowViewModel();
+            MainWindowViewModel viewModel = new MainWindowViewModel(null);
             Assert.IsNotNull(viewModel);
         }
     }

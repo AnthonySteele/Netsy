@@ -6,12 +6,12 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.WpfUI
+namespace Netsy.WpfUI.Windows.Main
 {
     using System.Windows;
 
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -20,8 +20,15 @@ namespace Netsy.WpfUI
         /// </summary>
         public MainWindow()
         {
+            // use this window's dispacther for thread wrangling
+            Locator.RegisterInstance(this.Dispatcher);
+
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel();
+            MainWindowViewModel viewModel = Locator.Resolve<MainWindowViewModel>();
+            this.DataContext = viewModel;
+            
+            // start with a page of front listings
+            viewModel.FrontFeaturedListings.LoadPageCommand.Execute(viewModel);
         }
     }
 }
