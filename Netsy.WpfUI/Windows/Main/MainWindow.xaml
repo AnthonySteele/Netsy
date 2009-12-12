@@ -11,10 +11,14 @@
             <TabItem Header="_Front Listings">
                 <Controls:FrontListings  DataContext="{Binding FrontFeaturedListings}" />
             </TabItem>
-            <TabItem Header="Listings by color and _keyword">
-                <Controls:ColorKeywordListings  DataContext="{Binding ColorKeywordsViewModel}" />
+            <TabItem Header="Listings by _color">
+                <Controls:ColorListings  DataContext="{Binding ColorViewModel}" />
             </TabItem>
-            <TabItem Header="_Other stuff">
+            <TabItem Header="Listings by _keyword">
+                <Controls:KeywordListings  DataContext="{Binding KeywordsViewModel}" />
+            </TabItem>
+            <TabItem Header="Listings by color _and keyword">
+                <Controls:ColorKeywordListings  DataContext="{Binding ColorKeywordsViewModel}" />
             </TabItem>
         </TabControl>
     </Grid>

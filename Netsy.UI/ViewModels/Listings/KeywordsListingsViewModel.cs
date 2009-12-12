@@ -1,12 +1,13 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FrontFeaturedListingsViewModel.cs" company="AFS">
+// <copyright file="KeywordsListingsViewModel.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
-namespace Netsy.UI.ViewModels
+namespace Netsy.UI.ViewModels.Listings
 {
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Windows.Threading;
 
@@ -18,7 +19,7 @@ namespace Netsy.UI.ViewModels
     /// <summary>
     /// View model for a collection of listings from the front featured listings service
     /// </summary>
-    public class FrontFeaturedListingsViewModel : PagedCollectionViewModel<ListingViewModel>
+    public class KeywordsListingsViewModel : PagedCollectionViewModel<ListingViewModel>
     {
         /// <summary>
         /// The service to return listings
@@ -31,17 +32,42 @@ namespace Netsy.UI.ViewModels
         private readonly Dispatcher dispatcher;
 
         /// <summary>
-        /// Initializes a new instance of the FrontFeaturedListingsViewModel class.
+        /// The keywords to match
+        /// </summary>
+        private string keywords;
+
+        /// <summary>
+        /// Initializes a new instance of the KeywordsListingsViewModel class.
         /// </summary>
         /// <param name="listingsService">the listings service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
-        public FrontFeaturedListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
+        public KeywordsListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
         {
             this.dispatcher = dispatcher;
             this.listingsService = listingsService;
-            this.listingsService.GetFrontFeaturedListingsCompleted += this.ListingsReceived;
-       
+            this.listingsService.GetListingsByKeywordCompleted += this.ListingsReceived;
+
             this.MakeCommands();
+        }
+
+        /// <summary>
+        /// Gets or sets the keywords to match
+        /// </summary>
+        public string Keywords
+        {
+            get
+            {
+                return this.keywords;
+            }
+
+            set
+            {
+                if (this.keywords != value)
+                {
+                    this.keywords = value;
+                    this.OnPropertyChanged("Keywords");
+                }
+            }
         }
 
         /// <summary>
@@ -52,12 +78,47 @@ namespace Netsy.UI.ViewModels
             this.LoadPageCommand = new DelegateCommand<ListingViewModel>(
                 item =>
                 {
-                    int offset = (this.PageNumber - 1) * this.ItemsPerPage;
+                    if (!this.HasSearchParams())
+                    {
+                        this.StatusText = "Enter one or more keywords";
+                        return;
+                    }
 
-                    this.listingsService.GetFrontFeaturedListings(offset, this.ItemsPerPage, DetailLevel.Medium);
-                    string status = string.Format(CultureInfo.InvariantCulture, "Getting {0} front listings on page {1}", this.ItemsPerPage, this.PageNumber);
+                    int offset = (this.PageNumber - 1) * this.ItemsPerPage;
+                    IEnumerable<string> keywordArray = this.ConvertKeywords();
+
+                    this.listingsService.GetListingsByKeyword(keywordArray, SortField.Score, SortOrder.Down,  null, null, true, offset, this.ItemsPerPage, DetailLevel.Medium);
+                    string status = string.Format(CultureInfo.InvariantCulture, "Getting {0} listings by keyword on page {1}", this.ItemsPerPage, this.PageNumber);
                     this.StatusText = status;
                 });
+        }
+
+        /// <summary>
+        /// Have search params been entered
+        /// </summary>
+        /// <returns>true if the UI has text entered</returns>
+        private bool HasSearchParams()
+        {
+            if (string.IsNullOrEmpty(this.Keywords))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Get the keywords
+        /// </summary>
+        /// <returns>keywords for search</returns>
+        private IEnumerable<string> ConvertKeywords()
+        {
+            if (string.IsNullOrEmpty(this.Keywords))
+            {
+                return new string[0];
+            }
+
+            return this.Keywords.Split(new[] { ',', ' ' });
         }
 
         /// <summary>
@@ -82,7 +143,7 @@ namespace Netsy.UI.ViewModels
         {
             if (!listingsReceived.ResultStatus.Success)
             {
-                this.StatusText = "Failed to load listings " + listingsReceived.ResultStatus.ErrorMessage;
+                this.StatusText = "Failed to load listings by keyword " + listingsReceived.ResultStatus.ErrorMessage;
                 return;
             }
 
@@ -93,7 +154,7 @@ namespace Netsy.UI.ViewModels
                 this.Items.Add(viewModel);
             }
 
-            string status = string.Format(CultureInfo.InvariantCulture, "Loaded {0} front listings on page {1}", this.Items.Count, this.PageNumber);
+            string status = string.Format(CultureInfo.InvariantCulture, "Loaded {0} listings by keyword on page {1}", this.Items.Count, this.PageNumber);
             this.StatusText = status;
         }
     }

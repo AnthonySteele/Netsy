@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ColorKeywordListings.xaml.cs" company="AFS">
+// <copyright file="KeywordListings.xaml.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -13,12 +13,12 @@ namespace Netsy.WpfUI.Controls
     /// <summary>
     /// Interaction logic for FrontListings.xaml
     /// </summary>
-    public partial class ColorKeywordListings : UserControl
+    public partial class KeywordListings : UserControl
     {
         /// <summary>
-        /// Initializes a new instance of the ColorKeywordListings class
+        /// Initializes a new instance of the KeywordListings class
         /// </summary>
-        public ColorKeywordListings()
+        public KeywordListings()
         {
             InitializeComponent();
         }

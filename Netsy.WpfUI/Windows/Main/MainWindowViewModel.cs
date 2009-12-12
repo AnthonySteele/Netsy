@@ -9,6 +9,7 @@
 namespace Netsy.WpfUI.Windows.Main
 {
     using Netsy.UI.ViewModels;
+    using Netsy.UI.ViewModels.Listings;
 
     /// <summary>
     /// View model for the main window
@@ -21,7 +22,17 @@ namespace Netsy.WpfUI.Windows.Main
         private readonly FrontFeaturedListingsViewModel frontListingsViewModel;
 
         /// <summary>
-        /// The view model for listings by color ahnd keyword
+        /// The view model for listings by keyword
+        /// </summary>
+        private readonly KeywordsListingsViewModel keywordsViewModel;
+
+        /// <summary>
+        /// The view model for listings by color 
+        /// </summary>
+        private readonly ColorListingsViewModel colorViewModel;
+        
+        /// <summary>
+        /// The view model for listings by color and keyword
         /// </summary>
         private readonly ColorKeywordsListingsViewModel colorKeywordsViewModel;
 
@@ -34,14 +45,20 @@ namespace Netsy.WpfUI.Windows.Main
         /// Initializes a new instance of the MainWindowViewModel class
         /// </summary>
         /// <param name="frontFeaturedListingsViewModel">the view model for front featured listings</param>
-        /// <param name="colorKeywordsViewModel">the view model for listings by color and keyword</param>
+        /// <param name="keywordsViewModel">the view model for listings by keywords</param>
+        /// <param name="colorViewModel">the view model for listings by color</param>
+        /// <param name="colorKeywordsViewModel">the view model for listings by color and keywords</param>
         public MainWindowViewModel(
             FrontFeaturedListingsViewModel frontFeaturedListingsViewModel,
+            KeywordsListingsViewModel keywordsViewModel,
+            ColorListingsViewModel colorViewModel,
             ColorKeywordsListingsViewModel colorKeywordsViewModel)
         {
             this.StatusText = "Netsy WPF UI";
 
             this.frontListingsViewModel = frontFeaturedListingsViewModel;
+            this.keywordsViewModel = keywordsViewModel;
+            this.colorViewModel = colorViewModel;
             this.colorKeywordsViewModel = colorKeywordsViewModel;
         }
 
@@ -73,6 +90,28 @@ namespace Netsy.WpfUI.Windows.Main
             get
             {
                 return this.frontListingsViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for listings by keyword
+        /// </summary>
+        public KeywordsListingsViewModel KeywordsViewModel
+        {
+            get
+            {
+                return this.keywordsViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for listings by color 
+        /// </summary>
+        public ColorListingsViewModel ColorViewModel
+        {
+            get
+            {
+                return this.colorViewModel;
             }
         }
 
