@@ -20,9 +20,6 @@ namespace Netsy.WpfUI.Windows.Main
         /// </summary>
         public MainWindow()
         {
-            // use this window's dispacther for thread wrangling
-            Locator.RegisterInstance(this.Dispatcher);
-
             InitializeComponent();
             MainWindowViewModel viewModel = Locator.Resolve<MainWindowViewModel>();
             this.DataContext = viewModel;

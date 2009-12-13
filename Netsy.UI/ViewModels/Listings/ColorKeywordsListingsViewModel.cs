@@ -35,8 +35,8 @@ namespace Netsy.UI.ViewModels.Listings
         /// </summary>
         /// <param name="listingsService">the listings service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
-        public ColorKeywordsListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
-            : base(listingsService, dispatcher)
+        public ColorKeywordsListingsViewModel(IListingsService listingsService)
+            : base(listingsService)
         {
             this.ListingsService.GetListingsByColorAndKeywordsCompleted += this.ListingsReceived;
             this.MakeCommands();

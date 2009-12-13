@@ -29,9 +29,8 @@ namespace Netsy.UI.ViewModels.Listings
         /// Initializes a new instance of the ColorListingsViewModel class.
         /// </summary>
         /// <param name="listingsService">the listings service</param>
-        /// <param name="dispatcher">the thread dispatcher</param>
-        public ColorListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
-            : base(listingsService, dispatcher)
+        public ColorListingsViewModel(IListingsService listingsService)
+            : base(listingsService)
         {
             this.ListingsService.GetListingsByColorCompleted += this.ListingsReceived;
             this.MakeCommands();

@@ -29,9 +29,8 @@ namespace Netsy.UI.ViewModels.Listings
         /// Initializes a new instance of the KeywordsListingsViewModel class.
         /// </summary>
         /// <param name="listingsService">the listings service</param>
-        /// <param name="dispatcher">the thread dispatcher</param>
-        public KeywordsListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
-            : base(listingsService, dispatcher)
+        public KeywordsListingsViewModel(IListingsService listingsService)
+            : base(listingsService)
         {
             this.ListingsService.GetListingsByKeywordCompleted += this.ListingsReceived;
             this.MakeCommands();

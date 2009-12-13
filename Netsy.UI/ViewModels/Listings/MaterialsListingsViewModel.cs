@@ -30,9 +30,8 @@ namespace Netsy.UI.ViewModels.Listings
         /// Initializes a new instance of the MaterialsListingsViewModel class.
         /// </summary>
         /// <param name="listingsService">the listings service</param>
-        /// <param name="dispatcher">the thread dispatcher</param>
-        public MaterialsListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
-            : base(listingsService, dispatcher)
+        public MaterialsListingsViewModel(IListingsService listingsService)
+            : base(listingsService)
         {
             this.ListingsService.GetListingsByMaterialsCompleted += this.ListingsReceived;
             this.MakeCommands();

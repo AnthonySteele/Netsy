@@ -23,9 +23,8 @@ namespace Netsy.UI.ViewModels.Listings
         /// Initializes a new instance of the FrontFeaturedListingsViewModel class.
         /// </summary>
         /// <param name="listingsService">the listings service</param>
-        /// <param name="dispatcher">the thread dispatcher</param>
-        public FrontFeaturedListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
-            : base(listingsService, dispatcher)
+        public FrontFeaturedListingsViewModel(IListingsService listingsService)
+            : base(listingsService)
         {
             this.ListingsService.GetFrontFeaturedListingsCompleted += this.ListingsReceived;
             this.MakeCommands();

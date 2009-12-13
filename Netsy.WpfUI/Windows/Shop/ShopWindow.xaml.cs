@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace NetsyGui.Shop
+namespace Netsy.WpfUI.Windows.Shop
 {
     using System.Windows;
 

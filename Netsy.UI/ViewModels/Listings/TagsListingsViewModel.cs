@@ -30,9 +30,8 @@ namespace Netsy.UI.ViewModels.Listings
         /// Initializes a new instance of the TagsListingsViewModel class.
         /// </summary>
         /// <param name="listingsService">the listings service</param>
-        /// <param name="dispatcher">the thread dispatcher</param>
-        public TagsListingsViewModel(IListingsService listingsService, Dispatcher dispatcher)
-            : base(listingsService, dispatcher)
+        public TagsListingsViewModel(IListingsService listingsService)
+            : base(listingsService)
         {
             this.ListingsService.GetListingsByTagsCompleted += this.ListingsReceived;
             this.MakeCommands();

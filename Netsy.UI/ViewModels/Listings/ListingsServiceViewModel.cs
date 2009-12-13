@@ -7,6 +7,7 @@
 //----------------------------------------------------------------------- 
 namespace Netsy.UI.ViewModels.Listings
 {
+    using System.Windows;
     using System.Windows.Threading;
 
     using Netsy.DataModel;
@@ -24,19 +25,23 @@ namespace Netsy.UI.ViewModels.Listings
         private readonly IListingsService listingsService;
 
         /// <summary>
-        /// The theading dispatcher
-        /// </summary>
-        private readonly Dispatcher dispatcher;
-
-        /// <summary>
         /// Initializes a new instance of the ListingsServiceViewModel class.
         /// </summary>
         /// <param name="listingsService">the listings service</param>
-        /// <param name="dispatcher">the thread dispatcher</param>
-        protected ListingsServiceViewModel(IListingsService listingsService, Dispatcher dispatcher)
+        protected ListingsServiceViewModel(IListingsService listingsService)
         {
-            this.dispatcher = dispatcher;
             this.listingsService = listingsService;
+        }
+
+        /// <summary>
+        /// Gets the UI thread's dispatcher
+        /// </summary>
+        protected static Dispatcher UIDispatcher
+        {
+            get
+            {
+                return Application.Current.Dispatcher;
+            }
         }
 
         /// <summary>
@@ -58,7 +63,7 @@ namespace Netsy.UI.ViewModels.Listings
         protected void ListingsReceived(object sender, ResultEventArgs<Listings> e)
         {
             // put it onto the Ui thread
-            this.dispatcher.Invoke(
+            UIDispatcher.Invoke(
                 DispatcherPriority.Normal,
                 new ResultsReceivedHandler<Listings>(this.ListingsReceivedSync),
                 e);
