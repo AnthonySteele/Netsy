@@ -75,6 +75,12 @@ namespace Netsy.UI.ViewModels.Listings
             this.LoadPageCommand = new DelegateCommand<ListingViewModel>(
                 item =>
                 {
+                    if (string.IsNullOrEmpty(this.Tags))
+                    {
+                        this.StatusText = "Enter the tags";
+                        return;
+                    } 
+
                     int offset = (this.PageNumber - 1) * this.ItemsPerPage;
                     IEnumerable<string> tagsArray = this.Tags.ToEnumerable();
 

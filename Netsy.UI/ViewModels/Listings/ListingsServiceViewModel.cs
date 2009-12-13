@@ -21,7 +21,7 @@ namespace Netsy.UI.ViewModels.Listings
         /// <summary>
         /// The service to return listings
         /// </summary>
-        protected readonly IListingsService ListingsService;
+        private readonly IListingsService listingsService;
 
         /// <summary>
         /// The theading dispatcher
@@ -36,7 +36,18 @@ namespace Netsy.UI.ViewModels.Listings
         protected ListingsServiceViewModel(IListingsService listingsService, Dispatcher dispatcher)
         {
             this.dispatcher = dispatcher;
-            this.ListingsService = listingsService;
+            this.listingsService = listingsService;
+        }
+
+        /// <summary>
+        /// Gets the service to return listings
+        /// </summary>
+        protected IListingsService ListingsService
+        {
+            get
+            {
+                return this.listingsService;
+            }
         }
 
         /// <summary>

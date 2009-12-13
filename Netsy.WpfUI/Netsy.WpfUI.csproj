@@ -99,6 +99,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\MaterialsListings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TagsListings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -130,6 +138,12 @@
     </Compile>
     <Compile Include="Controls\ListingSmall.xaml.cs">
       <DependentUpon>ListingSmall.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MaterialsListings.xaml.cs">
+      <DependentUpon>MaterialsListings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TagsListings.xaml.cs">
+      <DependentUpon>TagsListings.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Locator.cs" />

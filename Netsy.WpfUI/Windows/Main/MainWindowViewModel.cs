@@ -37,6 +37,16 @@ namespace Netsy.WpfUI.Windows.Main
         private readonly ColorKeywordsListingsViewModel colorKeywordsViewModel;
 
         /// <summary>
+        /// The view model for listings by materials
+        /// </summary>
+        private readonly MaterialsListingsViewModel materialsViewModel;
+
+        /// <summary>
+        /// The view model for listings by tags
+        /// </summary>
+        private readonly TagsListingsViewModel tagsViewModel;
+
+        /// <summary>
         /// The text to display on the status bar
         /// </summary>
         private string statusText;
@@ -48,11 +58,15 @@ namespace Netsy.WpfUI.Windows.Main
         /// <param name="keywordsViewModel">the view model for listings by keywords</param>
         /// <param name="colorViewModel">the view model for listings by color</param>
         /// <param name="colorKeywordsViewModel">the view model for listings by color and keywords</param>
+        /// <param name="materialsListingsViewModel">the view model for listings by materials</param>
+        /// <param name="tagsListingsViewModel">the view model for listings by tags</param>
         public MainWindowViewModel(
             FrontFeaturedListingsViewModel frontFeaturedListingsViewModel,
             KeywordsListingsViewModel keywordsViewModel,
             ColorListingsViewModel colorViewModel,
-            ColorKeywordsListingsViewModel colorKeywordsViewModel)
+            ColorKeywordsListingsViewModel colorKeywordsViewModel,
+            MaterialsListingsViewModel materialsListingsViewModel,
+            TagsListingsViewModel tagsListingsViewModel)
         {
             this.StatusText = "Netsy WPF UI";
 
@@ -60,6 +74,8 @@ namespace Netsy.WpfUI.Windows.Main
             this.keywordsViewModel = keywordsViewModel;
             this.colorViewModel = colorViewModel;
             this.colorKeywordsViewModel = colorKeywordsViewModel;
+            this.materialsViewModel = materialsListingsViewModel;
+            this.tagsViewModel = tagsListingsViewModel;
         }
 
         /// <summary>
@@ -123,6 +139,28 @@ namespace Netsy.WpfUI.Windows.Main
             get
             {
                 return this.colorKeywordsViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for listings by materials
+        /// </summary>
+        public MaterialsListingsViewModel MaterialsViewModel
+        {
+            get
+            {
+                return this.materialsViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for listings by tags
+        /// </summary>
+        public TagsListingsViewModel TagsViewModel
+        {
+            get
+            {
+                return this.tagsViewModel;
             }
         }
     }
