@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Netsy.WpfUI.Controls.Shops"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ValueConverters="clr-namespace:Netsy.UI.ValueConverters;assembly=Netsy.UI"
+    xmlns:Controls="clr-namespace:Netsy.WpfUI.Controls" >
+    <UserControl.Resources>
+        <ValueConverters:WidthToColumnCountValueConverter x:Key="WidthToColumnCountValueConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <ListBox 
+                x:Name="shopsListBox"
+                ItemsSource="{Binding}" 
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="{Binding ElementName=shopsListBox, Path=ActualWidth, Converter={StaticResource WidthToColumnCountValueConverter}}"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Controls:ShopSmall />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

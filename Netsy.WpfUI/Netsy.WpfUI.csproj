@@ -103,6 +103,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Shops.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ShopsByName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ShopSmall.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TagsListings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +157,15 @@
     </Compile>
     <Compile Include="Controls\MaterialsListings.xaml.cs">
       <DependentUpon>MaterialsListings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Shops.xaml.cs">
+      <DependentUpon>Shops.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ShopsByName.xaml.cs">
+      <DependentUpon>ShopsByName.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ShopSmall.xaml.cs">
+      <DependentUpon>ShopSmall.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TagsListings.xaml.cs">
       <DependentUpon>TagsListings.xaml</DependentUpon>

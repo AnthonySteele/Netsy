@@ -10,6 +10,7 @@ namespace Netsy.WpfUI.Windows.Main
 {
     using Netsy.UI.ViewModels;
     using Netsy.UI.ViewModels.Listings;
+    using Netsy.UI.ViewModels.Shops;
 
     /// <summary>
     /// View model for the main window
@@ -47,6 +48,11 @@ namespace Netsy.WpfUI.Windows.Main
         private readonly TagsListingsViewModel tagsViewModel;
 
         /// <summary>
+        /// The viewmodel for shops by name
+        /// </summary>
+        private readonly ShopsByNameViewModel shopsByNameViewModel;
+
+        /// <summary>
         /// The text to display on the status bar
         /// </summary>
         private string statusText;
@@ -60,13 +66,15 @@ namespace Netsy.WpfUI.Windows.Main
         /// <param name="colorKeywordsViewModel">the view model for listings by color and keywords</param>
         /// <param name="materialsListingsViewModel">the view model for listings by materials</param>
         /// <param name="tagsListingsViewModel">the view model for listings by tags</param>
+        /// <param name="shopsByNameViewModel">the view model for shops by name</param>
         public MainWindowViewModel(
             FrontFeaturedListingsViewModel frontFeaturedListingsViewModel,
             KeywordsListingsViewModel keywordsViewModel,
             ColorListingsViewModel colorViewModel,
             ColorKeywordsListingsViewModel colorKeywordsViewModel,
             MaterialsListingsViewModel materialsListingsViewModel,
-            TagsListingsViewModel tagsListingsViewModel)
+            TagsListingsViewModel tagsListingsViewModel,
+            ShopsByNameViewModel shopsByNameViewModel)
         {
             this.StatusText = "Netsy WPF UI";
 
@@ -76,6 +84,7 @@ namespace Netsy.WpfUI.Windows.Main
             this.colorKeywordsViewModel = colorKeywordsViewModel;
             this.materialsViewModel = materialsListingsViewModel;
             this.tagsViewModel = tagsListingsViewModel;
+            this.shopsByNameViewModel = shopsByNameViewModel;
         }
 
         /// <summary>
@@ -161,6 +170,17 @@ namespace Netsy.WpfUI.Windows.Main
             get
             {
                 return this.tagsViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the viewmodel for shops by name
+        /// </summary>
+        public ShopsByNameViewModel ShopsByNameViewModel
+        {
+            get
+            {
+                return this.shopsByNameViewModel;
             }
         }
     }

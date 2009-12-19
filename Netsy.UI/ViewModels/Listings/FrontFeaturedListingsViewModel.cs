@@ -8,7 +8,6 @@
 namespace Netsy.UI.ViewModels.Listings
 {
     using System.Globalization;
-    using System.Windows.Threading;
 
     using Netsy.DataModel;
     using Netsy.Interfaces;

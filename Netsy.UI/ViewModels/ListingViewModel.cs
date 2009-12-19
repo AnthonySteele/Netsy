@@ -63,7 +63,7 @@ namespace Netsy.UI.ViewModels
         }
 
         /// <summary>
-        /// Gets data data for display
+        /// Gets date data for display
         /// </summary>
         public string DateDisplay
         {

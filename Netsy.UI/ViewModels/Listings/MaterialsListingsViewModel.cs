@@ -10,14 +10,13 @@ namespace Netsy.UI.ViewModels.Listings
 {
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Windows.Threading;
 
     using Netsy.DataModel;
     using Netsy.Interfaces;
     using Netsy.UI.Commands;
 
     /// <summary>
-    /// View model for a collection of listings from the istings by materials service
+    /// View model for a collection of listings from the listings by materials service
     /// </summary>
     public class MaterialsListingsViewModel : ListingsServiceViewModel
     {

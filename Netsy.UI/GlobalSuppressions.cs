@@ -12,3 +12,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "Netsy.UI.Commands")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "Netsy.UI.ValueConverters")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2109:ReviewVisibleEventHandlers", Scope = "member", Target = "Netsy.UI.ViewModels.Listings.ListingsServiceViewModel.#ListingsReceived(System.Object,Netsy.Helpers.ResultEventArgs`1<Netsy.DataModel.Listings>)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "Netsy.UI.ViewModels.Shops")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2109:ReviewVisibleEventHandlers", Scope = "member", Target = "Netsy.UI.ViewModels.Shops.ShopsServiceViewModel.#ShopsReceived(System.Object,Netsy.Helpers.ResultEventArgs`1<Netsy.DataModel.Shops>)")]

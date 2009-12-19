@@ -35,5 +35,43 @@ namespace Netsy.UI.ViewModels
         {
             get { return this.shop; }
         }
+
+        /// <summary>
+        /// Gets data data for display
+        /// </summary>
+        public string DateDisplay
+        {
+            get
+            {
+                if (this.Shop.CreationDate.HasValue)
+                {
+                    return this.Shop.CreationDate.Value.ToShortDateString();
+                }
+
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets data data for display
+        /// </summary>
+        public string ListingsCountDisplay
+        {
+            get
+            {
+                int? listingCount = this.Shop.ListingCountInt;
+                if (listingCount.HasValue)
+                {
+                    switch (listingCount.Value)
+                    {
+                        case 0: return "No listings";
+                        case 1: return "1 listing";
+                        default: return string.Format("{0} listings", listingCount.Value);
+                    }
+                }
+
+                return string.Empty;
+            }
+        }
     }
 }

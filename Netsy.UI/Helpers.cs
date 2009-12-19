@@ -62,5 +62,20 @@ namespace Netsy.UI
 
             return value.Split(new[] { ',', ' ' });
         }
+
+        /// <summary>
+        /// Test if a string has more than just whitespace
+        /// </summary>
+        /// <param name="value">the string to test</param>
+        /// <returns>true if the string is null, empty or contains only white space</returns>
+        public static bool IsNullEmptyOrWhiteSpace(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return true;
+            }
+
+            return string.IsNullOrEmpty(value.Trim());
+        }
     }
 }
