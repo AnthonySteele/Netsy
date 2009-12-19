@@ -58,6 +58,7 @@
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="CurrencySymbolLookup.cs" />
     <Compile Include="Commands\GenericCommandBase.cs" />
+    <Compile Include="DispatcherHelper.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

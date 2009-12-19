@@ -9,12 +9,12 @@
 namespace Netsy.WpfUI.Windows.Shop
 {
     using System.Globalization;
-    using System.Windows;
     using System.Windows.Threading;
 
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
+    using Netsy.UI;
     using Netsy.UI.Commands;
     using Netsy.UI.ViewModels;
 
@@ -45,17 +45,6 @@ namespace Netsy.WpfUI.Windows.Shop
         }
 
         /// <summary>
-        /// Gets the UI thread's dispatcher
-        /// </summary>
-        protected static Dispatcher UIDispatcher
-        {
-            get
-            {
-                return Application.Current.Dispatcher;
-            }
-        }
-
-        /// <summary>
         /// Execute the command and move to the next page
         /// </summary>
         /// <param name="value">the view model</param>
@@ -76,8 +65,7 @@ namespace Netsy.WpfUI.Windows.Shop
         private void ShopListingsReceived(object sender, ResultEventArgs<Listings> e)
         {
             // put it onto the Ui thread
-            UIDispatcher.Invoke(
-                DispatcherPriority.Normal,
+            DispatcherHelper.Invoke(
                 new ResultsReceivedHandler<Listings>(this.ShopListingsReceivedSync),
                 e);
         }

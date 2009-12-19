@@ -34,17 +34,6 @@ namespace Netsy.UI.ViewModels.Shops
         }
 
         /// <summary>
-        /// Gets the UI thread's dispatcher
-        /// </summary>
-        protected static Dispatcher UIDispatcher
-        {
-            get
-            {
-                return Application.Current.Dispatcher;
-            }
-        }
-
-        /// <summary>
         /// Gets the service to return listings
         /// </summary>
         protected IShopService ShopService
@@ -63,8 +52,7 @@ namespace Netsy.UI.ViewModels.Shops
         protected void ShopsReceived(object sender, ResultEventArgs<Shops> e)
         {
             // put it onto the Ui thread
-            UIDispatcher.Invoke(
-                DispatcherPriority.Normal,
+            DispatcherHelper.Invoke(
                 new ResultsReceivedHandler<Shops>(this.ShopsReceivedSync),
                 e);
         }

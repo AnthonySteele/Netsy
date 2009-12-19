@@ -34,17 +34,6 @@ namespace Netsy.UI.ViewModels.Listings
         }
 
         /// <summary>
-        /// Gets the UI thread's dispatcher
-        /// </summary>
-        protected static Dispatcher UIDispatcher
-        {
-            get
-            {
-                return Application.Current.Dispatcher;
-            }
-        }
-
-        /// <summary>
         /// Gets the service to return listings
         /// </summary>
         protected IListingsService ListingsService
@@ -63,8 +52,7 @@ namespace Netsy.UI.ViewModels.Listings
         protected void ListingsReceived(object sender, ResultEventArgs<Listings> e)
         {
             // put it onto the Ui thread
-            UIDispatcher.Invoke(
-                DispatcherPriority.Normal,
+            DispatcherHelper.Invoke(
                 new ResultsReceivedHandler<Listings>(this.ListingsReceivedSync),
                 e);
         }
