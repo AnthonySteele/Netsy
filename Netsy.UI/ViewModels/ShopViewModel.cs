@@ -7,6 +7,8 @@
 //----------------------------------------------------------------------- 
 namespace Netsy.UI.ViewModels
 {
+    using System.Globalization;
+
     using Netsy.DataModel;
 
     /// <summary>
@@ -66,7 +68,7 @@ namespace Netsy.UI.ViewModels
                     {
                         case 0: return "No listings";
                         case 1: return "1 listing";
-                        default: return string.Format("{0} listings", listingCount.Value);
+                        default: return string.Format(CultureInfo.InvariantCulture, "{0} listings", listingCount.Value);
                     }
                 }
 

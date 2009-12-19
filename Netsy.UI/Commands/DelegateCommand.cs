@@ -49,7 +49,11 @@ namespace Netsy.UI.Commands
         /// <summary>
         /// the event for command executablity changed
         /// </summary>
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         /// <summary>
         /// Call CanExecute
@@ -73,17 +77,6 @@ namespace Netsy.UI.Commands
         public void Execute(object parameter)
         {
             this.executeAction(parameter as T); 
-        }
-
-        /// <summary>
-        /// Fire the CanExecuteChanged event
-        /// </summary>
-        public void OnCanExecuteChanged()
-        {
-            if (this.CanExecuteChanged != null)
-            {
-                this.CanExecuteChanged(this, EventArgs.Empty);
-            }
         }
     }
 }

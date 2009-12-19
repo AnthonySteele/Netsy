@@ -157,7 +157,7 @@ namespace Netsy.UI.ViewModels
                 {
                     if ((this.PageNumber > 1) && (this.LoadPageCommand != null))
                     {
-                        this.PageNumber++;
+                        this.PageNumber--;
                         this.LoadPageCommand.Execute(this);
                     }
                 },
@@ -172,7 +172,7 @@ namespace Netsy.UI.ViewModels
                         this.LoadPageCommand.Execute(this);
                     }
                 },
-                t => (this.LoadPageCommand != null));
+                t => (this.LoadPageCommand != null && (this.items.Count > 0)));
         }
     }
 }
