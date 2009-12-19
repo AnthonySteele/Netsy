@@ -8,6 +8,8 @@
 
 namespace Netsy.WpfUI.Windows.Main
 {
+    using System.Windows.Input;
+
     using Netsy.UI.ViewModels;
     using Netsy.UI.ViewModels.Listings;
     using Netsy.UI.ViewModels.Shops;
@@ -53,6 +55,11 @@ namespace Netsy.WpfUI.Windows.Main
         private readonly ShopsByNameViewModel shopsByNameViewModel;
 
         /// <summary>
+        /// the command to show a shop window
+        /// </summary>
+        private readonly ICommand showShopWindowCommand;
+
+        /// <summary>
         /// The text to display on the status bar
         /// </summary>
         private string statusText;
@@ -67,6 +74,7 @@ namespace Netsy.WpfUI.Windows.Main
         /// <param name="materialsListingsViewModel">the view model for listings by materials</param>
         /// <param name="tagsListingsViewModel">the view model for listings by tags</param>
         /// <param name="shopsByNameViewModel">the view model for shops by name</param>
+        /// <param name="showShopWindowCommand">the command to show a shop window</param>
         public MainWindowViewModel(
             FrontFeaturedListingsViewModel frontFeaturedListingsViewModel,
             KeywordsListingsViewModel keywordsViewModel,
@@ -74,7 +82,8 @@ namespace Netsy.WpfUI.Windows.Main
             ColorKeywordsListingsViewModel colorKeywordsViewModel,
             MaterialsListingsViewModel materialsListingsViewModel,
             TagsListingsViewModel tagsListingsViewModel,
-            ShopsByNameViewModel shopsByNameViewModel)
+            ShopsByNameViewModel shopsByNameViewModel,
+            ShowShopWindowCommand showShopWindowCommand)
         {
             this.StatusText = "Netsy WPF UI";
 
@@ -85,6 +94,8 @@ namespace Netsy.WpfUI.Windows.Main
             this.materialsViewModel = materialsListingsViewModel;
             this.tagsViewModel = tagsListingsViewModel;
             this.shopsByNameViewModel = shopsByNameViewModel;
+
+            this.showShopWindowCommand = showShopWindowCommand;
         }
 
         /// <summary>
@@ -181,6 +192,17 @@ namespace Netsy.WpfUI.Windows.Main
             get
             {
                 return this.shopsByNameViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the command to show a shop window
+        /// </summary>
+        public ICommand ShowShopWindowCommand
+        {
+            get
+            {
+                return this.showShopWindowCommand;
             }
         }
     }

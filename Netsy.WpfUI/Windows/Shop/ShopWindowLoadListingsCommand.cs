@@ -6,16 +6,17 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace NetsyGui.Shop
+namespace Netsy.WpfUI.Windows.Shop
 {
     using System.Globalization;
+    using System.Windows;
     using System.Windows.Threading;
 
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-
-    using ViewModels;
+    using Netsy.UI.Commands;
+    using Netsy.UI.ViewModels;
 
     /// <summary>
     /// Command to load listings for a shop
@@ -26,11 +27,6 @@ namespace NetsyGui.Shop
         /// The service to return shop details
         /// </summary>
         private readonly IShopService shopService;
-
-        /// <summary>
-        /// The theading dispatcher
-        /// </summary>
-        private readonly Dispatcher dispatcher;
 
         /// <summary>
         /// the view model currently in use
@@ -44,9 +40,19 @@ namespace NetsyGui.Shop
         /// <param name="dispatcher">the thread dispatcher</param>
         public ShopWindowLoadListingsCommand(IShopService shopService, Dispatcher dispatcher)
         {
-            this.dispatcher = dispatcher;
             this.shopService = shopService;
             this.shopService.GetShopListingsCompleted += this.ShopListingsReceived;
+        }
+
+        /// <summary>
+        /// Gets the UI thread's dispatcher
+        /// </summary>
+        protected static Dispatcher UIDispatcher
+        {
+            get
+            {
+                return Application.Current.Dispatcher;
+            }
         }
 
         /// <summary>
@@ -57,8 +63,8 @@ namespace NetsyGui.Shop
         {
             this.currentViewModel = value;
 
-            this.shopService.GetShopListings(this.currentViewModel.UserId, SortField.Created, SortOrder.Up, null, 0, ShopWindowViewModel.ListingsPerPage, DetailLevel.Medium);
-            string status = string.Format(CultureInfo.InvariantCulture, "Getting {0} listings for shop", ShopWindowViewModel.ListingsPerPage);
+            this.shopService.GetShopListings(this.currentViewModel.UserId, SortField.Created, SortOrder.Up, null, 0, value.ListingsPerPage, DetailLevel.Medium);
+            string status = string.Format(CultureInfo.InvariantCulture, "Getting {0} listings for shop", value.ListingsPerPage);
             value.StatusText = status;
         }
 
@@ -70,7 +76,7 @@ namespace NetsyGui.Shop
         private void ShopListingsReceived(object sender, ResultEventArgs<Listings> e)
         {
             // put it onto the Ui thread
-            this.dispatcher.Invoke(
+            UIDispatcher.Invoke(
                 DispatcherPriority.Normal,
                 new ResultsReceivedHandler<Listings>(this.ShopListingsReceivedSync),
                 e);

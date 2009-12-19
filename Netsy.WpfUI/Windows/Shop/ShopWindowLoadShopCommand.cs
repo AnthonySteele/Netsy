@@ -6,16 +6,18 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace NetsyGui.Shop
+namespace Netsy.WpfUI.Windows.Shop
 {
     using System.Globalization;
+    using System.Windows;
     using System.Windows.Threading;
 
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
+    using Netsy.UI.Commands;
 
-    using ViewModels;
+    using UI.ViewModels;
 
     /// <summary>
     /// Command to load the show details
@@ -28,11 +30,6 @@ namespace NetsyGui.Shop
         private readonly IShopService shopService;
 
         /// <summary>
-        /// The theading dispatcher
-        /// </summary>
-        private readonly Dispatcher dispatcher;
-
-        /// <summary>
         /// the view model currently in use
         /// </summary>
         private ShopWindowViewModel currentViewModel;
@@ -41,12 +38,21 @@ namespace NetsyGui.Shop
         /// Initializes a new instance of the ShopWindowLoadShopCommand class.
         /// </summary>
         /// <param name="shopService">the shops service</param>
-        /// <param name="dispatcher">the thread dispatcher</param>
-        public ShopWindowLoadShopCommand(IShopService shopService, Dispatcher dispatcher)
+        public ShopWindowLoadShopCommand(IShopService shopService)
         {
-            this.dispatcher = dispatcher;
             this.shopService = shopService;
             this.shopService.GetShopDetailsCompleted += this.ShopDetailsReceived;
+        }
+
+        /// <summary>
+        /// Gets the UI thread's dispatcher
+        /// </summary>
+        protected static Dispatcher UIDispatcher
+        {
+            get
+            {
+                return Application.Current.Dispatcher;
+            }
         }
 
         /// <summary>
@@ -70,7 +76,7 @@ namespace NetsyGui.Shop
         private void ShopDetailsReceived(object sender, ResultEventArgs<Shops> e)
         {
             // put it onto the Ui thread
-            this.dispatcher.Invoke(
+            UIDispatcher.Invoke(
                 DispatcherPriority.Normal,
                 new ResultsReceivedHandler<Shops>(this.ShopDetailsReceivedSync),
                 e);

@@ -6,61 +6,72 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace NetsyGui.Shop
+namespace Netsy.WpfUI.Windows.Shop
 {
     using System.Collections.ObjectModel;
+    using System.Windows.Input;
 
-    using ViewModels;
+    using Netsy.UI.ViewModels;
 
     /// <summary>
-    /// View model for the shop Window
+    /// View model for the shop window
     /// </summary>
     public class ShopWindowViewModel : BaseViewModel
     {
         /// <summary>
-        /// the number of listings to show at once
+        /// Command to load the shop
         /// </summary>
-        public const int ListingsPerPage = 12;
+        private readonly ICommand shopWindowLoadShopCommand;
 
         /// <summary>
-        /// The shop's listings
+        /// Command to load the listings
         /// </summary>
-        private readonly ObservableCollection<ListingViewModel> listings = new ObservableCollection<ListingViewModel>();
+        private readonly ICommand shopWindowLoadListingsCommand;
 
         /// <summary>
-        /// the Id of the user/shop being shown
-        /// </summary>
-        private int userId;
-
-        /// <summary>
-        /// the status bar text
+        /// The text to display on the status bar
         /// </summary>
         private string statusText;
 
         /// <summary>
-        /// The shop to display
+        /// The number of listings per page
         /// </summary>
-        private ShopViewModel shop; 
+        private int listingsPerPage = Constants.DefaultItemsPerPage;
 
         /// <summary>
-        /// Gets or sets the Id of the user/shop being shown
+        /// Initializes a new instance of the ShopWindowViewModel
         /// </summary>
-        public int UserId
+        /// <param name="shopWindowLoadShopCommand">Command to load the shop</param>
+        /// <param name="shopWindowLoadListingsCommand">Command to load the listings</param>
+        public ShopWindowViewModel(ShopWindowLoadShopCommand shopWindowLoadShopCommand, ShopWindowLoadListingsCommand shopWindowLoadListingsCommand)
         {
-            get
-            {
-                return this.userId;
-            }
-
-            set
-            {
-                if (this.userId != value)
-                {
-                    this.userId = value;
-                    this.OnPropertyChanged("UserId");
-                }
-            }
+            this.shopWindowLoadShopCommand = shopWindowLoadShopCommand;
+            this.shopWindowLoadListingsCommand = shopWindowLoadListingsCommand;
         }
+
+        /// <summary>
+        /// Gets or sets the user id used 
+        /// </summary>
+        public int UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the shop being displayed
+        /// </summary>
+        public ShopViewModel Shop { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of listings per page
+        /// </summary>
+        public int ListingsPerPage
+        {
+            get { return this.listingsPerPage; }
+            set { this.listingsPerPage = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the listings in the shop
+        /// </summary>
+        public ObservableCollection<ListingViewModel> Listings { get; set; }
 
         /// <summary>
         /// Gets or sets the status bar text
@@ -79,37 +90,28 @@ namespace NetsyGui.Shop
                     this.statusText = value;
                     this.OnPropertyChanged("StatusText");
                 }
-            }            
-        }
-
-        /// <summary>
-        /// Gets or sets the shop's data
-        /// </summary>
-        public ShopViewModel Shop
-        {
-            get
-            {
-                return this.shop;
-            }
-            
-            set
-            {
-                if (this.shop != value)
-                {
-                    this.shop = value;
-                    this.OnPropertyChanged("Shop");
-                }                
             }
         }
 
         /// <summary>
-        /// Gets the shop's listings
+        /// Gets the command to load the shop
         /// </summary>
-        public ObservableCollection<ListingViewModel> Listings
+        public ICommand ShopWindowLoadShopCommand
         {
             get
             {
-                return this.listings;
+                return this.shopWindowLoadShopCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the command to load the listings
+        /// </summary>
+        public ICommand ShopWindowLoadListingsCommand
+        {
+            get
+            {
+                return this.shopWindowLoadListingsCommand;
             }
         }
     }

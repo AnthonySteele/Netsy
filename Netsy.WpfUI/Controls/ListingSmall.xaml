@@ -8,7 +8,7 @@
             <TextBlock DockPanel.Dock="Left" Text="{Binding PriceData}" ></TextBlock>
             <TextBlock DockPanel.Dock="Right" TextAlignment="Right" Text="{Binding Listing.Quantity}" ></TextBlock>
         </DockPanel>
-        <TextBlock><Hyperlink CommandParameter="{Binding}"><TextBlock Text="{Binding Listing.UserName}" /></Hyperlink></TextBlock>
+        <TextBlock><Hyperlink CommandParameter="{Binding Listing}"><TextBlock Text="{Binding Listing.UserName}" /></Hyperlink></TextBlock>
         <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap"></TextBlock>
     </StackPanel>
 </UserControl>
