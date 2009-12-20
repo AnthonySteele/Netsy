@@ -119,6 +119,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\Listing\ListingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -172,6 +176,10 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Locator.cs" />
+    <Compile Include="Windows\Listing\ListingWindow.xaml.cs">
+      <DependentUpon>ListingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Listing\ListingWindowViewModel.cs" />
     <Compile Include="Windows\Main\MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

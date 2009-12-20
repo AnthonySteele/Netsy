@@ -8,13 +8,15 @@
 namespace Netsy.UI.ViewModels
 {
     using System.Globalization;
+    using System.Windows;
+    using System.Windows.Input;
 
     using Netsy.DataModel;
 
     /// <summary>
     /// View model for a listing
     /// </summary>
-    public class ListingViewModel
+    public class ListingViewModel : BaseViewModel
     {
         /// <summary>
         /// the listing data transfer object
@@ -25,6 +27,26 @@ namespace Netsy.UI.ViewModels
         /// The currency cymbol, e.g. "$" or "£"
         /// </summary>
         private readonly string currencySymbol = string.Empty;
+
+        /// <summary>
+        /// the visibility of the link to show the shop
+        /// </summary>
+        private Visibility shopLinkVisibility = Visibility.Visible;
+
+        /// <summary>
+        /// the visibility of the link to show the listing
+        /// </summary>
+        private Visibility listingLinkVisibility = Visibility.Visible;
+
+        /// <summary>
+        /// Command to show the shop in a seperate display
+        /// </summary>
+        private ICommand showShopCommand;
+
+        /// <summary>
+        /// Command to show the listing in a seperate display
+        /// </summary>
+        private ICommand showListingCommand;
 
         /// <summary>
         /// Initializes a new instance of the ListingViewModel class
@@ -46,6 +68,46 @@ namespace Netsy.UI.ViewModels
         public Listing Listing
         {
             get { return this.listing; }
+        }
+
+        /// <summary>
+        /// Gets or sets the visibility of the link to the shop
+        /// </summary>
+        public Visibility ShopLinkVisibility
+        {
+            get
+            {
+                return this.shopLinkVisibility;
+            }
+
+            set
+            {
+                if (this.shopLinkVisibility != value)
+                {
+                    this.shopLinkVisibility = value;
+                    this.OnPropertyChanged("ShopLinkVisibility");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the visibility of the link to show the listing
+        /// </summary>
+        public Visibility ListingLinkVisibility
+        {
+            get
+            {
+                return this.listingLinkVisibility;
+            }
+
+            set
+            {
+                if (this.listingLinkVisibility != value)
+                {
+                    this.listingLinkVisibility = value;
+                    this.OnPropertyChanged("ListingLinkVisibility");
+                }
+            }
         }
 
         /// <summary>
@@ -81,6 +143,38 @@ namespace Netsy.UI.ViewModels
                 }
 
                 return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to show the shop in a seperate display
+        /// </summary>
+        public ICommand ShowShopCommand
+        {
+            get
+            {
+                return this.showShopCommand;
+            }
+
+            set
+            {
+                this.showShopCommand = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to show the listing in a seperate display
+        /// </summary>
+        public ICommand ShowListingCommand
+        {
+            get
+            {
+                return this.showListingCommand;
+            }
+
+            set
+            {
+                this.showListingCommand = value;
             }
         }
     }

@@ -9,6 +9,7 @@
 namespace Netsy.WpfUI.Windows.Shop
 {
     using System.Globalization;
+    using System.Windows;
     using System.Windows.Threading;
 
     using Netsy.DataModel;
@@ -86,6 +87,9 @@ namespace Netsy.WpfUI.Windows.Shop
             foreach (Listing item in listingsReceived.ResultValue.Results)
             {
                 ListingViewModel viewModel = new ListingViewModel(item);
+
+                // showing listings in the shop already - a link back to the shop is not needed
+                viewModel.ShopLinkVisibility = Visibility.Hidden;
                 this.currentViewModel.Listings.Add(viewModel);
             }
 
