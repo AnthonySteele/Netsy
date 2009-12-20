@@ -38,8 +38,7 @@ namespace Netsy.WpfUI.Windows.Shop
         /// Initializes a new instance of the ShopWindowLoadListingsCommand class.
         /// </summary>
         /// <param name="shopService">the shop service</param>
-        /// <param name="dispatcher">the thread dispatcher</param>
-        public ShopWindowLoadListingsCommand(IShopService shopService, Dispatcher dispatcher)
+        public ShopWindowLoadListingsCommand(IShopService shopService)
         {
             this.shopService = shopService;
             this.shopService.GetShopListingsCompleted += this.ShopListingsReceived;

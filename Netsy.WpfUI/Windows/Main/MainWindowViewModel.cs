@@ -60,6 +60,11 @@ namespace Netsy.WpfUI.Windows.Main
         private readonly ICommand showShopWindowCommand;
 
         /// <summary>
+        /// the command to show a listing window
+        /// </summary>
+        private readonly ICommand showListingWindowCommand;
+
+        /// <summary>
         /// The text to display on the status bar
         /// </summary>
         private string statusText;
@@ -83,7 +88,8 @@ namespace Netsy.WpfUI.Windows.Main
             MaterialsListingsViewModel materialsListingsViewModel,
             TagsListingsViewModel tagsListingsViewModel,
             ShopsByNameViewModel shopsByNameViewModel,
-            ShowShopWindowCommand showShopWindowCommand)
+            ShowShopWindowCommand showShopWindowCommand,
+            ShowListingWindowCommand showListingWindowCommand)
         {
             this.StatusText = "Netsy WPF UI";
 
@@ -96,6 +102,9 @@ namespace Netsy.WpfUI.Windows.Main
             this.shopsByNameViewModel = shopsByNameViewModel;
 
             this.showShopWindowCommand = showShopWindowCommand;
+            this.showListingWindowCommand = showListingWindowCommand;
+
+            // todo - pass the commands down to servie view models, so that they can attach them to item view models
         }
 
         /// <summary>
@@ -203,6 +212,17 @@ namespace Netsy.WpfUI.Windows.Main
             get
             {
                 return this.showShopWindowCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the command to show a listing window
+        /// </summary>
+        public ICommand ShowListingWindowCommand
+        {
+            get
+            {
+                return this.showListingWindowCommand;
             }
         }
     }

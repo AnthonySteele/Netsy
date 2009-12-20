@@ -194,6 +194,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Windows\Main\ShowListingWindowCommand.cs" />
     <Compile Include="Windows\Main\ShowShopWindowCommand.cs" />
     <Compile Include="Windows\Shop\ShopWindow.xaml.cs">
       <DependentUpon>ShopWindow.xaml</DependentUpon>

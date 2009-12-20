@@ -20,7 +20,7 @@ namespace Netsy.UI
         /// <summary>
         /// Gets the current Ui thread dispatcher
         /// </summary>
-        public static Dispatcher UiDispatcher
+        public static Dispatcher UIDispatcher
         {
             get
             {
@@ -35,7 +35,7 @@ namespace Netsy.UI
         /// <param name="arg">the method argument</param>
         public static void Invoke(Delegate method, object arg)
         {
-            UiDispatcher.Invoke(DispatcherPriority.Normal, method, arg);
+            UIDispatcher.Invoke(DispatcherPriority.Normal, method, arg);
         }
     }
 }

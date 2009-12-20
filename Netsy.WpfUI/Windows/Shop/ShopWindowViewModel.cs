@@ -39,7 +39,7 @@ namespace Netsy.WpfUI.Windows.Shop
         private int listingsPerPage = Constants.DefaultItemsPerPage;
 
         /// <summary>
-        /// Initializes a new instance of the ShopWindowViewModel
+        /// Initializes a new instance of the ShopWindowViewModel class
         /// </summary>
         /// <param name="shopWindowLoadShopCommand">Command to load the shop</param>
         /// <param name="shopWindowLoadListingsCommand">Command to load the listings</param>
@@ -47,6 +47,8 @@ namespace Netsy.WpfUI.Windows.Shop
         {
             this.shopWindowLoadShopCommand = shopWindowLoadShopCommand;
             this.shopWindowLoadListingsCommand = shopWindowLoadListingsCommand;
+
+            this.Listings = new ObservableCollection<ListingViewModel>();
         }
 
         /// <summary>
@@ -69,9 +71,9 @@ namespace Netsy.WpfUI.Windows.Shop
         }
 
         /// <summary>
-        /// Gets or sets the listings in the shop
+        /// Gets the listings in the shop
         /// </summary>
-        public ObservableCollection<ListingViewModel> Listings { get; set; }
+        public ObservableCollection<ListingViewModel> Listings { get; private set; }
 
         /// <summary>
         /// Gets or sets the status bar text

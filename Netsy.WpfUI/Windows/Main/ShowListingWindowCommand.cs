@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ShowShopWindowCommand.cs" company="AFS">
+// <copyright file="ShowListtingWindowCommand.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -10,12 +10,12 @@ namespace Netsy.WpfUI.Windows.Main
 {
     using Netsy.DataModel;
     using Netsy.UI.Commands;
-    using Netsy.WpfUI.Windows.Shop;
+    using Netsy.WpfUI.Windows.Listing;
 
     /// <summary>
-    /// Command to show the shop window for a listing
+    /// Command to show the listing window for a listing
     /// </summary>
-    public class ShowShopWindowCommand : GenericCommandBase<Listing>
+    public class ShowListingWindowCommand : GenericCommandBase<Listing>
     {
         /// <summary>
         /// Show the shop window for the listing
@@ -23,16 +23,14 @@ namespace Netsy.WpfUI.Windows.Main
         /// <param name="value">the listing data</param>
         public override void ExecuteOnValue(Listing value)
         {
-            ShopWindow shopWindow = new ShopWindow();
+            ListingWindow listingWindow = new ListingWindow();
 
-            ShopWindowViewModel viewModel = Locator.Resolve<ShopWindowViewModel>();
-            shopWindow.DataContext = viewModel;
+            ListingWindowViewModel viewModel = Locator.Resolve<ListingWindowViewModel>();
+            listingWindow.DataContext = viewModel;
 
-            viewModel.UserId = value.UserId;
+            viewModel.ListingId = value.ListingId;
 
-            viewModel.ShopWindowLoadShopCommand.Execute(viewModel);
-            viewModel.ShopWindowLoadListingsCommand.Execute(viewModel);
-            shopWindow.Show();
+            listingWindow.Show();
         }
     }
 }

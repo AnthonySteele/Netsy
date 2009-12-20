@@ -10,7 +10,14 @@ namespace Netsy.WpfUI.Windows.Listing
 {
     using Netsy.UI.ViewModels;
 
+    /// <summary>
+    /// View model for the window to shw a listing
+    /// </summary>
     public class ListingWindowViewModel : BaseViewModel
     {
+        /// <summary>
+        /// Gets or sets the identifier of the listing
+        /// </summary>
+        public int ListingId { get; set; }
     }
 }
