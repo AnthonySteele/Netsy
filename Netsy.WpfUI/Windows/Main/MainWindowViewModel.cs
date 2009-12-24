@@ -112,6 +112,8 @@ namespace Netsy.WpfUI.Windows.Main
             this.SetShowCommands(this.colorKeywordsViewModel);
             this.SetShowCommands(this.materialsViewModel);
             this.SetShowCommands(this.tagsViewModel);
+
+            this.shopsByNameViewModel.ShowShopCommand = showShopCommand;
         }
 
         /// <summary>

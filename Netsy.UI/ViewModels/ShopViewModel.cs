@@ -8,6 +8,7 @@
 namespace Netsy.UI.ViewModels
 {
     using System.Globalization;
+    using System.Windows.Input;
 
     using Netsy.DataModel;
 
@@ -20,6 +21,11 @@ namespace Netsy.UI.ViewModels
         /// the listing data transfer object
         /// </summary>
         private readonly Shop shop;
+
+        /// <summary>
+        /// Command to show the shop in a seperate display
+        /// </summary>
+        private ICommand showShopCommand;
 
         /// <summary>
         /// Initializes a new instance of the ShopViewModel class
@@ -73,6 +79,22 @@ namespace Netsy.UI.ViewModels
                 }
 
                 return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to show the shop in a seperate display
+        /// </summary>
+        public ICommand ShowShopCommand
+        {
+            get
+            {
+                return this.showShopCommand;
+            }
+
+            set
+            {
+                this.showShopCommand = value;
             }
         }
     }
