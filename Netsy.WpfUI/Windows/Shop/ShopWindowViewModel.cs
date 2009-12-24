@@ -11,6 +11,7 @@ namespace Netsy.WpfUI.Windows.Shop
     using System.Collections.ObjectModel;
     using System.Windows.Input;
 
+    using Netsy.DataModel;
     using Netsy.UI.ViewModels;
 
     /// <summary>
@@ -18,6 +19,11 @@ namespace Netsy.WpfUI.Windows.Shop
     /// </summary>
     public class ShopWindowViewModel : BaseViewModel
     {
+        /// <summary>
+        /// the shop being diplayed
+        /// </summary>
+        private ShopViewModel shopViewModel;
+
         /// <summary>
         /// Command to load the shop
         /// </summary>
@@ -57,9 +63,41 @@ namespace Netsy.WpfUI.Windows.Shop
         public int UserId { get; set; }
 
         /// <summary>
-        /// Gets or sets the shop being displayed
+        /// Gets or sets the viewmodel of the shop being displayed
         /// </summary>
-        public ShopViewModel Shop { get; set; }
+        public ShopViewModel Shop
+        {
+            get
+            {
+                return this.shopViewModel;
+            }
+
+            set
+            {
+                if (this.shopViewModel != value)
+              {
+                  this.shopViewModel = value;
+                  this.OnPropertyChanged("Shop");
+                  this.OnPropertyChanged("ShopData");
+              }
+            }
+        }
+
+        /// <summary>
+        /// Gets the data of the shop being displayed
+        /// </summary>
+        public Shop ShopData
+        {
+            get
+            {
+                if (this.shopViewModel == null)
+                {
+                    return null;
+                }
+
+                return this.shopViewModel.Shop;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the number of listings per page

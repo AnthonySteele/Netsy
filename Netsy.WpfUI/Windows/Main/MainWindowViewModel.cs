@@ -8,6 +8,7 @@
 
 namespace Netsy.WpfUI.Windows.Main
 {
+    using System;
     using System.Windows.Input;
 
     using Netsy.UI.ViewModels;
@@ -55,14 +56,14 @@ namespace Netsy.WpfUI.Windows.Main
         private readonly ShopsByNameViewModel shopsByNameViewModel;
 
         /// <summary>
-        /// the command to show a shop window
+        /// the command to show a shop's details
         /// </summary>
-        private readonly ICommand showShopWindowCommand;
+        private readonly ICommand showShopCommand;
 
         /// <summary>
-        /// the command to show a listing window
+        /// the command to show a listing's details
         /// </summary>
-        private readonly ICommand showListingWindowCommand;
+        private readonly ICommand showListingCommand;
 
         /// <summary>
         /// The text to display on the status bar
@@ -79,7 +80,8 @@ namespace Netsy.WpfUI.Windows.Main
         /// <param name="materialsListingsViewModel">the view model for listings by materials</param>
         /// <param name="tagsListingsViewModel">the view model for listings by tags</param>
         /// <param name="shopsByNameViewModel">the view model for shops by name</param>
-        /// <param name="showShopWindowCommand">the command to show a shop window</param>
+        /// <param name="showShopCommand">the command to show a shop's details</param>
+        /// <param name="showListingCommand">the command to show a listing's details</param>
         public MainWindowViewModel(
             FrontFeaturedListingsViewModel frontFeaturedListingsViewModel,
             KeywordsListingsViewModel keywordsViewModel,
@@ -88,8 +90,8 @@ namespace Netsy.WpfUI.Windows.Main
             MaterialsListingsViewModel materialsListingsViewModel,
             TagsListingsViewModel tagsListingsViewModel,
             ShopsByNameViewModel shopsByNameViewModel,
-            ShowShopWindowCommand showShopWindowCommand,
-            ShowListingWindowCommand showListingWindowCommand)
+            ShowShopWindowCommand showShopCommand,
+            ShowListingWindowCommand showListingCommand)
         {
             this.StatusText = "Netsy WPF UI";
 
@@ -101,10 +103,15 @@ namespace Netsy.WpfUI.Windows.Main
             this.tagsViewModel = tagsListingsViewModel;
             this.shopsByNameViewModel = shopsByNameViewModel;
 
-            this.showShopWindowCommand = showShopWindowCommand;
-            this.showListingWindowCommand = showListingWindowCommand;
+            this.showShopCommand = showShopCommand;
+            this.showListingCommand = showListingCommand;
 
-            // todo - pass the commands down to servie view models, so that they can attach them to item view models
+            this.SetShowCommands(this.frontListingsViewModel);
+            this.SetShowCommands(this.keywordsViewModel);
+            this.SetShowCommands(this.colorViewModel);
+            this.SetShowCommands(this.colorKeywordsViewModel);
+            this.SetShowCommands(this.materialsViewModel);
+            this.SetShowCommands(this.tagsViewModel);
         }
 
         /// <summary>
@@ -207,23 +214,33 @@ namespace Netsy.WpfUI.Windows.Main
         /// <summary>
         /// Gets the command to show a shop window
         /// </summary>
-        public ICommand ShowShopWindowCommand
+        public ICommand ShowShopCommand
         {
             get
             {
-                return this.showShopWindowCommand;
+                return this.showShopCommand;
             }
         }
 
         /// <summary>
         /// Gets the command to show a listing window
         /// </summary>
-        public ICommand ShowListingWindowCommand
+        public ICommand ShowListingCommand
         {
             get
             {
-                return this.showListingWindowCommand;
+                return this.showListingCommand;
             }
+        }
+
+        /// <summary>
+        /// Set the show commands on the model
+        /// </summary>
+        /// <param name="model">the model to configure</param>
+        private void SetShowCommands(ListingsServiceViewModel model)
+        {
+            model.ShowShopCommand = this.showShopCommand;
+            model.ShowListingCommand = this.showListingCommand;
         }
     }
 }

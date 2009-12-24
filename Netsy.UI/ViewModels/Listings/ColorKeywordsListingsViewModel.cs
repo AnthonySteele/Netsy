@@ -33,7 +33,6 @@ namespace Netsy.UI.ViewModels.Listings
         /// Initializes a new instance of the ColorKeywordsListingsViewModel class.
         /// </summary>
         /// <param name="listingsService">the listings service</param>
-        /// <param name="dispatcher">the thread dispatcher</param>
         public ColorKeywordsListingsViewModel(IListingsService listingsService)
             : base(listingsService)
         {

@@ -22,7 +22,11 @@ namespace Netsy.UI.Commands
         /// <summary>
         /// the event for command executablity changed
         /// </summary>
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         /// <summary>
         /// Can the command execute now?
@@ -55,17 +59,6 @@ namespace Netsy.UI.Commands
         }
 
         #endregion
-
-        /// <summary>
-        /// Fire the CanExecuteChanged event
-        /// </summary>
-        public void OnCanExecuteChanged()
-        {
-            if (this.CanExecuteChanged != null)
-            {
-                this.CanExecuteChanged(this, EventArgs.Empty);
-            }
-        }
 
         /// <summary>
         /// Call CanExecute with a ViewModel as parameter

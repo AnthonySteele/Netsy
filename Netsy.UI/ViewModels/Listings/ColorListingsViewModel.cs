@@ -10,7 +10,6 @@ namespace Netsy.UI.ViewModels.Listings
     using System.Globalization;
 
     using Netsy.DataModel;
-    using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.UI.Commands;
 

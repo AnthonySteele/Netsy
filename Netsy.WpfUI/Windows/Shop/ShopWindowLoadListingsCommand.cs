@@ -10,7 +10,7 @@ namespace Netsy.WpfUI.Windows.Shop
 {
     using System.Globalization;
     using System.Windows;
-    using System.Windows.Threading;
+    using System.Windows.Input;
 
     using Netsy.DataModel;
     using Netsy.Helpers;
@@ -18,6 +18,7 @@ namespace Netsy.WpfUI.Windows.Shop
     using Netsy.UI;
     using Netsy.UI.Commands;
     using Netsy.UI.ViewModels;
+    using Netsy.WpfUI.Windows.Main;
 
     /// <summary>
     /// Command to load listings for a shop
@@ -82,6 +83,8 @@ namespace Netsy.WpfUI.Windows.Shop
                 return;
             }
 
+            ICommand showListingCommand = Locator.Resolve<ShowListingWindowCommand>();
+
             this.currentViewModel.Listings.Clear();
             foreach (Listing item in listingsReceived.ResultValue.Results)
             {
@@ -89,6 +92,7 @@ namespace Netsy.WpfUI.Windows.Shop
 
                 // showing listings in the shop already - a link back to the shop is not needed
                 viewModel.ShopLinkVisibility = Visibility.Hidden;
+                viewModel.ShowListingCommand = showListingCommand;
                 this.currentViewModel.Listings.Add(viewModel);
             }
 

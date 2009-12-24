@@ -7,8 +7,7 @@
 //----------------------------------------------------------------------- 
 namespace Netsy.UI.ViewModels.Listings
 {
-    using System.Windows;
-    using System.Windows.Threading;
+    using System.Windows.Input;
 
     using Netsy.DataModel;
     using Netsy.Helpers;
@@ -32,6 +31,16 @@ namespace Netsy.UI.ViewModels.Listings
         {
             this.listingsService = listingsService;
         }
+
+        /// <summary>
+        /// Gets or sets the command to show the listing's shop
+        /// </summary>
+        public ICommand ShowShopCommand { get; set; }
+
+        /// <summary>
+        /// Gets or sets the command to show the listing in detail
+        /// </summary>
+        public ICommand ShowListingCommand { get; set; }
 
         /// <summary>
         /// Gets the service to return listings
@@ -78,6 +87,8 @@ namespace Netsy.UI.ViewModels.Listings
             foreach (Listing item in listingsReceived.ResultValue.Results)
             {
                 ListingViewModel viewModel = new ListingViewModel(item);
+                viewModel.ShowShopCommand = this.ShowShopCommand;
+                viewModel.ShowListingCommand = this.ShowListingCommand;
                 this.Items.Add(viewModel);
             }
 
