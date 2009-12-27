@@ -12,6 +12,7 @@ namespace Netsy.Test.DataModel
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Netsy.DataModel;
+    using Netsy.Helpers;
 
     /// <summary>
     /// Test creating the user details
@@ -67,7 +68,7 @@ namespace Netsy.Test.DataModel
         /// Test setting the user status to a bad value
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(NetsyException))]
         public void UserSetStatusBadValueTest()
         {
             User user = new User();
@@ -114,7 +115,7 @@ namespace Netsy.Test.DataModel
         /// Test setting the user gender to a bad value
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(NetsyException))]
         public void UserSetGenderBadValueTest()
         {
             User user = new User();

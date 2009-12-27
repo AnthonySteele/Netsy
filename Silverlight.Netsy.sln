@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy", "Netsy\Silverlight.Netsy.csproj", "{B979E9E0-EB45-47F3-8DA7-307546B8515E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy.UI", "Netsy.UI\Silverlight.Netsy.UI.csproj", "{7CE18D14-D4C5-4A24-84E4-C3F81CAAB6DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{B979E9E0-EB45-47F3-8DA7-307546B8515E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B979E9E0-EB45-47F3-8DA7-307546B8515E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B979E9E0-EB45-47F3-8DA7-307546B8515E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CE18D14-D4C5-4A24-84E4-C3F81CAAB6DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CE18D14-D4C5-4A24-84E4-C3F81CAAB6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CE18D14-D4C5-4A24-84E4-C3F81CAAB6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CE18D14-D4C5-4A24-84E4-C3F81CAAB6DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

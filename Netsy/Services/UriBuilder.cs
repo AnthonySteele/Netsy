@@ -117,6 +117,11 @@ namespace Netsy.Services
         /// <returns>the Uri builder</returns>
         public static UriBuilder Start(EtsyContext etsyContext, string basePath, EtsyColor color)
         {
+            if (color == null)
+            {
+                return Start(etsyContext, basePath);
+            }
+
             return Start(etsyContext, basePath, color.ToString());
         }
 

@@ -69,5 +69,65 @@ namespace Netsy.Test.DataModel
             Assert.AreEqual(52, color.Green);
             Assert.AreEqual(86, color.Blue);
         }
+
+        /// <summary>
+        /// Test ToString with white
+        /// </summary>
+        [TestMethod]
+        public void ToStringWhiteTest()
+        {
+            RgbColor color = new RgbColor(0, 0, 0);
+            string result = color.ToString();
+
+            Assert.AreEqual("000000", result);
+        }
+
+        /// <summary>
+        /// Test ToString with white
+        /// </summary>
+        [TestMethod]
+        public void ToStringBlackTest()
+        {
+            RgbColor color = new RgbColor(255, 255, 255);
+            string result = color.ToString();
+
+            Assert.AreEqual("FFFFFF", result);
+        }
+
+        /// <summary>
+        /// Test ToString with red
+        /// </summary>
+        [TestMethod]
+        public void ToStringRedTest()
+        {
+            RgbColor color = new RgbColor(255, 0, 0);
+            string result = color.ToString();
+
+            Assert.AreEqual("FF0000", result);
+        }
+
+        /// <summary>
+        /// Test ToString with blue
+        /// </summary>
+        [TestMethod]
+        public void ToStringBlueTest()
+        {
+            RgbColor color = new RgbColor(0, 0, 255);
+            string result = color.ToString();
+
+            Assert.AreEqual("0000FF", result);
+        }
+
+        /// <summary>
+        /// Test ToString with green
+        /// </summary>
+        [TestMethod]
+        public void ToStringGreenTest()
+        {
+            RgbColor color = new RgbColor(0, 255, 0);
+            string result = color.ToString();
+
+            Assert.AreEqual("00FF00", result);
+        }
     }
 }

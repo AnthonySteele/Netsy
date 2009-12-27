@@ -291,6 +291,27 @@ namespace Netsy.DataModel
         /// </summary>
         [DataMember(Name = "rgb_color")]
         public string RgbColor { get; set; }
+
+        /// <summary>
+        /// Gets the color as an etsy color
+        /// </summary>
+        public EtsyColor Color
+        {
+            get
+            {
+                if (! string.IsNullOrEmpty(this.HsvColor))
+                {
+                    return new HsvColor(this.HsvColor);
+                }
+
+                if (!string.IsNullOrEmpty(this.RgbColor))
+                {
+                    return new RgbColor(this.RgbColor);
+                }
+
+                return null;
+            }
+        }
         
         #endregion
 
@@ -306,13 +327,13 @@ namespace Netsy.DataModel
         /// Gets or sets the latitude of the user selling the item (may be blank).
         /// </summary>
         [DataMember(Name = "lat")]
-        public string Latitude { get; set; }
+        public double? Latitude { get; set; }
 
         /// <summary>
         /// Gets or sets the longitude of the user selling the item (may be blank).
         /// </summary>
         [DataMember(Name = "lon")]
-        public string Longitude { get; set; }
+        public double? Longitude { get; set; }
 
         /// <summary>
         /// Gets or sets the user's city and state (user-supplied; may be blank).
@@ -324,7 +345,7 @@ namespace Netsy.DataModel
         /// Gets or sets the numeric ID of the section to which this listing belongs. If the shop uses sections.
         /// </summary>
         [DataMember(Name = "section_id")]
-        public string SectionId { get; set; }
+        public int? SectionId { get; set; }
 
         /// <summary>
         /// Gets or sets the title of the section to which this listing belongs.
@@ -372,6 +393,12 @@ namespace Netsy.DataModel
                 this.favoriteCreationEpoch = this.favoriteCreationDate.ToEpochFromDateTime();
             }
         }
+
+        /// <summary>
+        /// Gets or sets the search relevancy score (only when sorting a search on "score".)
+        /// </summary>
+        [DataMember(Name = "score")]
+        public double? Score { get; set; }
 
         #endregion
     }

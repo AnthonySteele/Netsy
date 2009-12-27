@@ -25,6 +25,19 @@ namespace Netsy.IntegrationTest.Listings
     public class GetListingDetailsTest
     {
         /// <summary>
+        /// the listing id to use
+        /// </summary>
+        private readonly int testListingId;
+
+        /// <summary>
+        /// Initializes a new instance of the GetListingDetailsTest class
+        /// </summary>
+        public GetListingDetailsTest()
+        {
+            this.testListingId = TestIdHelper.RetrieveTestListingId();            
+        }
+
+        /// <summary>
         /// Test missing API key
         /// </summary>
         [TestMethod]
@@ -36,7 +49,7 @@ namespace Netsy.IntegrationTest.Listings
             listingsService.GetListingDetailsCompleted += (s, e) => result = e;
 
             // ACT
-            listingsService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
+            listingsService.GetListingDetails(this.testListingId, DetailLevel.Low);
 
             // check the data
             TestHelpers.CheckResultFailure(result);
@@ -60,7 +73,7 @@ namespace Netsy.IntegrationTest.Listings
                 };
 
                 // ACT
-                listingsService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
+                listingsService.GetListingDetails(this.testListingId, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -96,7 +109,7 @@ namespace Netsy.IntegrationTest.Listings
                 };
 
                 // ACT
-                listingsService.GetListingDetails(NetsyData.TestListingId, DetailLevel.Low);
+                listingsService.GetListingDetails(this.testListingId, DetailLevel.Low);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT
@@ -119,16 +132,16 @@ namespace Netsy.IntegrationTest.Listings
         [TestMethod]
         public void GetListingDetailsAllDetailLevelsTest()
         {
-            TestGetListingDetails(DetailLevel.Low);
-            TestGetListingDetails(DetailLevel.Medium);
-            TestGetListingDetails(DetailLevel.High);
+            this.TestGetListingDetails(DetailLevel.Low);
+            this.TestGetListingDetails(DetailLevel.Medium);
+            this.TestGetListingDetails(DetailLevel.High);
         }
 
         /// <summary>
         /// Test retrieving listing details at the given detail level
         /// </summary>
         /// <param name="detailLevel">the given detail level</param>
-        private static void TestGetListingDetails(DetailLevel detailLevel)
+        private void TestGetListingDetails(DetailLevel detailLevel)
         {
             // ARRANGE
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
@@ -142,7 +155,7 @@ namespace Netsy.IntegrationTest.Listings
                 };
 
                 // ACT
-                listingsService.GetListingDetails(NetsyData.TestListingId, detailLevel);
+                listingsService.GetListingDetails(this.testListingId, detailLevel);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 // ASSERT

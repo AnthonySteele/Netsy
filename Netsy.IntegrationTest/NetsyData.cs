@@ -30,11 +30,6 @@ namespace Netsy.IntegrationTest
         public const int TestUserId = 6267462;
 
         /// <summary>
-        /// the id of the listing to test on
-        /// </summary>
-        public const int TestListingId = 27325457;
-
-        /// <summary>
         /// An invalid listing id for testing
         /// </summary>
         public const int TestBadListingId = 1;
