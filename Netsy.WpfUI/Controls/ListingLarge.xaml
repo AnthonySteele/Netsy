@@ -5,14 +5,16 @@
         <TextBlock FontWeight="Bold" Text="{Binding Listing.Title}" TextWrapping="Wrap"></TextBlock>
         <TextBlock>
             <Hyperlink TextDecorations="None" Command="{Binding ShowListingCommand}" CommandParameter="{Binding Listing}">
-                <Image Source="{Binding Listing.ImageUrl155X125}" HorizontalAlignment="Left" Stretch="None" />
+                <Image Source="{Binding LargestImageUrl}" HorizontalAlignment="Center" Stretch="None" />
             </Hyperlink>
         </TextBlock>
-        <DockPanel>
-            <TextBlock DockPanel.Dock="Left" Text="{Binding PriceData}" ></TextBlock>
-            <TextBlock DockPanel.Dock="Right" TextAlignment="Right" Text="{Binding Listing.Quantity}" ></TextBlock>
-        </DockPanel>
-        <TextBlock Visibility="{Binding ShopLinkVisibility}" ><Hyperlink Command="{Binding ShowShopCommand}" CommandParameter="{Binding Listing}"><TextBlock Text="{Binding Listing.UserName}" /></Hyperlink></TextBlock>
-        <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap"></TextBlock>
+        <TextBlock TextWrapping="Wrap">
+            Price: <TextBlock Text="{Binding PriceData}" />
+            Quantity: <TextBlock Text="{Binding Listing.Quantity}" />
+            <LineBreak />
+            Date: <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap"></TextBlock>
+            <LineBreak />
+            Description: <TextBlock Text="{Binding Listing.Description}" TextWrapping="Wrap"></TextBlock>
+        </TextBlock>
     </StackPanel>
 </UserControl>

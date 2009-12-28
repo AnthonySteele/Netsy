@@ -147,6 +147,47 @@ namespace Netsy.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets the Url of the largest image
+        /// </summary>
+        public string LargestImageUrl
+        {
+            get
+            {
+                if (! string.IsNullOrEmpty(this.Listing.ImageUrl430XN))
+                {
+                    return this.Listing.ImageUrl430XN;
+                }
+
+                if (!string.IsNullOrEmpty(this.Listing.ImageUrl200X200))
+                {
+                    return this.Listing.ImageUrl200X200;
+                }
+
+                if (!string.IsNullOrEmpty(this.Listing.ImageUrl155X125))
+                {
+                    return this.Listing.ImageUrl155X125;
+                }
+
+                if (!string.IsNullOrEmpty(this.Listing.ImageUrl75X75))
+                {
+                    return this.Listing.ImageUrl75X75;
+                }
+
+                if (!string.IsNullOrEmpty(this.Listing.ImageUrl50X50))
+                {
+                    return this.Listing.ImageUrl50X50;
+                }
+
+                if (!string.IsNullOrEmpty(this.Listing.ImageUrl25X25))
+                {
+                    return this.Listing.ImageUrl25X25;
+                }
+
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the command to show the shop in a seperate display
         /// </summary>
         public ICommand ShowShopCommand
