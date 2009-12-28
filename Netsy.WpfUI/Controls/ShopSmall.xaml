@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel Orientation="Vertical" Margin="2,2,2,2">
         <TextBlock>
-            <Hyperlink TextDecorations="None" Command="{Binding ShowShopCommand}" CommandParameter="{Binding}">
+            <Hyperlink TextDecorations="None" Command="{Binding ShowShopCommand}" CommandParameter="{Binding Shop}">
                 <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding Shop.ShopName}" TextWrapping="Wrap" />
             </Hyperlink>
         </TextBlock>

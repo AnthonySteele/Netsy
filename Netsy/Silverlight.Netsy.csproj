@@ -83,7 +83,6 @@
     <Compile Include="Helpers\DateTimeHelpers.cs" />
     <Compile Include="Helpers\EnumHelpers.cs" />
     <Compile Include="Helpers\GenericEventArgs.cs" />
-    <Compile Include="Helpers\GlobalSuppressions.cs" />
     <Compile Include="Helpers\IntHelpers.cs" />
     <Compile Include="Helpers\JsonSerializerHelper.cs" />
     <Compile Include="Helpers\ResultEventArgs.cs" />

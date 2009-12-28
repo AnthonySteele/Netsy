@@ -1,3 +1,9 @@
+//-----------------------------------------------------------------------
+// <copyright file="GlobalSuppressions.cs" company="AFS">
+// Copyright (c) AFS. All rights reserved.
+// </copyright>
+//----------------------------------------------------------------------- 
+
 // This file is used by Code Analysis to maintain SuppressMessage 
 // attributes that are applied to this project. 
 // Project-level suppressions either have no target or are given 
@@ -57,3 +63,6 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Scope = "member", Target = "Netsy.Services.ServiceHelper.#TestCallPrerequisites`1(System.Object,System.EventHandler`1<Netsy.Helpers.ResultEventArgs`1<!!0>>,Netsy.DataModel.EtsyContext)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Scope = "member", Target = "Netsy.Services.ServiceHelper.#TestSendEvent`1(System.EventHandler`1<Netsy.Helpers.ResultEventArgs`1<!!0>>,System.Object,Netsy.Helpers.ResultEventArgs`1<!!0>)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Scope = "member", Target = "Netsy.Services.ServiceHelper.#TestSendError`1(System.EventHandler`1<Netsy.Helpers.ResultEventArgs`1<!!0>>,System.Object,System.String,System.Exception)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Scope = "member", Target = "Netsy.Helpers.EnumHelpers.#Parse`1(System.String)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Scope = "member", Target = "Netsy.Helpers.JsonSerializerHelper.#Deserialize`1(System.String)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Scope = "member", Target = "Netsy.Helpers.StringHelpers.#ToStringLower(System.Object)")]

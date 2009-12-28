@@ -51,8 +51,8 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\GenericCommandBase.cs" />
     <Compile Include="Commands\SilverlightDelegateCommand.cs" />
+    <Compile Include="Commands\SilverlightGenericCommandBase.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

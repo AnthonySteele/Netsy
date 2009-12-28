@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿//-----------------------------------------------------------------------
+// <copyright file="ShopsByName.xaml.cs" company="AFS">
+//  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
+//  and is made available under the terms of the Microsoft Public License (Ms-PL)
+//  http://www.opensource.org/licenses/ms-pl.html
+// </copyright>
+//----------------------------------------------------------------------- 
 
 namespace Netsy.WpfUI.Controls
 {
+    using System.Windows.Controls;
+    
     /// <summary>
     /// Interaction logic for ShopsByName.xaml
     /// </summary>
     public partial class ShopsByName : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the ShopsByName class
+        /// </summary>
         public ShopsByName()
         {
             InitializeComponent();

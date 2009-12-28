@@ -56,9 +56,14 @@ namespace Netsy.WpfUI.Windows.Main
         private readonly ShopsByNameViewModel shopsByNameViewModel;
 
         /// <summary>
-        /// the command to show a shop's details
+        /// the command to show a shop's details for a listing
         /// </summary>
-        private readonly ICommand showShopCommand;
+        private readonly ICommand showShopForListingCommand;
+
+        /// <summary>
+        /// the command to show a shop's details for a shop
+        /// </summary>
+        private readonly ICommand showShopForShopCommand;
 
         /// <summary>
         /// the command to show a listing's details
@@ -80,7 +85,8 @@ namespace Netsy.WpfUI.Windows.Main
         /// <param name="materialsListingsViewModel">the view model for listings by materials</param>
         /// <param name="tagsListingsViewModel">the view model for listings by tags</param>
         /// <param name="shopsByNameViewModel">the view model for shops by name</param>
-        /// <param name="showShopCommand">the command to show a shop's details</param>
+        /// <param name="showShopForListingCommand">the command to show a shop's details</param>
+        /// <param name="showShopForShopCommand">the command to show a shop's details</param>
         /// <param name="showListingCommand">the command to show a listing's details</param>
         public MainWindowViewModel(
             FrontFeaturedListingsViewModel frontFeaturedListingsViewModel,
@@ -90,7 +96,8 @@ namespace Netsy.WpfUI.Windows.Main
             MaterialsListingsViewModel materialsListingsViewModel,
             TagsListingsViewModel tagsListingsViewModel,
             ShopsByNameViewModel shopsByNameViewModel,
-            ShowShopWindowCommand showShopCommand,
+            ShowShopWindowForListingCommand showShopForListingCommand,
+            ShowShopWindowForShopCommand showShopForShopCommand,
             ShowListingWindowCommand showListingCommand)
         {
             this.StatusText = "Netsy WPF UI";
@@ -103,7 +110,8 @@ namespace Netsy.WpfUI.Windows.Main
             this.tagsViewModel = tagsListingsViewModel;
             this.shopsByNameViewModel = shopsByNameViewModel;
 
-            this.showShopCommand = showShopCommand;
+            this.showShopForListingCommand = showShopForListingCommand;
+            this.showShopForShopCommand = showShopForShopCommand;
             this.showListingCommand = showListingCommand;
 
             this.SetShowCommands(this.frontListingsViewModel);
@@ -113,7 +121,7 @@ namespace Netsy.WpfUI.Windows.Main
             this.SetShowCommands(this.materialsViewModel);
             this.SetShowCommands(this.tagsViewModel);
 
-            this.shopsByNameViewModel.ShowShopCommand = showShopCommand;
+            this.shopsByNameViewModel.ShowShopCommand = showShopForShopCommand;
         }
 
         /// <summary>
@@ -214,13 +222,24 @@ namespace Netsy.WpfUI.Windows.Main
         }
 
         /// <summary>
-        /// Gets the command to show a shop window
+        /// Gets the command to show a shop window for a listing
         /// </summary>
-        public ICommand ShowShopCommand
+        public ICommand ShowShopForListingCommand
         {
             get
             {
-                return this.showShopCommand;
+                return this.showShopForListingCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the command to show a shop window for a shop
+        /// </summary>
+        public ICommand ShowShopForShopCommand
+        {
+            get
+            {
+                return this.showShopForShopCommand;
             }
         }
 
@@ -241,7 +260,7 @@ namespace Netsy.WpfUI.Windows.Main
         /// <param name="model">the model to configure</param>
         private void SetShowCommands(ListingsServiceViewModel model)
         {
-            model.ShowShopCommand = this.showShopCommand;
+            model.ShowShopCommand = this.showShopForListingCommand;
             model.ShowListingCommand = this.showListingCommand;
         }
     }

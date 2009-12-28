@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CustomColorPicker, Version=1.0.3649.21648, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\CustomColorPicker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libraries\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
@@ -195,7 +199,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Windows\Main\ShowListingWindowCommand.cs" />
-    <Compile Include="Windows\Main\ShowShopWindowCommand.cs" />
+    <Compile Include="Windows\Main\ShowShopWindowForListingCommand.cs" />
+    <Compile Include="Windows\Main\ShowShopWindowForShopCommand.cs" />
     <Compile Include="Windows\Shop\ShopWindow.xaml.cs">
       <DependentUpon>ShopWindow.xaml</DependentUpon>
     </Compile>
