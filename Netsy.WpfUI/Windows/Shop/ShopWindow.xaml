@@ -4,9 +4,16 @@
     xmlns:Controls="clr-namespace:Netsy.WpfUI.Controls"
     Title="{Binding ShopData.ShopName}" 
     Width="800"
-    Height="500">
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
+    SizeToContent="Height">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Controls:ShopLarge DataContext="{Binding Shop}" />
+        <Controls:Listings DataContext="{Binding Listings}" Grid.Row="1" />
+        <StatusBar Grid.Row="2">
             <StatusBarItem>
                 <Label 
                     DockPanel.Dock="Left"
@@ -14,13 +21,5 @@
                     Content="{Binding StatusText}" />
             </StatusBarItem>
         </StatusBar>
-        <StackPanel HorizontalAlignment="Stretch">
-            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding ShopData.Title}" TextWrapping="Wrap"></TextBlock>
-            <Image Source="{Binding ShopData.BannerImageUrl}" HorizontalAlignment="Center" Stretch="None"></Image>
-            <TextBlock FontWeight="Bold" Text="{Binding ShopData.SaleMessage}" TextWrapping="Wrap"></TextBlock>
-            <TextBlock FontWeight="Bold" Text="{Binding ShopData.Announcement}" TextWrapping="Wrap"></TextBlock>
-            <TextBlock FontWeight="Bold" Text="{Binding ShopData.PolicyWelcome}" TextWrapping="Wrap"></TextBlock>
-            <Controls:Listings DataContext="{Binding Listings}" />
-        </StackPanel>
-    </DockPanel>
+    </Grid>
 </Window>

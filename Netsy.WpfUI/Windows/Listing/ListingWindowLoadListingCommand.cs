@@ -10,7 +10,6 @@ namespace Netsy.WpfUI.Windows.Listing
 {
     using System.Globalization;
     using System.Windows;
-    using System.Windows.Input;
 
     using Netsy.DataModel;
     using Netsy.Helpers;

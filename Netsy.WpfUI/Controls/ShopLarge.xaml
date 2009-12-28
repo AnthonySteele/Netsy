@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="Netsy.WpfUI.Controls.ShopLarge"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel HorizontalAlignment="Stretch">
+        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding Shop.Title}" TextWrapping="Wrap"></TextBlock>
+        <Image Source="{Binding Shop.BannerImageUrl}" HorizontalAlignment="Center" Stretch="None"></Image>
+        <WrapPanel Orientation="Horizontal">
+            <TextBlock FontWeight="Bold" Text="Announcement" Visibility="{Binding AnnouncementVisibility}"  Margin="4">
+                <TextBlock.ToolTip>
+                    <Border BorderThickness="1" BorderBrush="Black" MaxWidth="400" Padding="2" Margin="0">
+                        <TextBlock Text="{Binding Shop.Announcement}" TextWrapping="Wrap"></TextBlock>
+                    </Border>
+                </TextBlock.ToolTip>
+            </TextBlock>
+            <TextBlock FontWeight="Bold" Text="Sale message" Visibility="{Binding SaleMessageVisibility}"  Margin="4">
+                <TextBlock.ToolTip>
+                    <Border BorderThickness="1" BorderBrush="Black" MaxWidth="400" Padding="2" Margin="0">
+                        <TextBlock Text="{Binding Shop.SaleMessage}" TextWrapping="Wrap"></TextBlock>
+                    </Border>
+                </TextBlock.ToolTip>
+            </TextBlock>
+            <TextBlock FontWeight="Bold" Text="Vacation message" Visibility="{Binding VacationMessageVisibility}"  Margin="4">
+                <TextBlock.ToolTip>
+                    <Border BorderThickness="1" BorderBrush="Black" MaxWidth="400" Padding="2" Margin="0">
+                        <TextBlock Text="{Binding Shop.VacationMessage}" TextWrapping="Wrap"></TextBlock>
+                    </Border>
+                </TextBlock.ToolTip>
+            </TextBlock>
+            <TextBlock FontWeight="Bold" Text="Policy welcome" Visibility="{Binding PolicyWelcomeVisibility}" Margin="4">
+                <TextBlock.ToolTip>
+                    <Border BorderThickness="1" BorderBrush="Black" MaxWidth="400" Padding="2" Margin="0">
+                        <TextBlock Text="{Binding Shop.PolicyWelcome}" TextWrapping="Wrap"></TextBlock>
+                    </Border>
+                </TextBlock.ToolTip>
+            </TextBlock>
+            <TextBlock FontWeight="Bold" Text="Policy payment" Visibility="{Binding PolicyPaymentVisibility}" Margin="4">
+                <TextBlock.ToolTip>
+                    <Border BorderThickness="1" BorderBrush="Black" MaxWidth="400" Padding="2" Margin="0">
+                        <TextBlock Text="{Binding Shop.PolicyPayment}" TextWrapping="Wrap"></TextBlock>
+                    </Border>
+                </TextBlock.ToolTip>
+            </TextBlock>
+            <TextBlock FontWeight="Bold" Text="Policy shipping" Visibility="{Binding PolicyShippingVisibility}" Margin="4">
+                <TextBlock.ToolTip>
+                    <Border BorderThickness="1" BorderBrush="Black" MaxWidth="400" Padding="2" Margin="0">
+                        <TextBlock Text="{Binding Shop.PolicyShipping}" TextWrapping="Wrap"></TextBlock>
+                    </Border>
+                </TextBlock.ToolTip>
+            </TextBlock>
+            <TextBlock FontWeight="Bold" Text="Policy refunds" Visibility="{Binding PolicyRefundsVisibility}" Margin="4">
+                <TextBlock.ToolTip>
+                    <Border BorderThickness="1" BorderBrush="Black" MaxWidth="400" Padding="2" Margin="0">
+                        <TextBlock Text="{Binding Shop.PolicyRefunds}" TextWrapping="Wrap"></TextBlock>
+                    </Border>
+                </TextBlock.ToolTip>
+            </TextBlock>
+            <TextBlock FontWeight="Bold" Text="Policy Additional" Visibility="{Binding PolicyAdditionalVisibility}" Margin="4">
+                <TextBlock.ToolTip>
+                    <Border BorderThickness="1" BorderBrush="Black" MaxWidth="400" Padding="2" Margin="0">
+                        <TextBlock Text="{Binding Shop.PolicyAdditional}" TextWrapping="Wrap"></TextBlock>
+                    </Border>
+                </TextBlock.ToolTip>
+            </TextBlock>
+        </WrapPanel>
+    </StackPanel>
+</UserControl>

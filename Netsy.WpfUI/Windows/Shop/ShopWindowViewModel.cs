@@ -20,11 +20,6 @@ namespace Netsy.WpfUI.Windows.Shop
     public class ShopWindowViewModel : BaseViewModel
     {
         /// <summary>
-        /// the shop being diplayed
-        /// </summary>
-        private ShopViewModel shopViewModel;
-
-        /// <summary>
         /// Command to load the shop
         /// </summary>
         private readonly ICommand shopWindowLoadShopCommand;
@@ -34,6 +29,11 @@ namespace Netsy.WpfUI.Windows.Shop
         /// </summary>
         private readonly ICommand shopWindowLoadListingsCommand;
 
+        /// <summary>
+        /// the shop being diplayed
+        /// </summary>
+        private ShopViewModel shopViewModel;
+        
         /// <summary>
         /// The text to display on the status bar
         /// </summary>

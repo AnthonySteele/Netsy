@@ -10,6 +10,7 @@ namespace Netsy.UI
 {
     using System.Collections.Generic;
     using System.Text;
+    using System.Windows;
 
     /// <summary>
     /// Static helper methods
@@ -76,6 +77,26 @@ namespace Netsy.UI
             }
 
             return string.IsNullOrEmpty(value.Trim());
+        }
+
+        /// <summary>
+        /// Test if a string has more than just whitespace
+        /// </summary>
+        /// <param name="value">the string to test</param>
+        /// <returns>true if the string is nto just null, empty or contains only white space</returns>
+        public static bool HasContent(this string value)
+        {
+            return !value.IsNullEmptyOrWhiteSpace();
+        }
+
+        /// <summary>
+        /// Turns bool to a visibility of Visible or Collapsed
+        /// </summary>
+        /// <param name="value">the value to convert</param>
+        /// <returns>a visibility</returns>
+        public static Visibility ToVisibility(this bool value)
+        {
+            return value ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }
