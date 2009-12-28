@@ -29,6 +29,7 @@ namespace Netsy.WpfUI.Windows.Main
             listingWindow.DataContext = viewModel;
 
             viewModel.ListingId = value.ListingId;
+            viewModel.LoadListingCommand.Execute(viewModel);
 
             listingWindow.Show();
         }
