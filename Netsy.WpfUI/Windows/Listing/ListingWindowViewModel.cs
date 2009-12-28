@@ -10,7 +10,6 @@ namespace Netsy.WpfUI.Windows.Listing
 {
     using System.Windows.Input;
 
-    using Netsy.DataModel;
     using Netsy.UI.ViewModels;
 
     /// <summary>
@@ -22,6 +21,11 @@ namespace Netsy.WpfUI.Windows.Listing
         /// The text to display on the status bar
         /// </summary>
         private string statusText;
+
+        /// <summary>
+        /// The listing shown
+        /// </summary>
+        private ListingViewModel listing;
 
         /// <summary>
         /// Initializes a new instance of the ListingWindowViewModel class 
@@ -40,7 +44,22 @@ namespace Netsy.WpfUI.Windows.Listing
         /// <summary>
         /// Gets or sets the listing shown
         /// </summary>
-        public Listing Listing { get; set; }
+        public ListingViewModel Listing
+        {
+            get
+            {
+                return this.listing;
+            }
+
+            set
+            {
+                if (this.listing != value)
+                {
+                    this.listing = value;
+                    this.OnPropertyChanged("Listing");
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the commnad to load the listing

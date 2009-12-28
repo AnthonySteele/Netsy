@@ -18,6 +18,8 @@ namespace Netsy.WpfUI.Windows.Listing
     using Netsy.UI;
     using Netsy.UI.Commands;
 
+    using UI.ViewModels;
+
     /// <summary>
     /// Command to load a listing
     /// </summary>
@@ -81,7 +83,11 @@ namespace Netsy.WpfUI.Windows.Listing
                 return;
             }
 
-            this.currentViewModel.Listing = listingsReceived.ResultValue.Results[0];
+            Listing listing = listingsReceived.ResultValue.Results[0];
+            
+            this.currentViewModel.Listing = new ListingViewModel(listing);
+            this.currentViewModel.Listing.ShopLinkVisibility = Visibility.Hidden;
+
             string status = string.Format(CultureInfo.InvariantCulture, "Loaded listing {0}", this.currentViewModel.ListingId);
             this.currentViewModel.StatusText = status;
         }

@@ -88,6 +88,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ListingLarge.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Listings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -149,6 +153,9 @@
     </Compile>
     <Compile Include="Controls\FrontListings.xaml.cs">
       <DependentUpon>FrontListings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListingLarge.xaml.cs">
+      <DependentUpon>ListingLarge.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Listings.xaml.cs">
       <DependentUpon>Listings.xaml</DependentUpon>
