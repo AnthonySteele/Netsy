@@ -18,7 +18,7 @@ namespace Netsy.UI
     public static class Helpers
     {
         /// <summary>
-        /// Convert values to a string sperated by commas
+        /// Convert values to a string with values separated by commas
         /// </summary>
         /// <typeparam name="T">the type of values</typeparam>
         /// <param name="values">the values</param>
