@@ -55,7 +55,6 @@
             {
                 return this.listings;
             }
-
         }
 
         public string ErrorMessage 
