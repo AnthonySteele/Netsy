@@ -17,10 +17,10 @@
 *.user
 
 # folders where the compiler puts stuff
-TestResults
+bin
 obj
+TestResults
 _ReSharper*
-Bin
 
 
 # Code analysis output
