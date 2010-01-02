@@ -54,37 +54,25 @@ namespace Netsy.UI.ViewModels.Listings
         }
 
         /// <summary>
+        /// Show a message after load success
+        /// </summary>
+        protected abstract void ShowLoadedSuccessMessage();
+
+        /// <summary>
         /// Callback for when Listings data has been received
         /// </summary>
         /// <param name="sender">event sender</param>
         /// <param name="e">event params</param>
         protected void ListingsReceived(object sender, ResultEventArgs<Listings> e)
         {
-            // put it onto the Ui thread
-            DispatcherHelper.Invoke(
-                new ResultsReceivedHandler<Listings>(this.ListingsReceivedSync),
-                e);
-        }
-
-        /// <summary>
-        /// Show a message after load success
-        /// </summary>
-        protected abstract void ShowLoadedSuccessMessage();
-
-        /// <summary>
-        /// Listings data has been received
-        /// </summary>
-        /// <param name="listingsReceived">the listings</param>
-        private void ListingsReceivedSync(ResultEventArgs<Listings> listingsReceived)
-        {
-            if (!listingsReceived.ResultStatus.Success)
+            if (!e.ResultStatus.Success)
             {
-                this.StatusText = "Failed to load listings " + listingsReceived.ResultStatus.ErrorMessage;
+                this.StatusText = "Failed to load listings " + e.ResultStatus.ErrorMessage;
                 return;
             }
 
             this.Items.Clear();
-            foreach (Listing item in listingsReceived.ResultValue.Results)
+            foreach (Listing item in e.ResultValue.Results)
             {
                 ListingViewModel viewModel = new ListingViewModel(item);
                 viewModel.ShowShopCommand = this.ShowShopCommand;
