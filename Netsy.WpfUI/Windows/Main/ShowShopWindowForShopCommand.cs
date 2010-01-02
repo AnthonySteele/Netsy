@@ -31,7 +31,7 @@ namespace Netsy.WpfUI.Windows.Main
             viewModel.UserId = value.UserId;
 
             viewModel.ShopWindowLoadShopCommand.Execute(viewModel);
-            viewModel.ShopWindowLoadListingsCommand.Execute(viewModel);
+            viewModel.ShopListingsViewModel.LoadPageCommand.Execute(viewModel);
             shopWindow.Show();
         }
     }

@@ -224,7 +224,6 @@
     <Compile Include="Windows\Shop\ShopWindow.xaml.cs">
       <DependentUpon>ShopWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Shop\ShopWindowLoadListingsCommand.cs" />
     <Compile Include="Windows\Shop\ShopWindowLoadShopCommand.cs" />
     <Compile Include="Windows\Shop\ShopWindowViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -8,11 +8,13 @@
 
 namespace Netsy.WpfUI.Windows.Shop
 {
-    using System.Collections.ObjectModel;
     using System.Windows.Input;
+
+    using Main;
 
     using Netsy.DataModel;
     using Netsy.UI.ViewModels;
+    using Netsy.UI.ViewModels.Shops;
 
     /// <summary>
     /// View model for the shop window
@@ -25,42 +27,53 @@ namespace Netsy.WpfUI.Windows.Shop
         private readonly ICommand shopWindowLoadShopCommand;
 
         /// <summary>
-        /// Command to load the listings
+        /// The shop listings being displayed
         /// </summary>
-        private readonly ICommand shopWindowLoadListingsCommand;
+        private readonly ShopListingsViewModel shopListingsViewModel;
 
         /// <summary>
         /// the shop being diplayed
         /// </summary>
         private ShopViewModel shopViewModel;
-        
-        /// <summary>
-        /// The text to display on the status bar
-        /// </summary>
-        private string statusText;
 
         /// <summary>
-        /// The number of listings per page
+        /// the shop id used
         /// </summary>
-        private int listingsPerPage = Constants.DefaultItemsPerPage;
+        private int userId;
 
         /// <summary>
         /// Initializes a new instance of the ShopWindowViewModel class
         /// </summary>
+        /// <param name="shopListingsViewModel">viewmodel for the listings</param>
         /// <param name="shopWindowLoadShopCommand">Command to load the shop</param>
-        /// <param name="shopWindowLoadListingsCommand">Command to load the listings</param>
-        public ShopWindowViewModel(ShopWindowLoadShopCommand shopWindowLoadShopCommand, ShopWindowLoadListingsCommand shopWindowLoadListingsCommand)
+        /// <param name="showListingWindowCommand">Command to show the listing window for a shop</param>
+        public ShopWindowViewModel(
+            ShopListingsViewModel shopListingsViewModel, 
+            ShopWindowLoadShopCommand shopWindowLoadShopCommand,
+            ShowListingWindowCommand showListingWindowCommand)
         {
-            this.shopWindowLoadShopCommand = shopWindowLoadShopCommand;
-            this.shopWindowLoadListingsCommand = shopWindowLoadListingsCommand;
+            this.shopListingsViewModel = shopListingsViewModel;
+            this.shopListingsViewModel.ShowListingCommand = showListingWindowCommand;
 
-            this.Listings = new ObservableCollection<ListingViewModel>();
+            this.shopWindowLoadShopCommand = shopWindowLoadShopCommand;
         }
 
         /// <summary>
         /// Gets or sets the user id used 
         /// </summary>
-        public int UserId { get; set; }
+        public int UserId
+        {
+            get
+            {
+                return this.userId;
+            }
+
+            set
+            {
+                this.userId = value;
+                this.ShopListingsViewModel.ShopId = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the viewmodel of the shop being displayed
@@ -75,7 +88,7 @@ namespace Netsy.WpfUI.Windows.Shop
             set
             {
                 if (this.shopViewModel != value)
-              {
+                {
                   this.shopViewModel = value;
                   this.OnPropertyChanged("Shop");
                   this.OnPropertyChanged("ShopData");
@@ -100,40 +113,6 @@ namespace Netsy.WpfUI.Windows.Shop
         }
 
         /// <summary>
-        /// Gets or sets the number of listings per page
-        /// </summary>
-        public int ListingsPerPage
-        {
-            get { return this.listingsPerPage; }
-            set { this.listingsPerPage = value; }
-        }
-
-        /// <summary>
-        /// Gets the listings in the shop
-        /// </summary>
-        public ObservableCollection<ListingViewModel> Listings { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the status bar text
-        /// </summary>
-        public string StatusText
-        {
-            get
-            {
-                return this.statusText;
-            }
-
-            set
-            {
-                if (this.statusText != value)
-                {
-                    this.statusText = value;
-                    this.OnPropertyChanged("StatusText");
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets the command to load the shop
         /// </summary>
         public ICommand ShopWindowLoadShopCommand
@@ -145,13 +124,13 @@ namespace Netsy.WpfUI.Windows.Shop
         }
 
         /// <summary>
-        /// Gets the command to load the listings
+        /// Gets the shop listings being displayed
         /// </summary>
-        public ICommand ShopWindowLoadListingsCommand
+        public ShopListingsViewModel ShopListingsViewModel
         {
             get
             {
-                return this.shopWindowLoadListingsCommand;
+                return this.shopListingsViewModel;
             }
         }
     }

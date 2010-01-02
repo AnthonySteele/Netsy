@@ -54,7 +54,7 @@ namespace Netsy.WpfUI.Windows.Shop
 
             this.shopService.GetShopDetails(this.currentViewModel.UserId, DetailLevel.High);
             string status = string.Format(CultureInfo.InvariantCulture, "Getting shop details for {0}", this.currentViewModel.UserId);
-            value.StatusText = status;
+            value.ShopListingsViewModel.StatusText = status;
         }
 
         /// <summary>
@@ -78,20 +78,20 @@ namespace Netsy.WpfUI.Windows.Shop
         {
             if (!shopsReceived.ResultStatus.Success)
             {
-                this.currentViewModel.StatusText = "Failed to load shops " + shopsReceived.ResultStatus.ErrorMessage;
+                this.currentViewModel.ShopListingsViewModel.StatusText = "Failed to load shops " + shopsReceived.ResultStatus.ErrorMessage;
                 return;
             }
 
             if (shopsReceived.ResultValue.Results.Length < 1)
             {
-                this.currentViewModel.StatusText = "No shop found";
+                this.currentViewModel.ShopListingsViewModel.StatusText = "No shop found";
                 return;
             }
 
             Shop firstShop = shopsReceived.ResultValue.Results[0];
             this.currentViewModel.Shop = new ShopViewModel(firstShop);
 
-            this.currentViewModel.StatusText = "Loaded shop details";
+            this.currentViewModel.ShopListingsViewModel.StatusText = "Loaded shop details";
         }
     }
 }
