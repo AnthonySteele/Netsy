@@ -10,7 +10,6 @@ namespace Netsy.Interfaces
     using System;
 
     using Netsy.DataModel;
-
     using Netsy.Helpers;
 
     /// <summary>
