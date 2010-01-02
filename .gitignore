@@ -3,8 +3,6 @@
 # http://www.lostechies.com/blogs/derickbailey/archive/2009/05/18/a-net-c-developer-s-gitignore-file.aspx
 
 # output files
-*.dll
-*.pdb
 *.cache
 *.xap
 *.exe
