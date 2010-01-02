@@ -24,8 +24,9 @@ namespace Netsy.WpfUI.Windows.Main
             MainWindowViewModel viewModel = Locator.Resolve<MainWindowViewModel>();
             this.DataContext = viewModel;
             
-            // start with a page of front listings
+            // start with pages of front listings and shops
             viewModel.FrontFeaturedListings.LoadPageCommand.Execute(viewModel);
+            viewModel.FeaturedSellersViewModel.LoadPageCommand.Execute(viewModel);
         }
     }
 }

@@ -21,6 +21,7 @@ bin
 obj
 TestResults
 _ReSharper*
+_old
 
 
 # Code analysis output

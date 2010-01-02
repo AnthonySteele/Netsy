@@ -80,6 +80,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\FeaturedSellers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\KeywordListings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -152,6 +156,9 @@
   <ItemGroup>
     <Compile Include="Controls\ColorListings.xaml.cs">
       <DependentUpon>ColorListings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FeaturedSellers.xaml.cs">
+      <DependentUpon>FeaturedSellers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\KeywordListings.xaml.cs">
       <DependentUpon>KeywordListings.xaml</DependentUpon>

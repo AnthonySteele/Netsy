@@ -86,6 +86,7 @@
     <Compile Include="ViewModels\Listings\TagsListingsViewModel.cs" />
     <Compile Include="ViewModels\ListingViewModel.cs" />
     <Compile Include="ViewModels\PagedCollectionViewModel.cs" />
+    <Compile Include="ViewModels\Shops\FeaturedSellersViewModel.cs" />
     <Compile Include="ViewModels\Shops\ShopsByNameViewModel.cs" />
     <Compile Include="ViewModels\Shops\ShopsServiceViewModel.cs" />
     <Compile Include="ViewModels\ShopViewModel.cs" />

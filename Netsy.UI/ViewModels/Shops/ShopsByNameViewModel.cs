@@ -85,6 +85,5 @@ namespace Netsy.UI.ViewModels.Shops
                     this.StatusText = status;
                 });
         }
-
     }
 }

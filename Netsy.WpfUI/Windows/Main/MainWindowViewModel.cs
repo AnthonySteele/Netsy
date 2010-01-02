@@ -56,6 +56,11 @@ namespace Netsy.WpfUI.Windows.Main
         private readonly ShopsByNameViewModel shopsByNameViewModel;
 
         /// <summary>
+        /// The viewmodel for featured shops
+        /// </summary>
+        private readonly FeaturedSellersViewModel featuredSellersViewModel;
+
+        /// <summary>
         /// the command to show a shop's details for a listing
         /// </summary>
         private readonly ICommand showShopForListingCommand;
@@ -85,6 +90,7 @@ namespace Netsy.WpfUI.Windows.Main
         /// <param name="materialsListingsViewModel">the view model for listings by materials</param>
         /// <param name="tagsListingsViewModel">the view model for listings by tags</param>
         /// <param name="shopsByNameViewModel">the view model for shops by name</param>
+        /// <param name="featuredSellersViewModel">the view model for featured shops</param>
         /// <param name="showShopForListingCommand">the command to show a shop's details</param>
         /// <param name="showShopForShopCommand">the command to show a shop's details</param>
         /// <param name="showListingCommand">the command to show a listing's details</param>
@@ -96,6 +102,7 @@ namespace Netsy.WpfUI.Windows.Main
             MaterialsListingsViewModel materialsListingsViewModel,
             TagsListingsViewModel tagsListingsViewModel,
             ShopsByNameViewModel shopsByNameViewModel,
+            FeaturedSellersViewModel featuredSellersViewModel,
             ShowShopWindowForListingCommand showShopForListingCommand,
             ShowShopWindowForShopCommand showShopForShopCommand,
             ShowListingWindowCommand showListingCommand)
@@ -109,6 +116,7 @@ namespace Netsy.WpfUI.Windows.Main
             this.materialsViewModel = materialsListingsViewModel;
             this.tagsViewModel = tagsListingsViewModel;
             this.shopsByNameViewModel = shopsByNameViewModel;
+            this.featuredSellersViewModel = featuredSellersViewModel;
 
             this.showShopForListingCommand = showShopForListingCommand;
             this.showShopForShopCommand = showShopForShopCommand;
@@ -122,6 +130,7 @@ namespace Netsy.WpfUI.Windows.Main
             this.SetShowCommands(this.tagsViewModel);
 
             this.shopsByNameViewModel.ShowShopCommand = showShopForShopCommand;
+            this.featuredSellersViewModel.ShowShopCommand = showShopForShopCommand;
         }
 
         /// <summary>
@@ -218,6 +227,17 @@ namespace Netsy.WpfUI.Windows.Main
             get
             {
                 return this.shopsByNameViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the viewmodel for featured shops
+        /// </summary>
+        public FeaturedSellersViewModel FeaturedSellersViewModel
+        {
+            get
+            {
+                return this.featuredSellersViewModel;
             }
         }
 
