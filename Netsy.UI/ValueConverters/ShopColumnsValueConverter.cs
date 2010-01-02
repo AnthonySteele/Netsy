@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="WidthToColumnCountValueConverter.cs" company="AFS">
+// <copyright file="ShopColumnsValueConverter.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -15,7 +15,7 @@ namespace Netsy.UI.ValueConverters
     /// <summary>
     /// Value converter to determine column count from width
     /// </summary>
-    public class WidthToColumnCountValueConverter : IValueConverter
+    public class ShopColumnsValueConverter : IValueConverter
     {
         #region IValueConverter Members
 
@@ -29,7 +29,7 @@ namespace Netsy.UI.ValueConverters
         /// <returns>the converted value</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            const int DotsPerColumn = 180;
+            const int DotsPerColumn = 760;
             return ValueConverterHelpers.ColumnCount(value, DotsPerColumn);
         }
 
