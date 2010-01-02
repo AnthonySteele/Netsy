@@ -8,6 +8,7 @@
 
 namespace Netsy.UI.DispatchedServices
 {
+    using System;
     using System.Windows.Threading;
 
     using Netsy.DataModel;
@@ -18,7 +19,7 @@ namespace Netsy.UI.DispatchedServices
     /// Server service wrapped to use a dispatcher 
     /// To put the results back on the Dispatcher's thread
     /// </summary>
-    public class DispatchedServerService
+    public class DispatchedServerService : DispatchedService, IServerService
     {
         /// <summary>
         /// The wrapped service
@@ -26,19 +27,60 @@ namespace Netsy.UI.DispatchedServices
         private readonly IServerService wrappedService;
 
         /// <summary>
-        /// The thread dispatcher
-        /// </summary>
-        private readonly Dispatcher dispatcher;
-
-        /// <summary>
         /// Initializes a new instance of the DispatchedServerService class
         /// </summary>
         /// <param name="wrappedService">the wrapped service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
-        public DispatchedServerService(IServerService wrappedService, Dispatcher dispatcher)
+        public DispatchedServerService(IServerService wrappedService, Dispatcher dispatcher) 
+            : base(dispatcher)
         {
             this.wrappedService = wrappedService;
-            this.dispatcher = dispatcher;
+
+            this.wrappedService.GetMethodTableCompleted += (s, e) => this.DispatchEvent(this.GetMethodTableCompleted, s, e);
+            this.wrappedService.GetServerEpochCompleted += (s, e) => this.DispatchEvent(this.GetServerEpochCompleted, s, e);
+            this.wrappedService.PingCompleted += (s, e) => this.DispatchEvent(this.PingCompleted, s, e);
+        }
+
+        /// <summary>
+        /// PingResult completed event
+        /// </summary>
+        public event EventHandler<ResultEventArgs<PingResult>> PingCompleted;
+
+        /// <summary>
+        /// GetServerEpoch completed event
+        /// </summary>
+        public event EventHandler<ResultEventArgs<ServerEpoch>> GetServerEpochCompleted;
+
+        /// <summary>
+        /// GetMethodTable completed event
+        /// </summary>
+        public event EventHandler<ResultEventArgs<MethodTable>> GetMethodTableCompleted;
+
+        /// <summary>
+        /// Check that the server is alive.
+        /// </summary>
+        /// <returns>the async state of the request</returns>
+        public IAsyncResult Ping()
+        {
+            return this.wrappedService.Ping();
+        }
+
+        /// <summary>
+        /// Get server time, in epoch seconds notation.
+        /// </summary>
+        /// <returns>the async state of the request</returns>
+        public IAsyncResult GetServerEpoch()
+        {
+            return this.wrappedService.GetServerEpoch();
+        }
+
+        /// <summary>
+        /// Get a list of all methods available.
+        /// </summary>
+        /// <returns>the async state of the request</returns>
+        public IAsyncResult GetMethodTable()
+        {
+            return this.wrappedService.GetMethodTable();
         }
     }
 }

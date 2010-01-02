@@ -20,7 +20,7 @@ namespace Netsy.UI.DispatchedServices
     /// Listings service wrapped to use a dispatcher 
     /// To put the results back on the Dispatcher's thread
     /// </summary>
-    public class DispatchedListingsService : IListingsService
+    public class DispatchedListingsService : DispatchedService, IListingsService
     {
         /// <summary>
         /// The wrapped service
@@ -28,29 +28,24 @@ namespace Netsy.UI.DispatchedServices
         private readonly IListingsService wrappedService;
 
         /// <summary>
-        /// The thread dispatcher
-        /// </summary>
-        private readonly Dispatcher dispatcher;
-
-        /// <summary>
         /// Initializes a new instance of the DispatchedListingsService class
         /// </summary>
         /// <param name="wrappedService">the wrapped service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
-        public DispatchedListingsService(IListingsService wrappedService, Dispatcher dispatcher)
+        public DispatchedListingsService(IListingsService wrappedService, Dispatcher dispatcher) 
+            : base(dispatcher)
         {
             this.wrappedService = wrappedService;
-            this.wrappedService.GetAllListingsCompleted += this.WrappedServiceGetAllListingsCompleted;
-            this.wrappedService.GetListingDetailsCompleted += this.WrappedServiceGetListingDetailsCompleted;
-            this.wrappedService.GetListingsByCategoryCompleted += this.WrappedServiceGetListingsByCategoryCompleted;
-            this.wrappedService.GetListingsByColorAndKeywordsCompleted += this.WrappedServiceGetListingsByColorAndKeywordsCompleted;
-            this.wrappedService.GetFrontFeaturedListingsCompleted += this.WrappedServiceGetFrontFeaturedListingsCompleted;
-            this.wrappedService.GetListingsByColorCompleted += this.WrappedServiceGetListingsByColorCompleted;
-            this.wrappedService.GetListingsByKeywordCompleted += this.WrappedServiceGetListingsByKeywordCompleted;
-            this.wrappedService.GetListingsByMaterialsCompleted += this.WrappedServiceGetListingsByMaterialsCompleted;
-            this.wrappedService.GetListingsByTagsCompleted += this.WrappedServiceGetListingsByTagsCompleted;
 
-            this.dispatcher = dispatcher;
+            this.wrappedService.GetAllListingsCompleted += (s, e) => this.DispatchEvent(this.GetAllListingsCompleted, s, e);
+            this.wrappedService.GetListingDetailsCompleted += (s, e) => this.DispatchEvent(this.GetListingDetailsCompleted, s, e);
+            this.wrappedService.GetListingsByCategoryCompleted += (s, e) => this.DispatchEvent(this.GetListingsByCategoryCompleted, s, e);
+            this.wrappedService.GetListingsByColorAndKeywordsCompleted += (s, e) => this.DispatchEvent(this.GetListingsByColorAndKeywordsCompleted, s, e);
+            this.wrappedService.GetFrontFeaturedListingsCompleted += (s, e) => this.DispatchEvent(this.GetFrontFeaturedListingsCompleted, s, e);
+            this.wrappedService.GetListingsByColorCompleted += (s, e) => this.DispatchEvent(this.GetListingsByColorCompleted, s, e);
+            this.wrappedService.GetListingsByKeywordCompleted += (s, e) => this.DispatchEvent(this.GetListingsByKeywordCompleted, s, e);
+            this.wrappedService.GetListingsByMaterialsCompleted += (s, e) => this.DispatchEvent(this.GetListingsByMaterialsCompleted, s, e);
+            this.wrappedService.GetListingsByTagsCompleted += (s, e) => this.DispatchEvent(this.GetListingsByTagsCompleted, s, e);
         }
 
         /// <summary>
@@ -225,132 +220,6 @@ namespace Netsy.UI.DispatchedServices
         public IAsyncResult GetListingsByTags(IEnumerable<string> tags, SortField sortOn, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel)
         {
             return this.wrappedService.GetListingsByTags(tags, sortOn, sortOrder, offset, limit, detailLevel);
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetListingsByTagsCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetListingsByTagsCompleted != null)
-            {
-                Action completedSynch = () => this.GetListingsByTagsCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetListingsByMaterialsCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetListingsByMaterialsCompleted != null)
-            {
-                Action completedSynch = () => this.GetListingsByMaterialsCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetListingsByKeywordCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetListingsByKeywordCompleted != null)
-            {
-                Action completedSynch = () => this.GetListingsByKeywordCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetListingsByColorCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetListingsByColorCompleted != null)
-            {
-                Action completedSynch = () => this.GetListingsByColorCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetListingsByColorAndKeywordsCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetListingsByColorAndKeywordsCompleted != null)
-            {
-                Action completedSynch = () => this.GetListingsByColorAndKeywordsCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetFrontFeaturedListingsCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetFrontFeaturedListingsCompleted != null)
-            {
-                Action completedSynch = () => this.GetFrontFeaturedListingsCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetListingsByCategoryCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetListingsByCategoryCompleted != null)
-            {
-                Action completedSynch = () => this.GetListingsByCategoryCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetListingDetailsCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetListingDetailsCompleted != null)
-            {
-                Action completedSynch = () => this.GetListingDetailsCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetAllListingsCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetAllListingsCompleted != null)
-            {
-                Action completedSynch = () => this.GetAllListingsCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
         }
     }
 }

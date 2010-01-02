@@ -19,7 +19,7 @@ namespace Netsy.UI.DispatchedServices
     /// Feedback service wrapped to use a dispatcher 
     /// To put the results back on the Dispatcher's thread
     /// </summary>
-    public class DispatchedFeedbackService : IFeedbackService
+    public class DispatchedFeedbackService : DispatchedService, IFeedbackService
     {
         /// <summary>
         /// The wrapped service
@@ -27,25 +27,20 @@ namespace Netsy.UI.DispatchedServices
         private readonly IFeedbackService wrappedService;
 
         /// <summary>
-        /// The thread dispatcher
-        /// </summary>
-        private readonly Dispatcher dispatcher;
-
-        /// <summary>
         /// Initializes a new instance of the DispatchedFeedbackService class
         /// </summary>
         /// <param name="wrappedService">the wrapped service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
-        public DispatchedFeedbackService(IFeedbackService wrappedService, Dispatcher dispatcher)
+        public DispatchedFeedbackService(IFeedbackService wrappedService, Dispatcher dispatcher) 
+            : base(dispatcher)
         {
             this.wrappedService = wrappedService;
-            this.wrappedService.GetFeedbackAsBuyerCompleted += this.WrappedServiceGetFeedbackAsBuyerCompleted;
-            this.wrappedService.GetFeedbackAsSellerCompleted += this.WrappedServiceGetFeedbackAsSellerCompleted;
-            this.wrappedService.GetFeedbackCompleted += this.WrappedServiceGetFeedbackCompleted;
-            this.wrappedService.GetFeedbackForOthersCompleted += this.WrappedServiceGetFeedbackForOthersCompleted;
-            this.wrappedService.GetFeedbackForUserCompleted += this.WrappedServiceGetFeedbackForUserCompleted;
 
-            this.dispatcher = dispatcher;
+            this.wrappedService.GetFeedbackAsBuyerCompleted += (s, e) => this.DispatchEvent(this.GetFeedbackAsBuyerCompleted, s, e);
+            this.wrappedService.GetFeedbackAsSellerCompleted += (s, e) => this.DispatchEvent(this.GetFeedbackAsSellerCompleted, s, e);
+            this.wrappedService.GetFeedbackCompleted += (s, e) => this.DispatchEvent(this.GetFeedbackCompleted, s, e);
+            this.wrappedService.GetFeedbackForOthersCompleted += (s, e) => this.DispatchEvent(this.GetFeedbackForOthersCompleted, s, e);
+            this.wrappedService.GetFeedbackForUserCompleted += (s, e) => this.DispatchEvent(this.GetFeedbackForUserCompleted, s, e);
         }
 
         /// <summary>
@@ -177,76 +172,6 @@ namespace Netsy.UI.DispatchedServices
         public IAsyncResult GetFeedbackAsSeller(string userName, int offset, int limit)
         {
             return this.wrappedService.GetFeedbackAsSeller(userName, offset, limit);
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetFeedbackForUserCompleted(object sender, ResultEventArgs<Feedbacks> e)
-        {
-            if (this.GetFeedbackForUserCompleted != null)
-            {
-                Action completedSynch = () => this.GetFeedbackForUserCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetFeedbackForOthersCompleted(object sender, ResultEventArgs<Feedbacks> e)
-        {
-            if (this.GetFeedbackForOthersCompleted != null)
-            {
-                Action completedSynch = () => this.GetFeedbackForOthersCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetFeedbackCompleted(object sender, ResultEventArgs<Feedbacks> e)
-        {
-            if (this.GetFeedbackCompleted != null)
-            {
-                Action completedSynch = () => this.GetFeedbackCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetFeedbackAsSellerCompleted(object sender, ResultEventArgs<Feedbacks> e)
-        {
-            if (this.GetFeedbackAsSellerCompleted != null)
-            {
-                Action completedSynch = () => this.GetFeedbackAsSellerCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetFeedbackAsBuyerCompleted(object sender, ResultEventArgs<Feedbacks> e)
-        {
-            if (this.GetFeedbackAsBuyerCompleted != null)
-            {
-                Action completedSynch = () => this.GetFeedbackAsBuyerCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
         }
     }
 }

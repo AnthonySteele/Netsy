@@ -19,7 +19,7 @@ namespace Netsy.UI.DispatchedServices
     /// Favorites service wrapped to use a dispatcher 
     /// To put the results back on the Dispatcher's thread
     /// </summary>
-    public class DispatchedFavoritesService : IFavoritesService
+    public class DispatchedFavoritesService : DispatchedService, IFavoritesService
     {
         /// <summary>
         /// The wrapped service
@@ -27,24 +27,19 @@ namespace Netsy.UI.DispatchedServices
         private readonly IFavoritesService wrappedService;
 
         /// <summary>
-        /// The thread dispatcher
-        /// </summary>
-        private readonly Dispatcher dispatcher;
-
-        /// <summary>
         /// Initializes a new instance of the DispatchedFavoritesService class
         /// </summary>
         /// <param name="wrappedService">the wrapped service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
         public DispatchedFavoritesService(IFavoritesService wrappedService, Dispatcher dispatcher)
+            : base(dispatcher)
         {
             this.wrappedService = wrappedService;
-            this.wrappedService.GetFavorersOfListingCompleted += this.OnWrappedGetFavorersOfListingCompleted;
-            this.wrappedService.GetFavorersOfShopCompleted += this.OnWrappedGetFavorersOfShopCompleted;
-            this.wrappedService.GetFavoriteListingsOfUserCompleted += this.OnWrappedGetFavoriteListingsOfUserCompleted;
-            this.wrappedService.GetFavoriteShopsOfUserCompleted += this.OnWrappedGetFavoriteShopsOfUserCompleted;
 
-            this.dispatcher = dispatcher;
+            this.wrappedService.GetFavorersOfListingCompleted += (s, e) => this.DispatchEvent(this.GetFavorersOfListingCompleted, s, e);
+            this.wrappedService.GetFavorersOfShopCompleted += (s, e) => this.DispatchEvent(this.GetFavorersOfShopCompleted, s, e);
+            this.wrappedService.GetFavoriteListingsOfUserCompleted += (s, e) => this.DispatchEvent(this.GetFavoriteListingsOfUserCompleted, s, e);
+            this.wrappedService.GetFavoriteShopsOfUserCompleted += (s, e) => this.DispatchEvent(this.GetFavoriteShopsOfUserCompleted, s, e);
         }
 
         /// <summary>
@@ -156,62 +151,6 @@ namespace Netsy.UI.DispatchedServices
         public IAsyncResult GetFavoriteShopsOfUser(string userName, int offset, int limit, DetailLevel detailLevel)
         {
             return this.wrappedService.GetFavoriteShopsOfUser(userName, offset, limit, detailLevel);
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void OnWrappedGetFavoriteShopsOfUserCompleted(object sender, ResultEventArgs<Shops> e)
-        {
-            if (this.GetFavoriteShopsOfUserCompleted != null)
-            {
-                Action completedSynch = () => this.GetFavoriteShopsOfUserCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void OnWrappedGetFavoriteListingsOfUserCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetFavoriteListingsOfUserCompleted != null)
-            {
-                Action completedSynch = () => this.GetFavoriteListingsOfUserCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void OnWrappedGetFavorersOfShopCompleted(object sender, ResultEventArgs<Users> e)
-        {
-            if (this.GetFavorersOfShopCompleted != null)
-            {
-                Action completedSynch = () => this.GetFavorersOfShopCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void OnWrappedGetFavorersOfListingCompleted(object sender, ResultEventArgs<Users> e)
-        {
-            if (this.GetFavorersOfListingCompleted != null)
-            {
-                Action completedSynch = () => this.GetFavorersOfListingCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
         }
     }
 }

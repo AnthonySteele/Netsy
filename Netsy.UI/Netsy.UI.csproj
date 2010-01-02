@@ -63,6 +63,7 @@
     <Compile Include="DispatchedServices\DispatchedGiftService.cs" />
     <Compile Include="DispatchedServices\DispatchedListingsService.cs" />
     <Compile Include="DispatchedServices\DispatchedServerService.cs" />
+    <Compile Include="DispatchedServices\DispatchedService.cs" />
     <Compile Include="DispatchedServices\DispatchedShopService.cs" />
     <Compile Include="DispatchedServices\DispatchedTagCategoryService.cs" />
     <Compile Include="DispatchedServices\DispatchedUsersService.cs" />

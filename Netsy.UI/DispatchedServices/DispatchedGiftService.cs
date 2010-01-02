@@ -19,7 +19,7 @@ namespace Netsy.UI.DispatchedServices
     /// Gift service wrapped to use a dispatcher 
     /// To put the results back on the Dispatcher's thread
     /// </summary>
-    public class DispatchedGiftService : IGiftService
+    public class DispatchedGiftService : DispatchedService, IGiftService
     {
         /// <summary>
         /// The wrapped service
@@ -27,22 +27,17 @@ namespace Netsy.UI.DispatchedServices
         private readonly IGiftService wrappedService;
 
         /// <summary>
-        /// The thread dispatcher
-        /// </summary>
-        private readonly Dispatcher dispatcher;
-
-        /// <summary>
         /// Initializes a new instance of the DispatchedGiftService class
         /// </summary>
         /// <param name="wrappedService">the wrapped service</param>
         /// <param name="dispatcher">the thread dispatcher</param>
-        public DispatchedGiftService(IGiftService wrappedService, Dispatcher dispatcher)
+        public DispatchedGiftService(IGiftService wrappedService, Dispatcher dispatcher) 
+            : base(dispatcher)
         {
             this.wrappedService = wrappedService;
-            this.wrappedService.GetGiftGuideListingsCompleted += this.WrappedServiceGetGiftGuideListingsCompleted;
-            this.wrappedService.GetGiftGuidesCompleted += this.WrappedServiceGetGiftGuidesCompleted;
 
-            this.dispatcher = dispatcher;
+            this.wrappedService.GetGiftGuideListingsCompleted += (s, e) => this.DispatchEvent(this.GetGiftGuideListingsCompleted, s, e);
+            this.wrappedService.GetGiftGuidesCompleted += (s, e) => this.DispatchEvent(this.GetGiftGuidesCompleted, s, e);
         }
 
         /// <summary>
@@ -75,34 +70,6 @@ namespace Netsy.UI.DispatchedServices
         public IAsyncResult GetGiftGuideListings(int guideId, int offset, int limit, DetailLevel detailLevel)
         {
             return this.wrappedService.GetGiftGuideListings(guideId, offset, limit, detailLevel);
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetGiftGuidesCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetGiftGuidesCompleted != null)
-            {
-                Action completedSynch = () => this.GetGiftGuidesCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
-        }
-
-        /// <summary>
-        /// The wrapped service operation has completed
-        /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        private void WrappedServiceGetGiftGuideListingsCompleted(object sender, ResultEventArgs<Listings> e)
-        {
-            if (this.GetGiftGuideListingsCompleted != null)
-            {
-                Action completedSynch = () => this.GetGiftGuideListingsCompleted(sender, e);
-                this.dispatcher.Invoke(completedSynch);
-            }
         }
     }
 }
