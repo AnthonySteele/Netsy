@@ -74,7 +74,11 @@ namespace Netsy.UI.ViewModels.Shops
                     int offset = (this.PageNumber - 1) * this.ItemsPerPage;
 
                     this.shopService.GetShopListings(this.ShopId, SortField.Created, SortOrder.Up, null, offset, this.ListingsPerPage, DetailLevel.Medium);
-                    string status = string.Format(CultureInfo.InvariantCulture, "Getting {0} listings on page {1} for shop", this.ListingsPerPage, this.ItemsPerPage);
+                    string status = string.Format(
+                        CultureInfo.InvariantCulture, 
+                        "Getting {0} listings on page {1} for shop", 
+                        this.ListingsPerPage, 
+                        this.ItemsPerPage);
                     this.StatusText = status;
                 });
         }
@@ -101,7 +105,12 @@ namespace Netsy.UI.ViewModels.Shops
                 this.Items.Add(viewModel);
             }
 
-            string status = string.Format(CultureInfo.InvariantCulture, "Got {0} listings on page {1} for shop", e.ResultValue.Results.Length, this.PageNumber);
+            string status = string.Format(
+                CultureInfo.InvariantCulture, 
+                "Got {0} listings on page {1} of {2} for shop", 
+                e.ResultValue.Results.Length, 
+                this.PageNumber,
+                e.ResultValue.Count);
             this.StatusText = status;
         }
     }
