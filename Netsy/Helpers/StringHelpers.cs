@@ -69,7 +69,6 @@ namespace Netsy.Helpers
 
             foreach (T value in values)
             {
-                result.Append(value.ToString());
                 if (first)
                 {
                     first = false;
@@ -78,6 +77,8 @@ namespace Netsy.Helpers
                 {
                     result.Append(", ");
                 }
+
+                result.Append(value.ToString());
             }
 
             return result.ToString();

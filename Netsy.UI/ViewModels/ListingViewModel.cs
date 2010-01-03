@@ -12,6 +12,7 @@ namespace Netsy.UI.ViewModels
     using System.Windows.Input;
 
     using Netsy.DataModel;
+    using Netsy.Helpers;
 
     /// <summary>
     /// View model for a listing
@@ -188,19 +189,34 @@ namespace Netsy.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets the listings tags in a string
+        /// </summary>
+        public string ListingTags
+        {
+            get
+            {
+                return this.Listing.Tags.ToCsv();
+            }
+        }
+
+        /// <summary>
+        /// Gets the listings materials in a string
+        /// </summary>
+        public string ListingMaterials
+        {
+            get
+            {
+                return this.Listing.Materials.ToCsv();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the command to show the shop in a seperate display
         /// </summary>
         public ICommand ShowShopCommand
         {
-            get
-            {
-                return this.showShopCommand;
-            }
-
-            set
-            {
-                this.showShopCommand = value;
-            }
+            get { return this.showShopCommand; }
+            set { this.showShopCommand = value; }
         }
 
         /// <summary>
@@ -208,15 +224,8 @@ namespace Netsy.UI.ViewModels
         /// </summary>
         public ICommand ShowListingCommand
         {
-            get
-            {
-                return this.showListingCommand;
-            }
-
-            set
-            {
-                this.showListingCommand = value;
-            }
+            get { return this.showListingCommand; }
+            set { this.showListingCommand = value; }
         }
     }
 }

@@ -15,6 +15,10 @@
             Date: <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap"></TextBlock>
             <LineBreak />
             Description: <TextBlock Text="{Binding Listing.Description}" TextWrapping="Wrap"></TextBlock>
+            <LineBreak />
+            Materials: <TextBlock Text="{Binding ListingMaterials}" />
+            <LineBreak />
+            Tags: <TextBlock Text="{Binding ListingTags}" />
         </TextBlock>
     </StackPanel>
 </UserControl>
