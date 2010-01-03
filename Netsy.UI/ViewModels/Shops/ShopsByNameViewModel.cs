@@ -11,6 +11,7 @@ namespace Netsy.UI.ViewModels.Shops
     using System.Globalization;
 
     using Netsy.DataModel;
+    using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.UI.Commands;
 

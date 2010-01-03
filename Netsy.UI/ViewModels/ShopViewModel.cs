@@ -12,6 +12,7 @@ namespace Netsy.UI.ViewModels
     using System.Windows.Input;
 
     using Netsy.DataModel;
+    using Netsy.Helpers;
 
     /// <summary>
     /// View model for a shop

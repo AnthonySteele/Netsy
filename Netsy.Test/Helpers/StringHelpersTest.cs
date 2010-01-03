@@ -52,5 +52,33 @@ namespace Netsy.Test.Helpers
 
             Assert.AreEqual("requestprohibitedbycachepolicy", result);
         }
+
+        /// <summary>
+        /// Test sucess cases on IsNullEmptyOrWhiteSpace
+        /// </summary>
+        [TestMethod]
+        public void IsNullEmptyOrWhiteSpaceSuccessTest()
+        {
+            Assert.IsTrue(((string)null).IsNullEmptyOrWhiteSpace());
+            Assert.IsTrue(string.Empty.IsNullEmptyOrWhiteSpace());
+            Assert.IsTrue(" ".IsNullEmptyOrWhiteSpace());
+            Assert.IsTrue("  ".IsNullEmptyOrWhiteSpace());
+            Assert.IsTrue("   ".IsNullEmptyOrWhiteSpace());
+            Assert.IsTrue(" ".IsNullEmptyOrWhiteSpace());
+            Assert.IsTrue("  ".IsNullEmptyOrWhiteSpace());
+        }
+
+        /// <summary>
+        /// Test failure cases on IsNullEmptyOrWhiteSpace
+        /// </summary>
+        [TestMethod]
+        public void IsNullEmptyOrWhiteSpaceFailTest()
+        {
+            Assert.IsFalse("a".IsNullEmptyOrWhiteSpace());
+            Assert.IsFalse("a ".IsNullEmptyOrWhiteSpace());
+            Assert.IsFalse(" a".IsNullEmptyOrWhiteSpace());
+            Assert.IsFalse(" a ".IsNullEmptyOrWhiteSpace());
+            Assert.IsFalse(" a b ".IsNullEmptyOrWhiteSpace());
+        }
     }
 }

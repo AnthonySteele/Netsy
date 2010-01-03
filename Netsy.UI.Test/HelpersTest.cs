@@ -8,40 +8,34 @@
 
 namespace Netsy.UI.Test
 {
+    using System.Windows;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Test the string helpers
     /// </summary>
     [TestClass]
-    public class StringHelpersTest
+    public class HelpersTest
     {
         /// <summary>
-        /// Test sucess cases on IsNullEmptyOrWhiteSpace
+        /// Test ToVisibility
         /// </summary>
         [TestMethod]
-        public void IsNullEmptyOrWhiteSpaceSuccessTest()
+        public void ToVisibilityTrueTest()
         {
-            Assert.IsTrue(((string)null).IsNullEmptyOrWhiteSpace());
-            Assert.IsTrue(string.Empty.IsNullEmptyOrWhiteSpace());
-            Assert.IsTrue(" ".IsNullEmptyOrWhiteSpace());
-            Assert.IsTrue("  ".IsNullEmptyOrWhiteSpace());
-            Assert.IsTrue("   ".IsNullEmptyOrWhiteSpace());
-            Assert.IsTrue(" ".IsNullEmptyOrWhiteSpace());
-            Assert.IsTrue("  ".IsNullEmptyOrWhiteSpace());
+            Visibility visibility = true.ToVisibility();
+            Assert.AreEqual(Visibility.Visible, visibility);
         }
 
         /// <summary>
-        /// Test failure cases on IsNullEmptyOrWhiteSpace
+        /// Test ToVisibility
         /// </summary>
         [TestMethod]
-        public void IsNullEmptyOrWhiteSpaceFailTest()
+        public void ToVisibilityFalseTest()
         {
-            Assert.IsFalse("a".IsNullEmptyOrWhiteSpace());
-            Assert.IsFalse("a ".IsNullEmptyOrWhiteSpace());
-            Assert.IsFalse(" a".IsNullEmptyOrWhiteSpace());
-            Assert.IsFalse(" a ".IsNullEmptyOrWhiteSpace());
-            Assert.IsFalse(" a b ".IsNullEmptyOrWhiteSpace());
+            Visibility visibility = false.ToVisibility();
+            Assert.AreEqual(Visibility.Collapsed, visibility);
         }
     }
 }

@@ -8,8 +8,6 @@
 
 namespace Netsy.UI
 {
-    using System.Collections.Generic;
-    using System.Text;
     using System.Windows;
 
     /// <summary>
@@ -18,81 +16,9 @@ namespace Netsy.UI
     public static class Helpers
     {
         /// <summary>
-        /// Convert values to a string with values separated by commas
+        /// Turns a bool to a visibility enum, of Visible or Collapsed
         /// </summary>
-        /// <typeparam name="T">the type of values</typeparam>
-        /// <param name="values">the values</param>
-        /// <returns>the values in a string</returns>
-        public static string ToCsv<T>(this IEnumerable<T> values)
-        {
-            if (values == null)
-            {
-                return string.Empty;
-            }
-
-            StringBuilder result = new StringBuilder();
-            bool first = true;
-
-            foreach (T value in values)
-            {
-                result.Append(value.ToString());
-                if (first)
-                {
-                    first = false;
-                }
-                else
-                {
-                    result.Append(", ");
-                }
-            }
-
-            return result.ToString();
-        }
-
-        /// <summary>
-        /// Split a string into a list at spaces and commas
-        /// </summary>
-        /// <param name="value">the string to convert</param>
-        /// <returns>words in an enumerable</returns>
-        public static IEnumerable<string> ToEnumerable(this string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                return new string[0];
-            }
-
-            return value.Split(new[] { ',', ' ' });
-        }
-
-        /// <summary>
-        /// Test if a string has more than just whitespace
-        /// </summary>
-        /// <param name="value">the string to test</param>
-        /// <returns>true if the string is null, empty or contains only white space</returns>
-        public static bool IsNullEmptyOrWhiteSpace(this string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                return true;
-            }
-
-            return string.IsNullOrEmpty(value.Trim());
-        }
-
-        /// <summary>
-        /// Test if a string has more than just whitespace
-        /// </summary>
-        /// <param name="value">the string to test</param>
-        /// <returns>true if the string is nto just null, empty or contains only white space</returns>
-        public static bool HasContent(this string value)
-        {
-            return !value.IsNullEmptyOrWhiteSpace();
-        }
-
-        /// <summary>
-        /// Turns bool to a visibility of Visible or Collapsed
-        /// </summary>
-        /// <param name="value">the value to convert</param>
+        /// <param name="value">the value to convert to visiblity</param>
         /// <returns>a visibility</returns>
         public static Visibility ToVisibility(this bool value)
         {

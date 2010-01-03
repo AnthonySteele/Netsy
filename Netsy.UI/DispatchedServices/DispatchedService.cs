@@ -51,7 +51,7 @@ namespace Netsy.UI.DispatchedServices
             if (eventHandler != null)
             {
                 Action completedSynch = () => eventHandler(sender, eventArgs);
-                this.dispatcher.Invoke(completedSynch);
+                this.dispatcher.BeginInvoke(completedSynch);
             }
         }
     }

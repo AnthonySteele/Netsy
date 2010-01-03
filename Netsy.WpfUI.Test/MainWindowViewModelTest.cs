@@ -8,6 +8,8 @@
 
 namespace Netsy.WpfUI.Test
 {
+    using System.Windows.Threading;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using Netsy.WpfUI.Windows.Main;
@@ -24,7 +26,8 @@ namespace Netsy.WpfUI.Test
         [TestMethod]
         public void MainWindowViewModelCreateTest()
         {
-            MainWindowViewModel viewModel = new MainWindowViewModel(null, null, null, null, null, null, null, null, null, null, null);
+            Locator.RegisterInstance(Dispatcher.CurrentDispatcher);
+            MainWindowViewModel viewModel = Locator.Resolve<MainWindowViewModel>();
             Assert.IsNotNull(viewModel);
         }
     }
