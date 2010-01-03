@@ -40,6 +40,11 @@ namespace Netsy.UI.ViewModels
         private string statusText;
 
         /// <summary>
+        /// Flag to indicte if this is the last page of results
+        /// </summary>
+        private bool hasNextPage = true;
+
+        /// <summary>
         /// Initializes a new instance of the PagedCollectionViewModel class
         /// </summary>
         protected PagedCollectionViewModel()
@@ -136,6 +141,15 @@ namespace Netsy.UI.ViewModels
         public ICommand LoadPageCommand { get; protected set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this is the last page of results
+        /// </summary>
+        protected bool HasNextPage
+        {
+            get { return this.hasNextPage; }
+            set { this.hasNextPage = value; }
+        }
+
+        /// <summary>
         /// Set up the commands that can be done in the base class
         /// </summary>
         private void MakeCommands()
@@ -172,7 +186,7 @@ namespace Netsy.UI.ViewModels
                         this.LoadPageCommand.Execute(this);
                     }
                 },
-                t => (this.LoadPageCommand != null && (this.items.Count > 0)));
+                t => (this.LoadPageCommand != null && (this.items.Count > 0) && this.HasNextPage));
         }
     }
 }

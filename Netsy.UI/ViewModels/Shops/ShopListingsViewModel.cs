@@ -112,6 +112,9 @@ namespace Netsy.UI.ViewModels.Shops
                 this.PageNumber,
                 e.ResultValue.Count);
             this.StatusText = status;
+
+            int nextPageOffset = this.PageNumber * this.ItemsPerPage;
+            this.HasNextPage = nextPageOffset < e.ResultValue.Count;
         }
     }
 }
