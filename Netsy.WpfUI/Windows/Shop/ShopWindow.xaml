@@ -8,25 +8,35 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Controls:ShopLarge DataContext="{Binding Shop}" />
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="1">
-            <Button Content="Get Items" Margin="0,0,1,0" Command="{Binding ShopListingsViewModel.LoadPageCommand}" CommandParameter="{Binding}" />
-            <Button Content="First" Margin="0,0,1,0" Command="{Binding ShopListingsViewModel.FirstPageCommand}" CommandParameter="{Binding}" />
-            <Button Content="Previous" Margin="0,0,1,0" Command="{Binding ShopListingsViewModel.PreviousPageCommand}" CommandParameter="{Binding}" />
-            <Button Content="Next" Margin="0" Command="{Binding ShopListingsViewModel.NextPageCommand}" CommandParameter="{Binding}" />
-        </StackPanel>
-        <Controls:Listings DataContext="{Binding ShopListingsViewModel.Items}" Grid.Row="2" />
-        <StatusBar Grid.Row="3">
-            <StatusBarItem>
-                <Label 
-                    DockPanel.Dock="Left"
-                    VerticalAlignment="Center" 
-                    Content="{Binding ShopListingsViewModel.StatusText}" />
-            </StatusBarItem>
-        </StatusBar>
+        <TabControl Grid.Row="1">
+            <TabItem Header="_Listings" >
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="1">
+                        <Button Content="Get Items" Margin="0,0,1,0" Command="{Binding ShopListingsViewModel.LoadPageCommand}" CommandParameter="{Binding}" />
+                        <Button Content="First" Margin="0,0,1,0" Command="{Binding ShopListingsViewModel.FirstPageCommand}" CommandParameter="{Binding}" />
+                        <Button Content="Previous" Margin="0,0,1,0" Command="{Binding ShopListingsViewModel.PreviousPageCommand}" CommandParameter="{Binding}" />
+                        <Button Content="Next" Margin="0" Command="{Binding ShopListingsViewModel.NextPageCommand}" CommandParameter="{Binding}" />
+                    </StackPanel>
+                    <Controls:Listings DataContext="{Binding ShopListingsViewModel.Items}" />
+                    <StatusBar>
+                        <StatusBarItem>
+                            <Label 
+                                DockPanel.Dock="Left"
+                                VerticalAlignment="Center" 
+                                Content="{Binding ShopListingsViewModel.StatusText}" />
+                        </StatusBarItem>
+                    </StatusBar>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="_Favorite Listings" >
+                <Controls:Listings DataContext="{Binding FavoriteListingsOfUserViewModel.Items}" />
+            </TabItem>
+            <TabItem Header="Favorite _Shops" >
+                <Controls:Shops DataContext="{Binding FavoriteShopsOfUserViewModel.Items}" />
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

@@ -32,6 +32,16 @@ namespace Netsy.WpfUI.Windows.Shop
         private readonly ShopListingsViewModel shopListingsViewModel;
 
         /// <summary>
+        /// The user's favorite shops 
+        /// </summary>
+        private readonly FavoriteShopsOfUserViewModel favoriteShopsOfUserViewModel;
+
+        /// <summary>
+        /// The user's favorite shops 
+        /// </summary>
+        private readonly FavoriteListingsOfUserViewModel favoriteListingsOfUserViewModel;
+
+        /// <summary>
         /// the shop being diplayed
         /// </summary>
         private ShopViewModel shopViewModel;
@@ -45,15 +55,23 @@ namespace Netsy.WpfUI.Windows.Shop
         /// Initializes a new instance of the ShopWindowViewModel class
         /// </summary>
         /// <param name="shopListingsViewModel">viewmodel for the listings</param>
+        /// <param name="favoriteShopsOfUserViewModel">viewmodel for the favorite shops</param>
+        /// <param name="favoriteListingsOfUserViewModel">viewmodel for the favorite listings</param>
         /// <param name="shopWindowLoadShopCommand">Command to load the shop</param>
         /// <param name="showListingWindowCommand">Command to show the listing window for a shop</param>
         public ShopWindowViewModel(
             ShopListingsViewModel shopListingsViewModel, 
+            FavoriteShopsOfUserViewModel favoriteShopsOfUserViewModel,
+            FavoriteListingsOfUserViewModel favoriteListingsOfUserViewModel,
             ShopWindowLoadShopCommand shopWindowLoadShopCommand,
             ShowListingWindowCommand showListingWindowCommand)
         {
             this.shopListingsViewModel = shopListingsViewModel;
+            this.favoriteShopsOfUserViewModel = favoriteShopsOfUserViewModel;
+            this.favoriteListingsOfUserViewModel = favoriteListingsOfUserViewModel;
+
             this.shopListingsViewModel.ShowListingCommand = showListingWindowCommand;
+            this.FavoriteShopsOfUserViewModel.ShowListingCommand = showListingWindowCommand;
 
             this.shopWindowLoadShopCommand = shopWindowLoadShopCommand;
         }
@@ -72,6 +90,8 @@ namespace Netsy.WpfUI.Windows.Shop
             {
                 this.userId = value;
                 this.ShopListingsViewModel.ShopId = value;
+                this.FavoriteListingsOfUserViewModel.UserId = value;
+                this.FavoriteShopsOfUserViewModel.UserId = value;
             }
         }
 
@@ -131,6 +151,28 @@ namespace Netsy.WpfUI.Windows.Shop
             get
             {
                 return this.shopListingsViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the viewmodel for the user's favorite shops 
+        /// </summary>
+        public FavoriteShopsOfUserViewModel FavoriteShopsOfUserViewModel
+        {
+            get
+            {
+                return this.favoriteShopsOfUserViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the viewmodel for the user's favorite shops 
+        /// </summary>
+        public FavoriteListingsOfUserViewModel FavoriteListingsOfUserViewModel
+        {
+            get
+            {
+                return this.favoriteListingsOfUserViewModel;
             }
         }
     }

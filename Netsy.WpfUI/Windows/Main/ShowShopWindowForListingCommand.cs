@@ -32,6 +32,9 @@ namespace Netsy.WpfUI.Windows.Main
 
             viewModel.ShopWindowLoadShopCommand.Execute(viewModel);
             viewModel.ShopListingsViewModel.LoadPageCommand.Execute(viewModel);
+            viewModel.FavoriteListingsOfUserViewModel.LoadPageCommand.Execute(viewModel);
+            viewModel.FavoriteShopsOfUserViewModel.LoadPageCommand.Execute(viewModel);
+
             shopWindow.Show();
         }
     }
