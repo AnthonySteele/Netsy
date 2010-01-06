@@ -148,6 +148,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Windows\Shop\ShopFavorers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Shop\ShopFavoriteShops.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Shop\ShopListings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Shop\ShopWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -235,6 +247,15 @@
     <Compile Include="Windows\Main\ShowListingWindowCommand.cs" />
     <Compile Include="Windows\Main\ShowShopWindowForListingCommand.cs" />
     <Compile Include="Windows\Main\ShowShopWindowForShopCommand.cs" />
+    <Compile Include="Windows\Shop\ShopFavorers.xaml.cs">
+      <DependentUpon>ShopFavorers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Shop\ShopFavoriteShops.xaml.cs">
+      <DependentUpon>ShopFavoriteShops.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Shop\ShopListings.xaml.cs">
+      <DependentUpon>ShopListings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Shop\ShopWindow.xaml.cs">
       <DependentUpon>ShopWindow.xaml</DependentUpon>
     </Compile>

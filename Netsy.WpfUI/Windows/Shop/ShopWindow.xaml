@@ -2,6 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:Netsy.WpfUI.Controls"
+    xmlns:Shop="clr-namespace:Netsy.WpfUI.Windows.Shop"
     Title="{Binding ShopData.ShopName}" 
     Width="800"
     SizeToContent="Height">
@@ -13,32 +14,16 @@
         <Controls:ShopLarge DataContext="{Binding Shop}" />
         <TabControl Grid.Row="1">
             <TabItem Header="_Listings" >
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" Margin="1">
-                        <Button Content="Get Items" Margin="0,0,1,0" Command="{Binding ShopListingsViewModel.LoadPageCommand}" CommandParameter="{Binding}" />
-                        <Button Content="First" Margin="0,0,1,0" Command="{Binding ShopListingsViewModel.FirstPageCommand}" CommandParameter="{Binding}" />
-                        <Button Content="Previous" Margin="0,0,1,0" Command="{Binding ShopListingsViewModel.PreviousPageCommand}" CommandParameter="{Binding}" />
-                        <Button Content="Next" Margin="0" Command="{Binding ShopListingsViewModel.NextPageCommand}" CommandParameter="{Binding}" />
-                    </StackPanel>
-                    <Controls:Listings DataContext="{Binding ShopListingsViewModel.Items}" />
-                    <StatusBar>
-                        <StatusBarItem>
-                            <Label 
-                                DockPanel.Dock="Left"
-                                VerticalAlignment="Center" 
-                                Content="{Binding ShopListingsViewModel.StatusText}" />
-                        </StatusBarItem>
-                    </StatusBar>
-                </StackPanel>
+                <Shop:ShopListings DataContext="{Binding ShopListingsViewModel}" />
             </TabItem>
             <TabItem Header="_Favorite Listings" >
-                <Controls:Listings DataContext="{Binding FavoriteListingsOfUserViewModel.Items}" />
+                <Shop:ShopListings DataContext="{Binding FavoriteListingsOfUserViewModel}" />
             </TabItem>
             <TabItem Header="Favorite _Shops" >
-                <Controls:Shops DataContext="{Binding FavoriteShopsOfUserViewModel.Items}" />
+                <Shop:ShopFavoriteShops DataContext="{Binding FavoriteShopsOfUserViewModel}" />
             </TabItem>
             <TabItem Header="Favorers" >
-                <Controls:Users DataContext="{Binding FavorersOfShopViewModel.Items}" />
+                <Shop:ShopFavorers DataContext="{Binding FavorersOfShopViewModel}" />
             </TabItem> 
         </TabControl>
     </Grid>

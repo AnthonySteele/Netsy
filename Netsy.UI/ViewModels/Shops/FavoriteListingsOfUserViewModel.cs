@@ -76,7 +76,7 @@ namespace Netsy.UI.ViewModels.Shops
                     this.favoritesService.GetFavoriteListingsOfUser(this.UserId, offset, this.ListingsPerPage, DetailLevel.Medium);
                     string status = string.Format(
                         CultureInfo.InvariantCulture,
-                        "Getting {0} favorite listings on page {1} for user",
+                        "Getting {0} favorite listings on page {1} for shop",
                         this.ListingsPerPage,
                         this.ItemsPerPage);
                     this.StatusText = status;
@@ -107,7 +107,7 @@ namespace Netsy.UI.ViewModels.Shops
 
             string status = string.Format(
                 CultureInfo.InvariantCulture,
-                "Got {0} favorite listings on page {1} of {2} for user",
+                "Got {0} favorite listings on page {1} of {2} for shop",
                 e.ResultValue.Results.Length,
                 this.PageNumber,
                 e.ResultValue.Count);

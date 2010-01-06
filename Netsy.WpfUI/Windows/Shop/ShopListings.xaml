@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Netsy.WpfUI.Windows.Shop.ShopListings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:Netsy.WpfUI.Controls">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal" Margin="1">
+            <Button Content="Get Items" Margin="0,0,1,0" Command="{Binding LoadPageCommand}" CommandParameter="{Binding}" />
+            <Button Content="First" Margin="0,0,1,0" Command="{Binding FirstPageCommand}" CommandParameter="{Binding}" />
+            <Button Content="Previous" Margin="0,0,1,0" Command="{Binding PreviousPageCommand}" CommandParameter="{Binding}" />
+            <Button Content="Next" Margin="0" Command="{Binding NextPageCommand}" CommandParameter="{Binding}" />
+        </StackPanel>
+        <Controls:Listings DataContext="{Binding Items}" />
+        <StatusBar>
+            <StatusBarItem>
+                <Label 
+                    DockPanel.Dock="Left"
+                    VerticalAlignment="Center" 
+                    Content="{Binding StatusText}" />
+            </StatusBarItem>
+        </StatusBar>
+    </StackPanel>
+</UserControl>
