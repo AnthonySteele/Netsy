@@ -29,11 +29,7 @@ namespace Netsy.WpfUI.Windows.Main
             shopWindow.DataContext = viewModel;
 
             viewModel.UserId = value.UserId;
-
-            viewModel.ShopWindowLoadShopCommand.Execute(viewModel);
-            viewModel.ShopListingsViewModel.LoadPageCommand.Execute(viewModel);
-            viewModel.FavoriteListingsOfUserViewModel.LoadPageCommand.Execute(viewModel);
-            viewModel.FavoriteShopsOfUserViewModel.LoadPageCommand.Execute(viewModel);
+            viewModel.LoadAll();
 
             shopWindow.Show();
         }

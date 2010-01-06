@@ -42,6 +42,11 @@ namespace Netsy.WpfUI.Windows.Shop
         private readonly FavoriteListingsOfUserViewModel favoriteListingsOfUserViewModel;
 
         /// <summary>
+        /// Favorers of the shop
+        /// </summary>
+        private readonly FavorersOfShopViewModel favorersOfShopViewModel;
+
+        /// <summary>
         /// the shop being diplayed
         /// </summary>
         private ShopViewModel shopViewModel;
@@ -57,18 +62,21 @@ namespace Netsy.WpfUI.Windows.Shop
         /// <param name="shopListingsViewModel">viewmodel for the listings</param>
         /// <param name="favoriteShopsOfUserViewModel">viewmodel for the favorite shops</param>
         /// <param name="favoriteListingsOfUserViewModel">viewmodel for the favorite listings</param>
+        /// <param name="favorersOfShopViewModel">viewmodel for the favorers of the shop</param>
         /// <param name="shopWindowLoadShopCommand">Command to load the shop</param>
         /// <param name="showListingWindowCommand">Command to show the listing window for a shop</param>
         public ShopWindowViewModel(
             ShopListingsViewModel shopListingsViewModel, 
             FavoriteShopsOfUserViewModel favoriteShopsOfUserViewModel,
             FavoriteListingsOfUserViewModel favoriteListingsOfUserViewModel,
+            FavorersOfShopViewModel favorersOfShopViewModel,
             ShopWindowLoadShopCommand shopWindowLoadShopCommand,
             ShowListingWindowCommand showListingWindowCommand)
         {
             this.shopListingsViewModel = shopListingsViewModel;
             this.favoriteShopsOfUserViewModel = favoriteShopsOfUserViewModel;
             this.favoriteListingsOfUserViewModel = favoriteListingsOfUserViewModel;
+            this.favorersOfShopViewModel = favorersOfShopViewModel;
 
             this.shopListingsViewModel.ShowListingCommand = showListingWindowCommand;
             this.FavoriteShopsOfUserViewModel.ShowListingCommand = showListingWindowCommand;
@@ -92,6 +100,7 @@ namespace Netsy.WpfUI.Windows.Shop
                 this.ShopListingsViewModel.ShopId = value;
                 this.FavoriteListingsOfUserViewModel.UserId = value;
                 this.FavoriteShopsOfUserViewModel.UserId = value;
+                this.FavorersOfShopViewModel.UserId = value;
             }
         }
 
@@ -174,6 +183,29 @@ namespace Netsy.WpfUI.Windows.Shop
             {
                 return this.favoriteListingsOfUserViewModel;
             }
+        }
+
+        /// <summary>
+        /// Gets the favorers of the shop
+        /// </summary>
+        public FavorersOfShopViewModel FavorersOfShopViewModel
+        {
+            get
+            {
+                return this.favorersOfShopViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Load all data 
+        /// </summary>
+        public void LoadAll()
+        {
+            this.ShopWindowLoadShopCommand.Execute(this);
+            this.ShopListingsViewModel.LoadPageCommand.Execute(this);
+            this.FavoriteListingsOfUserViewModel.LoadPageCommand.Execute(this);
+            this.FavoriteShopsOfUserViewModel.LoadPageCommand.Execute(this);
+            this.FavorersOfShopViewModel.LoadPageCommand.Execute(this);
         }
     }
 }

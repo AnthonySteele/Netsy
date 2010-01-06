@@ -37,6 +37,9 @@
             <TabItem Header="Favorite _Shops" >
                 <Controls:Shops DataContext="{Binding FavoriteShopsOfUserViewModel.Items}" />
             </TabItem>
+            <TabItem Header="Favorers" >
+                <Controls:Users DataContext="{Binding FavorersOfShopViewModel.Items}" />
+            </TabItem> 
         </TabControl>
     </Grid>
 </Window>

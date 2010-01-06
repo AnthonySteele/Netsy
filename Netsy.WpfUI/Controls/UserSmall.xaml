@@ -1,0 +1,9 @@
+﻿<UserControl x:Class="Netsy.WpfUI.Controls.UserSmall"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+        <TextBlock Text="{Binding User.UserName}" TextWrapping="Wrap"></TextBlock>
+        <Image Source="{Binding LargestImageUrl}" HorizontalAlignment="Left" Stretch="None"></Image>
+        <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap"></TextBlock>
+    </StackPanel>
+</UserControl>

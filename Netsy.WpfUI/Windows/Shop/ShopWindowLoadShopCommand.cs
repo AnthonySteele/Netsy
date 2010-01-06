@@ -9,7 +9,6 @@
 namespace Netsy.WpfUI.Windows.Shop
 {
     using System.Globalization;
-    using System.Windows.Threading;
 
     using Netsy.DataModel;
     using Netsy.Helpers;

@@ -24,6 +24,16 @@ namespace Netsy.DataModel
         #region private
 
         /// <summary>
+        /// the join date time as an epoch date
+        /// </summary>
+        private double joinEpoch;
+
+        /// <summary>
+        /// the join date time as a datetime
+        /// </summary>
+        private DateTime joinEpochDate;
+
+        /// <summary>
         /// The user status as a string
         /// </summary>
         private string statusString;
@@ -113,7 +123,36 @@ namespace Netsy.DataModel
         /// Gets or sets the date and time the user joined the site, in epoch seconds.
         /// </summary>
         [DataMember(Name = "join_epoch")]
-        public double JoinEpoch { get; set; }
+        public double JoinEpoch
+        {
+            get
+            {
+                return this.joinEpoch;
+            }
+
+            set
+            {
+                this.joinEpoch = value;
+                this.joinEpochDate = this.joinEpoch.ToDateTimeFromEpoch();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the join date time as a datetime
+        /// </summary>
+        public DateTime JoinEpochDate
+        {
+            get
+            {
+                return this.joinEpochDate;
+            }
+
+            set
+            {
+                this.joinEpochDate = value;
+                this.joinEpoch = this.joinEpochDate.ToEpochFromDateTime();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the user's city and state (freeform entry; may be blank).

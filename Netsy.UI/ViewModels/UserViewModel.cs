@@ -8,6 +8,7 @@
 namespace Netsy.UI.ViewModels
 {
     using Netsy.DataModel;
+    using Netsy.Helpers;
 
     /// <summary>
     /// View model for a user
@@ -29,11 +30,53 @@ namespace Netsy.UI.ViewModels
         }
 
         /// <summary>
-        /// Gets the shop data transfer object
+        /// Gets the user data transfer object
         /// </summary>
         public User User
         {
             get { return this.user; }
+        }
+
+        /// <summary>
+        /// Gets data data for display
+        /// </summary>
+        public string DateDisplay
+        {
+            get
+            {
+                return this.User.JoinEpochDate.ToShortDateString();
+            }
+        }
+
+        /// <summary>
+        /// Gets the image url for the largest image
+        /// </summary>
+        public string LargestImageUrl
+        {
+            get
+            {
+                if (User.ImageUrl75X75.HasContent())
+                {
+                    return User.ImageUrl75X75;
+                }
+
+                if (User.ImageUrl50X50.HasContent())
+                {
+                    return User.ImageUrl50X50;
+                }
+
+                if (User.ImageUrl30X30.HasContent())
+                {
+                    return User.ImageUrl30X30;
+                }
+
+                if (User.ImageUrl25X25.HasContent())
+                {
+                    return User.ImageUrl25X25;
+                }
+
+                return string.Empty;
+            }
         }
     }
 }

@@ -22,3 +22,4 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "Netsy.WpfUI.Controls.Listings.#listingsListBox")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "Netsy.WpfUI.Controls.Shops.#shopsListBox")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Scope = "member", Target = "Netsy.WpfUI.UnityHelper.#RegisterFactory`1(Microsoft.Practices.Unity.IUnityContainer,Microsoft.Practices.Unity.StaticFactory.FactoryDelegate)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "Netsy.WpfUI.Controls.Users.#usersListBox")]
