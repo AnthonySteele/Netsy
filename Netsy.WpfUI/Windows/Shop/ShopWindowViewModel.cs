@@ -64,13 +64,17 @@ namespace Netsy.WpfUI.Windows.Shop
         /// <param name="favoriteListingsOfUserViewModel">viewmodel for the favorite listings</param>
         /// <param name="favorersOfShopViewModel">viewmodel for the favorers of the shop</param>
         /// <param name="shopWindowLoadShopCommand">Command to load the shop</param>
-        /// <param name="showListingWindowCommand">Command to show the listing window for a shop</param>
+        /// <param name="showShopWindowForShopCommand">Command to show the shop details for a shop</param>
+        /// <param name="showShopWindowForListingCommand">Command to show the shop details for a listing</param>
+        /// <param name="showListingWindowCommand">Command to show the listing details</param>
         public ShopWindowViewModel(
             ShopListingsViewModel shopListingsViewModel, 
             FavoriteShopsOfUserViewModel favoriteShopsOfUserViewModel,
             FavoriteListingsOfUserViewModel favoriteListingsOfUserViewModel,
             FavorersOfShopViewModel favorersOfShopViewModel,
             ShopWindowLoadShopCommand shopWindowLoadShopCommand,
+            ShowShopWindowForShopCommand showShopWindowForShopCommand,
+            ShowShopWindowForListingCommand showShopWindowForListingCommand,
             ShowListingWindowCommand showListingWindowCommand)
         {
             this.shopListingsViewModel = shopListingsViewModel;
@@ -78,8 +82,15 @@ namespace Netsy.WpfUI.Windows.Shop
             this.favoriteListingsOfUserViewModel = favoriteListingsOfUserViewModel;
             this.favorersOfShopViewModel = favorersOfShopViewModel;
 
-            this.shopListingsViewModel.ShowListingCommand = showListingWindowCommand;
+            this.ShopListingsViewModel.ShowListingCommand = showListingWindowCommand;
+
+            this.FavoriteListingsOfUserViewModel.ShowListingCommand = showListingWindowCommand;
+            this.FavoriteListingsOfUserViewModel.ShowShopCommand = showShopWindowForListingCommand;
+            
             this.FavoriteShopsOfUserViewModel.ShowListingCommand = showListingWindowCommand;
+            this.FavoriteShopsOfUserViewModel.ShowShopCommand = showShopWindowForShopCommand;
+
+            this.FavorersOfShopViewModel.ShowListingCommand = showListingWindowCommand;
 
             this.shopWindowLoadShopCommand = shopWindowLoadShopCommand;
         }

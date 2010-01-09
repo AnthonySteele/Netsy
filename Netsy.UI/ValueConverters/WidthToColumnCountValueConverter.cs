@@ -41,7 +41,7 @@ namespace Netsy.UI.ValueConverters
             }
             else
             {
-                dotsPerColumn = int.Parse(parameter.ToString());
+                dotsPerColumn = int.Parse(parameter.ToString(), CultureInfo.InvariantCulture);
             }
 
             if (value == null || !(value is double))
