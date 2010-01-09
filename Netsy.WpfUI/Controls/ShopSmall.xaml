@@ -8,7 +8,7 @@
             </Hyperlink>
         </TextBlock>
         <TextBlock Text="{Binding Shop.Title}" TextWrapping="Wrap"></TextBlock>
-        <Image Source="{Binding Shop.BannerImageUrl}" HorizontalAlignment="Left" Stretch="None"></Image>
+        <Image Source="{Binding LargestUserImageUrl}" HorizontalAlignment="Left" Stretch="None"></Image>
         <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap"></TextBlock>
         <TextBlock Text="{Binding ListingsCountDisplay}" TextWrapping="Wrap"></TextBlock>
     </StackPanel>

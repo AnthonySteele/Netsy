@@ -58,6 +58,37 @@ namespace Netsy.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets the image url for the largest image
+        /// </summary>
+        public string LargestUserImageUrl
+        {
+            get
+            {
+                if (Shop.ImageUrl75X75.HasContent())
+                {
+                    return Shop.ImageUrl75X75;
+                }
+
+                if (Shop.ImageUrl50X50.HasContent())
+                {
+                    return Shop.ImageUrl50X50;
+                }
+
+                if (Shop.ImageUrl30X30.HasContent())
+                {
+                    return Shop.ImageUrl30X30;
+                }
+
+                if (Shop.ImageUrl25X25.HasContent())
+                {
+                    return Shop.ImageUrl25X25;
+                }
+
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
         /// Gets data data for display
         /// </summary>
         public string ListingsCountDisplay

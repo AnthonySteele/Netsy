@@ -29,8 +29,41 @@ namespace Netsy.UI.ValueConverters
         /// <returns>the converted value</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            const int DotsPerColumn = 180;
-            return ValueConverterHelpers.ColumnCount(value, DotsPerColumn);
+            if (parameter == null)
+            {
+                throw new ArgumentNullException("parameter");
+            }
+
+            int dotsPerColumn;
+            if (parameter is int)
+            {
+                dotsPerColumn = (int)parameter;
+            }
+            else
+            {
+                dotsPerColumn = int.Parse(parameter.ToString());
+            }
+
+            if (value == null || !(value is double))
+            {
+                return 1;
+            }
+
+            const int MaxColumns = 12;
+
+            double doubleValue = (double)value;
+            int count = (int)(doubleValue / dotsPerColumn);
+            if (count < 1)
+            {
+                count = 1;
+            }
+
+            if (count > MaxColumns)
+            {
+                count = MaxColumns;
+            }
+
+            return count;
         }
 
         /// <summary>

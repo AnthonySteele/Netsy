@@ -4,7 +4,7 @@
     xmlns:ValueConverters="clr-namespace:Netsy.UI.ValueConverters;assembly=Netsy.UI"
     xmlns:Controls="clr-namespace:Netsy.WpfUI.Controls" >
     <UserControl.Resources>
-        <ValueConverters:ShopColumnsValueConverter x:Key="ShopColumnsValueConverter" />
+        <ValueConverters:WidthToColumnCountValueConverter x:Key="WidthToColumnCountValueConverter" />
     </UserControl.Resources>
     <Grid>
         <ListBox 
@@ -14,7 +14,7 @@
                 ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="{Binding ElementName=usersListBox, Path=ActualWidth, Converter={StaticResource ShopColumnsValueConverter}}"/>
+                    <UniformGrid Columns="{Binding ElementName=usersListBox, Path=ActualWidth, Converter={StaticResource WidthToColumnCountValueConverter}, ConverterParameter='100'}"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>

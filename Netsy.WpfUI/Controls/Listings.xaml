@@ -14,7 +14,7 @@
                 ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="{Binding ElementName=listingsListBox, Path=ActualWidth, Converter={StaticResource WidthToColumnCountValueConverter}}"/>
+                    <UniformGrid Columns="{Binding ElementName=listingsListBox, Path=ActualWidth, Converter={StaticResource WidthToColumnCountValueConverter}, ConverterParameter='180'}"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
