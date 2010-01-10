@@ -5,6 +5,7 @@
         <TextBlock Text="{Binding User.UserName}" TextWrapping="Wrap"></TextBlock>
         <Image Source="{Binding LargestImageUrl}" HorizontalAlignment="Left" Stretch="None"></Image>
         <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap"></TextBlock>
+        <TextBlock><Hyperlink Command="{Binding ShowShopCommand}" CommandParameter="{Binding User}"><TextBlock Text="Show Shop" /></Hyperlink></TextBlock>
         <TextBlock><Hyperlink Command="{Binding WebLinkClickCommand}" CommandParameter="{Binding User.Url}"><TextBlock>Web link</TextBlock> </Hyperlink></TextBlock>
     </StackPanel>
 </UserControl>

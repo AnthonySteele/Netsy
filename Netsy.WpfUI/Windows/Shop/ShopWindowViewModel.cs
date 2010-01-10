@@ -66,6 +66,7 @@ namespace Netsy.WpfUI.Windows.Shop
         /// <param name="shopWindowLoadShopCommand">Command to load the shop</param>
         /// <param name="showShopWindowForShopCommand">Command to show the shop details for a shop</param>
         /// <param name="showShopWindowForListingCommand">Command to show the shop details for a listing</param>
+        /// <param name="shopWindowForUserCommand">Commnad to show the shop details for a user</param>
         /// <param name="showListingWindowCommand">Command to show the listing details</param>
         public ShopWindowViewModel(
             ShopListingsViewModel shopListingsViewModel, 
@@ -75,6 +76,7 @@ namespace Netsy.WpfUI.Windows.Shop
             ShopWindowLoadShopCommand shopWindowLoadShopCommand,
             ShowShopWindowForShopCommand showShopWindowForShopCommand,
             ShowShopWindowForListingCommand showShopWindowForListingCommand,
+            ShowShopWindowForUserCommand shopWindowForUserCommand,
             ShowListingWindowCommand showListingWindowCommand)
         {
             this.shopListingsViewModel = shopListingsViewModel;
@@ -91,6 +93,7 @@ namespace Netsy.WpfUI.Windows.Shop
             this.FavoriteShopsOfUserViewModel.ShowShopCommand = showShopWindowForShopCommand;
 
             this.FavorersOfShopViewModel.ShowListingCommand = showListingWindowCommand;
+            this.FavorersOfShopViewModel.ShowShopCommand = shopWindowForUserCommand;
 
             this.shopWindowLoadShopCommand = shopWindowLoadShopCommand;
         }

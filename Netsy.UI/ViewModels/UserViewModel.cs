@@ -84,6 +84,11 @@ namespace Netsy.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the command to show the listing in a web browser
+        /// </summary>
+        public ICommand ShowShopCommand { get; set; }
+
+        /// <summary>
         /// Gets the command to show the listing in a web browser
         /// </summary>
         public ICommand WebLinkClickCommand { get; private set; }

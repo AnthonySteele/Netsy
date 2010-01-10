@@ -61,7 +61,7 @@ namespace Netsy.UI.ViewModels.Shops
         /// Gets or sets the command to show a shop's details
         /// </summary>
         public ICommand ShowShopCommand { get; set; }
-
+        
         /// <summary>
         /// Gets the number of listings per page
         /// </summary>
@@ -104,6 +104,7 @@ namespace Netsy.UI.ViewModels.Shops
             foreach (User item in e.ResultValue.Results)
             {
                 UserViewModel viewModel = new UserViewModel(item);
+                viewModel.ShowShopCommand = this.ShowShopCommand;
                 this.Items.Add(viewModel);
             }
 

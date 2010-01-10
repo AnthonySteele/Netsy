@@ -3,11 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel Orientation="Vertical" Margin="2,2,2,2">
         <TextBlock FontWeight="Bold" Text="{Binding Listing.Title}" TextWrapping="Wrap"></TextBlock>
-        <TextBlock>
-            <Hyperlink TextDecorations="None" Command="{Binding ShowListingCommand}" CommandParameter="{Binding Listing}">
-                <Image Source="{Binding LargestImageUrl}" HorizontalAlignment="Center" Stretch="None" />
-            </Hyperlink>
-        </TextBlock>
+        <Image Source="{Binding LargestImageUrl}" HorizontalAlignment="Center" Stretch="None" />
+        <TextBlock Visibility="{Binding ShopLinkVisibility}" ><Hyperlink Command="{Binding ShowShopCommand}" CommandParameter="{Binding Listing}"><TextBlock Text="{Binding Listing.UserName}" /></Hyperlink></TextBlock>
         <TextBlock TextWrapping="Wrap">
             Price: <TextBlock Text="{Binding PriceData}" />
             Quantity: <TextBlock Text="{Binding Listing.Quantity}" />
