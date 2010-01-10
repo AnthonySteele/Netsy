@@ -62,5 +62,6 @@
                 </TextBlock.ToolTip>
             </TextBlock>
         </WrapPanel>
+        <TextBlock><Hyperlink Command="{Binding WebLinkClickCommand}" CommandParameter="{Binding Shop.Url}"><TextBlock>Web link</TextBlock> </Hyperlink></TextBlock>
     </StackPanel>
 </UserControl>

@@ -13,6 +13,7 @@ namespace Netsy.UI.ViewModels
 
     using Netsy.DataModel;
     using Netsy.Helpers;
+    using Netsy.UI.Commands;
 
     /// <summary>
     /// View model for a listing
@@ -61,6 +62,8 @@ namespace Netsy.UI.ViewModels
             {
                 this.currencySymbol = CurrencySymbolLookup.CurrencySymbolFromCurrencyCode(listing.CurrencyCode);
             }
+
+            this.WebLinkClickCommand = new HyperlinkNavigateCommand();
         }
 
         /// <summary>
@@ -227,5 +230,10 @@ namespace Netsy.UI.ViewModels
             get { return this.showListingCommand; }
             set { this.showListingCommand = value; }
         }
+
+        /// <summary>
+        /// Gets the command to show the listing in a web browser
+        /// </summary>
+        public ICommand WebLinkClickCommand { get; private set; }
     }
 }

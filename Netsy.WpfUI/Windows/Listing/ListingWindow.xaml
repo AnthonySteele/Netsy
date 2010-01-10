@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:Netsy.WpfUI.Controls"
     Title="{Binding Listing.Listing.Title}"
-    Width="500"
+    Width="600"
     SizeToContent="Height">
     <Grid>
         <Grid.RowDefinitions>

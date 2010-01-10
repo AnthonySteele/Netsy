@@ -7,8 +7,11 @@
 //----------------------------------------------------------------------- 
 namespace Netsy.UI.ViewModels
 {
+    using System.Windows.Input;
+
     using Netsy.DataModel;
     using Netsy.Helpers;
+    using Netsy.UI.Commands;
 
     /// <summary>
     /// View model for a user
@@ -27,6 +30,7 @@ namespace Netsy.UI.ViewModels
         public UserViewModel(User user)
         {
             this.user = user;
+            this.WebLinkClickCommand = new HyperlinkNavigateCommand();
         }
 
         /// <summary>
@@ -78,5 +82,10 @@ namespace Netsy.UI.ViewModels
                 return string.Empty;
             }
         }
+
+        /// <summary>
+        /// Gets the command to show the listing in a web browser
+        /// </summary>
+        public ICommand WebLinkClickCommand { get; private set; }
     }
 }

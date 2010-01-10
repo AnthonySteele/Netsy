@@ -11,6 +11,8 @@ namespace Netsy.UI.ViewModels
     using System.Windows;
     using System.Windows.Input;
 
+    using Commands;
+
     using Netsy.DataModel;
     using Netsy.Helpers;
 
@@ -31,6 +33,8 @@ namespace Netsy.UI.ViewModels
         public ShopViewModel(Shop shop)
         {
             this.shop = shop;
+
+            this.WebLinkClickCommand = new HyperlinkNavigateCommand();
         }
 
         /// <summary>
@@ -202,5 +206,10 @@ namespace Netsy.UI.ViewModels
         /// Gets or sets the command to show the shop in a seperate display
         /// </summary>
         public ICommand ShowShopCommand { get; set; }
+
+        /// <summary>
+        /// Gets the command to show the listing in a web browser
+        /// </summary>
+        public ICommand WebLinkClickCommand { get; private set; }
     }
 }
