@@ -13,7 +13,7 @@ namespace Netsy.WpfUI.Windows.Main
     using Netsy.WpfUI.Windows.Shop;
 
     /// <summary>
-    /// Command to show the shop window for a shop
+    /// Command to show the shop window for a user
     /// </summary>
     public class ShowShopWindowForUserCommand : GenericCommandBase<User>
     {

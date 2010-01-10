@@ -92,7 +92,7 @@ namespace Netsy.WpfUI.Windows.Main
         /// <param name="shopsByNameViewModel">the view model for shops by name</param>
         /// <param name="featuredSellersViewModel">the view model for featured shops</param>
         /// <param name="showShopForListingCommand">the command to show a shop's details</param>
-        /// <param name="showShopForShopCommand">the command to show a shop's details</param>
+        /// <param name="showShopForUserCommand">the command to show a shop's details</param>
         /// <param name="showListingCommand">the command to show a listing's details</param>
         public MainWindowViewModel(
             FrontFeaturedListingsViewModel frontFeaturedListingsViewModel,
@@ -104,7 +104,7 @@ namespace Netsy.WpfUI.Windows.Main
             ShopsByNameViewModel shopsByNameViewModel,
             FeaturedSellersViewModel featuredSellersViewModel,
             ShowShopWindowForListingCommand showShopForListingCommand,
-            ShowShopWindowForShopCommand showShopForShopCommand,
+            ShowShopWindowForUserCommand showShopForUserCommand,
             ShowListingWindowCommand showListingCommand)
         {
             this.StatusText = "Netsy WPF UI";
@@ -119,7 +119,7 @@ namespace Netsy.WpfUI.Windows.Main
             this.featuredSellersViewModel = featuredSellersViewModel;
 
             this.showShopForListingCommand = showShopForListingCommand;
-            this.showShopForShopCommand = showShopForShopCommand;
+            this.showShopForShopCommand = showShopForUserCommand;
             this.showListingCommand = showListingCommand;
 
             this.SetShowCommands(this.frontListingsViewModel);
@@ -129,8 +129,8 @@ namespace Netsy.WpfUI.Windows.Main
             this.SetShowCommands(this.materialsViewModel);
             this.SetShowCommands(this.tagsViewModel);
 
-            this.shopsByNameViewModel.ShowShopCommand = showShopForShopCommand;
-            this.featuredSellersViewModel.ShowShopCommand = showShopForShopCommand;
+            this.shopsByNameViewModel.ShowShopCommand = showShopForUserCommand;
+            this.featuredSellersViewModel.ShowShopCommand = showShopForUserCommand;
         }
 
         /// <summary>

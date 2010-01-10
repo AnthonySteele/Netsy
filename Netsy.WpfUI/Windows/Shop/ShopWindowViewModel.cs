@@ -64,7 +64,6 @@ namespace Netsy.WpfUI.Windows.Shop
         /// <param name="favoriteListingsOfUserViewModel">viewmodel for the favorite listings</param>
         /// <param name="favorersOfShopViewModel">viewmodel for the favorers of the shop</param>
         /// <param name="shopWindowLoadShopCommand">Command to load the shop</param>
-        /// <param name="showShopWindowForShopCommand">Command to show the shop details for a shop</param>
         /// <param name="showShopWindowForListingCommand">Command to show the shop details for a listing</param>
         /// <param name="shopWindowForUserCommand">Commnad to show the shop details for a user</param>
         /// <param name="showListingWindowCommand">Command to show the listing details</param>
@@ -74,7 +73,6 @@ namespace Netsy.WpfUI.Windows.Shop
             FavoriteListingsOfUserViewModel favoriteListingsOfUserViewModel,
             FavorersOfShopViewModel favorersOfShopViewModel,
             ShopWindowLoadShopCommand shopWindowLoadShopCommand,
-            ShowShopWindowForShopCommand showShopWindowForShopCommand,
             ShowShopWindowForListingCommand showShopWindowForListingCommand,
             ShowShopWindowForUserCommand shopWindowForUserCommand,
             ShowListingWindowCommand showListingWindowCommand)
@@ -90,7 +88,7 @@ namespace Netsy.WpfUI.Windows.Shop
             this.FavoriteListingsOfUserViewModel.ShowShopCommand = showShopWindowForListingCommand;
             
             this.FavoriteShopsOfUserViewModel.ShowListingCommand = showListingWindowCommand;
-            this.FavoriteShopsOfUserViewModel.ShowShopCommand = showShopWindowForShopCommand;
+            this.FavoriteShopsOfUserViewModel.ShowShopCommand = shopWindowForUserCommand;
 
             this.FavorersOfShopViewModel.ShowListingCommand = showListingWindowCommand;
             this.FavorersOfShopViewModel.ShowShopCommand = shopWindowForUserCommand;

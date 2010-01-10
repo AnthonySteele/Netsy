@@ -246,7 +246,6 @@
     </Compile>
     <Compile Include="Windows\Main\ShowListingWindowCommand.cs" />
     <Compile Include="Windows\Main\ShowShopWindowForListingCommand.cs" />
-    <Compile Include="Windows\Main\ShowShopWindowForShopCommand.cs" />
     <Compile Include="Windows\Main\ShowShopWindowForUserCommand.cs" />
     <Compile Include="Windows\Shop\ShopFavorers.xaml.cs">
       <DependentUpon>ShopFavorers.xaml</DependentUpon>
