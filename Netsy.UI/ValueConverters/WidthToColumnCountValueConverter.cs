@@ -15,6 +15,7 @@ namespace Netsy.UI.ValueConverters
     /// <summary>
     /// Value converter to determine column count from width
     /// </summary>
+    [ValueConversion(typeof(double), typeof(int))]
     public class WidthToColumnCountValueConverter : IValueConverter
     {
         #region IValueConverter Members

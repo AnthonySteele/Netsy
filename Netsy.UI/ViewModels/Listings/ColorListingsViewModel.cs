@@ -8,6 +8,7 @@
 namespace Netsy.UI.ViewModels.Listings
 {
     using System.Globalization;
+    using System.Windows.Input;
 
     using Netsy.DataModel;
     using Netsy.Interfaces;
@@ -53,6 +54,11 @@ namespace Netsy.UI.ViewModels.Listings
                 }
             }
         }
+
+        /// <summary>
+        /// Gets or sets the command for the color dialog
+        /// </summary>
+        public ICommand ColorDialogCommand { get; set; }
 
         /// <summary>
         /// Show the success message

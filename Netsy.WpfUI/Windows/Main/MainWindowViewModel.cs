@@ -8,12 +8,12 @@
 
 namespace Netsy.WpfUI.Windows.Main
 {
-    using System;
     using System.Windows.Input;
 
     using Netsy.UI.ViewModels;
     using Netsy.UI.ViewModels.Listings;
     using Netsy.UI.ViewModels.Shops;
+    using Netsy.WpfUI.ColorPicker;
 
     /// <summary>
     /// View model for the main window
@@ -131,6 +131,8 @@ namespace Netsy.WpfUI.Windows.Main
 
             this.shopsByNameViewModel.ShowShopCommand = showShopForUserCommand;
             this.featuredSellersViewModel.ShowShopCommand = showShopForUserCommand;
+
+            this.colorViewModel.ColorDialogCommand = new ColorDialogCommand();
         }
 
         /// <summary>

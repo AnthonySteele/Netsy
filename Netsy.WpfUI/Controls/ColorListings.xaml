@@ -16,6 +16,7 @@
             <Button Content="Next" Margin="0" Command="{Binding NextPageCommand}" CommandParameter="{Binding}" />
             <Label Content="Color:" Margin="6,0,0,2" />
             <TextBox MinWidth="100" MaxWidth="200" Text="{Binding Path=ColorText, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Padding="6,0,6,0" Command="{Binding ColorDialogCommand}" CommandParameter="{Binding}">...</Button>
         </StackPanel>
 
         <Controls:Listings Grid.Row="1" DataContext="{Binding Items}" />
