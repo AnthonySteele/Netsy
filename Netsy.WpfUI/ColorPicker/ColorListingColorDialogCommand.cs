@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ColorDialogCommand.cs" company="AFS">
+// <copyright file="ColorListingColorDialogCommand.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -14,7 +14,7 @@ namespace Netsy.WpfUI.ColorPicker
     /// <summary>
     /// Command to use the color dialog to populate the ColorListingsViewModel
     /// </summary>
-    public class ColorDialogCommand : GenericCommandBase<ColorListingsViewModel>
+    public class ColorListingColorDialogCommand : GenericCommandBase<ColorListingsViewModel>
     {
         /// <summary>
         /// Execute the command with a ViewModel as parameter

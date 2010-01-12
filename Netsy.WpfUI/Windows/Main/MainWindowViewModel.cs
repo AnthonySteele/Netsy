@@ -132,7 +132,8 @@ namespace Netsy.WpfUI.Windows.Main
             this.shopsByNameViewModel.ShowShopCommand = showShopForUserCommand;
             this.featuredSellersViewModel.ShowShopCommand = showShopForUserCommand;
 
-            this.colorViewModel.ColorDialogCommand = new ColorDialogCommand();
+            this.colorViewModel.ColorDialogCommand = new ColorListingColorDialogCommand();
+            this.colorKeywordsViewModel.ColorDialogCommand = new ColorKeywordsListingColorDialogCommand();
         }
 
         /// <summary>

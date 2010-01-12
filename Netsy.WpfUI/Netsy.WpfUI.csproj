@@ -177,7 +177,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColorPicker\ColorDialog.cs" />
-    <Compile Include="ColorPicker\ColorDialogCommand.cs" />
+    <Compile Include="ColorPicker\ColorKeywordsListingColorDialogCommand.cs" />
+    <Compile Include="ColorPicker\ColorListingColorDialogCommand.cs" />
     <Compile Include="Controls\ColorListings.xaml.cs">
       <DependentUpon>ColorListings.xaml</DependentUpon>
     </Compile>
