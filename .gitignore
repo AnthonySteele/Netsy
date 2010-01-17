@@ -23,6 +23,7 @@ TestResults
 _ReSharper*
 _old
 _import
+Silverlight/Netsy.Favorites/Bin
 
 
 # Code analysis output
@@ -32,3 +33,5 @@ _import
 # files from imported dlls
 Microsoft.Practices.ObjectBuilder2.xml
 Microsoft.Practices.Unity.xml
+
+
