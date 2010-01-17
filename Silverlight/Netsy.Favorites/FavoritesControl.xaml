@@ -11,7 +11,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <TextBlock Grid.Row="0" Text="{Binding ErrorMessage}" />
+        <TextBlock Grid.Row="0" Text="{Binding StatusMessage}" />
         
         <ListBox 
                 Grid.Row="1"

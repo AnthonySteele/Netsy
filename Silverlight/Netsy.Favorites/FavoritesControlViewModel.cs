@@ -10,11 +10,10 @@ namespace Netsy.Favorites
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Windows.Threading;
+    using System.Windows.Input;
 
     using Netsy.DataModel;
     using Netsy.Helpers;
-    using Netsy.Interfaces;
     using Netsy.UI.ViewModels;
 
     /// <summary>
@@ -24,84 +23,46 @@ namespace Netsy.Favorites
     public class FavoritesControlViewModel : BaseViewModel
     {
         /// <summary>
-        /// The service to get favorites
-        /// </summary>
-        private readonly IFavoritesService favoritesService;
-
-        /// <summary>
         /// The listings displayed
         /// </summary>
         private readonly ObservableCollection<ListingViewModel> listings = new ObservableCollection<ListingViewModel>();
         
         /// <summary>
-        /// Number of listings per page
+        /// The error or sucess status text to display
         /// </summary>
-        private int listingCount = Constants.DefaultItemsPerPage;
-
-        /// <summary>
-        /// The error test to display
-        /// </summary>
-        private string errorMessage;
+        private string statusMessage;
         
         /// <summary>
-        /// Initializes a new instance of the MainPageViewModel class
+        /// Initializes a new instance of the FavoritesControlViewModel class
         /// </summary>
-        /// <param name="favoritesService">the favorites service</param>
-        /// <param name="dispatcher">the Ui dispatecher</param>
-        public FavoritesControlViewModel(IFavoritesService favoritesService, Dispatcher dispatcher) 
+        /// <param name="loadCommand">the command to load listings</param>
+        public FavoritesControlViewModel(LoadFavoritesCommand loadCommand) 
         {
-            if (favoritesService == null)
+            if (loadCommand == null)
             {
-                throw new ArgumentNullException("favoritesService");
+                throw new ArgumentNullException("loadCommand");
             }
 
-            if (dispatcher == null)
-            {
-                throw new ArgumentNullException("dispatcher");
-            }
-
-            this.favoritesService = favoritesService;
-            this.Dispatcher = dispatcher;
-
-            this.favoritesService.GetFavoriteListingsOfUserCompleted += this.CompletedGetFavorites;
+            this.ItemsPerPage = Constants.DefaultItemsPerPage;
+            this.LoadCommand = loadCommand;
         }
 
         /// <summary>
-        /// Gets or sets the number of listings per page
+        /// Gets or sets the Error message text
         /// </summary>
-        public int ListingCount
+        public string StatusMessage
         {
             get
             {
-                return this.listingCount;
+                return this.statusMessage;
             }
 
             set
             {
-                if (this.listingCount != value)
+                if (this.statusMessage != value)
                 {
-                    this.listingCount = value;
-                    this.OnPropertyChanged("ListingCount");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets the Error message text
-        /// </summary>
-        public string ErrorMessage
-        {
-            get
-            {
-                return this.errorMessage;
-            }
-
-            private set
-            {
-                if (this.errorMessage != value)
-                {
-                    this.errorMessage = value;
-                    this.OnPropertyChanged("ErrorMessage");
+                    this.statusMessage = value;
+                    this.OnPropertyChanged("StatusMessage");
                 }
             }
         }
@@ -115,59 +76,18 @@ namespace Netsy.Favorites
         }
 
         /// <summary>
-        /// Gets the UI dispatcher
-        /// </summary>
-        public Dispatcher Dispatcher { get; private set; }
-
-        /// <summary>
         /// Gets or sets the user to get favoorites for
         /// </summary>
         public string UserId { get; set; }
 
         /// <summary>
-        /// Retrieve favorites from the service
+        /// Gets the number of listings per page
         /// </summary>
-        public void BeginGetFavorites() 
-        {
-            if (string.IsNullOrEmpty(this.UserId))
-            {
-                this.ErrorMessage = "No user id for favorites";
-                return;
-            }
-
-            // todo: put tests on api to show wrong count returned
-            this.favoritesService.GetFavoriteListingsOfUser(this.UserId, 0, this.ListingCount + 1, DetailLevel.High);
-        }
+        public int ItemsPerPage { get; private set; }
 
         /// <summary>
-        /// Event handler for when favorites have been received
+        /// Gets the commnad to load listings
         /// </summary>
-        /// <param name="sender">the vent sender</param>
-        /// <param name="e">the event params</param>
-        private void CompletedGetFavorites(object sender, ResultEventArgs<Listings> e)
-        {
-            this.Dispatcher.BeginInvoke(new ResultsReceivedHandler<Listings>(this.UpdateForReceivedListings), e);
-        }
-
-        /// <summary>
-        /// Process favorites that have been received
-        /// </summary>
-        /// <param name="receivedListings">the listings data received</param>
-        private void UpdateForReceivedListings(ResultEventArgs<Listings> receivedListings)
-        {
-            if (!receivedListings.ResultStatus.Success)
-            {
-                this.ErrorMessage = receivedListings.ResultStatus.ErrorMessage;
-                return;
-            }
-
-            this.listings.Clear();
-            foreach (Listing listing in receivedListings.ResultValue.Results)
-            {
-                this.listings.Add(new ListingViewModel(listing));
-            }
-
-            this.ErrorMessage = this.listings.Count + " Listings loaded";
-        }
+        public ICommand LoadCommand { get; private set; }
     }
 }

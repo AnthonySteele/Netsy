@@ -10,6 +10,7 @@ namespace Netsy.Favorites
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading;
     using System.Windows;
 
     /// <summary>
@@ -60,8 +61,16 @@ namespace Netsy.Favorites
         /// <param name="e">the event params</param>
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            this.RootVisual = new FavoritesControl();
             this.ReadParams(e.InitParams);
+
+            FavoritesControl favoritesControl = new FavoritesControl();
+            this.RootVisual = favoritesControl;
+            Locator.RegisterInstance(this.RootVisual.Dispatcher);
+
+            FavoritesControlViewModel viewModel = Locator.Resolve<FavoritesControlViewModel>();
+            viewModel.UserId = this.UserId;
+            favoritesControl.DataContext = viewModel;
+            viewModel.LoadCommand.Execute(viewModel);
         }
 
         /// <summary>

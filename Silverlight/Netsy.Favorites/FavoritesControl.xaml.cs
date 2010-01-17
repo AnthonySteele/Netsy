@@ -25,15 +25,6 @@ namespace Netsy.Favorites
         public FavoritesControl()
         {
             InitializeComponent();
-
-            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(Constants.EtsyApiKey));
- 
-            FavoritesControlViewModel viewModel = new FavoritesControlViewModel(favoritesService, this.Dispatcher);
-            this.DataContext = viewModel;
-
-            viewModel.UserId = "5007275";
-            viewModel.BeginGetFavorites();
         }
-
     }
 }

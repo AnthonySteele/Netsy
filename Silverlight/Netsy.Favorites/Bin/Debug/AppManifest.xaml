@@ -1,6 +1,7 @@
 ﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="Netsy.Favorites" EntryPointType="Netsy.Favorites.App" RuntimeVersion="3.0.40624.0">
   <Deployment.Parts>
     <AssemblyPart x:Name="Netsy.Favorites" Source="Netsy.Favorites.dll" />
+    <AssemblyPart x:Name="Microsoft.Practices.Unity" Source="Microsoft.Practices.Unity.dll" />
     <AssemblyPart x:Name="Netsy" Source="Netsy.dll" />
     <AssemblyPart x:Name="Netsy.UI" Source="Netsy.UI.dll" />
   </Deployment.Parts>
