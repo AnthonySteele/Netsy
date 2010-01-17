@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:Controls="clr-namespace:Netsy.Favorites.Controls"
+    xmlns:Controls="clr-namespace:Netsy.Favorites.Controls" 
+    xmlns:ControlToolkit="clr-namespace:Microsoft.Windows.Controls;assembly=Microsoft.Windows.Controls"
     mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480">
   <Grid>
         <Grid.RowDefinitions>
@@ -19,10 +20,15 @@
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Controls:ListingSmall />
-                </DataTemplate>
+                    <DataTemplate>
+                        <Controls:ListingSmall />
+                    </DataTemplate>
                 </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ControlToolkit:WrapPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
         </ListBox>
   </Grid>
 </UserControl>
