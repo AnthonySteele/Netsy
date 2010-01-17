@@ -110,7 +110,7 @@ namespace Netsy.WpfUI.Windows.Shop
             {
                 this.userId = value;
                 this.ShopListingsViewModel.ShopId = value;
-                this.FavoriteListingsOfUserViewModel.UserId = value;
+                this.FavoriteListingsOfUserViewModel.UserId = value.ToString();
                 this.FavoriteShopsOfUserViewModel.UserId = value;
                 this.FavorersOfShopViewModel.UserId = value;
             }
