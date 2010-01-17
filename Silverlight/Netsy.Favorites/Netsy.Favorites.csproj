@@ -82,7 +82,6 @@
     </Compile>
     <Compile Include="FavoritesControlViewModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="LoadFavoritesCommand.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnityHelper.cs" />

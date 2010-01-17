@@ -68,9 +68,9 @@ namespace Netsy.Favorites
             Locator.RegisterInstance(this.RootVisual.Dispatcher);
 
             FavoritesControlViewModel viewModel = Locator.Resolve<FavoritesControlViewModel>();
-            viewModel.UserId = this.UserId;
+            viewModel.Favorites.UserId = this.UserId;
             favoritesControl.DataContext = viewModel;
-            viewModel.LoadCommand.Execute(viewModel);
+            viewModel.Favorites.LoadPageCommand.Execute(viewModel.Favorites);
         }
 
         /// <summary>

@@ -16,6 +16,8 @@ namespace Netsy.Favorites
     using Netsy.Helpers;
     using Netsy.UI.ViewModels;
 
+    using UI.ViewModels.Shops;
+
     /// <summary>
     /// View model for the main page
     /// todo: test with mock service
@@ -25,69 +27,23 @@ namespace Netsy.Favorites
         /// <summary>
         /// The listings displayed
         /// </summary>
-        private readonly ObservableCollection<ListingViewModel> listings = new ObservableCollection<ListingViewModel>();
-        
-        /// <summary>
-        /// The error or sucess status text to display
-        /// </summary>
-        private string statusMessage;
+        private readonly FavoriteListingsOfUserViewModel favoriteListingsOfUserViewModel;
         
         /// <summary>
         /// Initializes a new instance of the FavoritesControlViewModel class
         /// </summary>
-        /// <param name="loadCommand">the command to load listings</param>
-        public FavoritesControlViewModel(LoadFavoritesCommand loadCommand) 
+        /// <param name="favoriteListingsOfUserViewModel">the favorite listings view model</param>
+        public FavoritesControlViewModel(FavoriteListingsOfUserViewModel favoriteListingsOfUserViewModel) 
         {
-            if (loadCommand == null)
-            {
-                throw new ArgumentNullException("loadCommand");
-            }
-
-            this.ItemsPerPage = Constants.DefaultItemsPerPage;
-            this.LoadCommand = loadCommand;
+            this.favoriteListingsOfUserViewModel = favoriteListingsOfUserViewModel;
         }
 
         /// <summary>
-        /// Gets or sets the Error message text
+        /// Gets the viewmodel for the listings displayed
         /// </summary>
-        public string StatusMessage
+        public FavoriteListingsOfUserViewModel Favorites
         {
-            get
-            {
-                return this.statusMessage;
-            }
-
-            set
-            {
-                if (this.statusMessage != value)
-                {
-                    this.statusMessage = value;
-                    this.OnPropertyChanged("StatusMessage");
-                }
-            }
+            get { return this.favoriteListingsOfUserViewModel; }
         }
-
-        /// <summary>
-        /// Gets the listings displayed
-        /// </summary>
-        public ObservableCollection<ListingViewModel> Listings
-        {
-            get { return this.listings; }
-        }
-
-        /// <summary>
-        /// Gets or sets the user to get favoorites for
-        /// </summary>
-        public string UserId { get; set; }
-
-        /// <summary>
-        /// Gets the number of listings per page
-        /// </summary>
-        public int ItemsPerPage { get; private set; }
-
-        /// <summary>
-        /// Gets the commnad to load listings
-        /// </summary>
-        public ICommand LoadCommand { get; private set; }
     }
 }

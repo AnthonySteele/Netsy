@@ -29,7 +29,7 @@ namespace Netsy.UI.ViewModels.Shops
         /// <summary>
         /// the Id of the user
         /// </summary>
-        private int userId;
+        private string userId;
 
         /// <summary>
         /// Initializes a new instance of the FavoriteListingsOfUserViewModel class
@@ -47,7 +47,7 @@ namespace Netsy.UI.ViewModels.Shops
         /// <summary>
         /// Gets or sets the Id of the shop
         /// </summary>
-        public int UserId
+        public string UserId
         {
             get { return this.userId; }
             set { this.userId = value; }

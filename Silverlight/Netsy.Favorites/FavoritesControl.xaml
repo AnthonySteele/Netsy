@@ -12,11 +12,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <TextBlock Grid.Row="0" Text="{Binding StatusMessage}" />
+        <TextBlock Grid.Row="0" Text="{Binding Favorites.StatusText}" />
         
         <ListBox 
                 Grid.Row="1"
-                ItemsSource="{Binding Listings}" 
+                ItemsSource="{Binding Favorites.Items}" 
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListBox.ItemTemplate>
