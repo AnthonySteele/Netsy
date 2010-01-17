@@ -22,6 +22,7 @@ obj
 TestResults
 _ReSharper*
 _old
+_import
 
 
 # Code analysis output
