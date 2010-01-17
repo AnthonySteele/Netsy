@@ -10,9 +10,7 @@ namespace Netsy.Favorites
 {
     using System.Windows.Controls;
 
-    using Netsy.DataModel;
-    using Netsy.Interfaces;
-    using Netsy.Services;
+    using Netsy.UI.ViewModels.Shops;
 
     /// <summary>
     /// Display Favourites
@@ -25,6 +23,44 @@ namespace Netsy.Favorites
         public FavoritesControl()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Move to previous page
+        /// </summary>
+        /// <param name="sender">the event page</param>
+        /// <param name="e">the event params</param>
+        private void PrevButtonClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            FavoritesControlViewModel viewModel = this.DataContext as FavoritesControlViewModel;
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            if (viewModel.Favorites.PreviousPageCommand.CanExecute(viewModel.Favorites))
+            {
+                viewModel.Favorites.PreviousPageCommand.Execute(viewModel.Favorites);
+            }
+        }
+
+        /// <summary>
+        /// Move to next page
+        /// </summary>
+        /// <param name="sender">the event page</param>
+        /// <param name="e">the event params</param>
+        private void NextButtonClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            FavoritesControlViewModel viewModel = this.DataContext as FavoritesControlViewModel;
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            if (viewModel.Favorites.NextPageCommand.CanExecute(viewModel.Favorites))
+            {
+                viewModel.Favorites.NextPageCommand.Execute(viewModel.Favorites);
+            }
         }
     }
 }

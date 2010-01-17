@@ -8,15 +8,8 @@
 
 namespace Netsy.Favorites
 {
-    using System;
-    using System.Collections.ObjectModel;
-    using System.Windows.Input;
-
-    using Netsy.DataModel;
-    using Netsy.Helpers;
     using Netsy.UI.ViewModels;
-
-    using UI.ViewModels.Shops;
+    using Netsy.UI.ViewModels.Shops;
 
     /// <summary>
     /// View model for the main page

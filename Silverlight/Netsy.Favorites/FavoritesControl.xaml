@@ -9,13 +9,11 @@
   <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
-        <TextBlock Grid.Row="0" Text="{Binding Favorites.StatusText}" />
-        
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>        
         <ListBox 
-                Grid.Row="1"
+                Grid.Row="0"
                 ItemsSource="{Binding Favorites.Items}" 
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Auto">
@@ -30,5 +28,10 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
-  </Grid>
+        <ControlToolkit:DockPanel Grid.Row="1" LastChildFill="False"> 
+            <Button ControlToolkit:DockPanel.Dock="Left" Click="PrevButtonClick" Content="Previous Page"></Button>
+            <Button ControlToolkit:DockPanel.Dock="Right" Click="NextButtonClick" Content="Next Page"></Button>
+        </ControlToolkit:DockPanel>
+        <TextBlock Grid.Row="2" Text="{Binding Favorites.StatusText}" />
+    </Grid>
 </UserControl>
