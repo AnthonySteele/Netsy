@@ -19,8 +19,13 @@ namespace Netsy.Favorites
         public const string EtsyApiKey = "rfc35bh98q3a9hvccfsxe4cc";
         
         /// <summary>
-        /// Number of items to show per page
+        /// Default number of items to show per page
         /// </summary>
-        public const int DefaultItemsPerPage = 12;
+        public const int DefaultItemsPerPage = 6;
+
+        /// <summary>
+        /// Default number of columns to show
+        /// </summary>
+        public const int DefaultColumnCount = 2;
     }
 }

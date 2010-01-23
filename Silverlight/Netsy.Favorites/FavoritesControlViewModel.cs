@@ -21,6 +21,11 @@ namespace Netsy.Favorites
         /// The listings displayed
         /// </summary>
         private readonly FavoriteListingsOfUserViewModel favoriteListingsOfUserViewModel;
+
+        /// <summary>
+        /// the number of columns in the view 
+        /// </summary>
+        private int columnCount;
         
         /// <summary>
         /// Initializes a new instance of the FavoritesControlViewModel class
@@ -37,6 +42,26 @@ namespace Netsy.Favorites
         public FavoriteListingsOfUserViewModel Favorites
         {
             get { return this.favoriteListingsOfUserViewModel; }
+        }
+
+        /// <summary>
+        /// Gets or sets the number of columns in the view 
+        /// </summary>
+        public int ColumnCount
+        {
+            get
+            {
+                return this.columnCount;
+            } 
+
+            set
+            {
+                if (this.columnCount != value)
+                {
+                    this.columnCount = value;
+                    this.OnPropertyChanged("ColumnCount");                    
+                }
+            }
         }
     }
 }

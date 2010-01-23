@@ -64,9 +64,9 @@ namespace Netsy.UI.ViewModels.Shops
         public ICommand ShowShopCommand { get; set; }
 
         /// <summary>
-        /// Gets the number of listings per page
+        /// Gets or sets the number of listings per page
         /// </summary>
-        public int ListingsPerPage { get; private set; }
+        public int ListingsPerPage { get; set; }
 
         /// <summary>
         /// make the commands

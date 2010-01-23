@@ -73,6 +73,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppSettings.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controls\ListingSmall.xaml.cs">
       <DependentUpon>ListingSmall.xaml</DependentUpon>
@@ -82,6 +83,7 @@
     </Compile>
     <Compile Include="FavoritesControlViewModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Import\UniformGrid.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnityHelper.cs" />

@@ -31,11 +31,6 @@ namespace Netsy.Favorites
         }
 
         /// <summary>
-        /// Gets the user is read from the control params
-        /// </summary>
-        public string UserId { get; private set; }
-
-        /// <summary>
         /// Send the error into the browser
         /// </summary>
         /// <param name="e">the event parameters</param>
@@ -61,14 +56,18 @@ namespace Netsy.Favorites
         /// <param name="e">the event params</param>
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            this.ReadParams(e.InitParams);
+            AppSettings settingsRead = new AppSettings();
+            settingsRead.ReadParams(e.InitParams);
 
             FavoritesControl favoritesControl = new FavoritesControl();
             this.RootVisual = favoritesControl;
             Locator.RegisterInstance(this.RootVisual.Dispatcher);
 
             FavoritesControlViewModel viewModel = Locator.Resolve<FavoritesControlViewModel>();
-            viewModel.Favorites.UserId = this.UserId;
+            viewModel.Favorites.UserId = settingsRead.UserId;
+            viewModel.ColumnCount = settingsRead.ColumnCount;
+            viewModel.Favorites.ListingsPerPage = settingsRead.ItemsPerPage;
+
             favoritesControl.DataContext = viewModel;
             viewModel.Favorites.LoadPageCommand.Execute(viewModel.Favorites);
         }
@@ -80,22 +79,6 @@ namespace Netsy.Favorites
         /// <param name="e">the event params</param>
         private void Application_Exit(object sender, EventArgs e)
         {
-        }
-
-        /// <summary>
-        /// Read the commandline parameters
-        /// </summary>
-        /// <param name="initParams">the control params</param>
-        private void ReadParams(IDictionary<string, string> initParams)
-        {
-            const string UserIdKey = "UserId";
-
-            if (!initParams.ContainsKey(UserIdKey))
-            {
-                throw new ArgumentException("No User id found in Control params");
-            }
-
-            this.UserId = initParams[UserIdKey];
         }
 
         /// <summary>

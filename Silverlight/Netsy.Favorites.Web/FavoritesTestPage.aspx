@@ -62,7 +62,7 @@
     <p>Silverlight Favorites test page aspx page</p>
     
     <div id="silverlightControlHost">
-        <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%">
+        <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="30%" height="90%">
 		  <param name="source" value="ClientBin/Netsy.Favorites.xap"/>
 		  <param name="onError" value="onSilverlightError" />
 		  <param name="background" value="white" />

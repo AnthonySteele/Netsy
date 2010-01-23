@@ -10,8 +10,6 @@ namespace Netsy.Favorites
 {
     using System.Windows.Controls;
 
-    using Netsy.UI.ViewModels.Shops;
-
     /// <summary>
     /// Display Favourites
     /// </summary>
