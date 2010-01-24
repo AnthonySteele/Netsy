@@ -8,21 +8,25 @@
 
 namespace Netsy.Favorites
 {
+    using System.Globalization;
+    using System.Windows;
     using System.Windows.Input;
 
+    using Netsy.DataModel;
+    using Netsy.Helpers;
+    using Netsy.Interfaces;
+    using Netsy.UI.Commands;
     using Netsy.UI.ViewModels;
-    using Netsy.UI.ViewModels.Shops;
 
     /// <summary>
     /// View model for the main page
-    /// todo: test with mock service
     /// </summary>
-    public class FavoritesControlViewModel : BaseViewModel
+    public class FavoritesControlViewModel : PagedCollectionViewModel<ListingViewModel>
     {
         /// <summary>
-        /// The listings displayed
+        /// The shop service
         /// </summary>
-        private readonly FavoriteListingsOfUserViewModel favoriteListingsOfUserViewModel;
+        private readonly IFavoritesService favoritesService;
 
         /// <summary>
         /// The command to get shop details
@@ -37,20 +41,16 @@ namespace Netsy.Favorites
         /// <summary>
         /// Initializes a new instance of the FavoritesControlViewModel class
         /// </summary>
-        /// <param name="favoriteListingsOfUserViewModel">the favorite listings view model</param>
+        /// <param name="favoritesService">the favorite service</param>
         /// <param name="shopDetailsCommand">the shop details retrieval command</param>
-        public FavoritesControlViewModel(FavoriteListingsOfUserViewModel favoriteListingsOfUserViewModel, ShopDetailsCommand shopDetailsCommand) 
+        public FavoritesControlViewModel(IFavoritesService favoritesService, ShopDetailsCommand shopDetailsCommand) 
         {
-            this.favoriteListingsOfUserViewModel = favoriteListingsOfUserViewModel;
             this.shopDetailsCommand = shopDetailsCommand;
-        }
-
-        /// <summary>
-        /// Gets the viewmodel for the listings displayed
-        /// </summary>
-        public FavoriteListingsOfUserViewModel Favorites
-        {
-            get { return this.favoriteListingsOfUserViewModel; }
+ 
+            this.favoritesService = favoritesService;
+            this.favoritesService.GetFavoriteListingsOfUserCompleted += this.ListingsReceived;
+            
+            this.MakeListingCommands(); 
         }
 
         /// <summary>
@@ -74,48 +74,101 @@ namespace Netsy.Favorites
         }
 
         /// <summary>
-        /// Gets or sets the user id in use
+        /// Gets or sets the Id of the shop
         /// </summary>
-        public string UserId
-        {
-            get
-            {
-                return this.Favorites.UserId;
-            }
-
-            set
-            {
-                this.Favorites.UserId = value;
-            }
-        }
+        public string UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the shop shown
         /// </summary>
-        public ShopViewModel Shop
-        {
-            get;
-            set;
-        }
+        public ShopViewModel Shop { get;  set; }
 
         /// <summary>
         /// Gets the command to get shop details
         /// </summary>
         public ICommand ShopDetailsCommand
         {
-            get
-            {
-                return this.shopDetailsCommand;
-            }
+            get { return this.shopDetailsCommand; }
         }
 
         /// <summary>
-        /// Load data into this viewmodel
+        /// Load inital data into this viewmodel
         /// </summary>
         public void Load()
         {
             this.ShopDetailsCommand.Execute(this);
-            this.Favorites.LoadPageCommand.Execute(this.Favorites);
+            this.LoadPageCommand.Execute(this);
+        }
+
+        /// <summary>
+        /// Gets the user name (if loaded)
+        /// </summary>
+        /// <returns>the user name</returns>
+        private string UserName()
+        {
+            if (this.Shop != null && this.Shop.Shop != null && this.Shop.Shop.UserName.HasContent())
+            {
+                return this.Shop.Shop.UserName;
+            }
+
+            return this.UserId;
+        }
+
+        /// <summary>
+        /// make the commands
+        /// </summary>
+        private void MakeListingCommands()
+        {
+            this.LoadPageCommand = new DelegateCommand<ListingViewModel>(
+                item =>
+                {
+                    int offset = (this.PageNumber - 1) * this.ItemsPerPage;
+
+                    this.favoritesService.GetFavoriteListingsOfUser(this.UserId, offset, this.ItemsPerPage, DetailLevel.Medium);
+                    
+                    string status = string.Format(
+                        CultureInfo.InvariantCulture,
+                        "Getting page {0} of favorites for {1}",
+                        this.PageNumber,
+                        this.UserName());
+                    this.StatusText = status;
+                });
+        }
+
+        /// <summary>
+        /// Handler for listings received
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the event params</param>
+        private void ListingsReceived(object sender, ResultEventArgs<Listings> e)
+        {
+            if (!e.ResultStatus.Success)
+            {
+                this.StatusText = string.Format(
+                    CultureInfo.InvariantCulture,
+                    "Error getting favorites for {0}:{1}",
+                    this.UserName(),
+                    e.ResultStatus.ErrorMessage);
+                return;
+            }
+
+            this.Items.Clear();
+            foreach (Listing item in e.ResultValue.Results)
+            {
+                ListingViewModel viewModel = new ListingViewModel(item);
+                viewModel.ShopLinkVisibility = Visibility.Visible;
+                this.Items.Add(viewModel);
+            }
+
+            string status = string.Format(
+                     CultureInfo.InvariantCulture,
+                     "Got page {0} of favorites for {1}",
+                     this.PageNumber,
+                     this.UserName());
+            this.StatusText = status;
+
+            int nextPageOffset = this.PageNumber * this.ItemsPerPage;
+            this.HasNextPage = nextPageOffset < e.ResultValue.Count;
         }
     }
 }

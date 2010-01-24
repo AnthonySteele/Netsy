@@ -9,6 +9,8 @@
 namespace Netsy.Favorites
 {
     using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Media.Animation;
 
     /// <summary>
     /// Display Favourites
@@ -16,11 +18,45 @@ namespace Netsy.Favorites
     public partial class FavoritesControl : UserControl
     {
         /// <summary>
+        /// Storyboard for control entry
+        /// </summary>
+        private Storyboard controlEnterStoryboard;
+
+        /// <summary>
+        /// Storyboard for control exit
+        /// </summary>
+        private Storyboard controlLeaveStoryboard;
+
+        /// <summary>
+        /// True when the mouse is inside
+        /// </summary>
+        private bool mouseIn;
+
+        /// <summary>
         /// Initializes a new instance of the FavoritesControl class
         /// </summary>
         public FavoritesControl()
         {
             InitializeComponent();
+            this.InitializeStoryBoards();
+        }
+
+        /// <summary>
+        /// set up the storyboards
+        /// </summary>
+        private void InitializeStoryBoards()
+        {
+            this.controlEnterStoryboard = (Storyboard)this.Resources["controlEnter"];
+
+            this.controlLeaveStoryboard = (Storyboard)this.Resources["controlLeave"];
+            this.controlLeaveStoryboard.Completed += 
+                (s, e) =>
+                {
+                    if (!this.mouseIn)
+                    {
+                        this.NavigationPanel.Visibility = System.Windows.Visibility.Collapsed;
+                    }
+                };
         }
 
         /// <summary>
@@ -36,9 +72,9 @@ namespace Netsy.Favorites
                 return;
             }
 
-            if (viewModel.Favorites.PreviousPageCommand.CanExecute(viewModel.Favorites))
+            if (viewModel.PreviousPageCommand.CanExecute(viewModel))
             {
-                viewModel.Favorites.PreviousPageCommand.Execute(viewModel.Favorites);
+                viewModel.PreviousPageCommand.Execute(viewModel);
             }
         }
 
@@ -55,10 +91,33 @@ namespace Netsy.Favorites
                 return;
             }
 
-            if (viewModel.Favorites.NextPageCommand.CanExecute(viewModel.Favorites))
+            if (viewModel.NextPageCommand.CanExecute(viewModel))
             {
-                viewModel.Favorites.NextPageCommand.Execute(viewModel.Favorites);
+                viewModel.NextPageCommand.Execute(viewModel);
             }
+        }
+
+        /// <summary>
+        /// Mouse focus enters the control
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the event params</param>
+        private void OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            this.mouseIn = true;
+            this.NavigationPanel.Visibility = System.Windows.Visibility.Visible;
+            this.controlEnterStoryboard.Begin();
+        }
+
+        /// <summary>
+        /// Mouse focus leaves the control
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the event params</param>
+        private void OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            this.mouseIn = false;
+            this.controlLeaveStoryboard.Begin();
         }
     }
 }

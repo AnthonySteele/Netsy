@@ -6,10 +6,22 @@
     xmlns:Controls="clr-namespace:Netsy.Favorites.Controls" 
     xmlns:ControlToolkit="clr-namespace:Microsoft.Windows.Controls;assembly=Microsoft.Windows.Controls" 
     xmlns:Primitives="clr-namespace:System.Windows.Controls.Primitives"
+    MouseEnter="OnMouseEnter"
+    MouseLeave="OnMouseLeave"
     mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300">
-  <Grid>
+    <UserControl.Resources>
+        <Storyboard x:Key="controlEnter">
+            <DoubleAnimation Storyboard.TargetName="NavigationPanel" Storyboard.TargetProperty="Opacity" 
+                To="1" Duration="0:0:1" />
+        </Storyboard>
+        <Storyboard x:Key="controlLeave">
+            <DoubleAnimation Storyboard.TargetName="NavigationPanel" Storyboard.TargetProperty="Opacity" 
+                To="0" Duration="0:0:1" />
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid>
     <ListBox 
-            ItemsSource="{Binding Favorites.Items}" 
+            ItemsSource="{Binding Items}" 
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemTemplate>
@@ -23,11 +35,11 @@
             </ItemsPanelTemplate>
         </ListBox.ItemsPanel>
     </ListBox>
-    <ControlToolkit:DockPanel LastChildFill="False">
+    <ControlToolkit:DockPanel LastChildFill="False" x:Name="NavigationPanel" Opacity="0">
             <ControlToolkit:DockPanel ControlToolkit:DockPanel.Dock="Bottom" LastChildFill="True">
                 <Button ControlToolkit:DockPanel.Dock="Left" Click="PrevButtonClick" Content="Previous Page"></Button>
                 <Button ControlToolkit:DockPanel.Dock="Right" Click="NextButtonClick" Content="Next Page"></Button>
-                <TextBlock Text="{Binding Favorites.StatusText}" />
+                <TextBlock Text="{Binding StatusText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </ControlToolkit:DockPanel>
         </ControlToolkit:DockPanel>
     </Grid>
