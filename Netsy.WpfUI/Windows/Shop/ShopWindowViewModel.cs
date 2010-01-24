@@ -8,6 +8,7 @@
 
 namespace Netsy.WpfUI.Windows.Shop
 {
+    using System.Globalization;
     using System.Windows.Input;
 
     using Main;
@@ -110,7 +111,7 @@ namespace Netsy.WpfUI.Windows.Shop
             {
                 this.userId = value;
                 this.ShopListingsViewModel.ShopId = value;
-                this.FavoriteListingsOfUserViewModel.UserId = value.ToString();
+                this.FavoriteListingsOfUserViewModel.UserId = value.ToString(CultureInfo.InvariantCulture);
                 this.FavoriteShopsOfUserViewModel.UserId = value;
                 this.FavorersOfShopViewModel.UserId = value;
             }

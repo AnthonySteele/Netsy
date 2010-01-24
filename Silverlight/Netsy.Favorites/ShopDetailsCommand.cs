@@ -50,7 +50,7 @@ namespace Netsy.Favorites
             if (value.UserId.HasContent())
             {
                 this.currentViewModel = value;
-                this.shopService.GetShopDetails(value.UserId, DetailLevel.Low);
+                this.shopService.GetShopDetails(value.UserId, DetailLevel.Medium);
             }
         }
 
