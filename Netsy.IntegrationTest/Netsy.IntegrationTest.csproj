@@ -58,6 +58,7 @@
     <Compile Include="Feedback\GetFeedbackTest.cs" />
     <Compile Include="Gifts\GetGiftGuideListingsTest.cs" />
     <Compile Include="Gifts\GetGiftGuidesTest.cs" />
+    <Compile Include="Shop\GetShopDetailsByNameTest.cs" />
     <Compile Include="TestIdHelper.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="Listings\GetAllListingsTest.cs" />

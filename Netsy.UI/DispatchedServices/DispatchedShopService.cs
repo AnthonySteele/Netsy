@@ -80,6 +80,17 @@ namespace Netsy.UI.DispatchedServices
         }
 
         /// <summary>
+        /// Get the details of a seller's shop by user name.
+        /// </summary>
+        /// <param name="userName">the name of the shop</param>
+        /// <param name="detailLevel">the level of detail</param>
+        /// <returns>the async state</returns>
+        public IAsyncResult GetShopDetails(string userName, DetailLevel detailLevel)
+        {
+            return this.wrappedService.GetShopDetails(userName, detailLevel);            
+        }
+
+        /// <summary>
         /// Get a list of all the featured sellers.
         /// </summary>
         /// <param name="offset">the search results offset</param>

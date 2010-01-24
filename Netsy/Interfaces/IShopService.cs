@@ -44,12 +44,20 @@ namespace Netsy.Interfaces
         event EventHandler<ResultEventArgs<Listings>> GetFeaturedDetailsCompleted;
 
         /// <summary>
-        /// Get the details of a seller's shop.
+        /// Get the details of a seller's shop by user Id.
         /// </summary>
-        /// <param name="userId">the id of the shop</param>
+        /// <param name="userId">the numeric id of the shop</param>
         /// <param name="detailLevel">the level of detail</param>
         /// <returns>the async state</returns>
         IAsyncResult GetShopDetails(int userId, DetailLevel detailLevel);
+
+        /// <summary>
+        /// Get the details of a seller's shop by user name.
+        /// </summary>
+        /// <param name="userName">the name of the shop</param>
+        /// <param name="detailLevel">the level of detail</param>
+        /// <returns>the async state</returns>
+        IAsyncResult GetShopDetails(string userName, DetailLevel detailLevel);
 
         /// <summary>
         /// Get a list of all the featured sellers.

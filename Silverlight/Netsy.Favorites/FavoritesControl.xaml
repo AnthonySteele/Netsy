@@ -8,31 +8,27 @@
     xmlns:Primitives="clr-namespace:System.Windows.Controls.Primitives"
     mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300">
   <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>        
-        <ListBox 
-                Grid.Row="0"
-                ItemsSource="{Binding Favorites.Items}" 
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Controls:ListingSmall />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Primitives:UniformGrid Columns="{Binding ColumnCount}" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
-        <ControlToolkit:DockPanel Grid.Row="1" LastChildFill="False"> 
-            <Button ControlToolkit:DockPanel.Dock="Left" Click="PrevButtonClick" Content="Previous Page"></Button>
-            <Button ControlToolkit:DockPanel.Dock="Right" Click="NextButtonClick" Content="Next Page"></Button>
+    <ListBox 
+            ItemsSource="{Binding Favorites.Items}" 
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Controls:ListingSmall />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        <ListBox.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Primitives:UniformGrid Columns="{Binding ColumnCount}" />
+            </ItemsPanelTemplate>
+        </ListBox.ItemsPanel>
+    </ListBox>
+    <ControlToolkit:DockPanel LastChildFill="False">
+            <ControlToolkit:DockPanel ControlToolkit:DockPanel.Dock="Bottom" LastChildFill="True">
+                <Button ControlToolkit:DockPanel.Dock="Left" Click="PrevButtonClick" Content="Previous Page"></Button>
+                <Button ControlToolkit:DockPanel.Dock="Right" Click="NextButtonClick" Content="Next Page"></Button>
+                <TextBlock Text="{Binding Favorites.StatusText}" />
+            </ControlToolkit:DockPanel>
         </ControlToolkit:DockPanel>
-        <TextBlock Grid.Row="2" Text="{Binding Favorites.StatusText}" />
     </Grid>
 </UserControl>

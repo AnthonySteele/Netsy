@@ -80,6 +80,25 @@ namespace Netsy.Services
         }
 
         /// <summary>
+        /// Get the details of a seller's shop by user name.
+        /// </summary>
+        /// <param name="userName">the name of the shop</param>
+        /// <param name="detailLevel">the level of detail</param>
+        /// <returns>the async state</returns>
+        public IAsyncResult GetShopDetails(string userName, DetailLevel detailLevel)
+        {
+            if (!ServiceHelper.TestCallPrerequisites(this, this.GetShopDetailsCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", userName)
+                .DetailLevel(detailLevel);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted);
+        }
+
+        /// <summary>
         /// Get featured sellers
         /// </summary>
         /// <param name="offset">the offset in results</param>
