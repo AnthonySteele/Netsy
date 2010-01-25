@@ -55,6 +55,11 @@ namespace Netsy.Favorites
         }
 
         /// <summary>
+        /// Event handler - for when listings have been received
+        /// </summary>
+        public event EventHandler ListingsReceivedCompleted;
+
+        /// <summary>
         /// Gets or sets the number of columns in the view 
         /// </summary>
         public int ColumnCount
@@ -91,11 +96,6 @@ namespace Netsy.Favorites
         {
             get { return this.shopDetailsCommand; }
         }
-
-        /// <summary>
-        /// Gets or sets the control that this viewmodel is bound to
-        /// </summary>
-        public FavoritesControl FavoritesControl { get; set; }
 
         /// <summary>
         /// Load inital data into this viewmodel
@@ -176,9 +176,9 @@ namespace Netsy.Favorites
             int nextPageOffset = this.PageNumber * this.ItemsPerPage;
             this.HasNextPage = nextPageOffset < e.ResultValue.Count;
 
-            if (this.FavoritesControl != null)
+            if (this.ListingsReceivedCompleted != null)
             {
-                this.FavoritesControl.PulseStoryboard.Begin();
+                this.ListingsReceivedCompleted(this, EventArgs.Empty);
             }
         }
     }

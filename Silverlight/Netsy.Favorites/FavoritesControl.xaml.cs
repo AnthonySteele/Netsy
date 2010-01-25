@@ -8,6 +8,7 @@
 
 namespace Netsy.Favorites
 {
+    using System;
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Media.Animation;
@@ -47,11 +48,16 @@ namespace Netsy.Favorites
         }
 
         /// <summary>
-        /// Gets the Storyboard for pulsing the bar visiblity 
+        /// Event handler for animations when listings have been loaded
         /// </summary>
-        public Storyboard PulseStoryboard
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event params</param>
+        public void ListingsLoaded(object sender, EventArgs e)
         {
-            get { return this.pulseStoryboard; }
+            if (! this.mouseIn)
+            {
+                this.pulseStoryboard.Begin();
+            }
         }
 
         /// <summary>
@@ -65,7 +71,7 @@ namespace Netsy.Favorites
             this.controlLeaveStoryboard.Completed += (s, e) => this.HidePanelWhenOut();
 
             this.pulseStoryboard = (Storyboard)this.Resources["pulse"];
-            this.PulseStoryboard.Completed += (s, e) => this.HidePanelWhenOut();
+            this.pulseStoryboard.Completed += (s, e) => this.HidePanelWhenOut();
         }
 
         /// <summary>
