@@ -18,6 +18,14 @@
             <DoubleAnimation Storyboard.TargetName="NavigationPanel" Storyboard.TargetProperty="Opacity" 
                 To="0" Duration="0:0:1" />
         </Storyboard>
+        <Storyboard x:Key="pulse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="NavigationPanel" Storyboard.TargetProperty="Opacity" Duration="0:0:4">
+                <LinearDoubleKeyFrame Value="0" KeyTime="0:0:0" />
+                <LinearDoubleKeyFrame Value="1" KeyTime="0:0:1" />
+                <LinearDoubleKeyFrame Value="1" KeyTime="0:0:2" />
+                <LinearDoubleKeyFrame Value="0" KeyTime="0:0:4" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
     <Grid>
     <ListBox 
@@ -36,10 +44,14 @@
         </ListBox.ItemsPanel>
     </ListBox>
     <ControlToolkit:DockPanel LastChildFill="False" x:Name="NavigationPanel" Opacity="0">
-            <ControlToolkit:DockPanel ControlToolkit:DockPanel.Dock="Bottom" LastChildFill="True">
-                <Button ControlToolkit:DockPanel.Dock="Left" Click="PrevButtonClick" Content="Previous Page"></Button>
-                <Button ControlToolkit:DockPanel.Dock="Right" Click="NextButtonClick" Content="Next Page"></Button>
-                <TextBlock Text="{Binding StatusText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <ControlToolkit:DockPanel ControlToolkit:DockPanel.Dock="Bottom" LastChildFill="True"  Background="#77FFFFFF">
+                <Button ControlToolkit:DockPanel.Dock="Left" Click="PrevButtonClick">
+                    <Polygon Stroke="Black" StrokeThickness="2" Points="13,1 1,7 13,13"/>
+                </Button>
+                <Button ControlToolkit:DockPanel.Dock="Right" Click="NextButtonClick">
+                    <Polygon Stroke="Black" StrokeThickness="2" Points="1,1 13,7 1,13"/>
+                </Button>
+                <TextBlock Text="{Binding StatusText}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" />
             </ControlToolkit:DockPanel>
         </ControlToolkit:DockPanel>
     </Grid>

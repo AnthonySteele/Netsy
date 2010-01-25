@@ -28,6 +28,11 @@ namespace Netsy.Favorites
         private Storyboard controlLeaveStoryboard;
 
         /// <summary>
+        /// Storyboard for pulsing the bar visiblity 
+        /// </summary>
+        private Storyboard pulseStoryboard;
+
+        /// <summary>
         /// True when the mouse is inside
         /// </summary>
         private bool mouseIn;
@@ -42,6 +47,14 @@ namespace Netsy.Favorites
         }
 
         /// <summary>
+        /// Gets the Storyboard for pulsing the bar visiblity 
+        /// </summary>
+        public Storyboard PulseStoryboard
+        {
+            get { return this.pulseStoryboard; }
+        }
+
+        /// <summary>
         /// set up the storyboards
         /// </summary>
         private void InitializeStoryBoards()
@@ -49,14 +62,22 @@ namespace Netsy.Favorites
             this.controlEnterStoryboard = (Storyboard)this.Resources["controlEnter"];
 
             this.controlLeaveStoryboard = (Storyboard)this.Resources["controlLeave"];
-            this.controlLeaveStoryboard.Completed += 
-                (s, e) =>
-                {
-                    if (!this.mouseIn)
-                    {
-                        this.NavigationPanel.Visibility = System.Windows.Visibility.Collapsed;
-                    }
-                };
+            this.controlLeaveStoryboard.Completed += (s, e) => this.HidePanelWhenOut();
+
+            this.pulseStoryboard = (Storyboard)this.Resources["pulse"];
+            this.PulseStoryboard.Completed += (s, e) => this.HidePanelWhenOut();
+        }
+
+        /// <summary>
+        /// Action at the end of a fade-out animation - hide the panel 
+        /// unless the mouse has already moved back in
+        /// </summary>
+        private void HidePanelWhenOut()
+        {
+            if (!this.mouseIn)
+            {
+                this.NavigationPanel.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
 
         /// <summary>

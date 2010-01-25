@@ -8,6 +8,7 @@
 
 namespace Netsy.Favorites
 {
+    using System;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Input;
@@ -92,6 +93,11 @@ namespace Netsy.Favorites
         }
 
         /// <summary>
+        /// Gets or sets the control that this viewmodel is bound to
+        /// </summary>
+        public FavoritesControl FavoritesControl { get; set; }
+
+        /// <summary>
         /// Load inital data into this viewmodel
         /// </summary>
         public void Load()
@@ -169,6 +175,11 @@ namespace Netsy.Favorites
 
             int nextPageOffset = this.PageNumber * this.ItemsPerPage;
             this.HasNextPage = nextPageOffset < e.ResultValue.Count;
+
+            if (this.FavoritesControl != null)
+            {
+                this.FavoritesControl.PulseStoryboard.Begin();
+            }
         }
     }
 }

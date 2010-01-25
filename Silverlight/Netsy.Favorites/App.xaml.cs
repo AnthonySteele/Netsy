@@ -64,6 +64,7 @@ namespace Netsy.Favorites
             Locator.RegisterInstance(this.RootVisual.Dispatcher);
 
             FavoritesControlViewModel viewModel = Locator.Resolve<FavoritesControlViewModel>();
+            viewModel.FavoritesControl = favoritesControl;
             viewModel.UserId = settingsRead.UserId;
             viewModel.ColumnCount = settingsRead.ColumnCount;
             viewModel.ItemsPerPage = settingsRead.ItemsPerPage;
