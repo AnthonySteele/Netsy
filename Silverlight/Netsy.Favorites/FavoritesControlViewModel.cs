@@ -25,6 +25,11 @@ namespace Netsy.Favorites
     public class FavoritesControlViewModel : PagedCollectionViewModel<ListingViewModel>
     {
         /// <summary>
+        /// the service to get front listings
+        /// </summary>
+        private readonly IListingsService listingsService;
+
+        /// <summary>
         /// the service to get listings
         /// </summary>
         private readonly IShopService shopService;
@@ -47,11 +52,19 @@ namespace Netsy.Favorites
         /// <summary>
         /// Initializes a new instance of the FavoritesControlViewModel class
         /// </summary>
+        /// <param name="listingsService">the service to get front listings</param>
         /// <param name="shopService">the service to get listings for a shop</param>
         /// <param name="favoritesService">the service to get favorites</param>
         /// <param name="shopDetailsCommand">the shop details retrieval command</param>
-        public FavoritesControlViewModel(IShopService shopService, IFavoritesService favoritesService, ShopDetailsCommand shopDetailsCommand) 
+        public FavoritesControlViewModel(
+            IListingsService listingsService,
+            IShopService shopService, 
+            IFavoritesService favoritesService, 
+            ShopDetailsCommand shopDetailsCommand) 
         {
+            this.listingsService = listingsService;
+            this.listingsService.GetFrontFeaturedListingsCompleted += this.ListingsReceived; 
+
             this.shopService = shopService;
             this.shopService.GetShopListingsCompleted += this.ListingsReceived;
  
@@ -96,7 +109,7 @@ namespace Netsy.Favorites
         /// <summary>
         /// Gets or sets a value indicating whether to retrieve favorites (true) or listings (false)
         /// </summary>
-        public bool Favorites { get; set; }
+        public ListingsRetrievalMode ListingsRetrievalMode { get; set; }
 
         /// <summary>
         /// Gets or sets the shop shown
@@ -147,20 +160,46 @@ namespace Netsy.Favorites
         /// </summary>
         private void LoadPage()
         {
-            if (this.Favorites)
+            switch (this.ListingsRetrievalMode)
             {
-                this.LoadPageFavorites();
-            }
-            else
-            {
-                this.LoadPageListings();                
+                case ListingsRetrievalMode.Favorites:
+                    this.LoadPageFavorites();
+                    break;
+            
+                case ListingsRetrievalMode.ShopListings:
+                    this.LoadPageShopListings();
+                    break;
+
+                case ListingsRetrievalMode.FrontListings:
+                    this.LoadPageFrontListings();
+                    break;                    
+
+                default:
+                    throw new ArgumentException("Unknown ListingsRetrievalMode " + this.ListingsRetrievalMode);
             }
         }
 
         /// <summary>
-        /// load a page of listings
+        /// Load a page of favorites for the user
         /// </summary>
-        private void LoadPageListings()
+        private void LoadPageFavorites()
+        {
+            int offset = (this.PageNumber - 1) * this.ItemsPerPage;
+
+            this.favoritesService.GetFavoriteListingsOfUser(this.UserId, offset, this.ItemsPerPage, DetailLevel.Medium);
+
+            string status = string.Format(
+                CultureInfo.InvariantCulture,
+                "Getting page {0} of listings for {1}",
+                this.PageNumber,
+                this.UserName());
+            this.StatusText = status;
+        }
+
+        /// <summary>
+        /// load a page of listings for a shop
+        /// </summary>
+        private void LoadPageShopListings()
         {
             int offset = (this.PageNumber - 1) * this.ItemsPerPage;
 
@@ -175,19 +214,18 @@ namespace Netsy.Favorites
         }
 
         /// <summary>
-        /// Load a page of favorites
+        /// load a page of front listings for the site
         /// </summary>
-        private void LoadPageFavorites()
+        private void LoadPageFrontListings()
         {
             int offset = (this.PageNumber - 1) * this.ItemsPerPage;
 
-            this.favoritesService.GetFavoriteListingsOfUser(this.UserId, offset, this.ItemsPerPage, DetailLevel.Medium);
+            this.listingsService.GetFrontFeaturedListings(offset, this.ItemsPerPage, DetailLevel.Medium);
 
             string status = string.Format(
                 CultureInfo.InvariantCulture,
-                "Getting page {0} of listings for {1}",
-                this.PageNumber,
-                this.UserName());
+                "Getting page {0} of front listings",
+                this.PageNumber);
             this.StatusText = status;
         }
 
@@ -229,6 +267,17 @@ namespace Netsy.Favorites
         /// <returns>the message</returns>
         private string SuccessStatus()
         {
+            if (ListingsRetrievalMode == ListingsRetrievalMode.FrontListings)
+            {
+                // no user name involved
+                const string NoUserFormatTemplate = "Got page {0} of {1}";
+                return string.Format(
+                 CultureInfo.InvariantCulture,
+                 NoUserFormatTemplate,
+                 this.PageNumber,
+                 this.ReturnDataName());
+            }
+
             const string FormatTemplate = "Got page {0} of {1} for {2}";
             return string.Format(
              CultureInfo.InvariantCulture,
@@ -261,7 +310,20 @@ namespace Netsy.Favorites
         /// <returns>favorites or listings</returns>
         private string ReturnDataName()
         {
-            return this.Favorites ? "favorites" : "listings";
+            switch (this.ListingsRetrievalMode)
+            {
+                case ListingsRetrievalMode.Favorites:
+                    return "favorites";
+
+                case ListingsRetrievalMode.ShopListings:
+                    return "listings";
+
+                case ListingsRetrievalMode.FrontListings:
+                    return "front listings";
+
+                default:
+                    throw new ArgumentException("Unknown ListingsRetrievalMode " + this.ListingsRetrievalMode);
+            }
         }
     }
 }

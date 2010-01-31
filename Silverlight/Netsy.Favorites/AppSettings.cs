@@ -22,7 +22,8 @@ namespace Netsy.Favorites
         public AppSettings()
         {
             this.ColumnCount = Constants.DefaultColumnCount;
-            this.ItemsPerPage = Constants.DefaultItemsPerPage; 
+            this.ItemsPerPage = Constants.DefaultItemsPerPage;
+            this.Retrieval = Constants.DefaultRetrieval;
         }
 
         /// <summary>
@@ -41,22 +42,21 @@ namespace Netsy.Favorites
         public int ItemsPerPage { get; private set; }
 
         /// <summary>
+        /// Gets the data to to retrieve
+        /// </summary>
+        public ListingsRetrievalMode Retrieval { get; private set; }
+
+        /// <summary>
         /// Read the commandline parameters
         /// </summary>
         /// <param name="initParams">the control params</param>
         public void ReadParams(IDictionary<string, string> initParams)
         {
-            const string UserIdKey = "UserId";
             const string ColumnCountKey = "ColumnCount";
             const string ItemsPerPageKey = "ItemsPerPage";
-
-            // user id is compulsory
-            if (!initParams.ContainsKey(UserIdKey))
-            {
-                throw new ArgumentException("No User id found in Control params");
-            }
-
-            this.UserId = initParams[UserIdKey];
+            
+            this.ReadRetrieval(initParams);
+            this.ReadUserId(initParams);
 
             // Column count is optional 
             if (initParams.ContainsKey(ColumnCountKey))
@@ -75,6 +75,56 @@ namespace Netsy.Favorites
                 if (int.TryParse(initParams[ItemsPerPageKey], out itemsPerPageRead))
                 {
                     this.ColumnCount = itemsPerPageRead;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Read the user id from the params
+        /// </summary>
+        /// <param name="initParams">the params to read from</param>
+        private void ReadUserId(IDictionary<string, string> initParams)
+        {
+            const string UserIdKey = "UserId";
+
+            if (this.UserIdIsRequired() && !initParams.ContainsKey(UserIdKey))
+            {
+                throw new ArgumentException("No User id found in Control params");
+            }
+
+            if (initParams.ContainsKey(UserIdKey))
+            {
+                this.UserId = initParams[UserIdKey];
+            }
+        }
+
+        /// <summary>
+        /// Indicates if the retreival mode will require a user id
+        /// </summary>
+        /// <returns>true if a user id is required</returns>
+        private bool UserIdIsRequired()
+        {
+            return this.Retrieval != ListingsRetrievalMode.FrontListings;
+        }
+
+        /// <summary>
+        /// Read the retrieval parameter from the params
+        /// </summary>
+        /// <param name="initParams">the params to read from</param>
+        private void ReadRetrieval(IDictionary<string, string> initParams)
+        {
+            const string RetrievalKey = "Retrieval";
+
+            // retrieval mode is optional
+            if (initParams.ContainsKey(RetrievalKey))
+            {
+                try
+                {
+                    this.Retrieval = (ListingsRetrievalMode)Enum.Parse(typeof(ListingsRetrievalMode), initParams[RetrievalKey], true);
+                }
+                catch (Exception)
+                {
+                    // couln't parse the param. Bummer. 
                 }
             }
         }

@@ -67,6 +67,7 @@ namespace Netsy.Favorites
             viewModel.UserId = settingsRead.UserId;
             viewModel.ColumnCount = settingsRead.ColumnCount;
             viewModel.ItemsPerPage = settingsRead.ItemsPerPage;
+            viewModel.ListingsRetrievalMode = settingsRead.Retrieval;
             viewModel.ListingsReceivedCompleted += favoritesControl.ListingsLoaded;
 
             favoritesControl.DataContext = viewModel;
