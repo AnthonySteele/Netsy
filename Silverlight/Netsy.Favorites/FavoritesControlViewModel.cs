@@ -25,7 +25,12 @@ namespace Netsy.Favorites
     public class FavoritesControlViewModel : PagedCollectionViewModel<ListingViewModel>
     {
         /// <summary>
-        /// The shop service
+        /// the service to get listings
+        /// </summary>
+        private readonly IShopService shopService;
+
+        /// <summary>
+        /// the service to get favorites
         /// </summary>
         private readonly IFavoritesService favoritesService;
 
@@ -42,15 +47,19 @@ namespace Netsy.Favorites
         /// <summary>
         /// Initializes a new instance of the FavoritesControlViewModel class
         /// </summary>
-        /// <param name="favoritesService">the favorite service</param>
+        /// <param name="shopService">the service to get listings for a shop</param>
+        /// <param name="favoritesService">the service to get favorites</param>
         /// <param name="shopDetailsCommand">the shop details retrieval command</param>
-        public FavoritesControlViewModel(IFavoritesService favoritesService, ShopDetailsCommand shopDetailsCommand) 
+        public FavoritesControlViewModel(IShopService shopService, IFavoritesService favoritesService, ShopDetailsCommand shopDetailsCommand) 
         {
-            this.shopDetailsCommand = shopDetailsCommand;
+            this.shopService = shopService;
+            this.shopService.GetShopListingsCompleted += this.ListingsReceived;
  
             this.favoritesService = favoritesService;
             this.favoritesService.GetFavoriteListingsOfUserCompleted += this.ListingsReceived;
-            
+
+            this.shopDetailsCommand = shopDetailsCommand;
+
             this.MakeListingCommands(); 
         }
 
@@ -83,6 +92,11 @@ namespace Netsy.Favorites
         /// Gets or sets the Id of the shop
         /// </summary>
         public string UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to retrieve favorites (true) or listings (false)
+        /// </summary>
+        public bool Favorites { get; set; }
 
         /// <summary>
         /// Gets or sets the shop shown
@@ -125,20 +139,56 @@ namespace Netsy.Favorites
         /// </summary>
         private void MakeListingCommands()
         {
-            this.LoadPageCommand = new DelegateCommand<ListingViewModel>(
-                item =>
-                {
-                    int offset = (this.PageNumber - 1) * this.ItemsPerPage;
+            this.LoadPageCommand = new DelegateCommand<ListingViewModel>(item => this.LoadPage());
+        }
 
-                    this.favoritesService.GetFavoriteListingsOfUser(this.UserId, offset, this.ItemsPerPage, DetailLevel.Medium);
-                    
-                    string status = string.Format(
-                        CultureInfo.InvariantCulture,
-                        "Getting page {0} of favorites for {1}",
-                        this.PageNumber,
-                        this.UserName());
-                    this.StatusText = status;
-                });
+        /// <summary>
+        /// Load a page of data
+        /// </summary>
+        private void LoadPage()
+        {
+            if (this.Favorites)
+            {
+                this.LoadPageFavorites();
+            }
+            else
+            {
+                this.LoadPageListings();                
+            }
+        }
+
+        /// <summary>
+        /// load a page of listings
+        /// </summary>
+        private void LoadPageListings()
+        {
+            int offset = (this.PageNumber - 1) * this.ItemsPerPage;
+
+            this.shopService.GetShopListings(this.UserId, SortField.Price, SortOrder.Down, null, offset, this.ItemsPerPage, DetailLevel.Medium);
+
+            string status = string.Format(
+                CultureInfo.InvariantCulture,
+                "Getting page {0} of listings for {1}",
+                this.PageNumber,
+                this.UserName());
+            this.StatusText = status;
+        }
+
+        /// <summary>
+        /// Load a page of favorites
+        /// </summary>
+        private void LoadPageFavorites()
+        {
+            int offset = (this.PageNumber - 1) * this.ItemsPerPage;
+
+            this.favoritesService.GetFavoriteListingsOfUser(this.UserId, offset, this.ItemsPerPage, DetailLevel.Medium);
+
+            string status = string.Format(
+                CultureInfo.InvariantCulture,
+                "Getting page {0} of listings for {1}",
+                this.PageNumber,
+                this.UserName());
+            this.StatusText = status;
         }
 
         /// <summary>
@@ -150,11 +200,7 @@ namespace Netsy.Favorites
         {
             if (!e.ResultStatus.Success)
             {
-                this.StatusText = string.Format(
-                    CultureInfo.InvariantCulture,
-                    "Error getting favorites for {0}:{1}",
-                    this.UserName(),
-                    e.ResultStatus.ErrorMessage);
+                this.StatusText = this.ErrorStatus(e.ResultStatus.ErrorMessage);
                 return;
             }
 
@@ -166,12 +212,7 @@ namespace Netsy.Favorites
                 this.Items.Add(viewModel);
             }
 
-            string status = string.Format(
-                     CultureInfo.InvariantCulture,
-                     "Got page {0} of favorites for {1}",
-                     this.PageNumber,
-                     this.UserName());
-            this.StatusText = status;
+            this.StatusText = this.SuccessStatus();
 
             int nextPageOffset = this.PageNumber * this.ItemsPerPage;
             this.HasNextPage = nextPageOffset < e.ResultValue.Count;
@@ -180,6 +221,47 @@ namespace Netsy.Favorites
             {
                 this.ListingsReceivedCompleted(this, EventArgs.Empty);
             }
+        }
+
+        /// <summary>
+        /// A success message for the status
+        /// </summary>
+        /// <returns>the message</returns>
+        private string SuccessStatus()
+        {
+            const string FormatTemplate = "Got page {0} of {1} for {2}";
+            return string.Format(
+             CultureInfo.InvariantCulture,
+             FormatTemplate,
+             this.PageNumber,
+             this.ReturnDataName(),
+             this.UserName());
+        }
+
+        /// <summary>
+        /// An error message for the status
+        /// </summary>
+        /// <param name="errorMessage">the error message from the library</param>
+        /// <returns>the formatted error message for display</returns>
+        private string ErrorStatus(string errorMessage)
+        {
+            const string FormatTemplate = "Error getting {0} for {1}:{2}";
+
+            return string.Format(
+                CultureInfo.InvariantCulture,
+                FormatTemplate, 
+                this.ReturnDataName(),
+                this.UserName(), 
+                errorMessage);
+        }
+
+        /// <summary>
+        /// The name of the data returned
+        /// </summary>
+        /// <returns>favorites or listings</returns>
+        private string ReturnDataName()
+        {
+            return this.Favorites ? "favorites" : "listings";
         }
     }
 }

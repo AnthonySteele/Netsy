@@ -21,6 +21,11 @@ namespace Netsy.UI.ViewModels
     public class ListingViewModel : BaseViewModel
     {
         /// <summary>
+        /// Limit for the length-trimmed title
+        /// </summary>
+        private const int TitleLengthLimit = 60;
+
+        /// <summary>
         /// the listing data transfer object
         /// </summary>
         private readonly Listing listing;
@@ -210,6 +215,27 @@ namespace Netsy.UI.ViewModels
             get
             {
                 return this.Listing.Materials.ToCsv();
+            }
+        }
+
+        /// <summary>
+        /// Gets the title with a length limit
+        /// </summary>
+        public string TitleWithLimit
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Listing.Title))
+                {
+                    return string.Empty;
+                }
+
+                if (Listing.Title.Length < TitleLengthLimit)
+                {
+                    return Listing.Title;
+                }
+
+                return Listing.Title.Substring(0, TitleLengthLimit);
             }
         }
 
