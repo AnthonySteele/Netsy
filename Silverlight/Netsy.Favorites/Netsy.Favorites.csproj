@@ -78,10 +78,10 @@
     <Compile Include="Controls\ListingSmall.xaml.cs">
       <DependentUpon>ListingSmall.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FavoritesControl.xaml.cs">
-      <DependentUpon>FavoritesControl.xaml</DependentUpon>
+    <Compile Include="ListingsControl.xaml.cs">
+      <DependentUpon>ListingsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FavoritesControlViewModel.cs" />
+    <Compile Include="ListingsControlViewModel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Import\UniformGrid.cs" />
     <Compile Include="Locator.cs" />
@@ -99,7 +99,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </Page>
-    <Page Include="FavoritesControl.xaml">
+    <Page Include="ListingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </Page>

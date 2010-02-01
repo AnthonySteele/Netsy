@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FavoritesControlViewModel.cs" company="AFS">
+// <copyright file="ListingsControlViewModel.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -22,7 +22,7 @@ namespace Netsy.Favorites
     /// <summary>
     /// View model for the main page
     /// </summary>
-    public class FavoritesControlViewModel : PagedCollectionViewModel<ListingViewModel>
+    public class ListingsControlViewModel : PagedCollectionViewModel<ListingViewModel>
     {
         /// <summary>
         /// the service to get front listings
@@ -50,13 +50,13 @@ namespace Netsy.Favorites
         private int columnCount;
         
         /// <summary>
-        /// Initializes a new instance of the FavoritesControlViewModel class
+        /// Initializes a new instance of the ListingsControlViewModel class
         /// </summary>
         /// <param name="listingsService">the service to get front listings</param>
         /// <param name="shopService">the service to get listings for a shop</param>
         /// <param name="favoritesService">the service to get favorites</param>
         /// <param name="shopDetailsCommand">the shop details retrieval command</param>
-        public FavoritesControlViewModel(
+        public ListingsControlViewModel(
             IListingsService listingsService,
             IShopService shopService, 
             IFavoritesService favoritesService, 

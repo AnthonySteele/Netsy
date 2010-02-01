@@ -18,7 +18,7 @@ namespace Netsy.Favorites
     /// <summary>
     /// Command to get shop details for the FavoritesControlViewModel
     /// </summary>
-    public class ShopDetailsCommand : GenericCommandBase<FavoritesControlViewModel>
+    public class ShopDetailsCommand : GenericCommandBase<ListingsControlViewModel>
     {
         /// <summary>
         /// Service for shop details
@@ -28,7 +28,7 @@ namespace Netsy.Favorites
         /// <summary>
         /// The view model currently being used
         /// </summary>
-        private FavoritesControlViewModel currentViewModel;
+        private ListingsControlViewModel currentViewModel;
 
         /// <summary>
         /// Initializes a new instance of the ShopDetailsCommand class
@@ -45,7 +45,7 @@ namespace Netsy.Favorites
         /// Execute the command with a ViewModel as parameter
         /// </summary>
         /// <param name="value">the view model</param>
-        public override void ExecuteOnValue(FavoritesControlViewModel value)
+        public override void ExecuteOnValue(ListingsControlViewModel value)
         {
             if (value.UserId.HasContent())
             {

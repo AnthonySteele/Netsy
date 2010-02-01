@@ -59,18 +59,18 @@ namespace Netsy.Favorites
             AppSettings settingsRead = new AppSettings();
             settingsRead.ReadParams(e.InitParams);
 
-            FavoritesControl favoritesControl = new FavoritesControl();
-            this.RootVisual = favoritesControl;
+            ListingsControl listingsControl = new ListingsControl();
+            this.RootVisual = listingsControl;
             Locator.RegisterInstance(this.RootVisual.Dispatcher);
 
-            FavoritesControlViewModel viewModel = Locator.Resolve<FavoritesControlViewModel>();
+            ListingsControlViewModel viewModel = Locator.Resolve<ListingsControlViewModel>();
             viewModel.UserId = settingsRead.UserId;
             viewModel.ColumnCount = settingsRead.ColumnCount;
             viewModel.ItemsPerPage = settingsRead.ItemsPerPage;
             viewModel.ListingsRetrievalMode = settingsRead.Retrieval;
-            viewModel.ListingsReceivedCompleted += favoritesControl.ListingsLoaded;
+            viewModel.ListingsReceivedCompleted += listingsControl.ListingsLoaded;
 
-            favoritesControl.DataContext = viewModel;
+            listingsControl.DataContext = viewModel;
             viewModel.Load();
         }
 

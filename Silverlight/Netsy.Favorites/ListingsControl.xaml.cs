@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="FavoritesControl.xaml.cs" company="AFS">
+// <copyright file="ListingsControl.xaml.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -14,9 +14,9 @@ namespace Netsy.Favorites
     using System.Windows.Media.Animation;
 
     /// <summary>
-    /// Display Favourites
+    /// Display Listings
     /// </summary>
-    public partial class FavoritesControl : UserControl
+    public partial class ListingsControl : UserControl
     {
         /// <summary>
         /// Storyboard for control entry
@@ -39,9 +39,9 @@ namespace Netsy.Favorites
         private bool mouseIn;
 
         /// <summary>
-        /// Initializes a new instance of the FavoritesControl class
+        /// Initializes a new instance of the ListingsControl class
         /// </summary>
-        public FavoritesControl()
+        public ListingsControl()
         {
             InitializeComponent();
             this.InitializeStoryBoards();
@@ -93,7 +93,7 @@ namespace Netsy.Favorites
         /// <param name="e">the event params</param>
         private void PrevButtonClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            FavoritesControlViewModel viewModel = this.DataContext as FavoritesControlViewModel;
+            ListingsControlViewModel viewModel = this.DataContext as ListingsControlViewModel;
             if (viewModel == null)
             {
                 return;
@@ -112,7 +112,7 @@ namespace Netsy.Favorites
         /// <param name="e">the event params</param>
         private void NextButtonClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            FavoritesControlViewModel viewModel = this.DataContext as FavoritesControlViewModel;
+            ListingsControlViewModel viewModel = this.DataContext as ListingsControlViewModel;
             if (viewModel == null)
             {
                 return;
