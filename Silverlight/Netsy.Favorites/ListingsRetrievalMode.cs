@@ -28,8 +28,13 @@ namespace Netsy.Favorites
         ShopListings = 2,
 
         /// <summary>
-        /// Retreive the etsy site's front lsitings
+        /// Retrieve the etsy site's front listings
         /// </summary>
-        FrontListings = 3
+        FrontListings = 3,
+
+        /// <summary>
+        /// Retrieve the etsy site's front listings in a category
+        /// </summary>
+        FrontListingsByCategory = 4
     }
 }

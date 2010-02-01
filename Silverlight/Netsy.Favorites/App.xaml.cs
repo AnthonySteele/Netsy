@@ -68,6 +68,8 @@ namespace Netsy.Favorites
             viewModel.ColumnCount = settingsRead.ColumnCount;
             viewModel.ItemsPerPage = settingsRead.ItemsPerPage;
             viewModel.ListingsRetrievalMode = settingsRead.Retrieval;
+            viewModel.Category = settingsRead.Category;
+
             viewModel.ListingsReceivedCompleted += listingsControl.ListingsLoaded;
 
             listingsControl.DataContext = viewModel;

@@ -42,6 +42,11 @@ namespace Netsy.Favorites
         public int ItemsPerPage { get; private set; }
 
         /// <summary>
+        /// Gets the category to show for listings by category
+        /// </summary>
+        public string Category { get; private set; }
+
+        /// <summary>
         /// Gets the data to to retrieve
         /// </summary>
         public ListingsRetrievalMode Retrieval { get; private set; }
@@ -54,6 +59,7 @@ namespace Netsy.Favorites
         {
             const string ColumnCountKey = "ColumnCount";
             const string ItemsPerPageKey = "ItemsPerPage";
+            const string CategoryKey = "Category";
             
             this.ReadRetrieval(initParams);
             this.ReadUserId(initParams);
@@ -77,6 +83,12 @@ namespace Netsy.Favorites
                     this.ColumnCount = itemsPerPageRead;
                 }
             }
+
+            // category is optional 
+            if (initParams.ContainsKey(CategoryKey))
+            {
+                this.Category = initParams[CategoryKey];
+            }
         }
 
         /// <summary>
@@ -99,12 +111,13 @@ namespace Netsy.Favorites
         }
 
         /// <summary>
-        /// Indicates if the retreival mode will require a user id
+        /// Indicates if the retrieval mode will require a user id
         /// </summary>
         /// <returns>true if a user id is required</returns>
         private bool UserIdIsRequired()
         {
-            return this.Retrieval != ListingsRetrievalMode.FrontListings;
+            return (this.Retrieval != ListingsRetrievalMode.FrontListings) &&
+                (this.Retrieval != ListingsRetrievalMode.FrontListingsByCategory);
         }
 
         /// <summary>

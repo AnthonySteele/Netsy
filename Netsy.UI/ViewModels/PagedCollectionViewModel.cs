@@ -101,6 +101,17 @@ namespace Netsy.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets the offset
+        /// </summary>
+        protected int Offset
+        {
+            get
+            {
+                return (this.PageNumber - 1) * this.ItemsPerPage;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the text to show as status
         /// </summary>
         public string StatusText

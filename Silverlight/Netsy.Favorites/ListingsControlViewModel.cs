@@ -63,7 +63,8 @@ namespace Netsy.Favorites
             ShopDetailsCommand shopDetailsCommand) 
         {
             this.listingsService = listingsService;
-            this.listingsService.GetFrontFeaturedListingsCompleted += this.ListingsReceived; 
+            this.listingsService.GetFrontFeaturedListingsCompleted += this.ListingsReceived;
+            this.listingsService.GetListingsByCategoryCompleted += this.ListingsReceived;
 
             this.shopService = shopService;
             this.shopService.GetShopListingsCompleted += this.ListingsReceived;
@@ -105,6 +106,11 @@ namespace Netsy.Favorites
         /// Gets or sets the Id of the shop
         /// </summary>
         public string UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category used
+        /// </summary>
+        public string Category { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to retrieve favorites (true) or listings (false)
@@ -172,6 +178,10 @@ namespace Netsy.Favorites
 
                 case ListingsRetrievalMode.FrontListings:
                     this.LoadPageFrontListings();
+                    break;
+
+                case ListingsRetrievalMode.FrontListingsByCategory:
+                    this.LoadFrontListingsByCategory();
                     break;                    
 
                 default:
@@ -184,9 +194,7 @@ namespace Netsy.Favorites
         /// </summary>
         private void LoadPageFavorites()
         {
-            int offset = (this.PageNumber - 1) * this.ItemsPerPage;
-
-            this.favoritesService.GetFavoriteListingsOfUser(this.UserId, offset, this.ItemsPerPage, DetailLevel.Medium);
+            this.favoritesService.GetFavoriteListingsOfUser(this.UserId, this.Offset, this.ItemsPerPage, DetailLevel.Medium);
 
             string status = string.Format(
                 CultureInfo.InvariantCulture,
@@ -201,9 +209,7 @@ namespace Netsy.Favorites
         /// </summary>
         private void LoadPageShopListings()
         {
-            int offset = (this.PageNumber - 1) * this.ItemsPerPage;
-
-            this.shopService.GetShopListings(this.UserId, SortField.Price, SortOrder.Down, null, offset, this.ItemsPerPage, DetailLevel.Medium);
+            this.shopService.GetShopListings(this.UserId, SortField.Price, SortOrder.Down, null, this.Offset, this.ItemsPerPage, DetailLevel.Medium);
 
             string status = string.Format(
                 CultureInfo.InvariantCulture,
@@ -218,14 +224,27 @@ namespace Netsy.Favorites
         /// </summary>
         private void LoadPageFrontListings()
         {
-            int offset = (this.PageNumber - 1) * this.ItemsPerPage;
-
-            this.listingsService.GetFrontFeaturedListings(offset, this.ItemsPerPage, DetailLevel.Medium);
+            this.listingsService.GetFrontFeaturedListings(this.Offset, this.ItemsPerPage, DetailLevel.Medium);
 
             string status = string.Format(
                 CultureInfo.InvariantCulture,
                 "Getting page {0} of front listings",
                 this.PageNumber);
+            this.StatusText = status;
+        }
+
+        /// <summary>
+        /// Load listings for the category
+        /// </summary>
+        private void LoadFrontListingsByCategory()
+        {
+            this.listingsService.GetListingsByCategory(this.Category, SortField.Created, SortOrder.Down, this.Offset, this.ItemsPerPage, DetailLevel.Medium);
+
+            string status = string.Format(
+                CultureInfo.InvariantCulture,
+                "Getting page {0} of listings for category {1}",
+                this.PageNumber,
+                this.Category);
             this.StatusText = status;
         }
 
@@ -278,6 +297,17 @@ namespace Netsy.Favorites
                  this.ReturnDataName());
             }
 
+            if (ListingsRetrievalMode == ListingsRetrievalMode.FrontListingsByCategory)
+            {
+                // no user name involved
+                const string FrontListingsByCategoryFormatTemplate = "Got page {0} of listings for category {1}";
+                return string.Format(
+                 CultureInfo.InvariantCulture,
+                 FrontListingsByCategoryFormatTemplate,
+                 this.PageNumber,
+                 this.Category);
+            }
+
             const string FormatTemplate = "Got page {0} of {1} for {2}";
             return string.Format(
              CultureInfo.InvariantCulture,
@@ -294,6 +324,29 @@ namespace Netsy.Favorites
         /// <returns>the formatted error message for display</returns>
         private string ErrorStatus(string errorMessage)
         {
+            if (ListingsRetrievalMode == ListingsRetrievalMode.FrontListings)
+            {
+                // no user name involved
+                const string NoUserFormatTemplate = "Error getting {0}: {1}";
+                return string.Format(
+                 CultureInfo.InvariantCulture,
+                 NoUserFormatTemplate,
+                 this.PageNumber,
+                 errorMessage);
+            }
+
+            if (ListingsRetrievalMode == ListingsRetrievalMode.FrontListingsByCategory)
+            {
+                // no user name involved
+                const string FrontListingsByCategoryFormatTemplate = "Error getting {0} for {1}:{2}";
+                return string.Format(
+                 CultureInfo.InvariantCulture,
+                 FrontListingsByCategoryFormatTemplate,
+                 this.ReturnDataName(),
+                 this.Category,
+                 errorMessage);
+            }
+
             const string FormatTemplate = "Error getting {0} for {1}:{2}";
 
             return string.Format(
@@ -320,6 +373,9 @@ namespace Netsy.Favorites
 
                 case ListingsRetrievalMode.FrontListings:
                     return "front listings";
+                
+                case ListingsRetrievalMode.FrontListingsByCategory:
+                    return "listings by category";
 
                 default:
                     throw new ArgumentException("Unknown ListingsRetrievalMode " + this.ListingsRetrievalMode);
