@@ -20,12 +20,6 @@ namespace Netsy.Services
     /// </summary>
     public class ListingsService : IListingsService   
     {
-
-        /// <summary>
-        /// The maximum value for wiggle room
-        /// </summary>
-        private const int MaxWiggle = 15;
-
         /// <summary>
         /// the Etsy context data
         /// </summary>
@@ -338,7 +332,7 @@ namespace Netsy.Services
         /// <returns>true if the value is in range</returns>
         private bool TestWiggle(int wiggle, EventHandler<ResultEventArgs<Listings>> completedEvent)
         {
-            if ((wiggle < 0) || (wiggle > MaxWiggle))
+            if ((wiggle < 0) || (wiggle > EtsyColor.MaxWiggle))
             {
                 ResultEventArgs<Listings> errorResult = new ResultEventArgs<Listings>(
                     null,

@@ -35,6 +35,11 @@ namespace Netsy.Favorites
         /// <summary>
         /// Retrieve the etsy site's front listings in a category
         /// </summary>
-        FrontListingsByCategory = 4
+        FrontListingsByCategory = 4,
+
+        /// <summary>
+        /// Retrieve the etsy site's front listings by category
+        /// </summary>
+        FrontListingsByColor = 5
     }
 }

@@ -47,6 +47,11 @@ namespace Netsy.Favorites
         public string Category { get; private set; }
 
         /// <summary>
+        /// Gets the color to show for listings by color
+        /// </summary>
+        public string Color { get; private set; }
+
+        /// <summary>
         /// Gets the data to to retrieve
         /// </summary>
         public ListingsRetrievalMode Retrieval { get; private set; }
@@ -60,6 +65,7 @@ namespace Netsy.Favorites
             const string ColumnCountKey = "ColumnCount";
             const string ItemsPerPageKey = "ItemsPerPage";
             const string CategoryKey = "Category";
+            const string ColorKey = "Color";
             
             this.ReadRetrieval(initParams);
             this.ReadUserId(initParams);
@@ -89,6 +95,12 @@ namespace Netsy.Favorites
             {
                 this.Category = initParams[CategoryKey];
             }
+
+            // color is optional 
+            if (initParams.ContainsKey(ColorKey))
+            {
+                this.Color = initParams[ColorKey];
+            }
         }
 
         /// <summary>
@@ -117,7 +129,8 @@ namespace Netsy.Favorites
         private bool UserIdIsRequired()
         {
             return (this.Retrieval != ListingsRetrievalMode.FrontListings) &&
-                (this.Retrieval != ListingsRetrievalMode.FrontListingsByCategory);
+                (this.Retrieval != ListingsRetrievalMode.FrontListingsByCategory) &&
+                (this.Retrieval != ListingsRetrievalMode.FrontListingsByColor);
         }
 
         /// <summary>

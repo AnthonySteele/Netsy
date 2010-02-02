@@ -69,6 +69,7 @@ namespace Netsy.Favorites
             viewModel.ItemsPerPage = settingsRead.ItemsPerPage;
             viewModel.ListingsRetrievalMode = settingsRead.Retrieval;
             viewModel.Category = settingsRead.Category;
+            viewModel.Color = settingsRead.Color;
 
             viewModel.ListingsReceivedCompleted += listingsControl.ListingsLoaded;
 

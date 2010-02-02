@@ -14,5 +14,9 @@ namespace Netsy.DataModel
     /// </summary>
     public abstract class EtsyColor
     {
+        /// <summary>
+        /// Maximum value for the degree of tolerance for color matching 
+        /// </summary>
+        public const int MaxWiggle = 15;
     }
 }
