@@ -226,6 +226,12 @@ namespace Netsy.DataModel
         [DataMember(Name = "sections")]
         public ShopSection[] Sections { get; set; }
 
+        /// <summary>
+        /// Gets or sets the number of people who count this listing as a favorite
+        /// </summary>
+        [DataMember(Name = "num_favorers")]
+        public string NumberOfFavorers { get; set; }
+
         #endregion
     }
 }

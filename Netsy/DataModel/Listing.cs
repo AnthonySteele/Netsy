@@ -62,6 +62,16 @@ namespace Netsy.DataModel
         /// </summary>
         private DateTime? favoriteCreationDate;
 
+        /// <summary>
+        /// The date that the listing was sold, in epoch seconds.
+        /// </summary>
+        private double? soldOutEpoch;
+
+        /// <summary>
+        /// The date that the listing was sold, as datetime
+        /// </summary>
+        private DateTime? soldOutDate;
+
         #endregion
 
         #region low detail
@@ -192,7 +202,19 @@ namespace Netsy.DataModel
                 this.creationEpoch = this.creationDate.ToEpochFromDateTime();
             }
         }
-        
+
+        /// <summary>
+        /// Gets or sets the numeric Id of the user who posted the item. (User IDs are also shop IDs).
+        /// </summary>
+        [DataMember(Name = "user_id")]
+        public int UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the login name of the user who posted the item
+        /// </summary>
+        [DataMember(Name = "user_name")]
+        public string UserName { get; set; }
+
         #endregion
 
         #region medium detail
@@ -263,18 +285,6 @@ namespace Netsy.DataModel
         }
         
         /// <summary>
-        /// Gets or sets the numeric ID of the user who posted the item. (User IDs are also shop IDs).
-        /// </summary>
-        [DataMember(Name = "user_id")]
-        public int UserId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the login name of the user who posted the item
-        /// </summary>
-        [DataMember(Name = "user_name")]
-        public string UserName { get; set; }
-        
-        /// <summary>
         /// Gets or sets the quantity of this item available for sale.
         /// </summary>
         [DataMember(Name = "quantity")]
@@ -310,6 +320,41 @@ namespace Netsy.DataModel
                 }
 
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date that the listing was sold, in epoch seconds.
+        /// </summary>
+        [DataMember(Name = "sold_out_epoch")]
+        public double? SoldOutEpoch
+        {
+            get
+            {
+                return this.soldOutEpoch;
+            }
+
+            set
+            {
+                this.soldOutEpoch = value;
+                this.soldOutDate = this.soldOutEpoch.ToDateTimeFromEpoch();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the date that the listing was sold, as Date time
+        /// </summary>
+        public DateTime? SoldOutDate
+        {
+            get
+            {
+                return this.soldOutDate;
+            }
+
+            set
+            {
+                this.soldOutDate = value;
+                this.soldOutEpoch = this.soldOutDate.ToEpochFromDateTime();
             }
         }
         
@@ -358,6 +403,12 @@ namespace Netsy.DataModel
         /// </summary>
         [DataMember(Name = "all_images")]
         public ListingImage[] AllImages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of people who count this listing as a favorite
+        /// </summary>
+        [DataMember(Name = "num_favorers")]
+        public string NumberOfFavorers { get; set; }
 
         /// <summary>
         /// Gets or sets the date and time that the user was favorited (only available in the command getFavoriteListingsOfUser.)
