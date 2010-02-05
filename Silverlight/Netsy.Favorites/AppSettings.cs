@@ -100,6 +100,11 @@ namespace Netsy.Favorites
             if (initParams.ContainsKey(ColorKey))
             {
                 this.Color = initParams[ColorKey];
+
+                if (this.Color[0] == '#')
+                {
+                    this.Color = this.Color.Substring(1);
+                }
             }
         }
 

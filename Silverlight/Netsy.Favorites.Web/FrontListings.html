@@ -1,9 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<head runat="server">
-    <title>Netsy.Favorites</title>
+
+<head>
+    <title>Netsy Listings: Front Listings</title>
     <style type="text/css">
     html, body {
 	    height: 100%;
@@ -58,17 +57,17 @@
 </head>
 <body>
     <form id="form1" runat="server" style="height:100%">
-    
-    <p>Silverlight Favorites test page aspx page</p>
-    
+    <p>
+    <a href="http://github.com/AnthonySteele/Netsy/">Netsy</a> Silverlight Listings control: Front Listings
+    </p>
     <div id="silverlightControlHost">
-        <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="30%" height="90%">
+        <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="80%" height="80%">
 		  <param name="source" value="ClientBin/Netsy.Favorites.xap"/>
 		  <param name="onError" value="onSilverlightError" />
 		  <param name="background" value="white" />
 		  <param name="minRuntimeVersion" value="3.0.40624.0" />
 		  <param name="autoUpgrade" value="true" />
-		  <param name="initParams" value="Retrieval=FrontListingsByColor,Color=000000" />
+		  <param name="initParams" value="Retrieval=FrontListings" />
 		  <a href="http://go.microsoft.com/fwlink/?LinkID=149156&v=3.0.40624.0" style="text-decoration:none">
  			  <img src="http://go.microsoft.com/fwlink/?LinkId=108181" alt="Get Microsoft Silverlight" style="border-style:none"/>
 		  </a>

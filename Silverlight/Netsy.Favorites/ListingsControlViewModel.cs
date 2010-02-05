@@ -174,7 +174,7 @@ namespace Netsy.Favorites
         {
             switch (this.ListingsRetrievalMode)
             {
-                case ListingsRetrievalMode.Favorites:
+                case ListingsRetrievalMode.UserFavorites:
                     this.LoadPageFavorites();
                     break;
             
@@ -208,7 +208,7 @@ namespace Netsy.Favorites
 
             string status = string.Format(
                 CultureInfo.InvariantCulture,
-                "Getting page {0} of listings for {1}",
+                "Getting page {0} of favorites for {1}",
                 this.PageNumber,
                 this.UserName());
             this.StatusText = status;
@@ -414,7 +414,7 @@ namespace Netsy.Favorites
         {
             switch (this.ListingsRetrievalMode)
             {
-                case ListingsRetrievalMode.Favorites:
+                case ListingsRetrievalMode.UserFavorites:
                     return "favorites";
 
                 case ListingsRetrievalMode.ShopListings:

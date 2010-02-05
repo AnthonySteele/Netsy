@@ -18,9 +18,9 @@ namespace Netsy.Favorites
         None = 0,
 
         /// <summary>
-        /// Retrieve favorites of a shop
+        /// Retrieve favorites of a user
         /// </summary>
-        Favorites = 1,
+        UserFavorites = 1,
 
         /// <summary>
         /// Retrieve a shop's listings

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 
 <head>
-    <title>Netsy.Favorites</title>
+    <title>Netsy Listings: Front Listings by Color</title>
     <style type="text/css">
     html, body {
 	    height: 100%;
@@ -22,19 +22,19 @@
         function onSilverlightError(sender, args) {
             var appSource = "";
             if (sender != null && sender != 0) {
-              appSource = sender.getHost().Source;
+                appSource = sender.getHost().Source;
             }
-            
+
             var errorType = args.ErrorType;
             var iErrorCode = args.ErrorCode;
 
             if (errorType == "ImageError" || errorType == "MediaError") {
-              return;
+                return;
             }
 
-            var errMsg = "Unhandled Error in Silverlight Application " +  appSource + "\n" ;
+            var errMsg = "Unhandled Error in Silverlight Application " + appSource + "\n";
 
-            errMsg += "Code: "+ iErrorCode + "    \n";
+            errMsg += "Code: " + iErrorCode + "    \n";
             errMsg += "Category: " + errorType + "       \n";
             errMsg += "Message: " + args.ErrorMessage + "     \n";
 
@@ -43,10 +43,10 @@
                 errMsg += "Line: " + args.lineNumber + "     \n";
                 errMsg += "Position: " + args.charPosition + "     \n";
             }
-            else if (errorType == "RuntimeError") {           
+            else if (errorType == "RuntimeError") {
                 if (args.lineNumber != 0) {
                     errMsg += "Line: " + args.lineNumber + "     \n";
-                    errMsg += "Position: " +  args.charPosition + "     \n";
+                    errMsg += "Position: " + args.charPosition + "     \n";
                 }
                 errMsg += "MethodName: " + args.methodName + "     \n";
             }
@@ -58,16 +58,16 @@
 <body>
     <form id="form1" runat="server" style="height:100%">
     <p>
-    Netsy Favorites control Test page 
+    <a href="http://github.com/AnthonySteele/Netsy/">Netsy</a> Silverlight Listings control: Front Listings by Color
     </p>
     <div id="silverlightControlHost">
-        <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%">
+        <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="80%" height="80%">
 		  <param name="source" value="ClientBin/Netsy.Favorites.xap"/>
 		  <param name="onError" value="onSilverlightError" />
 		  <param name="background" value="white" />
 		  <param name="minRuntimeVersion" value="3.0.40624.0" />
 		  <param name="autoUpgrade" value="true" />
-		  <param name="initParams" value="UserId=SilverSmack" />
+		  <param name="initParams" value="Retrieval=FrontListingsByColor,Color=#0000FF" />
 		  <a href="http://go.microsoft.com/fwlink/?LinkID=149156&v=3.0.40624.0" style="text-decoration:none">
  			  <img src="http://go.microsoft.com/fwlink/?LinkId=108181" alt="Get Microsoft Silverlight" style="border-style:none"/>
 		  </a>
