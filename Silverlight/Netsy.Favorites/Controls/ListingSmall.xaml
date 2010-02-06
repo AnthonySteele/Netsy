@@ -29,6 +29,12 @@
         <ControlToolkit:DockPanel LastChildFill="False" x:Name="TextOverlay" Background="#88FFFFFF" Opacity="0">
             <TextBlock ControlToolkit:DockPanel.Dock="Top" 
                 FontWeight="Bold" Text="{Binding TitleWithLimit}" TextWrapping="Wrap"></TextBlock>
+            <HyperlinkButton 
+                ControlToolkit:DockPanel.Dock="Top" 
+                HorizontalContentAlignment="Center" 
+                TargetName="_blank" NavigateUri="{Binding Listing.Url}">
+                    <Polygon Stroke="Black" Fill="White" StrokeThickness="2" Points="1,1 13,7 1,13"/>
+            </HyperlinkButton>
             <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap" ControlToolkit:DockPanel.Dock="Bottom" />
             <TextBlock Text="{Binding Listing.UserName}" ControlToolkit:DockPanel.Dock="Bottom" />
             <StackPanel Orientation="Horizontal" ControlToolkit:DockPanel.Dock="Bottom"  >
