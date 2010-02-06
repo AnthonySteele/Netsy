@@ -24,11 +24,6 @@ namespace Netsy.Favorites
         public const int DefaultItemsPerPage = 6;
 
         /// <summary>
-        /// Default number of columns to show
-        /// </summary>
-        public const int DefaultColumnCount = 2;
-
-        /// <summary>
         /// Default data to retrieve
         /// </summary>
         public const ListingsRetrievalMode DefaultRetrieval = ListingsRetrievalMode.FrontListings;

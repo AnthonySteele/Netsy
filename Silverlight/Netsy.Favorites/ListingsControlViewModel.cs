@@ -43,11 +43,6 @@ namespace Netsy.Favorites
         /// The command to get shop details
         /// </summary>
         private readonly ShopDetailsCommand shopDetailsCommand;
-
-        /// <summary>
-        /// the number of columns in the view 
-        /// </summary>
-        private int columnCount;
         
         /// <summary>
         /// Initializes a new instance of the ListingsControlViewModel class
@@ -82,26 +77,6 @@ namespace Netsy.Favorites
         /// Event handler - for when listings have been received
         /// </summary>
         public event EventHandler ListingsReceivedCompleted;
-
-        /// <summary>
-        /// Gets or sets the number of columns in the view 
-        /// </summary>
-        public int ColumnCount
-        {
-            get
-            {
-                return this.columnCount;
-            } 
-
-            set
-            {
-                if (this.columnCount != value)
-                {
-                    this.columnCount = value;
-                    this.OnPropertyChanged("ColumnCount");                    
-                }
-            }
-        }
 
         /// <summary>
         /// Gets or sets the Id of the shop

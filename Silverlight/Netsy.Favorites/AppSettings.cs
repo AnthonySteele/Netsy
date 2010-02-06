@@ -21,7 +21,6 @@ namespace Netsy.Favorites
         /// </summary>
         public AppSettings()
         {
-            this.ColumnCount = Constants.DefaultColumnCount;
             this.ItemsPerPage = Constants.DefaultItemsPerPage;
             this.Retrieval = Constants.DefaultRetrieval;
         }
@@ -30,11 +29,6 @@ namespace Netsy.Favorites
         /// Gets the user to show 
         /// </summary>
         public string UserId { get; private set; }
-
-        /// <summary>
-        /// Gets the columns count 
-        /// </summary>
-        public int ColumnCount { get; private set; }
 
         /// <summary>
         /// Gets the items per page 
@@ -62,7 +56,6 @@ namespace Netsy.Favorites
         /// <param name="initParams">the control params</param>
         public void ReadParams(IDictionary<string, string> initParams)
         {
-            const string ColumnCountKey = "ColumnCount";
             const string ItemsPerPageKey = "ItemsPerPage";
             const string CategoryKey = "Category";
             const string ColorKey = "Color";
@@ -70,23 +63,13 @@ namespace Netsy.Favorites
             this.ReadRetrieval(initParams);
             this.ReadUserId(initParams);
 
-            // Column count is optional 
-            if (initParams.ContainsKey(ColumnCountKey))
-            {
-                int columnCountRead;
-                if (int.TryParse(initParams[ColumnCountKey], out columnCountRead))
-                {
-                    this.ColumnCount = columnCountRead;
-                }
-            }
-
             // Items per page is optional 
             if (initParams.ContainsKey(ItemsPerPageKey))
             {
                 int itemsPerPageRead;
                 if (int.TryParse(initParams[ItemsPerPageKey], out itemsPerPageRead))
                 {
-                    this.ColumnCount = itemsPerPageRead;
+                    this.ItemsPerPage = itemsPerPageRead;
                 }
             }
 

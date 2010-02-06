@@ -39,7 +39,7 @@
             </ListBox.ItemTemplate>
         <ListBox.ItemsPanel>
             <ItemsPanelTemplate>
-                <Primitives:UniformGrid Columns="{Binding ColumnCount}" />
+                <ControlToolkit:WrapPanel />
             </ItemsPanelTemplate>
         </ListBox.ItemsPanel>
     </ListBox>

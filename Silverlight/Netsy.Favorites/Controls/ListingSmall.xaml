@@ -3,7 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:ControlToolkit="clr-namespace:Microsoft.Windows.Controls;assembly=Microsoft.Windows.Controls"
     MouseEnter="OnMouseEnter"
-    MouseLeave="OnMouseLeave">
+    MouseLeave="OnMouseLeave"
+    Width="158"
+    Height="128">
     <UserControl.Resources>
         <Storyboard x:Key="controlEnter">
             <DoubleAnimation Storyboard.TargetName="TextOverlay" Storyboard.TargetProperty="Opacity" 

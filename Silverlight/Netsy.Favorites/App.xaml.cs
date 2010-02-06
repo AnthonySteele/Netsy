@@ -65,7 +65,6 @@ namespace Netsy.Favorites
 
             ListingsControlViewModel viewModel = Locator.Resolve<ListingsControlViewModel>();
             viewModel.UserId = settingsRead.UserId;
-            viewModel.ColumnCount = settingsRead.ColumnCount;
             viewModel.ItemsPerPage = settingsRead.ItemsPerPage;
             viewModel.ListingsRetrievalMode = settingsRead.Retrieval;
             viewModel.Category = settingsRead.Category;
