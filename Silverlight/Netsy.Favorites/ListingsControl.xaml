@@ -5,7 +5,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:Controls="clr-namespace:Netsy.Favorites.Controls" 
     xmlns:ControlToolkit="clr-namespace:Microsoft.Windows.Controls;assembly=Microsoft.Windows.Controls" 
-    xmlns:Primitives="clr-namespace:System.Windows.Controls.Primitives"
     MouseEnter="OnMouseEnter"
     MouseLeave="OnMouseLeave"
     mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300">
@@ -28,15 +27,15 @@
         </Storyboard>
     </UserControl.Resources>
     <Grid>
-    <ListBox 
-            ItemsSource="{Binding Items}" 
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Controls:ListingSmall />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+    <ListBox BorderThickness="0" Background="Transparent"
+        ItemsSource="{Binding Items}" 
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <Controls:ListingSmall />
+            </DataTemplate>
+        </ListBox.ItemTemplate>
         <ListBox.ItemsPanel>
             <ItemsPanelTemplate>
                 <ControlToolkit:WrapPanel />

@@ -9,8 +9,6 @@
 namespace Netsy.Favorites
 {
     using System;
-    using System.Collections.Generic;
-    using System.Threading;
     using System.Windows;
 
     /// <summary>
@@ -68,7 +66,7 @@ namespace Netsy.Favorites
             viewModel.ItemsPerPage = settingsRead.ItemsPerPage;
             viewModel.ListingsRetrievalMode = settingsRead.Retrieval;
             viewModel.Category = settingsRead.Category;
-            viewModel.Color = settingsRead.Color;
+            viewModel.ListingsColor = settingsRead.Color;
 
             viewModel.ListingsReceivedCompleted += listingsControl.ListingsLoaded;
 
@@ -97,13 +95,12 @@ namespace Netsy.Favorites
             // icon in the status bar and Firefox will display a script error.
             if (!System.Diagnostics.Debugger.IsAttached)
             {
-
                 // NOTE: This will allow the application to continue running after an exception has been thrown
                 // but not handled. 
                 // For production applications this error handling should be replaced with something that will 
                 // report the error to the website and stop the application.
                 e.Handled = true;
-                Deployment.Current.Dispatcher.BeginInvoke(delegate { ReportErrorToDOM(e); });
+                Deployment.Current.Dispatcher.BeginInvoke(() => ReportErrorToDOM(e));
             }
         }
     }

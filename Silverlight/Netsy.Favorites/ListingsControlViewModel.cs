@@ -89,9 +89,9 @@ namespace Netsy.Favorites
         public string Category { get; set; }
 
         /// <summary>
-        /// Gets or sets the color used
+        /// Gets or sets the color used to find listings
         /// </summary>
-        public string Color { get; set; }
+        public string ListingsColor { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to retrieve favorites (true) or listings (false)
@@ -238,14 +238,14 @@ namespace Netsy.Favorites
         /// </summary>
         private void LoadFrontListingsByColor()
         {
-            RgbColor color = new RgbColor(this.Color);
+            RgbColor color = new RgbColor(this.ListingsColor);
             this.listingsService.GetListingsByColor(color, EtsyColor.MaxWiggle, this.Offset, this.ItemsPerPage, DetailLevel.Medium);
 
             string status = string.Format(
                 CultureInfo.InvariantCulture,
                 "Getting page {0} of listings for color {1}",
                 this.PageNumber,
-                this.Color);
+                this.ListingsColor);
             this.StatusText = status;
         }
 
@@ -317,7 +317,7 @@ namespace Netsy.Favorites
                  CultureInfo.InvariantCulture,
                  FrontListingsByCategoryFormatTemplate,
                  this.PageNumber,
-                 this.Color);
+                 this.ListingsColor);
             }
 
             const string FormatTemplate = "Got page {0} of {1} for {2}";
@@ -367,7 +367,7 @@ namespace Netsy.Favorites
                  CultureInfo.InvariantCulture,
                  FrontListingsByCategoryFormatTemplate,
                  this.ReturnDataName(),
-                 this.Color,
+                 this.ListingsColor,
                  errorMessage);
             }
 
