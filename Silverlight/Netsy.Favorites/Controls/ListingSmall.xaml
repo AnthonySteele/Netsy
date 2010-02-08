@@ -26,22 +26,19 @@
     </UserControl.Resources>
     <Grid>
         <Image Source="{Binding Listing.ImageUrl155X125}" HorizontalAlignment="Left" Stretch="None" />
-        <ControlToolkit:DockPanel LastChildFill="False" x:Name="TextOverlay" Background="#88FFFFFF" Opacity="0">
-            <TextBlock ControlToolkit:DockPanel.Dock="Top" 
-                FontWeight="Bold" Text="{Binding TitleWithLimit}" TextWrapping="Wrap"></TextBlock>
-            <HyperlinkButton 
-                ControlToolkit:DockPanel.Dock="Top" 
-                HorizontalContentAlignment="Center" 
-                TargetName="_blank" NavigateUri="{Binding Listing.Url}">
-                    <Polygon Stroke="Black" Fill="White" StrokeThickness="2" Points="1,1 13,7 1,13"/>
-            </HyperlinkButton>
-            <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap" ControlToolkit:DockPanel.Dock="Bottom" />
-            <TextBlock Text="{Binding Listing.UserName}" ControlToolkit:DockPanel.Dock="Bottom" />
-            <StackPanel Orientation="Horizontal" ControlToolkit:DockPanel.Dock="Bottom"  >
-                <TextBlock Text="{Binding PriceData}" ></TextBlock>
-                <TextBlock Text="Quantity" Margin="10 0 5 0"></TextBlock>
-                <TextBlock Text="{Binding Listing.Quantity}" ></TextBlock>
-            </StackPanel>
+        <HyperlinkButton TargetName="_blank" NavigateUri="{Binding Listing.Url}" Foreground="Black" 
+            VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+            <ControlToolkit:DockPanel LastChildFill="False" x:Name="TextOverlay" Background="#88FFFFFF" Opacity="0">
+                <TextBlock ControlToolkit:DockPanel.Dock="Top" 
+                    FontWeight="Bold" Text="{Binding TitleWithLimit}" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Text="{Binding DateDisplay}" TextWrapping="Wrap" ControlToolkit:DockPanel.Dock="Bottom" />
+                <TextBlock Text="{Binding Listing.UserName}" ControlToolkit:DockPanel.Dock="Bottom" />
+                <StackPanel Orientation="Horizontal" ControlToolkit:DockPanel.Dock="Bottom"  >
+                    <TextBlock Text="{Binding PriceData}" ></TextBlock>
+                    <TextBlock Text="Quantity" Margin="10 0 5 0"></TextBlock>
+                    <TextBlock Text="{Binding Listing.Quantity}" ></TextBlock>
+                </StackPanel>
         </ControlToolkit:DockPanel>
+        </HyperlinkButton>
     </Grid>
 </UserControl>
