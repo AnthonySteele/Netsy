@@ -23,6 +23,11 @@ namespace Netsy.Helpers
         /// <returns>the lower-case string</returns>
         public static string ToStringLower(this object value)
         {
+            if (value == null)
+            {
+                return string.Empty;
+            }
+
             return value.ToString().ToLower(CultureInfo.InvariantCulture);
         }
 

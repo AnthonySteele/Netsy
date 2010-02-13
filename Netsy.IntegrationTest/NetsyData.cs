@@ -27,7 +27,7 @@ namespace Netsy.IntegrationTest
         /// <summary>
         /// the user to test on
         /// </summary>
-        public const int TestUserId = 6267462;
+        public const int TestUserId = 7572146;
 
         /// <summary>
         /// An invalid listing id for testing
@@ -67,7 +67,7 @@ namespace Netsy.IntegrationTest
         /// <summary>
         /// the name of the user to test on
         /// </summary>
-        public const string TestUserName = "coucousalut";
+        public const string TestUserName = "AUTOMATIEK";
 
         /// <summary>
         /// an invalid user name

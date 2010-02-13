@@ -12,6 +12,7 @@ namespace Netsy.Services
     using System.IO;
     using System.Net;
 
+    using Netsy.Cache;
     using Netsy.DataModel;
     using Netsy.Helpers;
 
@@ -30,9 +31,16 @@ namespace Netsy.Services
         /// <returns>true if everyting is ok, false if there is an error</returns>
         public static bool TestCallPrerequisites<T>(object sender, EventHandler<ResultEventArgs<T>> errorEvent, EtsyContext etsyContext)
         {
+            if (etsyContext == null)
+            {
+                ResultEventArgs<T> errorResult = new ResultEventArgs<T>(default(T), new ResultStatus("Null Api key", null));
+                TestSendEvent(errorEvent, sender, errorResult);
+                return false;                
+            }
+
             if (string.IsNullOrEmpty(etsyContext.ApiKey))
             {
-                ResultEventArgs<T> errorResult = new ResultEventArgs<T>(default(T), new ResultStatus("No Api key", null));
+                ResultEventArgs<T> errorResult = new ResultEventArgs<T>(default(T), new ResultStatus("Empty Api key", null));
                 TestSendEvent(errorEvent, sender, errorResult);
                 return false;
             }
@@ -50,13 +58,56 @@ namespace Netsy.Services
         /// <returns>the async state of the request</returns>
         public static IAsyncResult GenerateRequest<T>(object sender, Uri uri, EventHandler<ResultEventArgs<T>> completedEvent) where T : class
         {
+            return GenerateRequest(sender, uri, completedEvent, null);
+        }
+
+        /// <summary>
+        /// Generate a web service request, attatch the action on completion and start it
+        /// </summary>
+        /// <typeparam name="T">The type to desrialise to</typeparam>
+        /// <param name="sender">the sender</param>
+        /// <param name="uri">the Uri to poll</param>
+        /// <param name="completedEvent">where to send completed data and errors</param>
+        /// <param name="dataCache">cache of already retrieved data</param>
+        /// <returns>the async state of the request</returns>
+        public static IAsyncResult GenerateRequest<T>(
+            object sender, 
+            Uri uri, 
+            EventHandler<ResultEventArgs<T>> completedEvent,
+            IDataCache dataCache) where T : class
+        {
+            if (uri == null)
+            {
+                throw new ArgumentNullException("uri");
+            }
+
+            if (completedEvent == null)
+            {
+                throw new ArgumentNullException("completedEvent");
+            }
+
+            if (dataCache != null)
+            {
+                object cacheData = dataCache.Read(uri.ToString());
+                if (cacheData != null)
+                {
+                    SendSuccess(sender, (T)cacheData, completedEvent);
+                    return null;
+                }
+            }
+
             Action<string> dataAction = s =>
                 {
                     try
                     {
                         T data = s.Deserialize<T>();
-                        ResultEventArgs<T> sucessResult = new ResultEventArgs<T>(data, new ResultStatus(true));
-                        TestSendEvent(completedEvent, sender, sucessResult);
+
+                        if (dataCache != null)
+                        {
+                            dataCache.Write(uri.ToString(), data);
+                        }
+
+                        SendSuccess(sender, data, completedEvent);
                     }
                     catch (Exception ex)
                     {
@@ -65,11 +116,7 @@ namespace Netsy.Services
                 };
 
             Action<Exception> errorAction = ex => TestSendError(completedEvent, sender, "Web error", ex);
-
-            WebRequest request = WebRequest.Create(uri);
-
-            AsyncCallback completed = RequestCompletedCallback(dataAction, errorAction);
-            return request.BeginGetResponse(completed, request);           
+            return MakeWebRequest(uri, dataAction, errorAction);
         }
 
         /// <summary>
@@ -128,6 +175,34 @@ namespace Netsy.Services
         }
 
         /// <summary>
+        /// Make a web request for the uri
+        /// </summary>
+        /// <param name="uri">the uri to get data from</param>
+        /// <param name="dataAction">the action to perform if data is retrieved</param>
+        /// <param name="errorAction">the action to perform if there is an error</param>
+        /// <returns>the async state of the request</returns>
+        private static IAsyncResult MakeWebRequest(Uri uri, Action<string> dataAction, Action<Exception> errorAction)
+        {
+            WebRequest request = WebRequest.Create(uri);
+
+            AsyncCallback completed = RequestCompletedCallback(dataAction, errorAction);
+            return request.BeginGetResponse(completed, request);
+        }
+
+        /// <summary>
+        /// Send a success result
+        /// </summary>
+        /// <typeparam name="T">the type of data to send</typeparam>
+        /// <param name="sender">the event sender</param>
+        /// <param name="data">the event data</param>
+        /// <param name="completedEvent">the completed event handler</param>
+        private static void SendSuccess<T>(object sender, T data, EventHandler<ResultEventArgs<T>> completedEvent)
+        {
+            ResultEventArgs<T> sucessResult = new ResultEventArgs<T>(data, new ResultStatus(true));
+            TestSendEvent(completedEvent, sender, sucessResult);
+        }
+
+        /// <summary>
         /// Send an error if any handler is attached
         /// </summary>
         /// <typeparam name="T">the type of data to send</typeparam>
@@ -135,7 +210,7 @@ namespace Netsy.Services
         /// <param name="sender">the event sender</param>
         /// <param name="errorMessage">the error message</param>
         /// <param name="ex">the exception to send</param>
-        public static void TestSendError<T>(EventHandler<ResultEventArgs<T>> eventHandler, object sender, string errorMessage, Exception ex)
+        private static void TestSendError<T>(EventHandler<ResultEventArgs<T>> eventHandler, object sender, string errorMessage, Exception ex)
         {
             if (eventHandler != null)
             {

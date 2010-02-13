@@ -34,8 +34,10 @@ namespace Netsy.Helpers
         {
             DataContractJsonSerializer serializer = GetSerializer(typeof(T));
 
-            MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonData));
-            return serializer.ReadObject(ms) as T;
+            using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(jsonData)))
+            {
+                return serializer.ReadObject(ms) as T;
+            }
         }
 
         /// <summary>

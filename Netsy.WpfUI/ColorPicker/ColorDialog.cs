@@ -20,15 +20,17 @@ namespace Netsy.WpfUI.ColorPicker
         /// <returns>the color in a string</returns>
         public static string ShowColorDialog()
         {
-            System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog();
-            System.Windows.Forms.DialogResult dialogResult = colorDialog.ShowDialog();
-
-            if (dialogResult == System.Windows.Forms.DialogResult.OK)
+            using (System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog())
             {
-                return ConvertColor(colorDialog.Color);
-            }
+                System.Windows.Forms.DialogResult dialogResult = colorDialog.ShowDialog();
 
-            return string.Empty;
+                if (dialogResult == System.Windows.Forms.DialogResult.OK)
+                {
+                    return ConvertColor(colorDialog.Color);
+                }
+
+                return string.Empty;
+            }
         }
 
         /// <summary>

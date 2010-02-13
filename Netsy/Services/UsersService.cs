@@ -10,6 +10,8 @@ namespace Netsy.Services
 {
     using System;
 
+    using Cache;
+
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
@@ -25,12 +27,27 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
+        /// The data cache
+        /// </summary>
+        private readonly IDataCache dataCache;
+
+        /// <summary>
         /// Initializes a new instance of the UsersService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        public UsersService(EtsyContext etsyContext)
+        /// <param name="dataCache">the data cache to use</param>
+        public UsersService(EtsyContext etsyContext, IDataCache dataCache)
         {
             this.etsyContext = etsyContext;
+            this.dataCache = dataCache;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the UsersService class
+        /// </summary>
+        /// <param name="etsyContext">the etsy context to use</param>
+        public UsersService(EtsyContext etsyContext) : this(etsyContext, null)
+        {
         }
 
         #region IEtsyUsers Members
@@ -59,9 +76,9 @@ namespace Netsy.Services
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
-                .DetailLevel(detailLevel); 
-            
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetUserDetailsCompleted);
+                .DetailLevel(detailLevel);
+
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetUserDetailsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -83,7 +100,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetUsersByNameCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetUsersByNameCompleted, this.dataCache);
         }
 
         #endregion

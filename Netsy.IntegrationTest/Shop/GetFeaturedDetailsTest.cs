@@ -104,9 +104,9 @@ namespace Netsy.IntegrationTest.Shop
                 // check the data
                 TestHelpers.CheckResultSuccess(result);
 
-                Assert.IsNotNull(result.ResultValue.Results);
-                Assert.IsTrue(result.ResultStatus.Success);
-                Assert.IsTrue(result.ResultValue.Count > 0);
+                Assert.IsNotNull(result.ResultValue.Results, "Results");
+                Assert.IsTrue(result.ResultStatus.Success, "Success");
+                Assert.IsTrue(result.ResultValue.Count > 0, "Count");
             }
         }
 
@@ -150,9 +150,9 @@ namespace Netsy.IntegrationTest.Shop
                 // check the data
                 TestHelpers.CheckResultSuccess(result);
 
-                Assert.IsNotNull(result.ResultValue.Results);
-                Assert.IsTrue(result.ResultStatus.Success);
-                Assert.IsTrue(result.ResultValue.Count > 0);
+                Assert.IsNotNull(result.ResultValue.Results, "Results");
+                Assert.IsTrue(result.ResultStatus.Success, "Success");
+                Assert.IsTrue(result.ResultValue.Count > 0, "Count");
             }
         }
     }
