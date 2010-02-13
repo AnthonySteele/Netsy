@@ -7,6 +7,7 @@
 //----------------------------------------------------------------------- 
 namespace Netsy.UI.ViewModels
 {
+    using System;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Input;
@@ -61,6 +62,11 @@ namespace Netsy.UI.ViewModels
         /// <param name="listing">the listing Data transfer object</param>
         public ListingViewModel(Listing listing)
         {
+            if (listing == null)
+            {
+                throw new ArgumentNullException("listing");
+            }
+
             this.listing = listing;
 
             if (!string.IsNullOrEmpty(listing.CurrencyCode))

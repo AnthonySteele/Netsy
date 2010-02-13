@@ -34,6 +34,11 @@ namespace Netsy.UI.DispatchedServices
         public DispatchedFeedbackService(IFeedbackService wrappedService, Dispatcher dispatcher) 
             : base(dispatcher)
         {
+            if (wrappedService == null)
+            {
+                throw new ArgumentNullException("wrappedService");
+            }
+
             this.wrappedService = wrappedService;
 
             this.wrappedService.GetFeedbackAsBuyerCompleted += (s, e) => this.DispatchEvent(this.GetFeedbackAsBuyerCompleted, s, e);

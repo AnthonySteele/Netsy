@@ -9,6 +9,7 @@ namespace Netsy.Services
 {
     using System;
 
+    using Netsy.Cache;
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
@@ -24,12 +25,19 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
+        /// The data cache
+        /// </summary>
+        private readonly IDataCache dataCache;
+
+        /// <summary>
         /// Initializes a new instance of the GiftService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        public GiftService(EtsyContext etsyContext)
+        /// <param name="dataCache">the data cache to use</param>
+        public GiftService(EtsyContext etsyContext, IDataCache dataCache)
         {
             this.etsyContext = etsyContext;
+            this.dataCache = dataCache;
         }
 
         #region IGiftService Members
@@ -57,7 +65,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "gift-guides");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuidesCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuidesCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -80,7 +88,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuideListingsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuideListingsCompleted, this.dataCache);
         }
 
         #endregion

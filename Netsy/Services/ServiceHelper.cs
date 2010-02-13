@@ -55,19 +55,6 @@ namespace Netsy.Services
         /// <param name="sender">the sender</param>
         /// <param name="uri">the Uri to poll</param>
         /// <param name="completedEvent">where to send completed data and errors</param>
-        /// <returns>the async state of the request</returns>
-        public static IAsyncResult GenerateRequest<T>(object sender, Uri uri, EventHandler<ResultEventArgs<T>> completedEvent) where T : class
-        {
-            return GenerateRequest(sender, uri, completedEvent, null);
-        }
-
-        /// <summary>
-        /// Generate a web service request, attatch the action on completion and start it
-        /// </summary>
-        /// <typeparam name="T">The type to desrialise to</typeparam>
-        /// <param name="sender">the sender</param>
-        /// <param name="uri">the Uri to poll</param>
-        /// <param name="completedEvent">where to send completed data and errors</param>
         /// <param name="dataCache">cache of already retrieved data</param>
         /// <returns>the async state of the request</returns>
         public static IAsyncResult GenerateRequest<T>(
@@ -86,14 +73,16 @@ namespace Netsy.Services
                 throw new ArgumentNullException("completedEvent");
             }
 
-            if (dataCache != null)
+            if (dataCache == null)
             {
-                object cacheData = dataCache.Read(uri.ToString());
-                if (cacheData != null)
-                {
-                    SendSuccess(sender, (T)cacheData, completedEvent);
-                    return null;
-                }
+                throw new ArgumentNullException("dataCache");
+            }
+
+            object cacheData = dataCache.Read(uri.ToString());
+            if (cacheData != null)
+            {
+                SendSuccess(sender, (T)cacheData, completedEvent);
+                return null;
             }
 
             Action<string> dataAction = s =>
@@ -102,11 +91,7 @@ namespace Netsy.Services
                     {
                         T data = s.Deserialize<T>();
 
-                        if (dataCache != null)
-                        {
-                            dataCache.Write(uri.ToString(), data);
-                        }
-
+                        dataCache.Write(uri.ToString(), data);
                         SendSuccess(sender, data, completedEvent);
                     }
                     catch (Exception ex)

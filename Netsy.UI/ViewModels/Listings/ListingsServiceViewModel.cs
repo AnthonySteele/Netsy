@@ -7,6 +7,7 @@
 //----------------------------------------------------------------------- 
 namespace Netsy.UI.ViewModels.Listings
 {
+    using System;
     using System.Windows.Input;
 
     using Netsy.DataModel;
@@ -65,6 +66,11 @@ namespace Netsy.UI.ViewModels.Listings
         /// <param name="e">event params</param>
         protected void ListingsReceived(object sender, ResultEventArgs<Listings> e)
         {
+            if (e == null)
+            {
+                throw new ArgumentNullException("e");
+            } 
+            
             if (!e.ResultStatus.Success)
             {
                 this.StatusText = "Failed to load listings " + e.ResultStatus.ErrorMessage;

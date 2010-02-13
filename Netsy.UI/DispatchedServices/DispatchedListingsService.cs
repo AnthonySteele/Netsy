@@ -35,6 +35,11 @@ namespace Netsy.UI.DispatchedServices
         public DispatchedListingsService(IListingsService wrappedService, Dispatcher dispatcher) 
             : base(dispatcher)
         {
+            if (wrappedService == null)
+            {
+                throw new ArgumentNullException("wrappedService");
+            }
+
             this.wrappedService = wrappedService;
 
             this.wrappedService.GetAllListingsCompleted += (s, e) => this.DispatchEvent(this.GetAllListingsCompleted, s, e);

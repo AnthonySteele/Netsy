@@ -10,6 +10,7 @@ namespace Netsy.Services
 {
     using System;
 
+    using Netsy.Cache;
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
@@ -25,12 +26,19 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
+        /// The data cache
+        /// </summary>
+        private readonly IDataCache dataCache;
+
+        /// <summary>
         /// Initializes a new instance of the ShopService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        public ShopService(EtsyContext etsyContext)
+        /// <param name="dataCache">the data cache to use</param>
+        public ShopService(EtsyContext etsyContext, IDataCache dataCache)
         {
             this.etsyContext = etsyContext;
+            this.dataCache = dataCache;
         }
 
         #region IShopService Members
@@ -76,7 +84,7 @@ namespace Netsy.Services
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", userId)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -95,7 +103,7 @@ namespace Netsy.Services
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", userName)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -116,7 +124,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedSellersCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedSellersCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -140,7 +148,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopsByNameCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopsByNameCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -168,7 +176,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -196,7 +204,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -216,7 +224,7 @@ namespace Netsy.Services
                 .Append("/listings/featured")
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted);            
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted, this.dataCache);            
         }
 
         /// <summary>
@@ -236,7 +244,7 @@ namespace Netsy.Services
                 .Append("/listings/featured")
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted, this.dataCache);
         }
 
         #endregion

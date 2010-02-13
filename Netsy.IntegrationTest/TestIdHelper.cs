@@ -40,7 +40,7 @@ namespace Netsy.IntegrationTest
 
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
-                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 listingsService.GetFrontFeaturedListingsCompleted += (s, e) =>
                 {
                     result = e.ResultValue.Results[0].ListingId;

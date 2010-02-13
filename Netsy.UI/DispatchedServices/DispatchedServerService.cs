@@ -34,6 +34,11 @@ namespace Netsy.UI.DispatchedServices
         public DispatchedServerService(IServerService wrappedService, Dispatcher dispatcher) 
             : base(dispatcher)
         {
+            if (wrappedService == null)
+            {
+                throw new ArgumentNullException("wrappedService");
+            }
+
             this.wrappedService = wrappedService;
 
             this.wrappedService.GetMethodTableCompleted += (s, e) => this.DispatchEvent(this.GetMethodTableCompleted, s, e);

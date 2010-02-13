@@ -7,6 +7,8 @@
 //----------------------------------------------------------------------- 
 namespace Netsy.WpfUI.ColorPicker
 {
+    using System;
+
     using Netsy.Helpers;
     using Netsy.UI.Commands;
     using Netsy.UI.ViewModels.Listings;
@@ -22,6 +24,11 @@ namespace Netsy.WpfUI.ColorPicker
         /// <param name="value">the view model</param>
         public override void ExecuteOnValue(ColorKeywordsListingsViewModel value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            } 
+            
             string color = ColorDialog.ShowColorDialog();
             if (color.HasContent())
             {

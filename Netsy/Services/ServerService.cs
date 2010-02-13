@@ -9,6 +9,8 @@ namespace Netsy.Services
 {
     using System;
 
+    using Cache;
+
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
@@ -24,12 +26,19 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
+        /// The data cache
+        /// </summary>
+        private readonly IDataCache dataCache;
+
+        /// <summary>
         /// Initializes a new instance of the ServerService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        public ServerService(EtsyContext etsyContext)
+        /// <param name="dataCache">the data cache to use</param>
+        public ServerService(EtsyContext etsyContext, IDataCache dataCache)
         {
             this.etsyContext = etsyContext;
+            this.dataCache = dataCache;
         }
 
         #region IServerService Members
@@ -62,7 +71,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "server/ping");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.PingCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.PingCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -78,7 +87,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "server/epoch");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetServerEpochCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetServerEpochCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -94,7 +103,7 @@ namespace Netsy.Services
 
            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext).Append("/");
 
-           return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetMethodTableCompleted);
+           return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetMethodTableCompleted, this.dataCache);
         }
 
         #endregion

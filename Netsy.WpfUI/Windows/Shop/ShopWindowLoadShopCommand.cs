@@ -8,6 +8,7 @@
 
 namespace Netsy.WpfUI.Windows.Shop
 {
+    using System;
     using System.Globalization;
 
     using Netsy.DataModel;
@@ -39,6 +40,11 @@ namespace Netsy.WpfUI.Windows.Shop
         /// <param name="shopService">the shops service</param>
         public ShopWindowLoadShopCommand(IShopService shopService)
         {
+            if (shopService == null)
+            {
+                throw new ArgumentNullException("shopService");
+            } 
+            
             this.shopService = shopService;
             this.shopService.GetShopDetailsCompleted += this.ShopDetailsReceived;
         }
@@ -49,6 +55,11 @@ namespace Netsy.WpfUI.Windows.Shop
         /// <param name="value">the view model</param>
         public override void ExecuteOnValue(ShopWindowViewModel value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            } 
+            
             this.currentViewModel = value;
 
             this.shopService.GetShopDetails(this.currentViewModel.UserId, DetailLevel.High);

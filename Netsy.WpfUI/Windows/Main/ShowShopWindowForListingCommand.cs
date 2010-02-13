@@ -8,6 +8,8 @@
 
 namespace Netsy.WpfUI.Windows.Main
 {
+    using System;
+
     using Netsy.DataModel;
     using Netsy.UI.Commands;
     using Netsy.WpfUI.Windows.Shop;
@@ -23,6 +25,11 @@ namespace Netsy.WpfUI.Windows.Main
         /// <param name="value">the listing data</param>
         public override void ExecuteOnValue(Listing value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            } 
+            
             ShopWindow shopWindow = new ShopWindow();
 
             ShopWindowViewModel viewModel = Locator.Resolve<ShopWindowViewModel>();

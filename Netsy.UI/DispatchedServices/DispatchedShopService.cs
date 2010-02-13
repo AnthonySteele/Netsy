@@ -34,6 +34,11 @@ namespace Netsy.UI.DispatchedServices
         public DispatchedShopService(IShopService wrappedService, Dispatcher dispatcher) 
             : base(dispatcher)
         {
+            if (wrappedService == null)
+            {
+                throw new ArgumentNullException("wrappedService");
+            }
+
             this.wrappedService = wrappedService;
 
             this.wrappedService.GetShopDetailsCompleted += (s, e) => this.DispatchEvent(this.GetShopDetailsCompleted, s, e);

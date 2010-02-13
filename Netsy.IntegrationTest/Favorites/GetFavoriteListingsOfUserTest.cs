@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest.Favorites
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty));
+            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty), new NullDataCache());
             favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) => result = e;
 
             // ACT
@@ -50,7 +50,7 @@ namespace Netsy.IntegrationTest.Favorites
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty));
+            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty), new NullDataCache());
             favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) => result = e;
 
             // ACT
@@ -70,7 +70,7 @@ namespace Netsy.IntegrationTest.Favorites
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IFavoritesService favoritesService = new FavoritesService(new EtsyContext("InvalidKey"));
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext("InvalidKey"), new NullDataCache());
                 favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
                 {
                     result = e;
@@ -93,7 +93,6 @@ namespace Netsy.IntegrationTest.Favorites
             }
         }
 
-
         /// <summary>
         /// Test invalid API key
         /// </summary>
@@ -104,7 +103,7 @@ namespace Netsy.IntegrationTest.Favorites
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IFavoritesService favoritesService = new FavoritesService(new EtsyContext("InvalidKey"));
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext("InvalidKey"), new NullDataCache());
                 favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
                 {
                     result = e;
@@ -137,7 +136,7 @@ namespace Netsy.IntegrationTest.Favorites
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
                 {
                     result = e;
@@ -169,7 +168,7 @@ namespace Netsy.IntegrationTest.Favorites
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
                 {
                     result = e;
@@ -202,7 +201,7 @@ namespace Netsy.IntegrationTest.Favorites
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
                 {
                     result = e;
@@ -237,7 +236,7 @@ namespace Netsy.IntegrationTest.Favorites
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
                 {
                     result = e;
@@ -296,7 +295,7 @@ namespace Netsy.IntegrationTest.Favorites
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
                 {
                     result = e;
@@ -333,7 +332,7 @@ namespace Netsy.IntegrationTest.Favorites
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey));
+                IFavoritesService favoritesService = new FavoritesService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) =>
                 {
                     result = e;

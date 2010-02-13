@@ -34,6 +34,11 @@ namespace Netsy.UI.DispatchedServices
         public DispatchedGiftService(IGiftService wrappedService, Dispatcher dispatcher) 
             : base(dispatcher)
         {
+            if (wrappedService == null)
+            {
+                throw new ArgumentNullException("wrappedService");
+            }
+
             this.wrappedService = wrappedService;
 
             this.wrappedService.GetGiftGuideListingsCompleted += (s, e) => this.DispatchEvent(this.GetGiftGuideListingsCompleted, s, e);

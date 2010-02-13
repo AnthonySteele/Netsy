@@ -33,6 +33,11 @@ namespace Netsy.UI.DispatchedServices
         /// <param name="dispatcher">the thread dispatcher</param>
         public DispatchedUsersService(IUsersService wrappedService, Dispatcher dispatcher) : base(dispatcher)
         {
+            if (wrappedService == null)
+            {
+                throw new ArgumentNullException("wrappedService");
+            }
+
             this.wrappedService = wrappedService;
 
             this.wrappedService.GetUserDetailsCompleted += (s, e) => this.DispatchEvent(this.GetUserDetailsCompleted, s, e);

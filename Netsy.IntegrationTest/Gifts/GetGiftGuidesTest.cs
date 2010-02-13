@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest.Gifts
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IGiftService giftService = new GiftService(new EtsyContext(string.Empty));
+            IGiftService giftService = new GiftService(new EtsyContext(string.Empty), new NullDataCache());
             giftService.GetGiftGuidesCompleted += (s, e) => result = e;
 
             // ACT
@@ -52,7 +52,7 @@ namespace Netsy.IntegrationTest.Gifts
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IGiftService giftService = new GiftService(new EtsyContext("InvalidKey"));
+                IGiftService giftService = new GiftService(new EtsyContext("InvalidKey"), new NullDataCache());
                 giftService.GetGiftGuidesCompleted += (s, e) =>
                 {
                     result = e;
@@ -85,7 +85,7 @@ namespace Netsy.IntegrationTest.Gifts
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IGiftService giftService = new GiftService(new EtsyContext(NetsyData.EtsyApiKey));
+                IGiftService giftService = new GiftService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 giftService.GetGiftGuidesCompleted += (s, e) =>
                 {
                     result = e;

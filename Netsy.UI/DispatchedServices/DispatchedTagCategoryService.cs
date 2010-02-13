@@ -33,6 +33,11 @@ namespace Netsy.UI.DispatchedServices
         /// <param name="dispatcher">the thread dispatcher</param>
         public DispatchedTagCategoryService(ITagCategoryService wrappedService, Dispatcher dispatcher) : base(dispatcher)
         {
+            if (wrappedService == null)
+            {
+                throw new ArgumentNullException("wrappedService");
+            }
+
             this.wrappedService = wrappedService;
 
             this.wrappedService.GetTopCategoriesCompleted += (s, e) => this.DispatchEvent(this.GetTopCategoriesCompleted, s, e);

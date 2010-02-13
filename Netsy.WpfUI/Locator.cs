@@ -11,6 +11,8 @@ namespace Netsy.WpfUI
     using System;
     using System.Windows.Threading;
 
+    using Cache;
+
     using Microsoft.Practices.Unity;
 
     using Netsy.DataModel;
@@ -47,6 +49,11 @@ namespace Netsy.WpfUI
         /// <param name="instance">the instance to register</param>
         public static void RegisterInstance(object instance)
         {
+            if (instance == null)
+            {
+                throw new ArgumentNullException("instance");
+            } 
+            
             Type objectType = instance.GetType();
             container.RegisterInstance(objectType, instance);
         }
@@ -80,6 +87,8 @@ namespace Netsy.WpfUI
         /// </summary>
         private static void RegisterInternalServices()
         {
+            container.RegisterType<IDataCache, DataCache>(new ContainerControlledLifetimeManager());
+
             container.RegisterType<IFavoritesService, FavoritesService>(InternalServiceKey);
             container.RegisterType<IFeedbackService, FeedbackService>(InternalServiceKey);
             container.RegisterType<IGiftService, GiftService>(InternalServiceKey);

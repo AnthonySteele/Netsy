@@ -10,8 +10,7 @@ namespace Netsy.Services
 {
     using System;
 
-    using Cache;
-
+    using Netsy.Cache;
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
@@ -40,14 +39,6 @@ namespace Netsy.Services
         {
             this.etsyContext = etsyContext;
             this.dataCache = dataCache;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the UsersService class
-        /// </summary>
-        /// <param name="etsyContext">the etsy context to use</param>
-        public UsersService(EtsyContext etsyContext) : this(etsyContext, null)
-        {
         }
 
         #region IEtsyUsers Members

@@ -8,6 +8,7 @@
 
 namespace Netsy.WpfUI.Windows.Listing
 {
+    using System;
     using System.Globalization;
     using System.Windows;
 
@@ -40,6 +41,11 @@ namespace Netsy.WpfUI.Windows.Listing
         /// <param name="listingService">the listing service</param>
         public ListingWindowLoadListingCommand(IListingsService listingService)
         {
+            if (listingService == null)
+            {
+                throw new ArgumentNullException("listingService");
+            } 
+            
             this.listingService = listingService;
             this.listingService.GetListingDetailsCompleted += this.ListingReceived;
         }
@@ -50,6 +56,11 @@ namespace Netsy.WpfUI.Windows.Listing
         /// <param name="value">the view model</param>
         public override void ExecuteOnValue(ListingWindowViewModel value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            } 
+            
             this.currentViewModel = value;
 
             this.listingService.GetListingDetails(this.currentViewModel.ListingId, DetailLevel.High);

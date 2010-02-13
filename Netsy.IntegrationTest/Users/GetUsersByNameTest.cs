@@ -31,7 +31,7 @@ namespace Netsy.IntegrationTest.Users
         public void GetUsersByNameApiKeyMissingTest()
         {
             ResultEventArgs<Users> result = null;
-            IUsersService etsyUsers = new UsersService(new EtsyContext(string.Empty));
+            IUsersService etsyUsers = new UsersService(new EtsyContext(string.Empty), new NullDataCache());
             etsyUsers.GetUsersByNameCompleted += (s, e) => result = e;
 
             // ACT
@@ -51,7 +51,7 @@ namespace Netsy.IntegrationTest.Users
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Users> result = null;
-                IUsersService etsyUsers = new UsersService(new EtsyContext("InvalidKey"));
+                IUsersService etsyUsers = new UsersService(new EtsyContext("InvalidKey"), new NullDataCache());
                 etsyUsers.GetUsersByNameCompleted += (s, e) =>
                 {
                     result = e;
@@ -85,7 +85,7 @@ namespace Netsy.IntegrationTest.Users
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Users> result = null;
-                IUsersService etsyUsers = new UsersService(new EtsyContext(NetsyData.EtsyApiKey));
+                IUsersService etsyUsers = new UsersService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 etsyUsers.GetUsersByNameCompleted += (s, e) =>
                 {
                     result = e;
@@ -133,7 +133,7 @@ namespace Netsy.IntegrationTest.Users
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Users> result = null;
-                IUsersService etsyUsers = new UsersService(new EtsyContext(NetsyData.EtsyApiKey));
+                IUsersService etsyUsers = new UsersService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 etsyUsers.GetUsersByNameCompleted += (s, e) =>
                 {
                     result = e;

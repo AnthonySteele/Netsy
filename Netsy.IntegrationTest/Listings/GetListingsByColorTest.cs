@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest.Listings
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
+            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty), new NullDataCache());
             listingsService.GetListingsByColorCompleted += (s, e) => result = e;
 
             RgbColor testColor = new RgbColor("76B3DF");
@@ -52,7 +52,7 @@ namespace Netsy.IntegrationTest.Listings
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
+            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty), new NullDataCache());
             listingsService.GetListingsByColorCompleted += (s, e) => result = e;
 
             RgbColor testColor = new RgbColor("76B3DF");
@@ -74,7 +74,7 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingsService listingsService = new ListingsService(new EtsyContext("InvalidKey"));
+                IListingsService listingsService = new ListingsService(new EtsyContext("InvalidKey"), new NullDataCache());
                 listingsService.GetListingsByColorCompleted += (s, e) =>
                 {
                     result = e;
@@ -112,7 +112,7 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 listingsService.GetListingsByColorCompleted += (s, e) =>
                 {
                     result = e;
@@ -162,7 +162,7 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 listingsService.GetListingsByColorCompleted += (s, e) =>
                 {
                     result = e;

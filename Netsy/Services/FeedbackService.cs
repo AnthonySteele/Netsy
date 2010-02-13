@@ -9,6 +9,7 @@ namespace Netsy.Services
 {
     using System;
 
+    using Netsy.Cache;
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
@@ -24,12 +25,19 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
+        /// The data cache
+        /// </summary>
+        private readonly IDataCache dataCache;
+
+        /// <summary>
         /// Initializes a new instance of the FeedbackService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        public FeedbackService(EtsyContext etsyContext)
+        /// <param name="dataCache">the data cache to use</param>
+        public FeedbackService(EtsyContext etsyContext, IDataCache dataCache)
         {
             this.etsyContext = etsyContext;
+            this.dataCache = dataCache;
         }
 
         #region IFeedbackService Members
@@ -73,7 +81,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "feedback", feedbackId);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -94,7 +102,7 @@ namespace Netsy.Services
                 .Append("/feedback")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -115,7 +123,7 @@ namespace Netsy.Services
                 .Append("/feedback")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -136,7 +144,7 @@ namespace Netsy.Services
                 .Append("/feedback/buyer")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -157,7 +165,7 @@ namespace Netsy.Services
                 .Append("/feedback/buyer")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -178,7 +186,7 @@ namespace Netsy.Services
                 .Append("/feedback/others")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -199,7 +207,7 @@ namespace Netsy.Services
                 .Append("/feedback/others")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -220,7 +228,7 @@ namespace Netsy.Services
                 .Append("/feedback/seller")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -241,7 +249,7 @@ namespace Netsy.Services
                 .Append("/feedback/seller")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted, this.dataCache);
         }
 
         #endregion

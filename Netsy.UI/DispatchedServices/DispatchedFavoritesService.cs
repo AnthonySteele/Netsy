@@ -34,6 +34,11 @@ namespace Netsy.UI.DispatchedServices
         public DispatchedFavoritesService(IFavoritesService wrappedService, Dispatcher dispatcher)
             : base(dispatcher)
         {
+            if (wrappedService == null)
+            {
+                throw new ArgumentNullException("wrappedService");
+            }
+
             this.wrappedService = wrappedService;
 
             this.wrappedService.GetFavorersOfListingCompleted += (s, e) => this.DispatchEvent(this.GetFavorersOfListingCompleted, s, e);

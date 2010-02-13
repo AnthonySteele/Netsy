@@ -9,8 +9,8 @@ namespace Netsy.Services
 {
     using System;
 
-    using Helpers;
-
+    using Netsy.Cache;
+    using Netsy.Helpers;
     using Netsy.DataModel;
     using Netsy.Interfaces;
 
@@ -25,12 +25,19 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
+        /// The data cache
+        /// </summary>
+        private readonly IDataCache dataCache;
+
+        /// <summary>
         /// Initializes a new instance of the TagCategoryService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        public TagCategoryService(EtsyContext etsyContext)
+        /// <param name="dataCache">the data cache to use</param>
+        public TagCategoryService(EtsyContext etsyContext, IDataCache dataCache)
         {
             this.etsyContext = etsyContext;
+            this.dataCache = dataCache;
         }
 
         #region ITagCategoryService Members
@@ -68,7 +75,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopCategoriesCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopCategoriesCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -85,7 +92,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories", category).Append("/children");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildCategoriesCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildCategoriesCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -101,7 +108,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopTagsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopTagsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -118,7 +125,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags", tag).Append("/children");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildTagsCompleted);
+            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildTagsCompleted, this.dataCache);
         }
 
         #endregion

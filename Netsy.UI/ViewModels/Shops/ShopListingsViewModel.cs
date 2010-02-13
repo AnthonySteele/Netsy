@@ -7,6 +7,7 @@
 //----------------------------------------------------------------------- 
 namespace Netsy.UI.ViewModels.Shops
 {
+    using System;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Input;
@@ -37,6 +38,11 @@ namespace Netsy.UI.ViewModels.Shops
         /// <param name="shopService">the shop service</param>
         public ShopListingsViewModel(IShopService shopService)
         {
+            if (shopService == null)
+            {
+                throw new ArgumentNullException("shopService");
+            } 
+            
             this.shopService = shopService;
             this.shopService.GetShopListingsCompleted += this.ListingsReceived;
             this.MakeListingCommands();

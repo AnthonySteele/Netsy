@@ -7,6 +7,7 @@
 //----------------------------------------------------------------------- 
 namespace Netsy.UI.ViewModels.Shops
 {
+    using System;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Input;
@@ -37,6 +38,11 @@ namespace Netsy.UI.ViewModels.Shops
         /// <param name="favoritesService">the favorites service</param>
         public FavoriteListingsOfUserViewModel(IFavoritesService favoritesService)
         {
+            if (favoritesService == null)
+            {
+                throw new ArgumentNullException("favoritesService");
+            } 
+            
             this.favoritesService = favoritesService;
             this.favoritesService.GetFavoriteListingsOfUserCompleted += this.ListingsReceived;
             this.MakeListingCommands();

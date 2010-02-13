@@ -31,7 +31,7 @@ namespace Netsy.IntegrationTest.TagCategory
         {
             // ARRANGE
             ResultEventArgs<StringResults> result = null;
-            ITagCategoryService tagCategoryService = new TagCategoryService(new EtsyContext(string.Empty));
+            ITagCategoryService tagCategoryService = new TagCategoryService(new EtsyContext(string.Empty), new NullDataCache());
             tagCategoryService.GetTopCategoriesCompleted += (s, e) => result = e;
 
             // ACT
@@ -51,7 +51,7 @@ namespace Netsy.IntegrationTest.TagCategory
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<StringResults> result = null;
-                ITagCategoryService tagCategoryService = new TagCategoryService(new EtsyContext("InvalidKey"));
+                ITagCategoryService tagCategoryService = new TagCategoryService(new EtsyContext("InvalidKey"), new NullDataCache());
                 tagCategoryService.GetTopCategoriesCompleted += (s, e) =>
                 {
                     result = e;
@@ -84,7 +84,7 @@ namespace Netsy.IntegrationTest.TagCategory
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<StringResults> result = null;
-                ITagCategoryService tagCategoryService = new TagCategoryService(new EtsyContext(NetsyData.EtsyApiKey));
+                ITagCategoryService tagCategoryService = new TagCategoryService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
                 tagCategoryService.GetTopCategoriesCompleted += (s, e) =>
                 {
                     result = e;
