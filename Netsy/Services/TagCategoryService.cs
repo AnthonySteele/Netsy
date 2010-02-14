@@ -14,6 +14,8 @@ namespace Netsy.Services
     using Netsy.DataModel;
     using Netsy.Interfaces;
 
+    using Requests;
+
     /// <summary>
     /// Implementation of the Feedback service
     /// </summary>
@@ -68,14 +70,14 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetTopCategories()
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetTopCategoriesCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetTopCategoriesCompleted, this.etsyContext))
             {
                 return null;
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopCategoriesCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopCategoriesCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -85,14 +87,14 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetChildCategories(string category)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetChildCategoriesCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetChildCategoriesCompleted, this.etsyContext))
             {
                 return null;
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories", category).Append("/children");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildCategoriesCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildCategoriesCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -101,14 +103,14 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetTopTags()
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetTopTagsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetTopTagsCompleted, this.etsyContext))
             {
                 return null;
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopTagsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopTagsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -118,14 +120,14 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetChildTags(string tag)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetChildTagsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetChildTagsCompleted, this.etsyContext))
             {
                 return null;
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags", tag).Append("/children");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildTagsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildTagsCompleted, this.dataCache);
         }
 
         #endregion

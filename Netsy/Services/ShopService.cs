@@ -15,6 +15,8 @@ namespace Netsy.Services
     using Netsy.Helpers;
     using Netsy.Interfaces;
 
+    using Requests;
+
     /// <summary>
     /// Implementation of the shop service
     /// </summary>
@@ -76,7 +78,7 @@ namespace Netsy.Services
         /// <returns>the async state</returns>
         public IAsyncResult GetShopDetails(int userId, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetShopDetailsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetShopDetailsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -84,7 +86,7 @@ namespace Netsy.Services
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", userId)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -95,7 +97,7 @@ namespace Netsy.Services
         /// <returns>the async state</returns>
         public IAsyncResult GetShopDetails(string userName, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetShopDetailsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetShopDetailsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -103,7 +105,7 @@ namespace Netsy.Services
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", userName)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -115,7 +117,7 @@ namespace Netsy.Services
         /// <returns>the async state</returns>
         public IAsyncResult GetFeaturedSellers(int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeaturedSellersCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeaturedSellersCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -124,7 +126,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedSellersCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedSellersCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -138,7 +140,7 @@ namespace Netsy.Services
         /// <returns>the async state</returns>
         public IAsyncResult GetShopsByName(string searchName, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetShopsByNameCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetShopsByNameCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -148,7 +150,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopsByNameCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopsByNameCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -164,7 +166,7 @@ namespace Netsy.Services
         /// <returns>the async state</returns>
         public IAsyncResult GetShopListings(int userId, SortField sortOn, SortOrder sortOrder, int? sectionId, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetShopListingsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetShopListingsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -176,7 +178,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -192,7 +194,7 @@ namespace Netsy.Services
         /// <returns>the async state</returns>
         public IAsyncResult GetShopListings(string userName, SortField sortOn, SortOrder sortOrder, int? sectionId, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetShopListingsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetShopListingsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -204,7 +206,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -215,7 +217,7 @@ namespace Netsy.Services
         /// <returns>the async state</returns>
         public IAsyncResult GetFeaturedDetails(string userName, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeaturedDetailsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeaturedDetailsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -224,7 +226,7 @@ namespace Netsy.Services
                 .Append("/listings/featured")
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted, this.dataCache);            
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted, this.dataCache);            
         }
 
         /// <summary>
@@ -235,7 +237,7 @@ namespace Netsy.Services
         /// <returns>the async state</returns>
         public IAsyncResult GetFeaturedDetails(int userId, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeaturedDetailsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeaturedDetailsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -244,7 +246,7 @@ namespace Netsy.Services
                 .Append("/listings/featured")
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted, this.dataCache);
         }
 
         #endregion

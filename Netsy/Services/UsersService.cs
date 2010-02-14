@@ -15,6 +15,8 @@ namespace Netsy.Services
     using Netsy.Helpers;
     using Netsy.Interfaces;
 
+    using Requests;
+
     /// <summary>
     /// Implementation of Etsy users service calls API 
     /// </summary>
@@ -26,19 +28,19 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
-        /// The data cache
+        /// The data retriever
         /// </summary>
-        private readonly IDataCache dataCache;
+        private readonly IDataRetriever dataRetriever;
 
         /// <summary>
         /// Initializes a new instance of the UsersService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        /// <param name="dataCache">the data cache to use</param>
-        public UsersService(EtsyContext etsyContext, IDataCache dataCache)
+        /// <param name="dataRetriever">the data retreiver to use</param>
+        public UsersService(EtsyContext etsyContext, IDataRetriever dataRetriever)
         {
             this.etsyContext = etsyContext;
-            this.dataCache = dataCache;
+            this.dataRetriever = dataRetriever;
         }
 
         #region IEtsyUsers Members
@@ -61,7 +63,7 @@ namespace Netsy.Services
         /// <returns>the async state</returns>
         public IAsyncResult GetUserDetails(int userId, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetUserDetailsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetUserDetailsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -69,7 +71,7 @@ namespace Netsy.Services
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetUserDetailsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetUserDetailsCompleted);
         }
 
         /// <summary>
@@ -82,7 +84,7 @@ namespace Netsy.Services
         /// <returns>the async state</returns>
         public IAsyncResult GetUsersByName(string searchName, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetUsersByNameCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetUsersByNameCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -91,7 +93,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetUsersByNameCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetUsersByNameCompleted);
         }
 
         #endregion

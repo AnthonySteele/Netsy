@@ -14,6 +14,8 @@ namespace Netsy.Services
     using Netsy.Helpers;
     using Netsy.Interfaces;
 
+    using Requests;
+
     /// <summary>
     /// Implementation of the favorite service
     /// </summary>
@@ -72,7 +74,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFavorersOfListing(int listingId, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavorersOfListingCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFavorersOfListingCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -82,7 +84,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfListingCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfListingCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -95,7 +97,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFavorersOfShop(int shopId, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavorersOfShopCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFavorersOfShopCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -105,7 +107,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfShopCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfShopCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -118,7 +120,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFavorersOfShop(string shopName, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavorersOfShopCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFavorersOfShopCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -128,7 +130,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfShopCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfShopCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -141,7 +143,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFavoriteListingsOfUser(int userId, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteListingsOfUserCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFavoriteListingsOfUserCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -151,7 +153,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -164,7 +166,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFavoriteListingsOfUser(string userName, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteListingsOfUserCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFavoriteListingsOfUserCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -174,7 +176,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -187,7 +189,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFavoriteShopsOfUser(int userId, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteShopsOfUserCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFavoriteShopsOfUserCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -197,7 +199,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -210,7 +212,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFavoriteShopsOfUser(string userName, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFavoriteShopsOfUserCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFavoriteShopsOfUserCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -220,7 +222,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted, this.dataCache);
         }
 
         #endregion

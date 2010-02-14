@@ -15,6 +15,8 @@ namespace Netsy.Services
     using Netsy.Helpers;
     using Netsy.Interfaces;
 
+    using Requests;
+
     /// <summary>
     /// Implementation of the server service
     /// </summary>
@@ -64,14 +66,14 @@ namespace Netsy.Services
         /// <returns>The Async state of the call</returns>
         public IAsyncResult Ping()
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.PingCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.PingCompleted, this.etsyContext))
             {
                 return null;
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "server/ping");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.PingCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.PingCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -80,14 +82,14 @@ namespace Netsy.Services
         /// <returns>The Async state of the call</returns>
         public IAsyncResult GetServerEpoch()
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetServerEpochCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetServerEpochCompleted, this.etsyContext))
             {
                 return null;
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "server/epoch");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetServerEpochCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetServerEpochCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -96,14 +98,14 @@ namespace Netsy.Services
         /// <returns>The Async state of the call</returns>
         public IAsyncResult GetMethodTable()
         {
-           if (!ServiceHelper.TestCallPrerequisites(this, this.GetMethodTableCompleted, this.etsyContext))
+           if (!RequestHelper.TestCallPrerequisites(this, this.GetMethodTableCompleted, this.etsyContext))
             {
                 return null;
             }
 
            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext).Append("/");
 
-           return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetMethodTableCompleted, this.dataCache);
+           return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetMethodTableCompleted, this.dataCache);
         }
 
         #endregion

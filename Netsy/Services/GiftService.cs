@@ -14,6 +14,8 @@ namespace Netsy.Services
     using Netsy.Helpers;
     using Netsy.Interfaces;
 
+    using Requests;
+
     /// <summary>
     /// Implementation of the Feedback service
     /// </summary>
@@ -30,14 +32,21 @@ namespace Netsy.Services
         private readonly IDataCache dataCache;
 
         /// <summary>
+        /// the request creator
+        /// </summary>
+        private readonly IRequestGenerator RequestGenerator;
+
+        /// <summary>
         /// Initializes a new instance of the GiftService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
         /// <param name="dataCache">the data cache to use</param>
-        public GiftService(EtsyContext etsyContext, IDataCache dataCache)
+        /// <param name="RequestGenerator">the request creator use</param>
+        public GiftService(EtsyContext etsyContext, IDataCache dataCache, IRequestGenerator RequestGenerator)
         {
             this.etsyContext = etsyContext;
             this.dataCache = dataCache;
+            this.RequestGenerator = RequestGenerator;
         }
 
         #region IGiftService Members
@@ -58,14 +67,14 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetGiftGuides()
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetGiftGuidesCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetGiftGuidesCompleted, this.etsyContext))
             {
                 return null;
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "gift-guides");
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuidesCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuidesCompleted, this.dataCache, this.RequestGenerator);
         }
 
         /// <summary>
@@ -78,7 +87,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetGiftGuideListings(int guideId, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetGiftGuideListingsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetGiftGuideListingsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -88,7 +97,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuideListingsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuideListingsCompleted, this.dataCache, this.RequestGenerator);
         }
 
         #endregion

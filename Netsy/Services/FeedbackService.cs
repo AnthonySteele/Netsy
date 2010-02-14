@@ -14,6 +14,8 @@ namespace Netsy.Services
     using Netsy.Helpers;
     using Netsy.Interfaces;
 
+    using Requests;
+
     /// <summary>
     /// Implementation of the Feedback service
     /// </summary>
@@ -74,14 +76,14 @@ namespace Netsy.Services
         /// <returns>the Async state of the request</returns>
         public IAsyncResult GetFeedback(int feedbackId)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackCompleted, this.etsyContext))
             {
                 return null;
             }
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "feedback", feedbackId);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -93,7 +95,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFeedbackForUser(int userId, int offset, int limit)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackForUserCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackForUserCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -102,7 +104,7 @@ namespace Netsy.Services
                 .Append("/feedback")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -114,7 +116,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFeedbackForUser(string userName, int offset, int limit)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackForUserCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackForUserCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -123,7 +125,7 @@ namespace Netsy.Services
                 .Append("/feedback")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -135,7 +137,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFeedbackAsBuyer(int userId, int offset, int limit)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackAsBuyerCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackAsBuyerCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -144,7 +146,7 @@ namespace Netsy.Services
                 .Append("/feedback/buyer")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -156,7 +158,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFeedbackAsBuyer(string userName, int offset, int limit)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackAsBuyerCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackAsBuyerCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -165,7 +167,7 @@ namespace Netsy.Services
                 .Append("/feedback/buyer")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -177,7 +179,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFeedbackForOthers(int userId, int offset, int limit)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackForOthersCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackForOthersCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -186,7 +188,7 @@ namespace Netsy.Services
                 .Append("/feedback/others")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -198,7 +200,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFeedbackForOthers(string userName, int offset, int limit)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackForOthersCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackForOthersCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -207,7 +209,7 @@ namespace Netsy.Services
                 .Append("/feedback/others")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -219,7 +221,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFeedbackAsSeller(int userId, int offset, int limit)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackAsSellerCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackAsSellerCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -228,7 +230,7 @@ namespace Netsy.Services
                 .Append("/feedback/seller")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -240,7 +242,7 @@ namespace Netsy.Services
         /// <returns>The Async state of the request</returns>
         public IAsyncResult GetFeedbackAsSeller(string userName, int offset, int limit)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFeedbackAsSellerCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackAsSellerCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -249,7 +251,7 @@ namespace Netsy.Services
                 .Append("/feedback/seller")
                 .OffsetLimit(offset, limit);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted, this.dataCache);
         }
 
         #endregion

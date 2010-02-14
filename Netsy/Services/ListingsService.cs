@@ -16,6 +16,8 @@ namespace Netsy.Services
     using Netsy.Helpers;
     using Netsy.Interfaces;
 
+    using Requests;
+
     /// <summary>
     /// Implementation of the listings service
     /// </summary>
@@ -97,7 +99,7 @@ namespace Netsy.Services
         /// <returns>the async state of the request</returns>
         public IAsyncResult GetListingDetails(int listingId, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetListingDetailsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetListingDetailsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -105,7 +107,7 @@ namespace Netsy.Services
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings", listingId)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingDetailsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingDetailsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -119,7 +121,7 @@ namespace Netsy.Services
         /// <returns>the async state of the request</returns>
         public IAsyncResult GetAllListings(SortField sortOn, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetAllListingsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetAllListingsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -129,7 +131,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetAllListingsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetAllListingsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -144,7 +146,7 @@ namespace Netsy.Services
         /// <returns>the async state of the request</returns>
         public IAsyncResult GetListingsByCategory(string category, SortField sortOn, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetListingsByCategoryCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetListingsByCategoryCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -154,7 +156,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByCategoryCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByCategoryCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -168,7 +170,7 @@ namespace Netsy.Services
         /// <returns>the async state of the request</returns>
         public IAsyncResult GetListingsByColor(EtsyColor color, int wiggle, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetListingsByColorCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetListingsByColorCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -183,7 +185,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByColorCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByColorCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -198,7 +200,7 @@ namespace Netsy.Services
         /// <returns>the async state of the request</returns>
         public IAsyncResult GetListingsByColorAndKeywords(IEnumerable<string> keywords, EtsyColor color, int wiggle, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetListingsByColorAndKeywordsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetListingsByColorAndKeywordsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -214,7 +216,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByColorAndKeywordsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByColorAndKeywordsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -226,7 +228,7 @@ namespace Netsy.Services
         /// <returns>the async state of the request</returns>
         public IAsyncResult GetFrontFeaturedListings(int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetFrontFeaturedListingsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetFrontFeaturedListingsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -235,7 +237,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFrontFeaturedListingsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFrontFeaturedListingsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -253,7 +255,7 @@ namespace Netsy.Services
         /// <returns>the async state of the request</returns>
         public IAsyncResult GetListingsByKeyword(IEnumerable<string> searchTerms, SortField sortOn, SortOrder sortOrder, decimal? minPrice, decimal? maxPrice, bool searchDescription, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetListingsByKeywordCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetListingsByKeywordCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -262,7 +264,7 @@ namespace Netsy.Services
             if (minPrice.HasValue && maxPrice.HasValue && (minPrice.Value > maxPrice.Value))
             {
                 var errorResult = new ResultEventArgs<Listings>(null, new ResultStatus("Invalid price range", null));
-                ServiceHelper.TestSendEvent(this.GetListingsByKeywordCompleted, this, errorResult);
+                RequestHelper.TestSendEvent(this.GetListingsByKeywordCompleted, this, errorResult);
                 return null;
             }
 
@@ -275,7 +277,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByKeywordCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByKeywordCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -290,7 +292,7 @@ namespace Netsy.Services
         /// <returns>the async state of the request</returns>
         public IAsyncResult GetListingsByMaterials(IEnumerable<string> materials, SortField sortOn, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetListingsByMaterialsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetListingsByMaterialsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -301,7 +303,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByMaterialsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByMaterialsCompleted, this.dataCache);
         }
 
         /// <summary>
@@ -316,7 +318,7 @@ namespace Netsy.Services
         /// <returns>the async state of the request</returns>
         public IAsyncResult GetListingsByTags(IEnumerable<string> tags, SortField sortOn, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel)
         {
-            if (!ServiceHelper.TestCallPrerequisites(this, this.GetListingsByTagsCompleted, this.etsyContext))
+            if (!RequestHelper.TestCallPrerequisites(this, this.GetListingsByTagsCompleted, this.etsyContext))
             {
                 return null;
             }
@@ -327,7 +329,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return ServiceHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByTagsCompleted, this.dataCache);
+            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByTagsCompleted, this.dataCache);
         }
 
         #endregion
@@ -345,7 +347,7 @@ namespace Netsy.Services
                 ResultEventArgs<Listings> errorResult = new ResultEventArgs<Listings>(
                     null,
                     new ResultStatus("Wiggle must be in the range 0 to 15", null));
-                ServiceHelper.TestSendEvent(completedEvent, this, errorResult);
+                RequestHelper.TestSendEvent(completedEvent, this, errorResult);
                 return false;
             }
 
