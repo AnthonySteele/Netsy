@@ -13,8 +13,7 @@ namespace Netsy.Services
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-
-    using Requests;
+    using Netsy.Requests;
 
     /// <summary>
     /// Implementation of the Feedback service
@@ -27,26 +26,37 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
-        /// The data cache
+        /// the data retriever
         /// </summary>
-        private readonly IDataCache dataCache;
+        private readonly IDataRetriever dataRetriever;
 
         /// <summary>
-        /// the request creator
+        /// Initializes a new instance of the GiftService class
         /// </summary>
-        private readonly IRequestGenerator RequestGenerator;
+        /// <param name="apiKey">the api key to use</param>
+        public GiftService(string apiKey)
+            : this(new EtsyContext(apiKey), new DataRetriever())
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the GiftService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        /// <param name="dataCache">the data cache to use</param>
-        /// <param name="RequestGenerator">the request creator use</param>
-        public GiftService(EtsyContext etsyContext, IDataCache dataCache, IRequestGenerator RequestGenerator)
+        public GiftService(EtsyContext etsyContext)
+            : this(etsyContext, new DataRetriever())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the GiftService class
+        /// </summary>
+        /// <param name="etsyContext">the etsy context to use</param>
+        /// <param name="dataRetriever">the data retriever use</param>
+        public GiftService(EtsyContext etsyContext, IDataRetriever dataRetriever)
         {
             this.etsyContext = etsyContext;
-            this.dataCache = dataCache;
-            this.RequestGenerator = RequestGenerator;
+            this.dataRetriever = dataRetriever;
         }
 
         #region IGiftService Members
@@ -74,7 +84,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "gift-guides");
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuidesCompleted, this.dataCache, this.RequestGenerator);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetGiftGuidesCompleted);
         }
 
         /// <summary>
@@ -97,7 +107,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetGiftGuideListingsCompleted, this.dataCache, this.RequestGenerator);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetGiftGuideListingsCompleted);
         }
 
         #endregion

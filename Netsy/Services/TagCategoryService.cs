@@ -13,8 +13,7 @@ namespace Netsy.Services
     using Netsy.Helpers;
     using Netsy.DataModel;
     using Netsy.Interfaces;
-
-    using Requests;
+    using Netsy.Requests;
 
     /// <summary>
     /// Implementation of the Feedback service
@@ -27,19 +26,37 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
-        /// The data cache
+        /// the data retriever
         /// </summary>
-        private readonly IDataCache dataCache;
+        private readonly IDataRetriever dataRetriever;
+
+        /// <summary>
+        /// Initializes a new instance of the TagCategoryService class
+        /// </summary>
+        /// <param name="apiKey">the api key to use</param>
+        public TagCategoryService(string apiKey)
+            : this(new EtsyContext(apiKey), new DataRetriever())
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the TagCategoryService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        /// <param name="dataCache">the data cache to use</param>
-        public TagCategoryService(EtsyContext etsyContext, IDataCache dataCache)
+        public TagCategoryService(EtsyContext etsyContext)
+            : this(etsyContext, new DataRetriever())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the TagCategoryService class
+        /// </summary>
+        /// <param name="etsyContext">the etsy context to use</param>
+        /// <param name="dataRetriever">the data retreiver to use</param>
+        public TagCategoryService(EtsyContext etsyContext, IDataRetriever dataRetriever)
         {
             this.etsyContext = etsyContext;
-            this.dataCache = dataCache;
+            this.dataRetriever = dataRetriever;
         }
 
         #region ITagCategoryService Members
@@ -77,7 +94,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories");
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopCategoriesCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetTopCategoriesCompleted);
         }
 
         /// <summary>
@@ -94,7 +111,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories", category).Append("/children");
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildCategoriesCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetChildCategoriesCompleted);
         }
 
         /// <summary>
@@ -110,7 +127,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags");
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetTopTagsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetTopTagsCompleted);
         }
 
         /// <summary>
@@ -127,7 +144,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags", tag).Append("/children");
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetChildTagsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetChildTagsCompleted);
         }
 
         #endregion

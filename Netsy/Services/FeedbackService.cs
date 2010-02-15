@@ -13,8 +13,7 @@ namespace Netsy.Services
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-
-    using Requests;
+    using Netsy.Requests;
 
     /// <summary>
     /// Implementation of the Feedback service
@@ -27,19 +26,37 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
-        /// The data cache
+        /// the data retriever
         /// </summary>
-        private readonly IDataCache dataCache;
+        private readonly IDataRetriever dataRetriever;
+
+        /// <summary>
+        /// Initializes a new instance of the FeedbackService class
+        /// </summary>
+        /// <param name="apiKey">the api key to use</param>
+        public FeedbackService(string apiKey)
+            : this(new EtsyContext(apiKey), new DataRetriever())
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the FeedbackService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        /// <param name="dataCache">the data cache to use</param>
-        public FeedbackService(EtsyContext etsyContext, IDataCache dataCache)
+        public FeedbackService(EtsyContext etsyContext)
+            : this(etsyContext, new DataRetriever())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the FeedbackService class
+        /// </summary>
+        /// <param name="etsyContext">the etsy context to use</param>
+        /// <param name="dataRetriever">the data retriever to use</param>
+        public FeedbackService(EtsyContext etsyContext, IDataRetriever dataRetriever)
         {
             this.etsyContext = etsyContext;
-            this.dataCache = dataCache;
+            this.dataRetriever = dataRetriever;
         }
 
         #region IFeedbackService Members
@@ -83,7 +100,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "feedback", feedbackId);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackCompleted);
         }
 
         /// <summary>
@@ -104,7 +121,7 @@ namespace Netsy.Services
                 .Append("/feedback")
                 .OffsetLimit(offset, limit);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackForUserCompleted);
         }
 
         /// <summary>
@@ -125,7 +142,7 @@ namespace Netsy.Services
                 .Append("/feedback")
                 .OffsetLimit(offset, limit);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForUserCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackForUserCompleted);
         }
 
         /// <summary>
@@ -146,7 +163,7 @@ namespace Netsy.Services
                 .Append("/feedback/buyer")
                 .OffsetLimit(offset, limit);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
         }
 
         /// <summary>
@@ -167,7 +184,7 @@ namespace Netsy.Services
                 .Append("/feedback/buyer")
                 .OffsetLimit(offset, limit);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
         }
 
         /// <summary>
@@ -188,7 +205,7 @@ namespace Netsy.Services
                 .Append("/feedback/others")
                 .OffsetLimit(offset, limit);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackForOthersCompleted);
         }
 
         /// <summary>
@@ -209,7 +226,7 @@ namespace Netsy.Services
                 .Append("/feedback/others")
                 .OffsetLimit(offset, limit);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackForOthersCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackForOthersCompleted);
         }
 
         /// <summary>
@@ -230,7 +247,7 @@ namespace Netsy.Services
                 .Append("/feedback/seller")
                 .OffsetLimit(offset, limit);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
         }
 
         /// <summary>
@@ -251,7 +268,7 @@ namespace Netsy.Services
                 .Append("/feedback/seller")
                 .OffsetLimit(offset, limit);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeedbackAsSellerCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
         }
 
         #endregion

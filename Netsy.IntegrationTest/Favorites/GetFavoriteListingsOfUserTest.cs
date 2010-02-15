@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest.Favorites
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty), new NullDataCache());
+            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty));
             favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) => result = e;
 
             // ACT

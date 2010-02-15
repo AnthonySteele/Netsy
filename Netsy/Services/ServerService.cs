@@ -9,13 +9,11 @@ namespace Netsy.Services
 {
     using System;
 
-    using Cache;
-
+    using Netsy.Cache;
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-
-    using Requests;
+    using Netsy.Requests;
 
     /// <summary>
     /// Implementation of the server service
@@ -28,19 +26,37 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
-        /// The data cache
+        /// the data retriever
         /// </summary>
-        private readonly IDataCache dataCache;
+        private readonly IDataRetriever dataRetriever;
+
+        /// <summary>
+        /// Initializes a new instance of the ServerService class
+        /// </summary>
+        /// <param name="apiKey">the api key to use</param>
+        public ServerService(string apiKey)
+            : this(new EtsyContext(apiKey), new DataRetriever())
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the ServerService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        /// <param name="dataCache">the data cache to use</param>
-        public ServerService(EtsyContext etsyContext, IDataCache dataCache)
+        public ServerService(EtsyContext etsyContext)
+            : this(etsyContext, new DataRetriever())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the ServerService class
+        /// </summary>
+        /// <param name="etsyContext">the etsy context to use</param>
+        /// <param name="dataRetriever">the data retriever to use</param>
+        public ServerService(EtsyContext etsyContext, IDataRetriever dataRetriever)
         {
             this.etsyContext = etsyContext;
-            this.dataCache = dataCache;
+            this.dataRetriever = dataRetriever;
         }
 
         #region IServerService Members
@@ -73,7 +89,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "server/ping");
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.PingCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.PingCompleted);
         }
 
         /// <summary>
@@ -89,7 +105,7 @@ namespace Netsy.Services
 
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "server/epoch");
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetServerEpochCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetServerEpochCompleted);
         }
 
         /// <summary>
@@ -105,7 +121,7 @@ namespace Netsy.Services
 
            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext).Append("/");
 
-           return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetMethodTableCompleted, this.dataCache);
+           return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetMethodTableCompleted);
         }
 
         #endregion

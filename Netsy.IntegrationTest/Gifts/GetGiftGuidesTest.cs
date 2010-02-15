@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest.Gifts
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IGiftService giftService = new GiftService(new EtsyContext(string.Empty), new NullDataCache());
+            IGiftService giftService = new GiftService(new EtsyContext(string.Empty));
             giftService.GetGiftGuidesCompleted += (s, e) => result = e;
 
             // ACT

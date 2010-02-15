@@ -9,36 +9,54 @@
 namespace Netsy.Requests
 {
     using System;
-    using System.IO;
-    using System.Net;
 
     using Netsy.Cache;
-    using Netsy.DataModel;
     using Netsy.Helpers;
 
     /// <summary>
-    /// Helper methods for services
+    /// Class to retreive data for a service
+    /// Common functionality in getting data from a URL endpoint
     /// </summary>
     public class DataRetriever : IDataRetriever
     {
+        /// <summary>
+        /// The data cache
+        /// </summary>
         private readonly IDataCache dataCache;
 
-        private readonly IRequestGenerator RequestGenerator;
+        /// <summary>
+        /// The request generator
+        /// </summary>
+        private readonly IRequestGenerator requestGenerator;
 
-        public DataRetriever(IDataCache dataCache, IRequestGenerator RequestGenerator)
+        /// <summary>
+        /// Initializes a new instance of the DataRetriever class with default production values
+        /// </summary>
+        public DataRetriever()
+        {
+            this.dataCache = new DataCache();
+            this.requestGenerator = new WebRequestGenerator();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the DataRetriever class with suplied values
+        /// </summary>
+        /// <param name="dataCache">the data cache to use</param>
+        /// <param name="requestGenerator">the request genrator to use</param>
+        public DataRetriever(IDataCache dataCache, IRequestGenerator requestGenerator)
         {
             if (dataCache == null)
             {
                 throw new ArgumentNullException("dataCache");
             }
 
-            if (RequestGenerator == null)
+            if (requestGenerator == null)
             {
-                throw new ArgumentNullException("RequestGenerator");
+                throw new ArgumentNullException("requestGenerator");
             }
 
             this.dataCache = dataCache;
-            this.RequestGenerator = RequestGenerator;
+            this.requestGenerator = requestGenerator;
         }
 
         /// <summary>
@@ -60,8 +78,7 @@ namespace Netsy.Requests
                 throw new ArgumentNullException("completedEvent");
             }
 
-
-            object cacheData = dataCache.Read(uri.ToString());
+            object cacheData = this.dataCache.Read(uri.ToString());
             if (cacheData != null)
             {
                 SendSuccess((T)cacheData, completedEvent);
@@ -84,7 +101,7 @@ namespace Netsy.Requests
 
             Action<Exception> errorAction = ex => TestSendError(completedEvent, "Web error", ex);
 
-            return this.RequestGenerator.StartRequest(uri, dataAction, errorAction);
+            return this.requestGenerator.StartRequest(uri, dataAction, errorAction);
         }
 
         /// <summary>

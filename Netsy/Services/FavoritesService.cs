@@ -13,8 +13,7 @@ namespace Netsy.Services
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-
-    using Requests;
+    using Netsy.Requests;
 
     /// <summary>
     /// Implementation of the favorite service
@@ -29,17 +28,35 @@ namespace Netsy.Services
         /// <summary>
         /// The data cache
         /// </summary>
-        private readonly IDataCache dataCache;
+        private readonly IDataRetriever dataRetriever;
+
+        /// <summary>
+        /// Initializes a new instance of the FavoritesService class
+        /// </summary>
+        /// <param name="apiKey">the api key to use</param>
+        public FavoritesService(string apiKey)
+            : this(new EtsyContext(apiKey), new DataRetriever())
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the FavoritesService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        /// <param name="dataCache">the data cache to use</param>
-        public FavoritesService(EtsyContext etsyContext, IDataCache dataCache)
+        public FavoritesService(EtsyContext etsyContext)
+            : this(etsyContext, new DataRetriever())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the FavoritesService class
+        /// </summary>
+        /// <param name="etsyContext">the etsy context to use</param>
+        /// <param name="dataRetriever">the data retriever to use</param>
+        public FavoritesService(EtsyContext etsyContext, IDataRetriever dataRetriever)
         {
             this.etsyContext = etsyContext;
-            this.dataCache = dataCache;
+            this.dataRetriever = dataRetriever;
         }
 
         #region IFavoritesService Members
@@ -84,7 +101,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfListingCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavorersOfListingCompleted);
         }
 
         /// <summary>
@@ -107,7 +124,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfShopCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavorersOfShopCompleted);
         }
 
         /// <summary>
@@ -130,7 +147,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavorersOfShopCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavorersOfShopCompleted);
         }
 
         /// <summary>
@@ -153,7 +170,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
         }
 
         /// <summary>
@@ -176,7 +193,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
         }
 
         /// <summary>
@@ -199,7 +216,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted);
         }
 
         /// <summary>
@@ -222,7 +239,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted);
         }
 
         #endregion

@@ -14,8 +14,7 @@ namespace Netsy.Services
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-
-    using Requests;
+    using Netsy.Requests;
 
     /// <summary>
     /// Implementation of the shop service
@@ -28,19 +27,37 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
-        /// The data cache
+        /// the data retriever
         /// </summary>
-        private readonly IDataCache dataCache;
+        private readonly IDataRetriever dataRetriever;
+
+        /// <summary>
+        /// Initializes a new instance of the ShopService class
+        /// </summary>
+        /// <param name="apiKey">the api key to use</param>
+        public ShopService(string apiKey)
+            : this(new EtsyContext(apiKey), new DataRetriever())
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the ShopService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        /// <param name="dataCache">the data cache to use</param>
-        public ShopService(EtsyContext etsyContext, IDataCache dataCache)
+        public ShopService(EtsyContext etsyContext)
+            : this(etsyContext, new DataRetriever())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the ShopService class
+        /// </summary>
+        /// <param name="etsyContext">the etsy context to use</param>
+        /// <param name="dataRetriever">the data retreiver to use</param>
+        public ShopService(EtsyContext etsyContext, IDataRetriever dataRetriever)
         {
             this.etsyContext = etsyContext;
-            this.dataCache = dataCache;
+            this.dataRetriever = dataRetriever;
         }
 
         #region IShopService Members
@@ -86,7 +103,7 @@ namespace Netsy.Services
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", userId)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetShopDetailsCompleted);
         }
 
         /// <summary>
@@ -105,7 +122,7 @@ namespace Netsy.Services
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", userName)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopDetailsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetShopDetailsCompleted);
         }
 
         /// <summary>
@@ -126,7 +143,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedSellersCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeaturedSellersCompleted);
         }
 
         /// <summary>
@@ -150,7 +167,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopsByNameCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetShopsByNameCompleted);
         }
 
         /// <summary>
@@ -178,7 +195,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetShopListingsCompleted);
         }
 
         /// <summary>
@@ -206,7 +223,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetShopListingsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetShopListingsCompleted);
         }
 
         /// <summary>
@@ -226,7 +243,7 @@ namespace Netsy.Services
                 .Append("/listings/featured")
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted, this.dataCache);            
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeaturedDetailsCompleted);            
         }
 
         /// <summary>
@@ -246,7 +263,7 @@ namespace Netsy.Services
                 .Append("/listings/featured")
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFeaturedDetailsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeaturedDetailsCompleted);
         }
 
         #endregion

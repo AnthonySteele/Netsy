@@ -31,7 +31,7 @@ namespace Netsy.IntegrationTest.Feedback
         {
             // ARRANGE
             ResultEventArgs<Feedbacks> result = null;
-            IFeedbackService feedbackService = new FeedbackService(new EtsyContext(string.Empty), new NullDataCache());
+            IFeedbackService feedbackService = new FeedbackService(new EtsyContext(string.Empty));
             feedbackService.GetFeedbackCompleted += (s, e) => result = e;
 
             // ACT

@@ -14,8 +14,7 @@ namespace Netsy.Services
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-
-    using Requests;
+    using Netsy.Requests;
 
     /// <summary>
     /// Implementation of Etsy users service calls API 
@@ -31,6 +30,24 @@ namespace Netsy.Services
         /// The data retriever
         /// </summary>
         private readonly IDataRetriever dataRetriever;
+
+        /// <summary>
+        /// Initializes a new instance of the UsersService class
+        /// </summary>
+        /// <param name="apiKey">the api key to use</param>
+        public UsersService(string apiKey)
+            : this(new EtsyContext(apiKey), new DataRetriever())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the UsersService class
+        /// </summary>
+        /// <param name="etsyContext">the etsy context to use</param>
+        public UsersService(EtsyContext etsyContext)
+            : this(etsyContext, new DataRetriever())
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the UsersService class

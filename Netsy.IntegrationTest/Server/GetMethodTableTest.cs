@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest.Server
         {
             // ARRANGE
             ResultEventArgs<MethodTable> result = null;
-            IServerService serverService = new ServerService(new EtsyContext(string.Empty), new NullDataCache());
+            IServerService serverService = new ServerService(new EtsyContext(string.Empty));
             serverService.GetMethodTableCompleted += (s, e) => result = e;
 
             // ACT
@@ -52,7 +52,7 @@ namespace Netsy.IntegrationTest.Server
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<MethodTable> result = null;
-                IServerService serverService = new ServerService(new EtsyContext("InvalidKey"), new NullDataCache());
+                IServerService serverService = new ServerService(new EtsyContext("InvalidKey"));
                 serverService.GetMethodTableCompleted += (s, e) =>
                 {
                     result = e;
@@ -85,7 +85,7 @@ namespace Netsy.IntegrationTest.Server
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<MethodTable> result = null;
-                IServerService serverService = new ServerService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IServerService serverService = new ServerService(new EtsyContext(NetsyData.EtsyApiKey));
                 serverService.GetMethodTableCompleted += (s, e) =>
                 {
                     result = e;

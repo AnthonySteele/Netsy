@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest.Server
         {
             // ARRANGE
             ResultEventArgs<PingResult> result = null;
-            IServerService stsyServer = new ServerService(new EtsyContext(string.Empty), new NullDataCache());
+            IServerService stsyServer = new ServerService(new EtsyContext(string.Empty));
             stsyServer.PingCompleted += (s, e) => result = e;
 
             // ACT

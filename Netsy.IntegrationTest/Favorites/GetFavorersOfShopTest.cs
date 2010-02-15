@@ -31,7 +31,7 @@ namespace Netsy.IntegrationTest.Favorites
         {
             // ARRANGE
             ResultEventArgs<Users> result = null;
-            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty), new NullDataCache());
+            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty));
             favoritesService.GetFavorersOfShopCompleted += (s, e) => result = e;
 
             // ACT

@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest.Shop
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IShopService shopsService = new ShopService(new EtsyContext(string.Empty), new NullDataCache());
+            IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
             shopsService.GetShopListingsCompleted += (s, e) => result = e;
 
             // ACT

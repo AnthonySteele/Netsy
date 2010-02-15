@@ -15,8 +15,7 @@ namespace Netsy.Services
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
-
-    using Requests;
+    using Netsy.Requests;
 
     /// <summary>
     /// Implementation of the listings service
@@ -29,19 +28,37 @@ namespace Netsy.Services
         private readonly EtsyContext etsyContext;
 
         /// <summary>
-        /// The data cache
+        /// the data retriever
         /// </summary>
-        private readonly IDataCache dataCache;
+        private readonly IDataRetriever dataRetriever;
+
+        /// <summary>
+        /// Initializes a new instance of the ListingsService class
+        /// </summary>
+        /// <param name="apiKey">the api key to use</param>
+        public ListingsService(string apiKey)
+            : this(new EtsyContext(apiKey), new DataRetriever())
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the ListingsService class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        /// <param name="dataCache">the data cache to use</param>
-        public ListingsService(EtsyContext etsyContext, IDataCache dataCache)
+        public ListingsService(EtsyContext etsyContext)
+            : this(etsyContext, new DataRetriever())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the ListingsService class
+        /// </summary>
+        /// <param name="etsyContext">the etsy context to use</param>
+        /// <param name="dataRetriever">the data retriever to use</param>
+        public ListingsService(EtsyContext etsyContext, IDataRetriever dataRetriever)
         {
             this.etsyContext = etsyContext;
-            this.dataCache = dataCache;
+            this.dataRetriever = dataRetriever;
         }
 
         #region IListingsService Members
@@ -107,7 +124,7 @@ namespace Netsy.Services
             UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings", listingId)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingDetailsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingDetailsCompleted);
         }
 
         /// <summary>
@@ -131,7 +148,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetAllListingsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetAllListingsCompleted);
         }
 
         /// <summary>
@@ -156,7 +173,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByCategoryCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByCategoryCompleted);
         }
 
         /// <summary>
@@ -185,7 +202,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByColorCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByColorCompleted);
         }
 
         /// <summary>
@@ -216,7 +233,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByColorAndKeywordsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByColorAndKeywordsCompleted);
         }
 
         /// <summary>
@@ -237,7 +254,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetFrontFeaturedListingsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFrontFeaturedListingsCompleted);
         }
 
         /// <summary>
@@ -277,7 +294,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByKeywordCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByKeywordCompleted);
         }
 
         /// <summary>
@@ -303,7 +320,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByMaterialsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByMaterialsCompleted);
         }
 
         /// <summary>
@@ -329,7 +346,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return RequestHelper.GenerateRequest(this, uriBuilder.Result(), this.GetListingsByTagsCompleted, this.dataCache);
+            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByTagsCompleted);
         }
 
         #endregion

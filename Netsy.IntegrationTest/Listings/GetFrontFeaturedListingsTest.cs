@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest.Listings
         {
             // ARRANGE
             ResultEventArgs<Listings> result = null;
-            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty), new NullDataCache());
+            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
             listingsService.GetFrontFeaturedListingsCompleted += (s, e) => result = e;
 
             // ACT
@@ -52,7 +52,7 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingsService listingsService = new ListingsService(new EtsyContext("InvalidKey"), new NullDataCache());
+                IListingsService listingsService = new ListingsService(new EtsyContext("InvalidKey"));
                 listingsService.GetFrontFeaturedListingsCompleted += (s, e) =>
                 {
                     result = e;
@@ -88,7 +88,7 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
                 listingsService.GetFrontFeaturedListingsCompleted += (s, e) =>
                 {
                     result = e;
@@ -134,7 +134,7 @@ namespace Netsy.IntegrationTest.Listings
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
                 listingsService.GetFrontFeaturedListingsCompleted += (s, e) =>
                 {
                     result = e;

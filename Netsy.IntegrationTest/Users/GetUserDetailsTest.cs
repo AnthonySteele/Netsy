@@ -31,7 +31,7 @@ namespace Netsy.IntegrationTest.Users
         public void GetUserDetailsApiKeyMissingTest()
         {
             ResultEventArgs<Users> result = null;
-            IUsersService etsyUsers = new UsersService(new EtsyContext(string.Empty), new NullDataCache());
+            IUsersService etsyUsers = new UsersService(new EtsyContext(string.Empty));
             etsyUsers.GetUserDetailsCompleted += (s, e) => result = e;
 
             // ACT

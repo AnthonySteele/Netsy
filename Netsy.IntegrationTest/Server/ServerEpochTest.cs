@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest.Server
         {
             // ARRANGE
             ResultEventArgs<ServerEpoch> result = null;
-            IServerService etsyServer = new ServerService(new EtsyContext(string.Empty), new NullDataCache());
+            IServerService etsyServer = new ServerService(new EtsyContext(string.Empty));
             etsyServer.GetServerEpochCompleted += (s, e) => result = e;
 
             // ACT
@@ -52,7 +52,7 @@ namespace Netsy.IntegrationTest.Server
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<ServerEpoch> result = null;
-                IServerService etsyServer = new ServerService(new EtsyContext("InvalidKey"), new NullDataCache());
+                IServerService etsyServer = new ServerService(new EtsyContext("InvalidKey"));
                 etsyServer.GetServerEpochCompleted += (s, e) =>
                 {
                     result = e;
@@ -85,7 +85,7 @@ namespace Netsy.IntegrationTest.Server
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<ServerEpoch> result = null;
-                IServerService etsyServer = new ServerService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IServerService etsyServer = new ServerService(new EtsyContext(NetsyData.EtsyApiKey));
                 etsyServer.GetServerEpochCompleted += (s, e) =>
                 {
                     result = e;

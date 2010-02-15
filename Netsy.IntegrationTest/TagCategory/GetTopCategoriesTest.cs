@@ -31,7 +31,7 @@ namespace Netsy.IntegrationTest.TagCategory
         {
             // ARRANGE
             ResultEventArgs<StringResults> result = null;
-            ITagCategoryService tagCategoryService = new TagCategoryService(new EtsyContext(string.Empty), new NullDataCache());
+            ITagCategoryService tagCategoryService = new TagCategoryService(new EtsyContext(string.Empty));
             tagCategoryService.GetTopCategoriesCompleted += (s, e) => result = e;
 
             // ACT

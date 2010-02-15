@@ -32,7 +32,7 @@ namespace Netsy.IntegrationTest.Feedback
         {
             // ARRANGE
             ResultEventArgs<Feedbacks> result = null;
-            IFeedbackService feedbackService = new FeedbackService(new EtsyContext(string.Empty), new NullDataCache());
+            IFeedbackService feedbackService = new FeedbackService(new EtsyContext(string.Empty));
             feedbackService.GetFeedbackForUserCompleted += (s, e) => result = e;
 
             // ACT
@@ -50,7 +50,7 @@ namespace Netsy.IntegrationTest.Feedback
         {
             // ARRANGE
             ResultEventArgs<Feedbacks> result = null;
-            IFeedbackService feedbackService = new FeedbackService(new EtsyContext(string.Empty), new NullDataCache());
+            IFeedbackService feedbackService = new FeedbackService(new EtsyContext(string.Empty));
             feedbackService.GetFeedbackForUserCompleted += (s, e) => result = e;
 
             // ACT
@@ -70,7 +70,7 @@ namespace Netsy.IntegrationTest.Feedback
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Feedbacks> result = null;
-                IFeedbackService feedbackService = new FeedbackService(new EtsyContext("InvalidKey"), new NullDataCache());
+                IFeedbackService feedbackService = new FeedbackService(new EtsyContext("InvalidKey"));
                 feedbackService.GetFeedbackForUserCompleted += (s, e) =>
                 {
                     result = e;
@@ -103,7 +103,7 @@ namespace Netsy.IntegrationTest.Feedback
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Feedbacks> result = null;
-                IFeedbackService feedbackService = new FeedbackService(new EtsyContext("InvalidKey"), new NullDataCache());
+                IFeedbackService feedbackService = new FeedbackService(new EtsyContext("InvalidKey"));
                 feedbackService.GetFeedbackForUserCompleted += (s, e) =>
                 {
                     result = e;
@@ -136,7 +136,7 @@ namespace Netsy.IntegrationTest.Feedback
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Feedbacks> result = null;
-                IFeedbackService feedbackService = new FeedbackService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IFeedbackService feedbackService = new FeedbackService(new EtsyContext(NetsyData.EtsyApiKey));
                 feedbackService.GetFeedbackForUserCompleted += (s, e) =>
                 {
                     result = e;
@@ -166,7 +166,7 @@ namespace Netsy.IntegrationTest.Feedback
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Feedbacks> result = null;
-                IFeedbackService feedbackService = new FeedbackService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IFeedbackService feedbackService = new FeedbackService(new EtsyContext(NetsyData.EtsyApiKey));
                 feedbackService.GetFeedbackForUserCompleted += (s, e) =>
                 {
                     result = e;
