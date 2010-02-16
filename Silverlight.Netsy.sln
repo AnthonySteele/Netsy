@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy", "Netsy\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight.Netsy.UI", "Netsy.UI\Silverlight.Netsy.UI.csproj", "{7CE18D14-D4C5-4A24-84E4-C3F81CAAB6DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.Favorites", "Silverlight\Netsy.Favorites\Netsy.Favorites.csproj", "{3B3AB3F6-6709-4E22-B8F1-CAC8F373D4B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.Listings", "Silverlight\Netsy.Favorites\Netsy.Listings.csproj", "{3B3AB3F6-6709-4E22-B8F1-CAC8F373D4B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.Favorites.Web", "Silverlight\Netsy.Favorites.Web\Netsy.Favorites.Web.csproj", "{7C1FEBC7-98CC-4A73-AF93-B9FEF4529931}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.Listings.Web", "Silverlight\Netsy.Favorites.Web\Netsy.Listings.Web.csproj", "{7C1FEBC7-98CC-4A73-AF93-B9FEF4529931}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

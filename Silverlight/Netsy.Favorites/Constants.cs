@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Favorites
+namespace Netsy.Listings
 {
     /// <summary>
     /// Constants used in this application

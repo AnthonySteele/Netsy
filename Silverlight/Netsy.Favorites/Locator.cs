@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Favorites
+namespace Netsy.Listings
 {
     using System;
     using System.Windows.Threading;
@@ -49,6 +49,11 @@ namespace Netsy.Favorites
         /// <param name="instance">the instance to register</param>
         public static void RegisterInstance(object instance)
         {
+            if (instance == null)
+            {
+                throw new ArgumentNullException("instance");
+            }
+
             Type objectType = instance.GetType();
             container.RegisterInstance(objectType, instance);
         }

@@ -5,7 +5,8 @@
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
-namespace Netsy.Favorites
+
+namespace Netsy.Listings
 {
     /// <summary>
     /// WHat data to retrieve

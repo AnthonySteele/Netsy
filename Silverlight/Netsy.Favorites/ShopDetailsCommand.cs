@@ -6,8 +6,10 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Favorites
+namespace Netsy.Listings
 {
+    using System;
+
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
@@ -36,6 +38,11 @@ namespace Netsy.Favorites
         /// <param name="shopService">the service to get shop details</param>
         public ShopDetailsCommand(IShopService shopService)
         {
+            if (shopService == null)
+            {
+                throw new ArgumentNullException("shopService");
+            }
+
             this.shopService = shopService;
 
             this.shopService.GetShopDetailsCompleted += this.GetShopDetailsCompleted;
@@ -47,6 +54,11 @@ namespace Netsy.Favorites
         /// <param name="value">the view model</param>
         public override void ExecuteOnValue(ListingsControlViewModel value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
+
             if (value.UserId.HasContent())
             {
                 this.currentViewModel = value;

@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Favorites
+namespace Netsy.Listings
 {
     using System;
     using System.Globalization;
@@ -57,6 +57,21 @@ namespace Netsy.Favorites
             IFavoritesService favoritesService, 
             ShopDetailsCommand shopDetailsCommand) 
         {
+            if (listingsService == null)
+            {
+                throw new ArgumentNullException("listingsService");
+            }
+
+            if (shopService == null)
+            {
+                throw new ArgumentNullException("shopService");
+            }
+
+            if (favoritesService == null)
+            {
+                throw new ArgumentNullException("favoritesService");
+            }
+
             this.listingsService = listingsService;
             this.listingsService.GetFrontFeaturedListingsCompleted += this.ListingsReceived;
             this.listingsService.GetListingsByCategoryCompleted += this.ListingsReceived;

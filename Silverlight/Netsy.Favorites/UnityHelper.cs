@@ -5,8 +5,11 @@
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
-namespace Netsy.Favorites
+
+namespace Netsy.Listings
 {
+    using System;
+
     using Microsoft.Practices.Unity;
     using Microsoft.Practices.Unity.StaticFactory;
 
@@ -23,9 +26,16 @@ namespace Netsy.Favorites
         /// <param name="factoryDelegate">the factory code</param>
         public static void RegisterFactory<T>(this IUnityContainer container, FactoryDelegate factoryDelegate)
         {
+            if (container == null)
+            {
+                throw new ArgumentNullException("container");
+            }
+
             container.AddNewExtension<StaticFactoryExtension>()
-                .Configure<IStaticFactoryConfiguration>()
-                .RegisterFactory<T>(factoryDelegate);
+                    .Configure<IStaticFactoryConfiguration>()
+                    .RegisterFactory<T>(factoryDelegate);
         }
     }
 }
+
+

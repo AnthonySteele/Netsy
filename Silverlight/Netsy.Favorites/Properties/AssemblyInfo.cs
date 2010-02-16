@@ -13,11 +13,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Netsy.Favorites")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Netsy.Listings")]
+[assembly: AssemblyDescription("Netsy Listings Silverlight control")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Netsy.Favorites")]
+[assembly: AssemblyCompany("AFS")]
+[assembly: AssemblyProduct("Netsy.Listings")]
 [assembly: AssemblyCopyright("Copyright AFS © 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

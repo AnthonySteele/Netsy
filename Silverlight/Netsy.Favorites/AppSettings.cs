@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Favorites
+namespace Netsy.Listings
 {
     using System;
     using System.Collections.Generic;

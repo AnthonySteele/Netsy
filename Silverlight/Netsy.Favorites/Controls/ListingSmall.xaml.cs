@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Favorites.Controls
+namespace Netsy.Listings.Controls
 {
     using System.Windows.Controls;
     using System.Windows.Input;
