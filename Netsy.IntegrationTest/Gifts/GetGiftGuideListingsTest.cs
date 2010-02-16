@@ -51,7 +51,7 @@ namespace Netsy.IntegrationTest.Gifts
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IGiftService giftService = new GiftService(new EtsyContext("InvalidKey"), new NullDataCache());
+                IGiftService giftService = new GiftService(new EtsyContext("InvalidKey"));
                 giftService.GetGiftGuideListingsCompleted += (s, e) =>
                     {
                         result = e;
@@ -84,7 +84,7 @@ namespace Netsy.IntegrationTest.Gifts
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IGiftService giftService = new GiftService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IGiftService giftService = new GiftService(new EtsyContext(NetsyData.EtsyApiKey));
                 giftService.GetGiftGuideListingsCompleted += (s, e) =>
                 {
                     result = e;
@@ -117,7 +117,7 @@ namespace Netsy.IntegrationTest.Gifts
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IGiftService giftService = new GiftService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IGiftService giftService = new GiftService(new EtsyContext(NetsyData.EtsyApiKey));
                 giftService.GetGiftGuideListingsCompleted += (s, e) =>
                 {
                     result = e;
@@ -163,7 +163,7 @@ namespace Netsy.IntegrationTest.Gifts
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IGiftService giftService = new GiftService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IGiftService giftService = new GiftService(new EtsyContext(NetsyData.EtsyApiKey));
                 giftService.GetGiftGuideListingsCompleted += (s, e) =>
                 {
                     result = e;

@@ -4,6 +4,9 @@
 
     using Netsy.Helpers;
 
+    /// <summary>
+    /// Interface to an object tha6 can retrieve string data from a Uri
+    /// </summary>
     public interface IDataRetriever
     {
         /// <summary>

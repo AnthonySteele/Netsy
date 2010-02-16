@@ -52,7 +52,7 @@ namespace Netsy.IntegrationTest.Shop
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Shops> result = null;
-                IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"), new NullDataCache());
+                IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"));
                 shopsService.GetShopDetailsCompleted += (s, e) =>
                 {
                     result = e;
@@ -85,7 +85,7 @@ namespace Netsy.IntegrationTest.Shop
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Shops> result = null;
-                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
                 shopsService.GetShopDetailsCompleted += (s, e) =>
                 {
                     result = e;
@@ -130,12 +130,12 @@ namespace Netsy.IntegrationTest.Shop
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Shops> result = null;
-                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
                 shopsService.GetShopDetailsCompleted += (s, e) =>
-                {
-                    result = e;
-                    waitEvent.Set();
-                };
+                                                        {
+                                                            result = e;
+                                                            waitEvent.Set();
+                                                        };
 
                 // ACT
                 shopsService.GetShopDetails(NetsyData.TestUserName, detailLevel);
@@ -153,6 +153,5 @@ namespace Netsy.IntegrationTest.Shop
                 Assert.AreEqual(1, result.ResultValue.Count);
             }
         }
-
     }
 }

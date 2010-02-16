@@ -34,15 +34,6 @@ namespace Netsy.Services
         /// <summary>
         /// Initializes a new instance of the ShopService class
         /// </summary>
-        /// <param name="apiKey">the api key to use</param>
-        public ShopService(string apiKey)
-            : this(new EtsyContext(apiKey), new DataRetriever())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the ShopService class
-        /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
         public ShopService(EtsyContext etsyContext)
             : this(etsyContext, new DataRetriever())

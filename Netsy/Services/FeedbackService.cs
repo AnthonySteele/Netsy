@@ -33,15 +33,6 @@ namespace Netsy.Services
         /// <summary>
         /// Initializes a new instance of the FeedbackService class
         /// </summary>
-        /// <param name="apiKey">the api key to use</param>
-        public FeedbackService(string apiKey)
-            : this(new EtsyContext(apiKey), new DataRetriever())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the FeedbackService class
-        /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
         public FeedbackService(EtsyContext etsyContext)
             : this(etsyContext, new DataRetriever())

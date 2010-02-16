@@ -49,7 +49,7 @@ namespace Netsy.IntegrationTest.Shop
         public void GetShopListingsByNameMissingApiKeyTest()
         {
             ResultEventArgs<Listings> result = null;
-            IShopService shopsService = new ShopService(new EtsyContext(string.Empty), new NullDataCache());
+            IShopService shopsService = new ShopService(new EtsyContext(string.Empty));
             shopsService.GetShopListingsCompleted += (s, e) => result = e;
 
             // ACT
@@ -69,7 +69,7 @@ namespace Netsy.IntegrationTest.Shop
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"), new NullDataCache());
+                IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"));
                 shopsService.GetShopListingsCompleted += (s, e) =>
                 {
                     result = e;
@@ -102,7 +102,7 @@ namespace Netsy.IntegrationTest.Shop
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<Listings> result = null;
-                IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"), new NullDataCache());
+                IShopService shopsService = new ShopService(new EtsyContext("InvalidKey"));
                 shopsService.GetShopListingsCompleted += (s, e) =>
                 {
                     result = e;
@@ -136,7 +136,7 @@ namespace Netsy.IntegrationTest.Shop
             {
                 ResultEventArgs<Listings> result = null;
 
-                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
                 shopsService.GetShopListingsCompleted += (s, e) =>
                 {
                     result = e;
@@ -171,7 +171,7 @@ namespace Netsy.IntegrationTest.Shop
             {
                 ResultEventArgs<Listings> result = null;
 
-                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
                 shopsService.GetShopListingsCompleted += (s, e) =>
                 {
                     result = e;
@@ -228,7 +228,7 @@ namespace Netsy.IntegrationTest.Shop
             {
                 ResultEventArgs<Listings> result = null;
 
-                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
                 shopsService.GetShopListingsCompleted += (s, e) =>
                 {
                     result = e;
@@ -263,7 +263,7 @@ namespace Netsy.IntegrationTest.Shop
             {
                 ResultEventArgs<Listings> result = null;
 
-                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IShopService shopsService = new ShopService(new EtsyContext(NetsyData.EtsyApiKey));
                 shopsService.GetShopListingsCompleted += (s, e) =>
                 {
                     result = e;

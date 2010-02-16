@@ -52,7 +52,7 @@ namespace Netsy.IntegrationTest.Server
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<PingResult> result = null;
-                IServerService etsyServer = new ServerService(new EtsyContext("InvalidKey"), new NullDataCache());
+                IServerService etsyServer = new ServerService(new EtsyContext("InvalidKey"));
                 etsyServer.PingCompleted += (s, e) =>
                 {
                     result = e;
@@ -85,7 +85,7 @@ namespace Netsy.IntegrationTest.Server
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
                 ResultEventArgs<PingResult> result = null;
-                IServerService etsyServer = new ServerService(new EtsyContext(NetsyData.EtsyApiKey), new NullDataCache());
+                IServerService etsyServer = new ServerService(new EtsyContext(NetsyData.EtsyApiKey));
                 etsyServer.PingCompleted += (s, e) =>
                 {
                     result = e;

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6989F6D6-086F-4B98-9B47-DE01F09E0C53}"
 	ProjectSection(SolutionItems) = preProject
 		CodeAnalysisDictionary.xml = CodeAnalysisDictionary.xml

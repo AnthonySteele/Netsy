@@ -5,7 +5,8 @@
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
-namespace Netsy.Requests
+
+namespace Netsy.Requests.Mock
 {
     using System;
 
@@ -34,3 +35,5 @@ namespace Netsy.Requests
         }
     }
 }
+
+

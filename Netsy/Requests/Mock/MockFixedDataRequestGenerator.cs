@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Requests
+namespace Netsy.Requests.Mock
 {
     using System;
 
