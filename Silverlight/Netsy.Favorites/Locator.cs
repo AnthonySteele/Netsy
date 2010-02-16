@@ -13,10 +13,12 @@ namespace Netsy.Favorites
 
     using Microsoft.Practices.Unity;
 
+    using Netsy.Cache;
     using Netsy.DataModel;
     using Netsy.Interfaces;
     using Netsy.Services;
     using Netsy.UI.DispatchedServices;
+    using Netsy.Requests;
 
     /// <summary>
     /// Class to hold the only singleton we'll need - the IOC container
@@ -80,6 +82,10 @@ namespace Netsy.Favorites
         /// </summary>
         private static void RegisterInternalServices()
         {
+            container.RegisterType<IDataRetriever, DataRetriever>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IRequestGenerator, WebRequestGenerator>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IDataCache, DataCache>(new ContainerControlledLifetimeManager()); 
+            
             container.RegisterType<IFavoritesService, FavoritesService>(InternalServiceKey);
             container.RegisterType<IFeedbackService, FeedbackService>(InternalServiceKey);
             container.RegisterType<IGiftService, GiftService>(InternalServiceKey);

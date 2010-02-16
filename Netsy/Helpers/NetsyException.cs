@@ -13,7 +13,9 @@ namespace Netsy.Helpers
     /// <summary>
     /// Exception from the Etsy API
     /// </summary>
+    #if (!SILVERLIGHT)
     [Serializable]
+    #endif
     public class NetsyException : Exception
     {
         /// <summary>
@@ -40,6 +42,7 @@ namespace Netsy.Helpers
         {
         }
 
+        #if (!SILVERLIGHT)
         /// <summary>
         /// Initializes a new instance of the NetsyException class
         /// </summary>
@@ -49,5 +52,6 @@ namespace Netsy.Helpers
             : base(info, context)
         {
         }
+        #endif
     }
 }

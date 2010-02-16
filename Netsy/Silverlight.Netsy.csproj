@@ -64,13 +64,16 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheItem.cs" />
+    <Compile Include="Cache\DataCache.cs" />
+    <Compile Include="Cache\IDataCache.cs" />
     <Compile Include="DataModel\DetailLevel.cs" />
     <Compile Include="DataModel\EtsyColor.cs" />
     <Compile Include="DataModel\EtsyContext.cs" />
+    <Compile Include="DataModel\Gender.cs" />
     <Compile Include="DataModel\Feedback.cs" />
     <Compile Include="DataModel\FeedbackDisposition.cs" />
     <Compile Include="DataModel\Feedbacks.cs" />
-    <Compile Include="DataModel\Gender.cs" />
     <Compile Include="DataModel\GiftGuide.cs" />
     <Compile Include="DataModel\HsvColor.cs" />
     <Compile Include="DataModel\Listing.cs" />
@@ -98,9 +101,9 @@
     <Compile Include="Helpers\GenericEventArgs.cs" />
     <Compile Include="Helpers\IntHelpers.cs" />
     <Compile Include="Helpers\JsonSerializerHelper.cs" />
+    <Compile Include="Helpers\NetsyException.cs" />
     <Compile Include="Helpers\ResultEventArgs.cs" />
     <Compile Include="Helpers\ResultStatus.cs" />
-    <Compile Include="Helpers\SilverlightNetsyException.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Interfaces\IFavoritesService.cs" />
     <Compile Include="Interfaces\IFeedbackService.cs" />
@@ -111,12 +114,16 @@
     <Compile Include="Interfaces\ITagCategoryService.cs" />
     <Compile Include="Interfaces\IUsersService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\IDataRetriever.cs" />
+    <Compile Include="Requests\IRequestGenerator.cs" />
+    <Compile Include="Requests\DataRetriever.cs" />
+    <Compile Include="Requests\WebRequestGenerator.cs" />
     <Compile Include="Services\FavoritesService.cs" />
     <Compile Include="Services\FeedbackService.cs" />
     <Compile Include="Services\GiftService.cs" />
     <Compile Include="Services\ListingsService.cs" />
     <Compile Include="Services\ServerService.cs" />
-    <Compile Include="Services\ServiceHelper.cs" />
+    <Compile Include="Requests\RequestHelper.cs" />
     <Compile Include="Services\ShopService.cs" />
     <Compile Include="Services\TagCategoryService.cs" />
     <Compile Include="Services\UriBuilder.cs" />

@@ -18,6 +18,39 @@ namespace Netsy.UI
     /// </summary>
     public static class CurrencySymbolLookup
     {
+        #if (SILVERLIGHT)
+
+         /// <summary>
+        /// in silverlight, we have to use a list of known values
+        /// </summary>
+        private static readonly Dictionary<string, string> currencyCodesCache = new Dictionary<string, string>
+            {
+              { "AUD", "$" },                                                                       
+              { "EUR", "€" },                                                                       
+              { "GBP", "£" },                                                                       
+              { "USD", "$" },                                                                       
+              { "ZAR", "R" },                                                                       
+            };
+
+        /// <summary>
+        /// Get a currency symbol from a currency code. 
+        /// e.g. map "GPB" to "£" and "USD" to "$"
+        /// </summary>
+        /// <param name="isoCurrencyCode">the three-letter code for the currency</param>
+        /// <returns>the symbol</returns>
+        public static string CurrencySymbolFromCurrencyCode(string isoCurrencyCode)
+        {
+            if (!currencyCodesCache.ContainsKey(isoCurrencyCode))
+            {
+                // not found. Nothing we can do
+                return "$?";
+            }
+
+            return currencyCodesCache[isoCurrencyCode];
+        }
+
+        #else
+
         /// <summary>
         /// cache for found values
         /// </summary>
@@ -44,5 +77,7 @@ namespace Netsy.UI
 
             return currencyCodesCache[isoCurrencyCode];
         }
+
+        #endif
     }
 }

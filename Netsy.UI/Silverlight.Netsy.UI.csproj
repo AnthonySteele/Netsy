@@ -67,6 +67,7 @@
     <Compile Include="Commands\SilverlightDelegateCommand.cs" />
     <Compile Include="Commands\SilverlightGenericCommandBase.cs" />
     <Compile Include="Commands\SilverlightHyperlinkNavigateCommand.cs" />
+    <Compile Include="CurrencySymbolLookup.cs" />
     <Compile Include="DispatchedServices\DispatchedFavoritesService.cs" />
     <Compile Include="DispatchedServices\DispatchedFeedbackService.cs" />
     <Compile Include="DispatchedServices\DispatchedGiftService.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SilverlightCurrencySymbolLookup.cs" />
     <Compile Include="SilverlightDispatcherHelper.cs" />
     <Compile Include="ValueConverters\WidthToColumnCountValueConverter.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
