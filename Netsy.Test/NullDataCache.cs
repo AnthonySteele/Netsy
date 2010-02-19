@@ -6,7 +6,8 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.IntegrationTest
+
+namespace Netsy.Test
 {
     using Netsy.Cache;
 
@@ -22,7 +23,7 @@ namespace Netsy.IntegrationTest
         /// <param name="data">the value to write</param>
         public void Write(string key, object data)
         {
-           // do nothing
+            // do nothing
         }
 
         /// <summary>
@@ -36,3 +37,5 @@ namespace Netsy.IntegrationTest
         }
     }
 }
+
+

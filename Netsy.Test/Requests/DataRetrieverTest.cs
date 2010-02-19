@@ -35,7 +35,7 @@ namespace Netsy.Test.Requests
         [TestMethod]
         public void DataRetrieverCreateWithParamsTest()
         {
-            IDataCache dataCache = new DataCache();
+            IDataCache dataCache = new NullDataCache();
             IRequestGenerator requestGenerator = new WebRequestGenerator();
 
             DataRetriever dataRetriever = new DataRetriever(dataCache, requestGenerator);

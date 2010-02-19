@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Test.Requests
+namespace Netsy.IntegrationTest.Requests
 {
     using System;
     using System.Threading;
@@ -39,26 +39,27 @@ namespace Netsy.Test.Requests
         public void RequestGeneratorRetrieveTest()
         {
             IRequestGenerator requestGenerator = new WebRequestGenerator();
-            const string testUri = "http://beta-api.etsy.com/v1/listings/featured/front?offset=0&limit=10&detail_level=low&api_key=rfc35bh98q3a9hvccfsxe4cc";
+            const string TestUri = "http://beta-api.etsy.com/v1/listings/featured/front?offset=0&limit=10&detail_level=low&api_key=" +
+                NetsyData.EtsyApiKey;
 
             string resultString = string.Empty;
             Exception ex = null;
 
             using (AutoResetEvent waitEvent = new AutoResetEvent(false))
             {
-                Action<string> successAction = (s) =>
-                   {
-                       resultString = s;
-                       waitEvent.Set();
-                   };
+                Action<string> successAction = s =>
+                     {
+                        resultString = s;
+                        waitEvent.Set();
+                     };
 
-                Action<Exception> errorAction = (e) =>
+                Action<Exception> errorAction = e =>
                     {
                         ex = e;
                         waitEvent.Set();
                     };
 
-                requestGenerator.StartRequest(new Uri(testUri), successAction, errorAction);
+                requestGenerator.StartRequest(new Uri(TestUri), successAction, errorAction);
                 bool signalled = waitEvent.WaitOne(5000);
 
                 Assert.IsTrue(signalled);
@@ -68,3 +69,4 @@ namespace Netsy.Test.Requests
         }
     }
 }
+
