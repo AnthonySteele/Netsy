@@ -26,6 +26,13 @@ namespace Netsy.IntegrationTest.Requests
     public class DataRetrieverTest
     {
         /// <summary>
+        /// The url to test retrieval from
+        /// </summary>
+        private const string TestUri = 
+            "http://beta-api.etsy.com/v1/listings/featured/front?offset=0&limit=10&detail_level=low&api_key=" +
+            NetsyData.EtsyApiKey;
+
+        /// <summary>
         /// Test simple creation
         /// </summary>
         [TestMethod]
@@ -49,14 +56,11 @@ namespace Netsy.IntegrationTest.Requests
         }
 
         /// <summary>
-        /// Test retrieval from a url
+        /// Test retrieval from a url - success
         /// </summary>
         [TestMethod]
-        public void DataRetrieverRetrieveTest()
+        public void DataRetrieverRetrieveSuccessTest()
         {
-            const string TestUri = "http://beta-api.etsy.com/v1/listings/featured/front?offset=0&limit=10&detail_level=low&api_key=" +
-                NetsyData.EtsyApiKey;
-
             IDataCache dataCache = new NullDataCache();
             IRequestGenerator requestGenerator = new WebRequestGenerator();
 
@@ -72,7 +76,7 @@ namespace Netsy.IntegrationTest.Requests
                          waitEvent.Set();
                      };
 
-                dataRetriever.StartRetrieve<Listings>(new Uri(TestUri), completedHandler);
+                dataRetriever.StartRetrieve(new Uri(TestUri), completedHandler);
                 bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 Assert.IsTrue(signalled);
@@ -80,6 +84,37 @@ namespace Netsy.IntegrationTest.Requests
 
             Assert.IsNotNull(resultEventArgs);
             Assert.IsTrue(resultEventArgs.ResultStatus.Success);
+        }
+
+        /// <summary>
+        /// Test retrieval from a url - failure
+        /// </summary>
+        [TestMethod]
+        public void DataRetrieverRetrieveFailTest()
+        {
+            IDataCache dataCache = new NullDataCache();
+            IRequestGenerator requestGenerator = new WebRequestGenerator();
+
+            ResultEventArgs<Listings> resultEventArgs = null;
+
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                DataRetriever dataRetriever = new DataRetriever(dataCache, requestGenerator);
+
+                EventHandler<ResultEventArgs<Listings>> completedHandler = (sender, res) =>
+                {
+                    resultEventArgs = res;
+                    waitEvent.Set();
+                };
+
+                dataRetriever.StartRetrieve(new Uri(TestUri + "bad"), completedHandler);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                Assert.IsTrue(signalled);
+            }
+
+            Assert.IsNotNull(resultEventArgs);
+            Assert.IsFalse(resultEventArgs.ResultStatus.Success);
         }
     }
 }
