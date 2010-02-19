@@ -18,6 +18,7 @@
 
 # folders where the compiler puts stuff
 bin
+Bin
 obj
 TestResults
 _ReSharper*
@@ -26,6 +27,8 @@ _import
 Silverlight/Netsy.Favorites/Bin
 Backup
 Backup1
+_Upgrade*
+UpgradeLog*
 
 
 # Code analysis output
