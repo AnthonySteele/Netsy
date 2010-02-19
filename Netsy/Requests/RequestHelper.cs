@@ -59,6 +59,5 @@ namespace Netsy.Requests
                 eventHandler(sender, result);
             }
         }
-
     }
 }

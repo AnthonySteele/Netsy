@@ -12,9 +12,9 @@ namespace Netsy.Test
     using Netsy.Cache;
 
     /// <summary>
-    /// Test data cache that does not cache anything
+    /// A data cache that does not cache anything. For test.
     /// </summary>
-    internal class NullDataCache : IDataCache
+    public class NullDataCache : IDataCache
     {
         /// <summary>
         /// Write to the cache

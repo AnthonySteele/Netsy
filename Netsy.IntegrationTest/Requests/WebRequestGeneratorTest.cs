@@ -60,7 +60,7 @@ namespace Netsy.IntegrationTest.Requests
                     };
 
                 requestGenerator.StartRequest(new Uri(TestUri), successAction, errorAction);
-                bool signalled = waitEvent.WaitOne(5000);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
 
                 Assert.IsTrue(signalled);
                 Assert.IsFalse(string.IsNullOrEmpty(resultString));
