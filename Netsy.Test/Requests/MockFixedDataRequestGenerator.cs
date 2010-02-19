@@ -6,13 +6,14 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Requests.Mock
+namespace Netsy.Test.Requests
 {
     using System;
 
+    using Netsy.Requests;
+
     /// <summary>
     /// A mock RequestGenerator that returns the given data
-    /// todo: move to a test project
     /// </summary>
     public class MockFixedDataRequestGenerator : IRequestGenerator
     {

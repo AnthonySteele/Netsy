@@ -121,8 +121,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\IDataRetriever.cs" />
     <Compile Include="Requests\IRequestGenerator.cs" />
-    <Compile Include="Requests\Mock\MockFailingRequestGenerator.cs" />
-    <Compile Include="Requests\Mock\MockFixedDataRequestGenerator.cs" />
     <Compile Include="Requests\DataRetriever.cs" />
     <Compile Include="Requests\WebRequestGenerator.cs" />
     <Compile Include="Services\FavoritesService.cs" />

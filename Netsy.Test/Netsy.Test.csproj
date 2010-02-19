@@ -95,6 +95,9 @@
     <Compile Include="Helpers\StringHelpersTest.cs" />
     <Compile Include="NullDataCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\DataRetrieverTest.cs" />
+    <Compile Include="Requests\MockFailingRequestGenerator.cs" />
+    <Compile Include="Requests\MockFixedDataRequestGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Netsy\Netsy.csproj">
