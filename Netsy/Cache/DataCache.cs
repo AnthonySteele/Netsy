@@ -9,6 +9,7 @@ namespace Netsy.Cache
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// The data cache
@@ -16,9 +17,9 @@ namespace Netsy.Cache
     public class DataCache : IDataCache
     {
         /// <summary>
-        /// How long to keep items
+        /// How long to keep items - 5 minutes
         /// </summary>
-        private readonly TimeSpan Timeout = new TimeSpan(0, 10, 0);
+        private readonly TimeSpan Timeout = new TimeSpan(0, 5, 0);
 
         /// <summary>
         /// The cached data
@@ -50,21 +51,37 @@ namespace Netsy.Cache
         /// <returns>the value read</returns>
         public object Read(string key)
         {
+            this.ClearTimedOutItems();
+
             if (this.cacheData.ContainsKey(key))
             {
                 CacheItem item = this.cacheData[key];
-
-                if (item.LastAccessed < DateTime.Now - this.Timeout)
-                {
-                    this.cacheData.Remove(key);
-                    return null;
-                }
-
                 item.UpdateLastAccessed();
                 return item.Value;
             }
 
             return null;
+        }
+
+        private void ClearTimedOutItems()
+        {
+            IEnumerable<string> timedOutKeys = cacheData.Where(item => this.ItemHasTimedOut(item.Value))
+                .Select(item => item.Key).ToList();
+
+            foreach (string timedOutKey in timedOutKeys)
+            {
+                this.cacheData.Remove(timedOutKey);
+            }
+        }
+
+        /// <summary>
+        /// Return true if the item has expired, is past the timeout
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private bool ItemHasTimedOut(CacheItem item)
+        {
+            return item.LastAccessed < DateTime.Now - this.Timeout;
         }
     }
 }
