@@ -316,7 +316,7 @@ namespace Netsy.Listings
             if (ListingsRetrievalMode == ListingsRetrievalMode.FrontListingsByCategory)
             {
                 // no user name involved
-                const string FrontListingsByCategoryFormatTemplate = "Got page {0} of listings for category {1}";
+                const string FrontListingsByCategoryFormatTemplate = "Page {0} of listings for category {1}";
                 return string.Format(
                  CultureInfo.InvariantCulture,
                  FrontListingsByCategoryFormatTemplate,
@@ -327,7 +327,7 @@ namespace Netsy.Listings
             if (ListingsRetrievalMode == ListingsRetrievalMode.FrontListingsByColor)
             {
                 // no user name involved
-                const string FrontListingsByCategoryFormatTemplate = "Got page {0} of listings for color {1}";
+                const string FrontListingsByCategoryFormatTemplate = "Page {0} of listings for color {1}";
                 return string.Format(
                  CultureInfo.InvariantCulture,
                  FrontListingsByCategoryFormatTemplate,
@@ -335,7 +335,7 @@ namespace Netsy.Listings
                  this.ListingsColor);
             }
 
-            const string FormatTemplate = "Got page {0} of {1} for {2}";
+            const string FormatTemplate = "Page {0} of {1} for {2}";
             return string.Format(
              CultureInfo.InvariantCulture,
              FormatTemplate,
