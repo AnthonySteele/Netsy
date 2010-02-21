@@ -112,10 +112,10 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings", listingId)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings", listingId)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingDetailsCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetListingDetailsCompleted);
         }
 
         /// <summary>
@@ -134,12 +134,12 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/all")
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/all")
                 .Sort(sortOn, sortOrder)
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetAllListingsCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetAllListingsCompleted);
         }
 
         /// <summary>
@@ -159,12 +159,12 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/category", category)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/category", category)
                 .Sort(sortOn, sortOrder)
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByCategoryCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetListingsByCategoryCompleted);
         }
 
         /// <summary>
@@ -188,12 +188,12 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/color", color)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/color", color)
                 .Param("wiggle", wiggle)
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByColorCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetListingsByColorCompleted);
         }
 
         /// <summary>
@@ -218,13 +218,13 @@ namespace Netsy.Services
                 return null;
             }
             
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/color", color)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/color", color)
                 .Append("/keywords/").Append(keywords)
                 .Param("wiggle", wiggle)
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByColorAndKeywordsCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetListingsByColorAndKeywordsCompleted);
         }
 
         /// <summary>
@@ -241,11 +241,11 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/featured/front")
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/featured/front")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFrontFeaturedListingsCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFrontFeaturedListingsCompleted);
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/keywords/")
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/keywords/")
                 .Append(searchTerms)
                 .Sort(sortOn, sortOrder)
                 .OptionalParam("min_price", minPrice)
@@ -285,7 +285,7 @@ namespace Netsy.Services
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByKeywordCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetListingsByKeywordCompleted);
         }
 
         /// <summary>
@@ -305,13 +305,13 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/materials/")
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/materials/")
                 .Append(materials)
                 .Sort(sortOn, sortOrder)
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByMaterialsCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetListingsByMaterialsCompleted);
         }
 
         /// <summary>
@@ -331,13 +331,13 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings/tags/")
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/tags/")
                 .Append(tags)
                 .Sort(sortOn, sortOrder)
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetListingsByTagsCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetListingsByTagsCompleted);
         }
 
         #endregion

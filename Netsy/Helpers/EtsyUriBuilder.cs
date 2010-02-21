@@ -1,12 +1,13 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="UriBuilder.cs" company="AFS">
+// <copyright file="EtsyUriBuilder.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Services
+
+namespace Netsy.Helpers
 {
     using System;
     using System.Collections.Generic;
@@ -14,12 +15,11 @@ namespace Netsy.Services
     using System.Text;
 
     using Netsy.DataModel;
-    using Netsy.Helpers;
 
     /// <summary>
     /// Class to build a Uri to the Etsy site
     /// </summary>
-    internal class UriBuilder
+    internal class EtsyUriBuilder
     {
         /// <summary>
         /// the Etsy context data
@@ -42,10 +42,10 @@ namespace Netsy.Services
         private bool hasApiKey;
 
         /// <summary>
-        /// Initializes a new instance of the UriBuilder class
+        /// Initializes a new instance of the etsyUriBuilder class
         /// </summary>
         /// <param name="etsyContext">the etsy context to use</param>
-        private UriBuilder(EtsyContext etsyContext)
+        private EtsyUriBuilder(EtsyContext etsyContext)
         {
             this.etsyContext = etsyContext;
         }
@@ -55,9 +55,9 @@ namespace Netsy.Services
         /// </summary>
         /// <param name="etsyContext">the etsy context</param>
         /// <returns>the Uri builder</returns>
-        public static UriBuilder Start(EtsyContext etsyContext)
+        public static EtsyUriBuilder Start(EtsyContext etsyContext)
         {
-            UriBuilder instance = new UriBuilder(etsyContext);
+            EtsyUriBuilder instance = new EtsyUriBuilder(etsyContext);
             instance.Append(etsyContext.BaseUrl);
 
             return instance;
@@ -69,9 +69,9 @@ namespace Netsy.Services
         /// <param name="etsyContext">the etsy context</param>
         /// <param name="basePath">the path on the base uri</param>
         /// <returns>the Uri builder</returns>
-        public static UriBuilder Start(EtsyContext etsyContext, string basePath)
+        public static EtsyUriBuilder Start(EtsyContext etsyContext, string basePath)
         {
-            UriBuilder instance = new UriBuilder(etsyContext);
+            EtsyUriBuilder instance = new EtsyUriBuilder(etsyContext);
             instance.Append(etsyContext.BaseUrl);
             instance.Append(basePath);
 
@@ -85,7 +85,7 @@ namespace Netsy.Services
         /// <param name="basePath">the path on the base uri</param>
         /// <param name="id">the item id to append</param>
         /// <returns>the Uri builder</returns>
-        public static UriBuilder Start(EtsyContext etsyContext, string basePath, int id)
+        public static EtsyUriBuilder Start(EtsyContext etsyContext, string basePath, int id)
         {
             return Start(etsyContext, basePath, id.ToString(CultureInfo.InvariantCulture));
         }
@@ -97,9 +97,9 @@ namespace Netsy.Services
         /// <param name="basePath">the path on the base uri</param>
         /// <param name="id">the item id to append</param>
         /// <returns>the Uri builder</returns>
-        public static UriBuilder Start(EtsyContext etsyContext, string basePath, string id)
+        public static EtsyUriBuilder Start(EtsyContext etsyContext, string basePath, string id)
         {
-            UriBuilder instance = new UriBuilder(etsyContext);
+            EtsyUriBuilder instance = new EtsyUriBuilder(etsyContext);
             instance.Append(etsyContext.BaseUrl);
             instance.Append(basePath);
             instance.Append("/");
@@ -115,7 +115,7 @@ namespace Netsy.Services
         /// <param name="basePath">the path on the base uri</param>
         /// <param name="color">the color to append</param>
         /// <returns>the Uri builder</returns>
-        public static UriBuilder Start(EtsyContext etsyContext, string basePath, EtsyColor color)
+        public static EtsyUriBuilder Start(EtsyContext etsyContext, string basePath, EtsyColor color)
         {
             if (color == null)
             {
@@ -130,7 +130,7 @@ namespace Netsy.Services
         /// </summary>
         /// <param name="urlPart">the partial url text to append</param>
         /// <returns>the Uri builder</returns>
-        public UriBuilder Append(string urlPart)
+        public EtsyUriBuilder Append(string urlPart)
         {
             this.result.Append(urlPart);
 
@@ -142,7 +142,7 @@ namespace Netsy.Services
         /// </summary>
         /// <param name="values">the values to append</param>
         /// <returns>the Uri builder</returns>
-        public UriBuilder Append(IEnumerable<string> values)
+        public EtsyUriBuilder Append(IEnumerable<string> values)
         {
             bool first = true;
 
@@ -169,7 +169,7 @@ namespace Netsy.Services
         /// <param name="paramName">the param name</param>
         /// <param name="paramValue">the param value</param>
         /// <returns>the uri builder</returns>
-        public UriBuilder Param(string paramName, string paramValue)
+        public EtsyUriBuilder Param(string paramName, string paramValue)
         {
             if (this.hasUriParams)
             {
@@ -195,7 +195,7 @@ namespace Netsy.Services
         /// <param name="paramName">the param name</param>
         /// <param name="paramValue">the param value</param>
         /// <returns>the uri builder</returns>
-        public UriBuilder Param(string paramName, int paramValue)
+        public EtsyUriBuilder Param(string paramName, int paramValue)
         {
             return this.Param(paramName, paramValue.ToString(CultureInfo.InvariantCulture));
         }
@@ -206,7 +206,7 @@ namespace Netsy.Services
         /// <param name="paramName">the param name</param>
         /// <param name="paramValue">the param value</param>
         /// <returns>the uri builder</returns>
-        public UriBuilder Param(string paramName, bool paramValue)
+        public EtsyUriBuilder Param(string paramName, bool paramValue)
         {
             return this.Param(paramName, paramValue ? "true" : "false");
         }
@@ -217,7 +217,7 @@ namespace Netsy.Services
         /// <param name="paramName">the param name</param>
         /// <param name="paramValue">the param value</param>
         /// <returns>the uri builder</returns>
-        public UriBuilder OptionalParam(string paramName, int? paramValue)
+        public EtsyUriBuilder OptionalParam(string paramName, int? paramValue)
         {
             if (paramValue.HasValue)
             {
@@ -233,7 +233,7 @@ namespace Netsy.Services
         /// <param name="paramName">the param name</param>
         /// <param name="paramValue">the param value</param>
         /// <returns>the uri builder</returns>
-        public UriBuilder OptionalParam(string paramName, decimal? paramValue)
+        public EtsyUriBuilder OptionalParam(string paramName, decimal? paramValue)
         {
             if (paramValue.HasValue)
             {
@@ -248,7 +248,7 @@ namespace Netsy.Services
         /// </summary>
         /// <param name="offset">the result set offset</param>
         /// <returns>the uri builder</returns>
-        public UriBuilder Offset(int offset)
+        public EtsyUriBuilder Offset(int offset)
         {
             return this.Param("offset", offset);
         }
@@ -258,7 +258,7 @@ namespace Netsy.Services
         /// </summary>
         /// <param name="limit">the result set limit</param>
         /// <returns>the uri builder</returns>
-        public UriBuilder Limit(int limit)
+        public EtsyUriBuilder Limit(int limit)
         {
             return this.Param("limit", limit);
         }
@@ -269,7 +269,7 @@ namespace Netsy.Services
         /// <param name="offset">the result set offset</param>
         /// <param name="limit">the results limit</param>
         /// <returns>the uri builder</returns>
-        public UriBuilder OffsetLimit(int offset, int limit)
+        public EtsyUriBuilder OffsetLimit(int offset, int limit)
         {
             this.Offset(offset);
             return this.Limit(limit);
@@ -280,7 +280,7 @@ namespace Netsy.Services
         /// </summary>
         /// <param name="detailLevel">the detail level</param>
         /// <returns>the uri builder</returns>
-        public UriBuilder DetailLevel(DetailLevel detailLevel)
+        public EtsyUriBuilder DetailLevel(DetailLevel detailLevel)
         {
             return this.Param("detail_level", detailLevel.ToStringLower());
         }
@@ -290,7 +290,7 @@ namespace Netsy.Services
         /// </summary>
         /// <param name="sortOrder">the sort order</param>
         /// <returns>the uri builder</returns>
-        public UriBuilder SortOrder(SortOrder sortOrder)
+        public EtsyUriBuilder SortOrder(SortOrder sortOrder)
         {
             return this.Param("sort_order", sortOrder.ToStringLower());
         }
@@ -301,7 +301,7 @@ namespace Netsy.Services
         /// <param name="sortField">the sort field</param>
         /// <param name="sortOrder">the sort order</param>
         /// <returns>the uri builder</returns>
-        public UriBuilder Sort(SortField sortField, SortOrder sortOrder)
+        public EtsyUriBuilder Sort(SortField sortField, SortOrder sortOrder)
         {
             this.Param("sort_on", sortField.ToStringLower());
             return this.Param("sort_order", sortOrder.ToStringLower());            
@@ -311,7 +311,7 @@ namespace Netsy.Services
         /// Append the Api key
         /// </summary>
         /// <returns>the uri builder</returns>
-        public UriBuilder ApiKey()
+        public EtsyUriBuilder ApiKey()
         {
             this.hasApiKey = true;
             return this.Param("api_key", this.etsyContext.ApiKey);
@@ -342,3 +342,5 @@ namespace Netsy.Services
         }
     }
 }
+
+

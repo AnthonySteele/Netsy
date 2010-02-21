@@ -89,9 +89,9 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "feedback", feedbackId);
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "feedback", feedbackId);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFeedbackCompleted);
         }
 
         /// <summary>
@@ -108,11 +108,11 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .Append("/feedback")
                 .OffsetLimit(offset, limit);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackForUserCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFeedbackForUserCompleted);
         }
 
         /// <summary>
@@ -129,11 +129,11 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userName)
                 .Append("/feedback")
                 .OffsetLimit(offset, limit);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackForUserCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFeedbackForUserCompleted);
         }
 
         /// <summary>
@@ -150,11 +150,11 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .Append("/feedback/buyer")
                 .OffsetLimit(offset, limit);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
         }
 
         /// <summary>
@@ -171,11 +171,11 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userName)
                 .Append("/feedback/buyer")
                 .OffsetLimit(offset, limit);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFeedbackAsBuyerCompleted);
         }
 
         /// <summary>
@@ -192,11 +192,11 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .Append("/feedback/others")
                 .OffsetLimit(offset, limit);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackForOthersCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFeedbackForOthersCompleted);
         }
 
         /// <summary>
@@ -213,11 +213,11 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userName)
                 .Append("/feedback/others")
                 .OffsetLimit(offset, limit);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackForOthersCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFeedbackForOthersCompleted);
         }
 
         /// <summary>
@@ -234,11 +234,11 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .Append("/feedback/seller")
                 .OffsetLimit(offset, limit);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
         }
 
         /// <summary>
@@ -255,11 +255,11 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userName)
                 .Append("/feedback/seller")
                 .OffsetLimit(offset, limit);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFeedbackAsSellerCompleted);
         }
 
         #endregion

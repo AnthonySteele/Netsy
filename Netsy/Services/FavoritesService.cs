@@ -87,12 +87,12 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "listings", listingId)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings", listingId)
                 .Append("/favorers")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavorersOfListingCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFavorersOfListingCompleted);
         }
 
         /// <summary>
@@ -110,12 +110,12 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", shopId)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "shops", shopId)
                 .Append("/favorers")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavorersOfShopCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFavorersOfShopCompleted);
         }
 
         /// <summary>
@@ -133,12 +133,12 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "shops", shopName)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "shops", shopName)
                 .Append("/favorers")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavorersOfShopCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFavorersOfShopCompleted);
         }
 
         /// <summary>
@@ -156,12 +156,12 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .Append("/favorites/listings")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
         }
 
         /// <summary>
@@ -179,12 +179,12 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userName)
                 .Append("/favorites/listings")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFavoriteListingsOfUserCompleted);
         }
 
         /// <summary>
@@ -202,12 +202,12 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .Append("/favorites/shops")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted);
         }
 
         /// <summary>
@@ -225,12 +225,12 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userName)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userName)
                 .Append("/favorites/shops")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetFavoriteShopsOfUserCompleted);
         }
 
         #endregion

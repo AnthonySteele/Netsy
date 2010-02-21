@@ -131,7 +131,7 @@
     <Compile Include="Requests\RequestHelper.cs" />
     <Compile Include="Services\ShopService.cs" />
     <Compile Include="Services\TagCategoryService.cs" />
-    <Compile Include="Services\UriBuilder.cs" />
+    <Compile Include="Helpers\EtsyUriBuilder.cs" />
     <Compile Include="Services\UsersService.cs" />
   </ItemGroup>
   <ItemGroup>

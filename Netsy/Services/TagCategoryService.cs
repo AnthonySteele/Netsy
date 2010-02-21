@@ -83,9 +83,9 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories");
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "categories");
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetTopCategoriesCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetTopCategoriesCompleted);
         }
 
         /// <summary>
@@ -100,9 +100,9 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "categories", category).Append("/children");
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "categories", category).Append("/children");
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetChildCategoriesCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetChildCategoriesCompleted);
         }
 
         /// <summary>
@@ -116,9 +116,9 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags");
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "tags");
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetTopTagsCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetTopTagsCompleted);
         }
 
         /// <summary>
@@ -133,9 +133,9 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "tags", tag).Append("/children");
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "tags", tag).Append("/children");
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetChildTagsCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetChildTagsCompleted);
         }
 
         #endregion

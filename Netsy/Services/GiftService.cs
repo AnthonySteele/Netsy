@@ -73,9 +73,9 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "gift-guides");
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "gift-guides");
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetGiftGuidesCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetGiftGuidesCompleted);
         }
 
         /// <summary>
@@ -93,12 +93,12 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "gift-guides", guideId)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "gift-guides", guideId)
                 .Append("/listings")
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetGiftGuideListingsCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetGiftGuideListingsCompleted);
         }
 
         #endregion

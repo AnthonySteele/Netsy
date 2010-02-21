@@ -98,6 +98,14 @@
     <Compile Include="Requests\DataRetrieverTest.cs" />
     <Compile Include="Requests\MockFailingRequestGenerator.cs" />
     <Compile Include="Requests\MockFixedDataRequestGenerator.cs" />
+    <Compile Include="Services\FavoritesServiceTest.cs" />
+    <Compile Include="Services\FeedbackServiceTest.cs" />
+    <Compile Include="Services\GiftServiceTest.cs" />
+    <Compile Include="Services\ListingServiceTest.cs" />
+    <Compile Include="Services\ServerServiceTest.cs" />
+    <Compile Include="Services\ShopServiceTest.cs" />
+    <Compile Include="Services\TagCategoryServiceTest.cs" />
+    <Compile Include="Services\UsersServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Netsy\Netsy.csproj">

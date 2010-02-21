@@ -76,10 +76,10 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users", userId)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetUserDetailsCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetUserDetailsCompleted);
         }
 
         /// <summary>
@@ -97,11 +97,11 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "users/keywords", searchName)
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users/keywords", searchName)
                 .OffsetLimit(offset, limit)
                 .DetailLevel(detailLevel);
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetUsersByNameCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetUsersByNameCompleted);
         }
 
         #endregion

@@ -78,9 +78,9 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "server/ping");
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "server/ping");
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.PingCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.PingCompleted);
         }
 
         /// <summary>
@@ -94,9 +94,9 @@ namespace Netsy.Services
                 return null;
             }
 
-            UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext, "server/epoch");
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "server/epoch");
 
-            return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetServerEpochCompleted);
+            return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetServerEpochCompleted);
         }
 
         /// <summary>
@@ -110,9 +110,9 @@ namespace Netsy.Services
                 return null;
             }
 
-           UriBuilder uriBuilder = UriBuilder.Start(this.etsyContext).Append("/");
+           EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext).Append("/");
 
-           return this.dataRetriever.StartRetrieve(uriBuilder.Result(), this.GetMethodTableCompleted);
+           return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetMethodTableCompleted);
         }
 
         #endregion
