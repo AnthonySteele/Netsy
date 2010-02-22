@@ -16,9 +16,9 @@ namespace Netsy.Listings
     using Netsy.Cache;
     using Netsy.DataModel;
     using Netsy.Interfaces;
+    using Netsy.Requests;
     using Netsy.Services;
     using Netsy.UI.DispatchedServices;
-    using Netsy.Requests;
 
     /// <summary>
     /// Class to hold the only singleton we'll need - the IOC container
@@ -74,7 +74,7 @@ namespace Netsy.Listings
         private static void RegisterNetsyTypes()
         {
             // the etsy context can be a singleton
-            const string EtsyApiKey = "rfc35bh98q3a9hvccfsxe4cc";
+            const string EtsyApiKey = "fxx4ppr9da9yvxzvug5hhv5a";
             RegisterInstance(new EtsyContext(EtsyApiKey));
 
             // register the services 

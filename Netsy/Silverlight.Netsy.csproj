@@ -98,6 +98,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\DateTimeHelpers.cs" />
     <Compile Include="Helpers\EnumHelpers.cs" />
+    <Compile Include="Helpers\EtsyUriBuilder.cs" />
     <Compile Include="Helpers\GenericEventArgs.cs" />
     <Compile Include="Helpers\IntHelpers.cs" />
     <Compile Include="Helpers\JsonSerializerHelper.cs" />
@@ -126,7 +127,6 @@
     <Compile Include="Requests\RequestHelper.cs" />
     <Compile Include="Services\ShopService.cs" />
     <Compile Include="Services\TagCategoryService.cs" />
-    <Compile Include="Services\UriBuilder.cs" />
     <Compile Include="Services\UsersService.cs" />
   </ItemGroup>
   <ItemGroup>
