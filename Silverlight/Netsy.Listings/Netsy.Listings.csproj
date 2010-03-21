@@ -20,7 +20,7 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>Netsy.Favorites.xap</XapFilename>
+    <XapFilename>Netsy.Listings.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <SilverlightAppEntry>Netsy.Listings.App</SilverlightAppEntry>
     <TestPageFileName>TestPage.html</TestPageFileName>

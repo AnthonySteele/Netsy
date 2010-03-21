@@ -40,6 +40,8 @@ namespace Netsy.Test.Requests
         /// <returns>the async state</returns>
         public IAsyncResult StartRequest(Uri uri, Action<string> dataAction, Action<Exception> errorAction)
         {
+            this.StartRequestCallCount++;
+
             if (dataAction == null)
             {
                 throw new ArgumentNullException("dataAction");
@@ -48,5 +50,7 @@ namespace Netsy.Test.Requests
             dataAction(this.resultData);
             return null;
         }
+
+        public int StartRequestCallCount { get; set; }
     }
 }

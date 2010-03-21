@@ -65,7 +65,8 @@ namespace Netsy.Cache
 
         private void ClearTimedOutItems()
         {
-            IEnumerable<string> timedOutKeys = cacheData.Where(item => this.ItemHasTimedOut(item.Value))
+            IEnumerable<string> timedOutKeys = 
+                cacheData.Where(item => this.ItemHasTimedOut(item.Value))
                 .Select(item => item.Key).ToList();
 
             foreach (string timedOutKey in timedOutKeys)

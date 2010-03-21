@@ -17,7 +17,8 @@ namespace Netsy.IntegrationTest.Requests
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Requests;
-    using Netsy.Test;
+
+    using Test;
 
     /// <summary>
     /// Test the DataRetriever class
@@ -30,7 +31,7 @@ namespace Netsy.IntegrationTest.Requests
         /// </summary>
         private const string TestUri = 
             "http://beta-api.etsy.com/v1/listings/featured/front?offset=0&limit=10&detail_level=low&api_key=" +
-            NetsyData.EtsyApiKey;
+            IntegrationTest.NetsyData.EtsyApiKey;
 
         /// <summary>
         /// Test simple creation
@@ -77,7 +78,7 @@ namespace Netsy.IntegrationTest.Requests
                      };
 
                 dataRetriever.StartRetrieve(new Uri(TestUri), completedHandler);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(IntegrationTest.NetsyData.WaitTimeout);
 
                 Assert.IsTrue(signalled);
             }
@@ -108,7 +109,7 @@ namespace Netsy.IntegrationTest.Requests
                 };
 
                 dataRetriever.StartRetrieve(new Uri(TestUri + "bad"), completedHandler);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(IntegrationTest.NetsyData.WaitTimeout);
 
                 Assert.IsTrue(signalled);
             }

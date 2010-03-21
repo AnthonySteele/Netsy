@@ -9,8 +9,7 @@
 namespace Netsy.IntegrationTest
 {
     /// <summary>
-    /// Helpers on integration tests
-    /// Input data and output inspection
+    /// Input data for integration tests
     /// </summary>
     public static class NetsyData
     {
