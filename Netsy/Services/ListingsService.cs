@@ -11,7 +11,6 @@ namespace Netsy.Services
     using System;
     using System.Collections.Generic;
 
-    using Netsy.Cache;
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;

@@ -10,7 +10,6 @@ namespace Netsy.Services
 {
     using System;
 
-    using Netsy.Cache;
     using Netsy.DataModel;
     using Netsy.Helpers;
     using Netsy.Interfaces;
