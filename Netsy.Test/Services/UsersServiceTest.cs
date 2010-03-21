@@ -62,11 +62,13 @@ namespace Netsy.Test.Services
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                Assert.IsNotNull(result.ResultValue.Params);
-                Assert.IsNotNull(result.ResultValue.Results);
-                Assert.AreEqual(1, result.ResultValue.Count);
+                Assert.IsNotNull(result, "No result");
+                Assert.IsTrue(result.ResultStatus.Success, "Result failed: " + result.ResultStatus.ErrorMessage);
+                Assert.IsNotNull(result.ResultValue.Params, "No result params");
+                Assert.IsNotNull(result.ResultValue.Results, "No result data");
+                Assert.AreEqual(1, result.ResultValue.Count, "Inciorrect result count");
 
-                Assert.AreEqual(1, requestGenerator.StartRequestCallCount);
+                Assert.AreEqual(1, requestGenerator.StartRequestCallCount, "Incorrect request call count");
             }
         }
     }

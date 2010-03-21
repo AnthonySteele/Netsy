@@ -20,7 +20,7 @@ namespace Netsy.Test.Services
     public class FavoritesServiceTest
     {
         [TestMethod]
-        public void FavoritesServiceCreateTest()
+        public void CreateWithMockRequestTest()
         {
             EtsyContext etsyContext = new EtsyContext(string.Empty);
             IRequestGenerator requestGenerator = new MockFixedDataRequestGenerator(string.Empty);

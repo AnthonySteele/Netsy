@@ -20,7 +20,7 @@ namespace Netsy.Test.Services
     public class TagCategoryServiceTest
     {
         [TestMethod]
-        public void TagCategoryServiceCreateTest()
+        public void CreateWithMockRequestTest()
         {
             EtsyContext etsyContext = new EtsyContext(string.Empty);
             IRequestGenerator requestGenerator = new MockFixedDataRequestGenerator(string.Empty);
