@@ -18,6 +18,7 @@ namespace Netsy.IntegrationTest.Listings
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the GetListingsByMaterials Api function
@@ -66,7 +67,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByMaterials(materials, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -104,7 +105,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByMaterials(materials, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -141,7 +142,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByMaterials(materials, SortField.Score, SortOrder.Up, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -191,7 +192,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByMaterials(materials, SortField.Created, SortOrder.Up, 0, 10, detailLevel);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out

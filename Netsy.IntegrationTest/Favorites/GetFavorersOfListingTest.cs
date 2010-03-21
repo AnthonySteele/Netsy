@@ -14,9 +14,9 @@ namespace Netsy.IntegrationTest.Favorites
 
     using Netsy.DataModel;
     using Netsy.Helpers;
-    using Netsy.IntegrationTest.Listings;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the GetFavorersOfListing API function
@@ -74,7 +74,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavorersOfListing(this.testListingId, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -107,7 +107,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavorersOfListing(NetsyData.TestBadListingId, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -140,7 +140,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavorersOfListing(this.testListingId, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -188,7 +188,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavorersOfListing(this.testListingId, 0, 10, detailLevel);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out

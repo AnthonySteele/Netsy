@@ -17,6 +17,7 @@ namespace Netsy.IntegrationTest.Shop
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test etsy shop retrieval
@@ -61,7 +62,7 @@ namespace Netsy.IntegrationTest.Shop
 
                 // ACT
                 shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -95,7 +96,7 @@ namespace Netsy.IntegrationTest.Shop
 
                 // ACT
                 shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -141,7 +142,7 @@ namespace Netsy.IntegrationTest.Shop
 
                 // ACT
                 shopsService.GetShopsByName("fred", SortOrder.Up, 0, 10, detailLevel);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out

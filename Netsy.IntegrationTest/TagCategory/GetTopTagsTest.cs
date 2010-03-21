@@ -17,6 +17,7 @@ namespace Netsy.IntegrationTest.TagCategory
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the GetTopTags API function
@@ -61,7 +62,7 @@ namespace Netsy.IntegrationTest.TagCategory
 
                 // ACT
                 tagCategoryService.GetTopTags();
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -94,7 +95,7 @@ namespace Netsy.IntegrationTest.TagCategory
 
                 // ACT
                 tagCategoryService.GetTopTags();
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out

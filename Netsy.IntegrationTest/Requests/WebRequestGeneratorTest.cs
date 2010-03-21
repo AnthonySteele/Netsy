@@ -14,6 +14,7 @@ namespace Netsy.IntegrationTest.Requests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using Netsy.Requests;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the WebRequestGenerator class
@@ -60,7 +61,7 @@ namespace Netsy.IntegrationTest.Requests
                     };
 
                 requestGenerator.StartRequest(new Uri(TestUri), successAction, errorAction);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 Assert.IsTrue(signalled);
                 Assert.IsFalse(string.IsNullOrEmpty(resultString));

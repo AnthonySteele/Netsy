@@ -17,6 +17,7 @@ namespace Netsy.IntegrationTest.Server
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the ping function on the server service
@@ -61,7 +62,7 @@ namespace Netsy.IntegrationTest.Server
 
                 // ACT
                 etsyServer.Ping();
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -94,7 +95,7 @@ namespace Netsy.IntegrationTest.Server
 
                 // ACT
                 etsyServer.Ping();
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out

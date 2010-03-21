@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="NetsyData.cs" company="AFS">
+// <copyright file="Constants.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
@@ -11,7 +11,7 @@ namespace Netsy.Test
     /// <summary>
     /// Helpers on tests
     /// </summary>
-    public static class NetsyData
+    public static class Constants
     {
         /// <summary>
         /// how long to wait before timing out - 100 seconds
@@ -21,7 +21,7 @@ namespace Netsy.Test
         /// <summary>
         /// The API key to use for testing
         /// </summary>
-        public const string EtsyApiKey = "dummykey";
+        public const string DummyEtsyApiKey = "DummyEtsyApiKey";
 
         /// <summary>
         /// the test data id to pass to services

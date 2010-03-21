@@ -17,6 +17,7 @@ namespace Netsy.IntegrationTest.Listings
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the GetListingsByColorTest function on the listings service
@@ -85,7 +86,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByColor(testColor, 10, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -123,7 +124,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByColor(testColor, 10, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -173,7 +174,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByColor(testColor, 10, 10, 10, detailLevel);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out

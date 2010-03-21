@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.IntegrationTest
+namespace Netsy.Test
 {
     using System.Threading;
 

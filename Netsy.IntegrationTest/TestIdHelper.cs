@@ -13,6 +13,7 @@ namespace Netsy.IntegrationTest
     using Netsy.DataModel;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Helpers to retrieve Ids
@@ -48,7 +49,7 @@ namespace Netsy.IntegrationTest
                 };
 
                 listingsService.GetFrontFeaturedListings(0, 1, DetailLevel.Low);
-                waitEvent.WaitOne(NetsyData.WaitTimeout);
+                waitEvent.WaitOne(Constants.WaitTimeout);
             }
 
             cachedListingId = result;

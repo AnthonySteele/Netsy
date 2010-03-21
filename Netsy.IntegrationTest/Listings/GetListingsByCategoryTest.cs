@@ -17,6 +17,7 @@ namespace Netsy.IntegrationTest.Listings
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the GetListingsByCategory function on the listings service
@@ -61,7 +62,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -97,7 +98,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Price, SortOrder.Up, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -132,7 +133,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByCategory(NetsyData.TestBadCategory, SortField.Price, SortOrder.Up, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -180,7 +181,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByCategory(NetsyData.TestCategory, SortField.Price, SortOrder.Up, 0, 10, detailLevel);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out

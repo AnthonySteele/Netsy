@@ -17,6 +17,7 @@ namespace Netsy.IntegrationTest.Favorites
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the GetFavoriteListings API function
@@ -79,7 +80,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavoriteListingsOfUser(NetsyData.TestUserId, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -112,7 +113,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavoriteListingsOfUser(NetsyData.TestUserName, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -145,7 +146,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavoriteListingsOfUser(NetsyData.TestBadUserId, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -177,7 +178,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavoriteListingsOfUser(NetsyData.TestBadUserName, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -210,7 +211,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavoriteListingsOfUser(NetsyData.TestUserId, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -245,7 +246,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavoriteListingsOfUser(NetsyData.TestUserName, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -304,7 +305,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavoriteListingsOfUser(NetsyData.TestUserId, 0, 10, detailLevel);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -341,7 +342,7 @@ namespace Netsy.IntegrationTest.Favorites
 
                 // ACT
                 favoritesService.GetFavoriteListingsOfUser(NetsyData.TestUserName, 0, 10, detailLevel);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out

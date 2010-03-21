@@ -93,7 +93,7 @@
     <Compile Include="Helpers\IntHelpersTest.cs" />
     <Compile Include="Helpers\ResultStatusTest.cs" />
     <Compile Include="Helpers\StringHelpersTest.cs" />
-    <Compile Include="NetsyData.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="NullDataCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\DataRetrieverTest.cs" />
@@ -107,6 +107,7 @@
     <Compile Include="Services\ShopServiceTest.cs" />
     <Compile Include="Services\TagCategoryServiceTest.cs" />
     <Compile Include="Services\UsersServiceTest.cs" />
+    <Compile Include="TestHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Netsy\Netsy.csproj">

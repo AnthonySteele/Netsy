@@ -16,6 +16,7 @@ namespace Netsy.IntegrationTest.Feedback
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the GetFeedback API Function
@@ -60,7 +61,7 @@ namespace Netsy.IntegrationTest.Feedback
 
                 // ACT
                 feedbackService.GetFeedback(NetsyData.TestFeedbackId);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -93,7 +94,7 @@ namespace Netsy.IntegrationTest.Feedback
 
                 // ACT
                 feedbackService.GetFeedback(NetsyData.TestBadFeedbackId);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -126,7 +127,7 @@ namespace Netsy.IntegrationTest.Feedback
 
                 // ACT
                 feedbackService.GetFeedback(NetsyData.TestFeedbackId);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out

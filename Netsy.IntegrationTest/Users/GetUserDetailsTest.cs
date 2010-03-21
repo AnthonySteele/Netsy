@@ -17,6 +17,7 @@ namespace Netsy.IntegrationTest.Users
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test etsy users retrieval
@@ -60,7 +61,7 @@ namespace Netsy.IntegrationTest.Users
 
                 // ACT
                 etsyUsers.GetUserDetails(NetsyData.TestUserId, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
 
@@ -94,7 +95,7 @@ namespace Netsy.IntegrationTest.Users
 
                 // ACT
                 etsyUsers.GetUserDetails(NetsyData.TestUserId, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
 
@@ -140,7 +141,7 @@ namespace Netsy.IntegrationTest.Users
 
                 // ACT
                 etsyUsers.GetUserDetails(NetsyData.TestUserId, detailLevel);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
 

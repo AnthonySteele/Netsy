@@ -17,6 +17,7 @@ namespace Netsy.IntegrationTest.Gifts
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the GetGiftGuides API Function
@@ -61,7 +62,7 @@ namespace Netsy.IntegrationTest.Gifts
 
                 // ACT
                 giftService.GetGiftGuides();
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -94,7 +95,7 @@ namespace Netsy.IntegrationTest.Gifts
 
                 // ACT
                 giftService.GetGiftGuides();
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out

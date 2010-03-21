@@ -38,7 +38,7 @@ namespace Netsy.Test.Services
         [TestMethod]
         public void GetUserDetailsTest()
         {
-            EtsyContext etsyContext = new EtsyContext(NetsyData.EtsyApiKey);
+            EtsyContext etsyContext = new EtsyContext(Constants.DummyEtsyApiKey);
             MockFixedDataRequestGenerator requestGenerator = new MockFixedDataRequestGenerator(GetUserDetailsRawResults);
             DataRetriever dataRetriever = new DataRetriever(new NullDataCache(), requestGenerator);
             IUsersService etsyUsersService = new UsersService(etsyContext, dataRetriever);
@@ -53,8 +53,8 @@ namespace Netsy.Test.Services
                     };
 
                 // ACT
-                etsyUsersService.GetUserDetails(NetsyData.TestId, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                etsyUsersService.GetUserDetails(Constants.TestId, DetailLevel.Low);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
 
@@ -62,13 +62,7 @@ namespace Netsy.Test.Services
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data
-                Assert.IsNotNull(result, "No result");
-                Assert.IsTrue(result.ResultStatus.Success, "Result failed: " + result.ResultStatus.ErrorMessage);
-                Assert.IsNotNull(result.ResultValue.Params, "No result params");
-                Assert.IsNotNull(result.ResultValue.Results, "No result data");
-                Assert.AreEqual(1, result.ResultValue.Count, "Inciorrect result count");
-
-                Assert.AreEqual(1, requestGenerator.StartRequestCallCount, "Incorrect request call count");
+                TestHelpers.CheckResultSuccess(result);
             }
         }
     }

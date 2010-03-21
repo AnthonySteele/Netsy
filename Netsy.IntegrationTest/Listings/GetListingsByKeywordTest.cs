@@ -18,6 +18,7 @@ namespace Netsy.IntegrationTest.Listings
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the GetListingsByKeyword Api function
@@ -85,7 +86,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByKeyword(searchTerms, SortField.Created, SortOrder.Up, null, null, false, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -123,7 +124,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByKeyword(searchTerms, SortField.Created, SortOrder.Up, null, null, false, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -160,7 +161,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByKeyword(searchTerms, SortField.Score, SortOrder.Up, null, null, false, 0, 10, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -210,7 +211,7 @@ namespace Netsy.IntegrationTest.Listings
 
                 // ACT
                 listingsService.GetListingsByKeyword(searchTerms, SortField.Created, SortOrder.Up, null, null, false, 0, 10, detailLevel);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out

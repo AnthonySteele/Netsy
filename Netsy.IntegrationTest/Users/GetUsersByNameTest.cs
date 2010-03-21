@@ -17,6 +17,7 @@ namespace Netsy.IntegrationTest.Users
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Services;
+    using Netsy.Test;
 
     /// <summary>
     /// Test the GetUsersByName funcion on the users service
@@ -61,7 +62,7 @@ namespace Netsy.IntegrationTest.Users
                 // ACT
                 // the etsy server should have data here - at least 3 shops with "fred" in the name
                 etsyUsers.GetUsersByName("Fred", 0, 3, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -95,7 +96,7 @@ namespace Netsy.IntegrationTest.Users
                 // ACT
                 // the etsy server should have data here - at least 3 shops with "fred" in the name
                 etsyUsers.GetUsersByName("Fred", 0, 3, DetailLevel.Low);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
@@ -143,7 +144,7 @@ namespace Netsy.IntegrationTest.Users
                 // ACT
                 // the etsy server should have data here - at least 3 shops with "fred" in the name
                 etsyUsers.GetUsersByName("Fred", 0, 3, detailLevel);
-                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+                bool signalled = waitEvent.WaitOne(Constants.WaitTimeout);
 
                 // ASSERT
                 // check that the event was fired, did not time out
