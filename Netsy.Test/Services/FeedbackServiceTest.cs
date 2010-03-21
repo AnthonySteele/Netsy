@@ -8,9 +8,12 @@
 
 namespace Netsy.Test.Services
 {
+    using System.Threading;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using Netsy.DataModel;
+    using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.Requests;
     using Netsy.Services;
@@ -19,6 +22,8 @@ namespace Netsy.Test.Services
     [TestClass]
     public class FeedbackServiceTest
     {
+        private const string GetFeedbackRawResults = @"{""count"":1,""results"":[{""feedback_id"":1,""listing_id"":1234,""title"":""Test data"",""url"":""http:\/\/www.etsy.com\/view_listing.php?listing_id=7209"",""creation_epoch"":1125463478.12,""author_user_id"":1234,""subject_user_id"":1234,""seller_user_id"":1234,""buyer_user_id"":1234,""message"":""Test Data"",""disposition"":""positive"",""value"":1,""image_url_25x25"":null,""image_url_fullxfull"":null}],""params"":{""feedback_id"":1},""type"":""feedback""}";
+
         [TestMethod]
         public void CreateWithMockRequestTest()
         {
@@ -28,6 +33,43 @@ namespace Netsy.Test.Services
             IFeedbackService service = new FeedbackService(etsyContext, dataRetriever);
 
             Assert.IsNotNull(service);
+        }
+
+        [TestMethod]
+        public void GetFeedbackTest()
+        {
+            EtsyContext etsyContext = new EtsyContext(NetsyData.EtsyApiKey);
+            MockFixedDataRequestGenerator requestGenerator = new MockFixedDataRequestGenerator(GetFeedbackRawResults);
+            DataRetriever dataRetriever = new DataRetriever(new NullDataCache(), requestGenerator);
+            IFeedbackService etsyShopsService = new FeedbackService(etsyContext, dataRetriever);
+
+            using (AutoResetEvent waitEvent = new AutoResetEvent(false))
+            {
+                ResultEventArgs<Feedbacks> result = null;
+                etsyShopsService.GetFeedbackCompleted += (s, e) =>
+                {
+                    result = e;
+                    waitEvent.Set();
+                };
+
+                // ACT
+                etsyShopsService.GetFeedback(NetsyData.TestId);
+                bool signalled = waitEvent.WaitOne(NetsyData.WaitTimeout);
+
+                // ASSERT
+
+                // check that the event was fired, did not time out
+                Assert.IsTrue(signalled, "Not signalled");
+
+                // check the data
+                Assert.IsNotNull(result, "No result");
+                Assert.IsTrue(result.ResultStatus.Success, "Result failed: " + result.ResultStatus.ErrorMessage);
+                Assert.IsNotNull(result.ResultValue.Params, "No result params");
+                Assert.IsNotNull(result.ResultValue.Results, "No result data");
+                Assert.AreEqual(1, result.ResultValue.Count, "Inciorrect result count");
+
+                Assert.AreEqual(1, requestGenerator.StartRequestCallCount, "Incorrect request call count");
+            }
         }
     }
 }

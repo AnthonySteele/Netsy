@@ -30,6 +30,8 @@ Backup1
 _Upgrade*
 UpgradeLog*
 
+# other stuff
+NetsyDemoWeb/*
 
 # Code analysis output
 *.CodeAnalysisLog.xml
