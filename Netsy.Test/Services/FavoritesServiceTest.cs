@@ -36,7 +36,7 @@ namespace Netsy.Test.Services
         }
 
         [TestMethod]
-        public void GetFavoriteDetailsTest()
+        public void GetFavorersOfListingTest()
         {
             EtsyContext etsyContext = new EtsyContext(Constants.DummyEtsyApiKey);
             MockFixedDataRequestGenerator requestGenerator = new MockFixedDataRequestGenerator(GetUserDetailsRawResults);

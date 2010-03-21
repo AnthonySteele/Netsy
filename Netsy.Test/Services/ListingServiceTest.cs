@@ -36,7 +36,7 @@ namespace Netsy.Test.Services
         }
 
         [TestMethod]
-        public void GetFeedbackTest()
+        public void GetFrontFeaturedListingsTest()
         {
             EtsyContext etsyContext = new EtsyContext(Constants.DummyEtsyApiKey);
             MockFixedDataRequestGenerator requestGenerator = new MockFixedDataRequestGenerator(GetFrontFeaturedListingsRawResults);
