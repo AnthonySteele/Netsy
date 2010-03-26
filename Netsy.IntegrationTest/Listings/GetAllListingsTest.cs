@@ -26,24 +26,6 @@ namespace Netsy.IntegrationTest.Listings
     public class GetAllListingsTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetAllListingsApiKeyMissingTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Listings> result = null;
-            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
-            listingsService.GetAllListingsCompleted += (s, e) => result = e;
-
-            // ACT
-            listingsService.GetAllListings(SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

@@ -26,23 +26,6 @@ namespace Netsy.IntegrationTest.Users
     public class GetUsersByNameTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetUsersByNameApiKeyMissingTest()
-        {
-            ResultEventArgs<Users> result = null;
-            IUsersService etsyUsers = new UsersService(new EtsyContext(string.Empty));
-            etsyUsers.GetUsersByNameCompleted += (s, e) => result = e;
-
-            // ACT
-            etsyUsers.GetUsersByName("Fred", 0, 3, DetailLevel.Low);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

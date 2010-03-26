@@ -26,46 +26,6 @@ namespace Netsy.IntegrationTest.Listings
     public class GetListingsByColorTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetListingsByColorApiKeyMissingTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Listings> result = null;
-            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
-            listingsService.GetListingsByColorCompleted += (s, e) => result = e;
-
-            RgbColor testColor = new RgbColor("76B3DF");
-
-            // ACT
-            listingsService.GetListingsByColor(testColor, 10, 0, 10, DetailLevel.Low);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetListingsByColorWiggleTooLargeTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Listings> result = null;
-            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
-            listingsService.GetListingsByColorCompleted += (s, e) => result = e;
-
-            RgbColor testColor = new RgbColor("76B3DF");
-
-            // ACT
-            listingsService.GetListingsByColor(testColor, 100, 0, 10, DetailLevel.Low);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

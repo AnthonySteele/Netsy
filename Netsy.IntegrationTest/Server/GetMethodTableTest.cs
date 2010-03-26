@@ -26,24 +26,6 @@ namespace Netsy.IntegrationTest.Server
     public class GetMethodTableTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetMethodTableApiKeyMissingTest()
-        {
-            // ARRANGE
-            ResultEventArgs<MethodTable> result = null;
-            IServerService serverService = new ServerService(new EtsyContext(string.Empty));
-            serverService.GetMethodTableCompleted += (s, e) => result = e;
-
-            // ACT
-            serverService.GetMethodTable();
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

@@ -26,24 +26,6 @@ namespace Netsy.IntegrationTest.Server
     public class PingTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void PingApiKeyMissingTest()
-        {
-            // ARRANGE
-            ResultEventArgs<PingResult> result = null;
-            IServerService stsyServer = new ServerService(new EtsyContext(string.Empty));
-            stsyServer.PingCompleted += (s, e) => result = e;
-
-            // ACT
-            stsyServer.Ping();
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

@@ -26,24 +26,6 @@ namespace Netsy.IntegrationTest.Listings
     public class GetFrontFeaturedListingsTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetFrontFeaturedListingsApiKeyMissingTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Listings> result = null;
-            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
-            listingsService.GetFrontFeaturedListingsCompleted += (s, e) => result = e;
-
-            // ACT
-            listingsService.GetFrontFeaturedListings(0, 10, DetailLevel.Low);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

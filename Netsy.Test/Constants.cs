@@ -27,5 +27,10 @@ namespace Netsy.Test
         /// the test data id to pass to services
         /// </summary>
         public const int TestId = 1234;
+
+        /// <summary>
+        /// The test name to use
+        /// </summary>
+        public const string TestName = "SomeName";
     }
 }

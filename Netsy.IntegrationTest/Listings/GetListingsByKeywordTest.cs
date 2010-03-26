@@ -27,46 +27,6 @@ namespace Netsy.IntegrationTest.Listings
     public class GetListingsByKeywordTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetListingsByKeywordApiKeyMissingTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Listings> result = null;
-            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
-            listingsService.GetListingsByKeywordCompleted += (s, e) => result = e;
-
-            List<string> searchTerms = new List<string>();
-
-            // ACT
-            listingsService.GetListingsByKeyword(searchTerms, SortField.Created, SortOrder.Up, null, null, false, 0, 10, DetailLevel.Low);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
-        /// Test invalid price ranges
-        /// </summary>
-        [TestMethod]
-        public void GetListingsByKeywordInvalidPriceRangeTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Listings> result = null;
-            IListingsService listingsService = new ListingsService(new EtsyContext(NetsyData.EtsyApiKey));
-            listingsService.GetListingsByKeywordCompleted += (s, e) => result = e;
-
-            List<string> searchTerms = new List<string>();
-
-            // ACT
-            listingsService.GetListingsByKeyword(searchTerms, SortField.Created, SortOrder.Up, 100, 10, false, 0, 10, DetailLevel.Low);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

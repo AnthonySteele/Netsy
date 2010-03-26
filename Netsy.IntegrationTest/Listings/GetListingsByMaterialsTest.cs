@@ -27,26 +27,6 @@ namespace Netsy.IntegrationTest.Listings
     public class GetListingsByMaterialsTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetListingsByMaterialsApiKeyMissingTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Listings> result = null;
-            IListingsService listingsService = new ListingsService(new EtsyContext(string.Empty));
-            listingsService.GetListingsByMaterialsCompleted += (s, e) => result = e;
-
-            List<string> materials = new List<string>();
-
-            // ACT
-            listingsService.GetListingsByMaterials(materials, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

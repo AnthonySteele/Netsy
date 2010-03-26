@@ -26,24 +26,6 @@ namespace Netsy.IntegrationTest.Server
     public class ServerEpochTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetServerEpochApiKeyMissingTest()
-        {
-            // ARRANGE
-            ResultEventArgs<ServerEpoch> result = null;
-            IServerService etsyServer = new ServerService(new EtsyContext(string.Empty));
-            etsyServer.GetServerEpochCompleted += (s, e) => result = e;
-
-            // ACT
-            etsyServer.GetServerEpoch();
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

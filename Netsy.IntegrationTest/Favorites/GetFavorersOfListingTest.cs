@@ -38,24 +38,6 @@ namespace Netsy.IntegrationTest.Favorites
         }
 
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetFavorersOfListingMissingApiKeyTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Users> result = null;
-            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty));
-            favoritesService.GetFavorersOfListingCompleted += (s, e) => result = e;
-
-            // ACT
-            favoritesService.GetFavorersOfListing(this.testListingId, 0, 10, DetailLevel.Low);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]
@@ -147,12 +129,12 @@ namespace Netsy.IntegrationTest.Favorites
                 Assert.IsTrue(signalled, "Not signalled");
 
                 // check the data - should succeed
-                Assert.IsNotNull(result);
+                Assert.IsNotNull(result, "No Results");
                 TestHelpers.CheckResultSuccess(result);
 
-                Assert.IsTrue(result.ResultValue.Count > 1);
+                Assert.IsTrue(result.ResultValue.Count > 1, "Empty results");
                 //Assert.AreEqual(10, result.ResultValue.Results.Length);
-                Assert.IsNotNull(result.ResultValue.Params);
+                Assert.IsNotNull(result.ResultValue.Params, "No params");
             }
         }
 
@@ -198,9 +180,13 @@ namespace Netsy.IntegrationTest.Favorites
                 Assert.IsNotNull(result);
                 TestHelpers.CheckResultSuccess(result);
 
-                Assert.IsTrue(result.ResultValue.Count > 1);
+                // check the data - should succeed
+                Assert.IsNotNull(result, "No Results");
+                TestHelpers.CheckResultSuccess(result);
+
+                Assert.IsTrue(result.ResultValue.Count > 1, "Empty results");
                 //Assert.AreEqual(10, result.ResultValue.Results.Length);
-                Assert.IsNotNull(result.ResultValue.Params);
+                Assert.IsNotNull(result.ResultValue.Params, "No params");
             }
         }
     }

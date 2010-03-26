@@ -25,42 +25,6 @@ namespace Netsy.IntegrationTest.Favorites
     public class GetFavorersOfShopTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetFavorersOfShopMissingApiKeyTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Users> result = null;
-            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty));
-            favoritesService.GetFavorersOfShopCompleted += (s, e) => result = e;
-
-            // ACT
-            favoritesService.GetFavorersOfShop(NetsyData.TestUserId, 0, 10, DetailLevel.Low);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetFavorersOfShopByNameMissingApiKeyTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Users> result = null;
-            IFavoritesService favoritesService = new FavoritesService(new EtsyContext(string.Empty));
-            favoritesService.GetFavorersOfShopCompleted += (s, e) => result = e;
-
-            // ACT
-            favoritesService.GetFavorersOfShop(NetsyData.TestUserName, 0, 10, DetailLevel.Low);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

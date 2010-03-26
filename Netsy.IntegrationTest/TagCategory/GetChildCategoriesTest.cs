@@ -26,24 +26,6 @@ namespace Netsy.IntegrationTest.TagCategory
     public class GetChildCategoriesTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetChildCategoriesMissingApiKeyTest()
-        {
-            // ARRANGE
-            ResultEventArgs<StringResults> result = null;
-            ITagCategoryService tagCategoryService = new TagCategoryService(new EtsyContext(string.Empty));
-            tagCategoryService.GetChildCategoriesCompleted += (s, e) => result = e;
-
-            // ACT
-            tagCategoryService.GetChildCategories("accessories");
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

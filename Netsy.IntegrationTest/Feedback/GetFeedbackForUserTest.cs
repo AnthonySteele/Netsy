@@ -26,42 +26,6 @@ namespace Netsy.IntegrationTest.Feedback
     public class GetFeedbackForUserTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetFeedbackForUserMissingApiKeyTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Feedbacks> result = null;
-            IFeedbackService feedbackService = new FeedbackService(new EtsyContext(string.Empty));
-            feedbackService.GetFeedbackForUserCompleted += (s, e) => result = e;
-
-            // ACT
-            feedbackService.GetFeedbackForUser(NetsyData.TestUserId, 0, 10);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetFeedbackForUserByNameMissingApiKeyTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Feedbacks> result = null;
-            IFeedbackService feedbackService = new FeedbackService(new EtsyContext(string.Empty));
-            feedbackService.GetFeedbackForUserCompleted += (s, e) => result = e;
-
-            // ACT
-            feedbackService.GetFeedbackForUser(NetsyData.TestUserName, 0, 10);
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

@@ -26,24 +26,6 @@ namespace Netsy.IntegrationTest.Gifts
     public class GetGiftGuidesTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetGiftGuidesMissingApiKeyTest()
-        {
-            // ARRANGE
-            ResultEventArgs<Listings> result = null;
-            IGiftService giftService = new GiftService(new EtsyContext(string.Empty));
-            giftService.GetGiftGuidesCompleted += (s, e) => result = e;
-
-            // ACT
-            giftService.GetGiftGuides();
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]

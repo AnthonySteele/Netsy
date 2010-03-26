@@ -26,24 +26,6 @@ namespace Netsy.IntegrationTest.TagCategory
     public class GetTopTagsTest
     {
         /// <summary>
-        /// Test missing API key
-        /// </summary>
-        [TestMethod]
-        public void GetTopTagsMissingApiKeyTest()
-        {
-            // ARRANGE
-            ResultEventArgs<StringResults> result = null;
-            ITagCategoryService tagCategoryService = new TagCategoryService(new EtsyContext(string.Empty));
-            tagCategoryService.GetTopTagsCompleted += (s, e) => result = e;
-
-            // ACT
-            tagCategoryService.GetTopTags();
-
-            // check the data
-            TestHelpers.CheckResultFailure(result);
-        }
-
-        /// <summary>
         /// Test invalid API key
         /// </summary>
         [TestMethod]
