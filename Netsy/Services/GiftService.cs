@@ -92,6 +92,11 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetGiftGuideListingsCompleted, offset, limit))
+            {
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "gift-guides", guideId)
                 .Append("/listings")
                 .OffsetLimit(offset, limit)

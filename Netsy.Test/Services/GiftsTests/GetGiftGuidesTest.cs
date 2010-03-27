@@ -36,7 +36,7 @@ namespace Netsy.Test.Services.GiftsTests
             giftService.GetGiftGuides();
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
         }
     }
 }

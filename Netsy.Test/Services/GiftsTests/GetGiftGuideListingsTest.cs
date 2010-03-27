@@ -36,7 +36,43 @@ namespace Netsy.Test.Services.GiftsTests
             giftService.GetGiftGuideListings(Constants.TestId, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetGiftGuidesNegativeOffsetTest()
+        {
+            // ARRANGE
+            IGiftService giftService = ServiceCreationHelper.MakeGiftService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            giftService.GetGiftGuideListingsCompleted += (s, e) => result = e;
+
+            // ACT
+            giftService.GetGiftGuideListings(Constants.TestId, -1, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetGiftGuidesZeroLimitTest()
+        {
+            // ARRANGE
+            IGiftService giftService = ServiceCreationHelper.MakeGiftService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            giftService.GetGiftGuideListingsCompleted += (s, e) => result = e;
+
+            // ACT
+            giftService.GetGiftGuideListings(Constants.TestId, 0, 0, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }
