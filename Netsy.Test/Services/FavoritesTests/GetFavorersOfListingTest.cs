@@ -35,7 +35,43 @@ namespace Netsy.Test.Services.FavoritesTests
             favoritesService.GetFavorersOfListing(Constants.TestId, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFavorersOfListingNegativeOffsetTest()
+        {
+            // ARRANGE
+            IFavoritesService favoritesService = ServiceCreationHelper.MakeFavouritesService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Users> result = null;
+            favoritesService.GetFavorersOfListingCompleted += (s, e) => result = e;
+
+            // ACT
+            favoritesService.GetFavorersOfListing(Constants.TestId, -1, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFavorersOfListingZeroLimitTest()
+        {
+            // ARRANGE
+            IFavoritesService favoritesService = ServiceCreationHelper.MakeFavouritesService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Users> result = null;
+            favoritesService.GetFavorersOfListingCompleted += (s, e) => result = e;
+
+            // ACT
+            favoritesService.GetFavorersOfListing(Constants.TestId, 0, 0, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }

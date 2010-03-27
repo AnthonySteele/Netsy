@@ -37,7 +37,7 @@ namespace Netsy.Test.Services.FeedbackTests
             feedbackService.GetFeedbackAsBuyer(Constants.TestId, 0, 10);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
         }
 
         /// <summary>
@@ -55,7 +55,79 @@ namespace Netsy.Test.Services.FeedbackTests
             feedbackService.GetFeedbackAsBuyer(Constants.TestName, 0, 10);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFeedbackAsBuyerNegativeOffsetTest()
+        {
+            // ARRANGE
+            IFeedbackService feedbackService = ServiceCreationHelper.MakeFeedbackService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Feedbacks> result = null;
+            feedbackService.GetFeedbackAsBuyerCompleted += (s, e) => result = e;
+
+            // ACT
+            feedbackService.GetFeedbackAsBuyer(Constants.TestId, -1, 10);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFeedbackAsBuyerZeroLimitTest()
+        {
+            // ARRANGE
+            IFeedbackService feedbackService = ServiceCreationHelper.MakeFeedbackService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Feedbacks> result = null;
+            feedbackService.GetFeedbackAsBuyerCompleted += (s, e) => result = e;
+
+            // ACT
+            feedbackService.GetFeedbackAsBuyer(Constants.TestId, 0, 0);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFeedbackAsBuyerByNameNegativeOffsetTest()
+        {
+            // ARRANGE
+            IFeedbackService feedbackService = ServiceCreationHelper.MakeFeedbackService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Feedbacks> result = null;
+            feedbackService.GetFeedbackAsBuyerCompleted += (s, e) => result = e;
+
+            // ACT
+            feedbackService.GetFeedbackAsBuyer(Constants.TestName, -1, 10);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFeedbackAsBuyerByNameZeroLimitTest()
+        {
+            // ARRANGE
+            IFeedbackService feedbackService = ServiceCreationHelper.MakeFeedbackService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Feedbacks> result = null;
+            feedbackService.GetFeedbackAsBuyerCompleted += (s, e) => result = e;
+
+            // ACT
+            feedbackService.GetFeedbackAsBuyer(Constants.TestName, 0, 0);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }

@@ -107,6 +107,11 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFeedbackForUserCompleted, offset, limit))
+            {
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .Append("/feedback")
                 .OffsetLimit(offset, limit);
@@ -124,6 +129,11 @@ namespace Netsy.Services
         public IAsyncResult GetFeedbackForUser(string userName, int offset, int limit)
         {
             if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackForUserCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFeedbackForUserCompleted, offset, limit))
             {
                 return null;
             }
@@ -149,6 +159,11 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFeedbackAsBuyerCompleted, offset, limit))
+            {
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .Append("/feedback/buyer")
                 .OffsetLimit(offset, limit);
@@ -166,6 +181,11 @@ namespace Netsy.Services
         public IAsyncResult GetFeedbackAsBuyer(string userName, int offset, int limit)
         {
             if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackAsBuyerCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFeedbackAsBuyerCompleted, offset, limit))
             {
                 return null;
             }
@@ -191,6 +211,11 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFeedbackForOthersCompleted, offset, limit))
+            {
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .Append("/feedback/others")
                 .OffsetLimit(offset, limit);
@@ -208,6 +233,11 @@ namespace Netsy.Services
         public IAsyncResult GetFeedbackForOthers(string userName, int offset, int limit)
         {
             if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackForOthersCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFeedbackForOthersCompleted, offset, limit))
             {
                 return null;
             }
@@ -233,6 +263,11 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFeedbackAsSellerCompleted, offset, limit))
+            {
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .Append("/feedback/seller")
                 .OffsetLimit(offset, limit);
@@ -250,6 +285,11 @@ namespace Netsy.Services
         public IAsyncResult GetFeedbackAsSeller(string userName, int offset, int limit)
         {
             if (!RequestHelper.TestCallPrerequisites(this, this.GetFeedbackAsSellerCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFeedbackAsSellerCompleted, offset, limit))
             {
                 return null;
             }

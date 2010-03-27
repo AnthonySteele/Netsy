@@ -36,7 +36,7 @@ namespace Netsy.Test.Services.FeedbackTests
             feedbackService.GetFeedbackForUser(Constants.TestId, 0, 10);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
         }
 
         /// <summary>
@@ -54,7 +54,43 @@ namespace Netsy.Test.Services.FeedbackTests
             feedbackService.GetFeedbackForUser(Constants.TestName, 0, 10);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFeedbackForUserNegativeOffsetTest()
+        {
+            // ARRANGE
+            IFeedbackService feedbackService = ServiceCreationHelper.MakeFeedbackService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Feedbacks> result = null;
+            feedbackService.GetFeedbackForUserCompleted += (s, e) => result = e;
+
+            // ACT
+            feedbackService.GetFeedbackForUser(Constants.TestName, -1, 10);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFeedbackForUserZeroLimitTest()
+        {
+            // ARRANGE
+            IFeedbackService feedbackService = ServiceCreationHelper.MakeFeedbackService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Feedbacks> result = null;
+            feedbackService.GetFeedbackForUserCompleted += (s, e) => result = e;
+
+            // ACT
+            feedbackService.GetFeedbackForUser(Constants.TestName, 0, 0);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Netsy.Test.Services.FeedbackTests
             feedbackService.GetFeedbackForOthers(Constants.TestId, 0, 10);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
         }
 
         /// <summary>
@@ -55,7 +55,43 @@ namespace Netsy.Test.Services.FeedbackTests
             feedbackService.GetFeedbackForOthers(Constants.TestName, 0, 10);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFeedbackForOthersNegativeOffsetTest()
+        {
+            // ARRANGE
+            IFeedbackService feedbackService = new FeedbackService(new EtsyContext(Constants.DummyEtsyApiKey));
+            ResultEventArgs<Feedbacks> result = null;
+            feedbackService.GetFeedbackForOthersCompleted += (s, e) => result = e;
+
+            // ACT
+            feedbackService.GetFeedbackForOthers(Constants.TestId, -1, 10);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFeedbackForOthersZeroLimitTest()
+        {
+            // ARRANGE
+            IFeedbackService feedbackService = new FeedbackService(new EtsyContext(Constants.DummyEtsyApiKey));
+            ResultEventArgs<Feedbacks> result = null;
+            feedbackService.GetFeedbackForOthersCompleted += (s, e) => result = e;
+
+            // ACT
+            feedbackService.GetFeedbackForOthers(Constants.TestId, -0, 0);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }

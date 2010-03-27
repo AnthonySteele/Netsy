@@ -86,6 +86,11 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFavorersOfListingCompleted, offset, limit))
+            {
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings", listingId)
                 .Append("/favorers")
                 .OffsetLimit(offset, limit)
@@ -105,6 +110,11 @@ namespace Netsy.Services
         public IAsyncResult GetFavorersOfShop(int shopId, int offset, int limit, DetailLevel detailLevel)
         {
             if (!RequestHelper.TestCallPrerequisites(this, this.GetFavorersOfShopCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFavorersOfShopCompleted, offset, limit))
             {
                 return null;
             }
@@ -132,6 +142,11 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFavorersOfShopCompleted, offset, limit))
+            {
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "shops", shopName)
                 .Append("/favorers")
                 .OffsetLimit(offset, limit)
@@ -151,6 +166,11 @@ namespace Netsy.Services
         public IAsyncResult GetFavoriteListingsOfUser(int userId, int offset, int limit, DetailLevel detailLevel)
         {
             if (!RequestHelper.TestCallPrerequisites(this, this.GetFavoriteListingsOfUserCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFavoriteListingsOfUserCompleted, offset, limit))
             {
                 return null;
             }
@@ -178,6 +198,11 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFavoriteListingsOfUserCompleted, offset, limit))
+            {
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userName)
                 .Append("/favorites/listings")
                 .OffsetLimit(offset, limit)
@@ -201,6 +226,11 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFavoriteShopsOfUserCompleted, offset, limit))
+            {
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "users", userId)
                 .Append("/favorites/shops")
                 .OffsetLimit(offset, limit)
@@ -220,6 +250,11 @@ namespace Netsy.Services
         public IAsyncResult GetFavoriteShopsOfUser(string userName, int offset, int limit, DetailLevel detailLevel)
         {
             if (!RequestHelper.TestCallPrerequisites(this, this.GetFavoriteShopsOfUserCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFavoriteShopsOfUserCompleted, offset, limit))
             {
                 return null;
             }

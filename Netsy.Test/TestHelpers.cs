@@ -49,6 +49,18 @@ namespace Netsy.Test
         }
 
         /// <summary>
+        /// Check that the result was a failure
+        /// </summary>
+        /// <typeparam name="T">the type of result data</typeparam>
+        /// <param name="result">the data to inspect</param>
+        /// <param name="expectedErrorMessage">The expected error message</param>
+        public static void CheckResultFailure<T>(ResultEventArgs<T> result, string expectedErrorMessage)
+        {
+            CheckResultFailure(result);
+            Assert.AreEqual(expectedErrorMessage, result.ResultStatus.ErrorMessage, "Incorrect error message");
+        }
+
+        /// <summary>
         /// A short pause for the Etsy Server to catch up
         /// </summary>
         public static void WaitABit()

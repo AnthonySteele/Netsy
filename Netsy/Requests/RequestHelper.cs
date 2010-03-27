@@ -25,20 +25,44 @@ namespace Netsy.Requests
         /// <param name="sender">the event sender</param>
         /// <param name="errorEvent">the error event to send if it's not in a good state</param>
         /// <param name="etsyContext">the context data to inspect</param>
-        /// <returns>true if everyting is ok, false if there is an error</returns>
+        /// <returns>true if everything is ok, false if there is an error</returns>
         public static bool TestCallPrerequisites<T>(object sender, EventHandler<ResultEventArgs<T>> errorEvent, EtsyContext etsyContext)
         {
             if (etsyContext == null)
             {
-                ResultEventArgs<T> errorResult = new ResultEventArgs<T>(default(T), new ResultStatus("Null Api key", null));
-                TestSendEvent(errorEvent, sender, errorResult);
+                SendErrror<T>(sender, errorEvent, "Null API key");
                 return false;                
             }
 
             if (string.IsNullOrEmpty(etsyContext.ApiKey))
             {
-                ResultEventArgs<T> errorResult = new ResultEventArgs<T>(default(T), new ResultStatus("Empty Api key", null));
-                TestSendEvent(errorEvent, sender, errorResult);
+                SendErrror<T>(sender, errorEvent, "Empty API key");
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Test that the offset and limit fields are valid
+        /// </summary>
+        /// <typeparam name="T">the type of data returned</typeparam>
+        /// <param name="sender">the event sender</param>
+        /// <param name="errorEvent">the error event to send if it's not in a good state</param>
+        /// <param name="offset">the offset</param>
+        /// <param name="limit">the limit</param>
+        /// <returns>true if everything is ok, false if there is an error</returns>
+        public static bool TestOffsetLimit<T>(object sender, EventHandler<ResultEventArgs<T>> errorEvent, int offset, int limit)
+        {
+            if (offset < 0)
+            {
+                SendErrror<T>(sender, errorEvent, "Negative offset of " + offset);
+                return false;
+            }
+
+            if (limit <= 0)
+            {
+                SendErrror<T>(sender, errorEvent, "Bad limit of " + limit);
                 return false;
             }
 
@@ -58,6 +82,19 @@ namespace Netsy.Requests
             {
                 eventHandler(sender, result);
             }
+        }
+
+        /// <summary>
+        /// Send an error
+        /// </summary>
+        /// <typeparam name="T">the type of data to send</typeparam>
+        /// <param name="sender">the event sender</param>
+        /// <param name="errorEvent">the event to call</param>
+        /// <param name="message">the error message</param>
+        private static void SendErrror<T>(object sender, EventHandler<ResultEventArgs<T>> errorEvent, string message)
+        {
+            ResultEventArgs<T> errorResult = new ResultEventArgs<T>(default(T), new ResultStatus(message, null));
+            TestSendEvent(errorEvent, sender, errorResult);
         }
     }
 }

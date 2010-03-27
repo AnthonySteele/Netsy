@@ -35,7 +35,7 @@ namespace Netsy.Test.Services.FavoritesTests
             favoritesService.GetFavoriteListingsOfUser(Constants.TestId, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
         }
 
         /// <summary>
@@ -53,7 +53,44 @@ namespace Netsy.Test.Services.FavoritesTests
             favoritesService.GetFavoriteListingsOfUser(Constants.TestName, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFavoriteListingsOfUserNegativeOffsetTest()
+        {
+            // ARRANGE
+            IFavoritesService favoritesService = ServiceCreationHelper.MakeFavouritesService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) => result = e;
+
+            // ACT
+            favoritesService.GetFavoriteListingsOfUser(Constants.TestName, -1, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFavoriteListingsOfUserZeroLimitTest()
+        {
+            // ARRANGE
+            IFavoritesService favoritesService = ServiceCreationHelper.MakeFavouritesService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) => result = e;
+
+            // ACT
+            favoritesService.GetFavoriteListingsOfUser(Constants.TestName, 0, 0, DetailLevel.Low);
+
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }

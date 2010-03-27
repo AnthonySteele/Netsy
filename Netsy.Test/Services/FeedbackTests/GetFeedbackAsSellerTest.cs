@@ -37,7 +37,7 @@ namespace Netsy.Test.Services.FeedbackTests
             feedbackService.GetFeedbackAsSeller(Constants.TestId, 0, 10);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
         }
 
         /// <summary>
@@ -55,7 +55,44 @@ namespace Netsy.Test.Services.FeedbackTests
             feedbackService.GetFeedbackAsSeller(Constants.TestName, 0, 10);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, "Empty API key");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFeedbackAsSellerNegativeOffsetTest()
+        {
+            // ARRANGE
+            IFavoritesService favoritesService = ServiceCreationHelper.MakeFavouritesService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) => result = e;
+
+            // ACT
+            favoritesService.GetFavoriteListingsOfUser(Constants.TestName, -1, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFeedbackAsSellerZeroLimitTest()
+        {
+            // ARRANGE
+            IFavoritesService favoritesService = ServiceCreationHelper.MakeFavouritesService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            favoritesService.GetFavoriteListingsOfUserCompleted += (s, e) => result = e;
+
+            // ACT
+            favoritesService.GetFavoriteListingsOfUser(Constants.TestName, 0, 0, DetailLevel.Low);
+
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }
