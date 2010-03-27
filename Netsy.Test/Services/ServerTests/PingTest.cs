@@ -35,7 +35,7 @@ namespace Netsy.Test.Services.Server
             serverService.Ping();
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
         }
     }
 }

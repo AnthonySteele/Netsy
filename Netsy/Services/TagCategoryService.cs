@@ -99,7 +99,14 @@ namespace Netsy.Services
                 return null;
             }
 
-            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "categories", category).Append("/children");
+            if (string.IsNullOrEmpty(category))
+            {
+                RequestHelper.SendError(this, this.GetChildCategoriesCompleted, "No category");
+                return null;
+            }
+
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "categories", category)
+                .Append("/children");
 
             return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetChildCategoriesCompleted);
         }
@@ -132,7 +139,14 @@ namespace Netsy.Services
                 return null;
             }
 
-            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "tags", tag).Append("/children");
+            if (string.IsNullOrEmpty(tag))
+            {
+                RequestHelper.SendError(this, this.GetChildTagsCompleted, "No tag");
+                return null;
+            } 
+
+            EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "tags", tag)
+                .Append("/children");
 
             return this.dataRetriever.StartRetrieve(etsyUriBuilder.Result(), this.GetChildTagsCompleted);
         }

@@ -35,7 +35,25 @@ namespace Netsy.Test.Services.TagCategory
             tagCategoryService.GetChildTags("accessories");
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
+        }
+
+        /// <summary>
+        /// Test missing tag name
+        /// </summary>
+        [TestMethod]
+        public void GetChildTagsMissingTagNameTest()
+        {
+            // ARRANGE
+            ITagCategoryService tagCategoryService = ServiceCreationHelper.MakeTagCategoryService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<StringResults> result = null;
+            tagCategoryService.GetChildTagsCompleted += (s, e) => result = e;
+
+            // ACT
+            tagCategoryService.GetChildTags(string.Empty);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "No tag");
         }
     }
 }

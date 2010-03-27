@@ -15,7 +15,7 @@ namespace Netsy.Test.Services.Server
     using Netsy.Interfaces;
 
     /// <summary>
-    /// Test the ping funcion on the server service
+    /// Test the server epoch function on the server service
     /// </summary>
     [TestClass]
     public class ServerEpochTest
@@ -35,7 +35,7 @@ namespace Netsy.Test.Services.Server
             serverService.GetServerEpoch();
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
         }
     }
 }

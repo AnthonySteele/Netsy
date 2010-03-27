@@ -34,7 +34,7 @@ namespace Netsy.Test.Services.TagCategory
             etsyUsers.GetUserDetails(Constants.TestId, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
         }
     }
 }
