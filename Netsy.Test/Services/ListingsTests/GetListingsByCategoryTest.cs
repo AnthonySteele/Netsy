@@ -36,7 +36,43 @@ namespace Netsy.Test.Services.ListingsTests
             listingsService.GetListingsByCategory(Constants.TestName, SortField.Created, SortOrder.Down, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByCategoryNegativeOffsetTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByCategoryCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByCategory(Constants.TestName, SortField.Created, SortOrder.Down, -1, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByCategoryZeroLimitTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByCategoryCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByCategory(Constants.TestName, SortField.Created, SortOrder.Down, 0, 0, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }

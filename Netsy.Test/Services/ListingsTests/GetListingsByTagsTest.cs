@@ -34,13 +34,65 @@ namespace Netsy.Test.Services.ListingsTests
             ResultEventArgs<Listings> result = null;
             listingsService.GetListingsByTagsCompleted += (s, e) => result = e;
 
-            List<string> tags = new List<string>();
-
             // ACT
-            listingsService.GetListingsByTags(tags, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
+            listingsService.GetListingsByTags(Constants.TestWords, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
+        }
+
+        /// <summary>
+        /// Test missing tags
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByTagsTagsMissingTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByTagsCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByTags(new List<string>(), SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "No tags");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByTagsNegativeOffsetTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByTagsCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByTags(Constants.TestWords, SortField.Created, SortOrder.Up, -1, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByTagsZeroLimitTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByTagsCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByTags(Constants.TestWords, SortField.Created, SortOrder.Up, 0, 0, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }

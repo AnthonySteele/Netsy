@@ -32,13 +32,11 @@ namespace Netsy.Test.Services.ListingsTests
             ResultEventArgs<Listings> result = null;
             listingsService.GetListingsByColorCompleted += (s, e) => result = e;
 
-            RgbColor testColor = new RgbColor("76B3DF");
-
             // ACT
-            listingsService.GetListingsByColor(testColor, 10, 0, 10, DetailLevel.Low);
+            listingsService.GetListingsByColor(Constants.TestColor, 10, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
         }
 
         /// <summary>
@@ -48,17 +46,52 @@ namespace Netsy.Test.Services.ListingsTests
         public void GetListingsByColorWiggleTooLargeTest()
         {
             // ARRANGE
-            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(string.Empty);
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
             ResultEventArgs<Listings> result = null;
             listingsService.GetListingsByColorCompleted += (s, e) => result = e;
 
-            RgbColor testColor = new RgbColor("76B3DF");
-
             // ACT
-            listingsService.GetListingsByColor(testColor, 100, 0, 10, DetailLevel.Low);
+            listingsService.GetListingsByColor(Constants.TestColor, 100, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.WiggleTooLargeErrorMessage);
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByColorNegativeOffsetTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByColorCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByColor(Constants.TestColor, 10, -1, 10, DetailLevel.Low);
+
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByColorZeroLimitTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByColorCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByColor(Constants.TestColor, 10, 0, 0, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }

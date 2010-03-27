@@ -30,13 +30,13 @@ namespace Netsy.Requests
         {
             if (etsyContext == null)
             {
-                SendErrror<T>(sender, errorEvent, "Null API key");
+                SendError<T>(sender, errorEvent, "Null API key");
                 return false;                
             }
 
             if (string.IsNullOrEmpty(etsyContext.ApiKey))
             {
-                SendErrror<T>(sender, errorEvent, "Empty API key");
+                SendError<T>(sender, errorEvent, "Empty API key");
                 return false;
             }
 
@@ -56,13 +56,13 @@ namespace Netsy.Requests
         {
             if (offset < 0)
             {
-                SendErrror<T>(sender, errorEvent, "Negative offset of " + offset);
+                SendError<T>(sender, errorEvent, "Negative offset of " + offset);
                 return false;
             }
 
             if (limit <= 0)
             {
-                SendErrror<T>(sender, errorEvent, "Bad limit of " + limit);
+                SendError<T>(sender, errorEvent, "Bad limit of " + limit);
                 return false;
             }
 
@@ -91,7 +91,7 @@ namespace Netsy.Requests
         /// <param name="sender">the event sender</param>
         /// <param name="errorEvent">the event to call</param>
         /// <param name="message">the error message</param>
-        private static void SendErrror<T>(object sender, EventHandler<ResultEventArgs<T>> errorEvent, string message)
+        public static void SendError<T>(object sender, EventHandler<ResultEventArgs<T>> errorEvent, string message)
         {
             ResultEventArgs<T> errorResult = new ResultEventArgs<T>(default(T), new ResultStatus(message, null));
             TestSendEvent(errorEvent, sender, errorResult);

@@ -36,7 +36,7 @@ namespace Netsy.Test.Services.GiftsTests
             giftService.GetGiftGuideListings(Constants.TestId, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result, "Empty API key");
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
         }
 
         /// <summary>

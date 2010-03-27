@@ -36,7 +36,43 @@ namespace Netsy.Test.Services.ListingsTests
             listingsService.GetFrontFeaturedListings(0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFrontFeaturedListingsNegativeOffsetTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetFrontFeaturedListingsCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetFrontFeaturedListings(-1, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetFrontFeaturedListingsZeroLimitTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetFrontFeaturedListingsCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetFrontFeaturedListings(0, 0, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }

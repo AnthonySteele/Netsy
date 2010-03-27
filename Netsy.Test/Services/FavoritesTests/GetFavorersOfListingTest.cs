@@ -35,7 +35,7 @@ namespace Netsy.Test.Services.FavoritesTests
             favoritesService.GetFavorersOfListing(Constants.TestId, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result, "Empty API key");
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
         }
 
         /// <summary>

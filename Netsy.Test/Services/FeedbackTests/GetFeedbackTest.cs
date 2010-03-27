@@ -36,7 +36,7 @@ namespace Netsy.Test.Services.FeedbackTests
             feedbackService.GetFeedback(Constants.TestId);
 
             // check the data
-            TestHelpers.CheckResultFailure(result, "Empty API key");
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
         }
     }
 }

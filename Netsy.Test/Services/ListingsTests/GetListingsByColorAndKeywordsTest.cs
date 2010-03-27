@@ -39,42 +39,88 @@ namespace Netsy.Test.Services.ListingsTests
             ResultEventArgs<Listings> result = null;
             listingsService.GetListingsByColorAndKeywordsCompleted += (s, e) => result = e;
 
-            RgbColor testColor = new RgbColor("76B3DF");
-
             // ACT
-            listingsService.GetListingsByColorAndKeywords(TestKeywords(), testColor, DefaultWiggle, 0, 10, DetailLevel.Low);
+            listingsService.GetListingsByColorAndKeywords(Constants.TestWords, Constants.TestColor, 
+                DefaultWiggle, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
         }
 
         /// <summary>
-        /// Test missing API key
+        /// Test wiggle too large
         /// </summary>
         [TestMethod]
         public void GetListingsByColorAndKeywordsWiggleTooLargeTest()
         {
             // ARRANGE
-            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(string.Empty);
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
             ResultEventArgs<Listings> result = null;
             listingsService.GetListingsByColorAndKeywordsCompleted += (s, e) => result = e;
 
-            RgbColor testColor = new RgbColor("76B3DF");
-
             // ACT
-            listingsService.GetListingsByColorAndKeywords(TestKeywords(), testColor, 100, 0, 10, DetailLevel.Low);
+            listingsService.GetListingsByColorAndKeywords(Constants.TestWords, Constants.TestColor, 
+                100, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.WiggleTooLargeErrorMessage);
         }
 
         /// <summary>
-        /// Get test keywords
+        /// Test wiggle too large
         /// </summary>
-        /// <returns>a list of test keywords</returns>
-        private static IEnumerable<string> TestKeywords()
+        [TestMethod]
+        public void GetListingsByColorAndKeywordsNoKeywordsTest()
         {
-            return new List<string> { "bags", "strap" };
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByColorAndKeywordsCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByColorAndKeywords(new List<string>(), Constants.TestColor, 
+                10, 0, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "No keywords");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByColorAndKeywordsNegativeOffsetTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByColorAndKeywordsCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByColorAndKeywords(Constants.TestWords, Constants.TestColor,
+                10, -1, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByColorAndKeywordsZeroLimitTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByColorAndKeywordsCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByColorAndKeywords(Constants.TestWords, Constants.TestColor,
+                10, 0, 0, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }

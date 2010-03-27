@@ -34,13 +34,65 @@ namespace Netsy.Test.Services.ListingsTests
             ResultEventArgs<Listings> result = null;
             listingsService.GetListingsByMaterialsCompleted += (s, e) => result = e;
 
-            List<string> materials = new List<string>();
-
             // ACT
-            listingsService.GetListingsByMaterials(materials, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
+            listingsService.GetListingsByMaterials(Constants.TestWords, SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
+        }
+
+        /// <summary>
+        /// Test missing API key
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByMaterialsMaterialsMissingTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByMaterialsCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByMaterials(new List<string>(), SortField.Created, SortOrder.Up, 0, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "No materials");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByMaterialsNegativeOffsetTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByMaterialsCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByMaterials(Constants.TestWords, SortField.Created, SortOrder.Up, -1, 10, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Negative offset of -1");
+        }
+
+        /// <summary>
+        /// Test a negative offset
+        /// </summary>
+        [TestMethod]
+        public void GetListingsByMaterialsZeroLimitTest()
+        {
+            // ARRANGE
+            IListingsService listingsService = ServiceCreationHelper.MakeListingsService(Constants.DummyEtsyApiKey);
+            ResultEventArgs<Listings> result = null;
+            listingsService.GetListingsByMaterialsCompleted += (s, e) => result = e;
+
+            // ACT
+            listingsService.GetListingsByMaterials(Constants.TestWords, SortField.Created, SortOrder.Up, 0, 0, DetailLevel.Low);
+
+            // check the data
+            TestHelpers.CheckResultFailure(result, "Bad limit of 0");
         }
     }
 }

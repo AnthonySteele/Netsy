@@ -36,7 +36,7 @@ namespace Netsy.Test.Services.ListingsTests
             listingsService.GetListingDetails(Constants.TestId, DetailLevel.Low);
 
             // check the data
-            TestHelpers.CheckResultFailure(result);
+            TestHelpers.CheckResultFailure(result, Constants.EmptyApiKeyErrorMessage);
         }
     }
 }
