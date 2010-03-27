@@ -9,6 +9,7 @@
 namespace Netsy.Services
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
 
     using Netsy.DataModel;
@@ -133,6 +134,11 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetAllListingsCompleted, offset, limit))
+            {
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/all")
                 .Sort(sortOn, sortOrder)
                 .OffsetLimit(offset, limit)
@@ -154,6 +160,11 @@ namespace Netsy.Services
         public IAsyncResult GetListingsByCategory(string category, SortField sortOn, SortOrder sortOrder, int offset, int limit, DetailLevel detailLevel)
         {
             if (!RequestHelper.TestCallPrerequisites(this, this.GetListingsByCategoryCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            if (!RequestHelper.TestOffsetLimit(this, this.GetListingsByCategoryCompleted, offset, limit))
             {
                 return null;
             }
@@ -187,6 +198,11 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetListingsByColorCompleted, offset, limit))
+            {
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/color", color)
                 .Param("wiggle", wiggle)
                 .OffsetLimit(offset, limit)
@@ -216,7 +232,18 @@ namespace Netsy.Services
             {
                 return null;
             }
-            
+
+            if (!RequestHelper.TestOffsetLimit(this, this.GetListingsByColorAndKeywordsCompleted, offset, limit))
+            {
+                return null;
+            }
+
+            if ((keywords == null) || (keywords.Count() == 0))
+            {
+                RequestHelper.SendError(this, this.GetListingsByColorAndKeywordsCompleted, "No keywords");
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/color", color)
                 .Append("/keywords/").Append(keywords)
                 .Param("wiggle", wiggle)
@@ -236,6 +263,11 @@ namespace Netsy.Services
         public IAsyncResult GetFrontFeaturedListings(int offset, int limit, DetailLevel detailLevel)
         {
             if (!RequestHelper.TestCallPrerequisites(this, this.GetFrontFeaturedListingsCompleted, this.etsyContext))
+            {
+                return null;
+            }
+
+            if (!RequestHelper.TestOffsetLimit(this, this.GetFrontFeaturedListingsCompleted, offset, limit))
             {
                 return null;
             }
@@ -275,6 +307,17 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetListingsByKeywordCompleted, offset, limit))
+            {
+                return null;
+            }
+
+            if ((searchTerms == null) || (searchTerms.Count() == 0))
+            {
+                RequestHelper.SendError(this, this.GetListingsByKeywordCompleted, "No keywords");
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/keywords/")
                 .Append(searchTerms)
                 .Sort(sortOn, sortOrder)
@@ -304,6 +347,17 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetListingsByMaterialsCompleted, offset, limit))
+            {
+                return null;
+            }
+
+            if ((materials == null) || (materials.Count() == 0))
+            {
+                RequestHelper.SendError(this, this.GetListingsByMaterialsCompleted, "No materials");
+                return null;
+            }
+
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/materials/")
                 .Append(materials)
                 .Sort(sortOn, sortOrder)
@@ -330,6 +384,17 @@ namespace Netsy.Services
                 return null;
             }
 
+            if (!RequestHelper.TestOffsetLimit(this, this.GetListingsByTagsCompleted, offset, limit))
+            {
+                return null;
+            }
+
+            if ((tags == null) || (tags.Count() == 0))
+            {
+                RequestHelper.SendError(this, this.GetListingsByTagsCompleted, "No tags");
+                return null;
+            }
+            
             EtsyUriBuilder etsyUriBuilder = EtsyUriBuilder.Start(this.etsyContext, "listings/tags/")
                 .Append(tags)
                 .Sort(sortOn, sortOrder)
@@ -354,6 +419,7 @@ namespace Netsy.Services
                 ResultEventArgs<Listings> errorResult = new ResultEventArgs<Listings>(
                     null,
                     new ResultStatus("Wiggle must be in the range 0 to 15", null));
+
                 RequestHelper.TestSendEvent(completedEvent, this, errorResult);
                 return false;
             }
