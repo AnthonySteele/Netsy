@@ -19,7 +19,7 @@ namespace Netsy.UI.ViewModels
     /// <summary>
     /// View model for a shop
     /// </summary>
-    public class ShopViewModel
+    public class ShopViewModel : BaseViewModel
     {
         /// <summary>
         /// the listing data transfer object

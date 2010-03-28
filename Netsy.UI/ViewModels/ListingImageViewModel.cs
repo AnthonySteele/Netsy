@@ -12,7 +12,7 @@ namespace Netsy.UI.ViewModels
     /// <summary>
     /// View model for an image in a listing
     /// </summary>
-    public class ListingImageViewModel
+    public class ListingImageViewModel : BaseViewModel
     {
         /// <summary>
         /// the listing data transfer object

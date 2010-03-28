@@ -12,7 +12,7 @@ namespace Netsy.UI.ViewModels
     /// <summary>
     /// View model for a gift guide
     /// </summary>
-    public class FeedbackViewModel
+    public class FeedbackViewModel : BaseViewModel
     {
         /// <summary>
         /// the feedback data transfer object

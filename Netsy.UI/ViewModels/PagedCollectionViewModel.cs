@@ -20,7 +20,7 @@ namespace Netsy.UI.ViewModels
     public abstract class PagedCollectionViewModel<T> : BaseViewModel where T : class 
     {
         /// <summary>
-        /// the listings shown on the gui
+        /// the listings shown on the UI
         /// </summary>
         private readonly ObservableCollection<T> items = new ObservableCollection<T>();
 

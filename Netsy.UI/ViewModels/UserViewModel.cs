@@ -16,7 +16,7 @@ namespace Netsy.UI.ViewModels
     /// <summary>
     /// View model for a user
     /// </summary>
-    public class UserViewModel
+    public class UserViewModel : BaseViewModel
     {
         /// <summary>
         /// the listing data transfer object
