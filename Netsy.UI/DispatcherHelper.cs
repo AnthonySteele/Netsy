@@ -17,6 +17,31 @@ namespace Netsy.UI
     /// </summary>
     public static class DispatcherHelper
     {
+        #if (SILVERLIGHT)
+
+        /// <summary>
+        /// Gets the current Ui thread dispatcher
+        /// </summary>
+        public static Dispatcher UiDispatcher
+        {
+            get
+            {
+                return Application.Current.RootVisual.Dispatcher;
+            }
+        }
+
+        /// <summary>
+        /// Invoke the method on the Ui thread
+        /// </summary>
+        /// <param name="method">the method to call</param>
+        /// <param name="arg">the method argument</param>
+        public static void Invoke(Delegate method, object arg)
+        {
+            UiDispatcher.BeginInvoke(method, arg);
+        }
+
+        #else
+
         /// <summary>
         /// Gets the current Ui thread dispatcher
         /// </summary>
@@ -37,5 +62,7 @@ namespace Netsy.UI
         {
             UIDispatcher.Invoke(DispatcherPriority.Normal, method, arg);
         }
+
+        #endif
     }
 }
