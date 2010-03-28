@@ -19,6 +19,26 @@ namespace Netsy.UI.Commands
     {
         #region ICommand Members
 
+        #if (SILVERLIGHT)
+
+        /// <summary>
+        /// the event for command executablity changed
+        /// </summary>
+        public event EventHandler CanExecuteChanged;
+                
+        /// <summary>
+        /// Fire the event
+        /// </summary>
+        public void OnCanExecuteChanged()
+        {
+            if (this.CanExecuteChanged != null)
+            {
+                this.CanExecuteChanged(this, EventArgs.Empty);
+            }
+        }
+
+        #else
+
         /// <summary>
         /// the event for command executablity changed
         /// </summary>
@@ -27,6 +47,8 @@ namespace Netsy.UI.Commands
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
+
+        #endif
 
         /// <summary>
         /// Can the command execute now?

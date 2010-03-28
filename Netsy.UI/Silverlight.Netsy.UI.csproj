@@ -64,9 +64,9 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\SilverlightDelegateCommand.cs" />
-    <Compile Include="Commands\SilverlightGenericCommandBase.cs" />
-    <Compile Include="Commands\SilverlightHyperlinkNavigateCommand.cs" />
+    <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Commands\GenericCommandBase.cs" />
+    <Compile Include="Commands\HyperlinkNavigateCommand.cs" />
     <Compile Include="CurrencySymbolLookup.cs" />
     <Compile Include="DispatchedServices\DispatchedFavoritesService.cs" />
     <Compile Include="DispatchedServices\DispatchedFeedbackService.cs" />

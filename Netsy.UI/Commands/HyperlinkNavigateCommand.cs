@@ -17,6 +17,24 @@ namespace Netsy.UI.Commands
     /// </summary>
     public class HyperlinkNavigateCommand : GenericCommandBase<string>
     {
+        #if (SILVERLIGHT)
+
+        /// <summary>
+        /// Execute the command with a ViewModel as parameter
+        /// </summary>
+        /// <param name="value">the view model</param>
+        public override void ExecuteOnValue(string value)
+        {
+            if (!value.HasContent())
+            {
+                return;
+            }
+
+            // todo
+        }
+
+        #else
+
         /// <summary>
         /// Execute the command with a ViewModel as parameter
         /// </summary>
@@ -30,5 +48,7 @@ namespace Netsy.UI.Commands
 
             Process.Start(value);
         }
+
+        #endif
     }
 }

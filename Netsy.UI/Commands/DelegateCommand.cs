@@ -32,7 +32,9 @@ namespace Netsy.UI.Commands
         /// </summary>
         /// <param name="executeAction">the action to take on execution</param>
         public DelegateCommand(Action<T> executeAction) : this(executeAction, null)
-        {    
+        {
+            this.executeAction = executeAction;
+            this.canExecuteFunction = null;
         }
 
         /// <summary>
@@ -46,6 +48,26 @@ namespace Netsy.UI.Commands
             this.canExecuteFunction = canExecuteFunction;
         }
 
+        #if (SILVERLIGHT)
+
+        /// <summary>
+        /// the event for command executablity changed
+        /// </summary>
+        public event EventHandler CanExecuteChanged;
+
+        /// <summary>
+        /// Fire the event
+        /// </summary>
+        public void OnCanExecuteChanged()
+        {
+            if (this.CanExecuteChanged != null)
+            {
+                this.CanExecuteChanged(this, EventArgs.Empty);
+            }
+        }
+
+        #else
+
         /// <summary>
         /// the event for command executablity changed
         /// </summary>
@@ -54,6 +76,8 @@ namespace Netsy.UI.Commands
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
+
+        #endif
 
         /// <summary>
         /// Call CanExecute
