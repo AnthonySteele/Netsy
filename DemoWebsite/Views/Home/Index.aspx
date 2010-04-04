@@ -2,7 +2,7 @@
 <%@ Import Namespace="Netsy.DemoWeb.Models"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="PageTitle" runat="server">
-    <h1>Netsy home</h1>
+    <h1><% = Model.Title %></h1>
 </asp:Content>
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
@@ -48,7 +48,7 @@
         }
     </script>
     
-    <h2 class="center">Etsy front page listings</h2>
+    <h2 class="center"><%= Model.SilverlightHeading %></h2>
     
     <div id="silverlightControlHost">
     <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="660" height="560">
@@ -57,7 +57,7 @@
 	  <param name="background" value="white" />
 	  <param name="minRuntimeVersion" value="3.0.40624.0" />
 	  <param name="autoUpgrade" value="true" />
-	  <param name="initParams" value="Retrieval=FrontListings,ItemsPerPage=16" />
+	  <param name="initParams" value="<%= Model.SilverlightParams %>" />
 	  <a href="http://go.microsoft.com/fwlink/?LinkID=149156&v=3.0.40624.0" style="text-decoration:none">
 		  <img src="http://go.microsoft.com/fwlink/?LinkId=108181" alt="Get Microsoft Silverlight" style="border-style:none"/>
 	  </a>

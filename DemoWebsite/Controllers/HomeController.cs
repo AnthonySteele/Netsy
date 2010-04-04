@@ -17,11 +17,27 @@ namespace Netsy.DemoWeb.Controllers
         {
             HomeModel model = new HomeModel
                 {
-                    Heading = "Home page",
-                    TopText = HomePageText
+                    Title = "Netsy home",
+                    TopText = HomePageText,
+                    SilverlightHeading = "Etsy front page listings",
+                    SilverlightParams = "Retrieval=FrontListings,ItemsPerPage=16"
                 };
 
             return this.View(model);
+        }
+
+        public ActionResult Category()
+        {
+            HomeModel model = new HomeModel
+            {
+                Title = "Category: Art",
+                TopText = "Showing listings for the categorty 'Art'",
+                SilverlightHeading = "Etsy listings for the categorty 'Art'",
+                SilverlightParams = "Retrieval=FrontListingsByCategory,Category=Art,ItemsPerPage=16"
+
+            };
+
+            return this.View("Index", model);
         }
     }
 }
