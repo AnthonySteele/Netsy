@@ -70,9 +70,7 @@
     <CodeAnalysisDictionary Include="..\..\CodeAnalysisDictionary.xml">
       <Link>CodeAnalysisDictionary.xml</Link>
     </CodeAnalysisDictionary>
-    <Content Include="ClientBin\Netsy.Favorites.xap" />
     <Content Include="ClientBin\Netsy.Listings.xap" />
-    <Content Include="ClientBin\Silverlight.Netsy.TestControl.xap" />
     <Content Include="ShopListings.html" />
     <Content Include="FrontListings.html" />
     <Content Include="FrontListingsByCategory.html" />
