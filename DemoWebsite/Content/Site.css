@@ -90,7 +90,7 @@ first child of the left and right table columns */
 page width. Or, you can specify an exact pixel width. */
 .page
 {
-    width: 90%;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -118,7 +118,7 @@ page width. Or, you can specify an exact pixel width. */
 #main
 {
     clear: both;
-    padding: 30px 30px 15px 30px;
+    padding: 20px 20px 20px 20px;
     background-color: #fff;
     margin-bottom: 30px;
     _height: 1px; /* only IE6 applies CSS properties starting with an underscore */
@@ -139,7 +139,7 @@ page width. Or, you can specify an exact pixel width. */
     text-align: center;
 }
 
-/* TAB MENU   
+/* top right MENU   
 ----------------------------------------------------------*/
 ul#menu
 {
@@ -155,18 +155,9 @@ ul#menu li
     list-style: none;
 }
 
-ul#menu li#greeting
-{
-    padding: 10px 20px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 2.8em;
-    color: #fff;
-}
-
 ul#menu li a
 {
-    padding: 10px 20px;
+    padding: 10px 10px;
     font-weight: bold;
     text-decoration: none;
     line-height: 2.8em;
@@ -187,6 +178,55 @@ ul#menu li a:active
 }
 
 ul#menu li.selected a
+{
+    background-color: #fff;
+    color: #000;
+}
+
+/* 
+ Submenu
+----------------------------------------------------------
+*/
+
+/* Sub MENU   
+----------------------------------------------------------*/
+ul#submenu
+{
+    padding: 0 0 2px;
+    position: relative;
+    margin: 0;
+    text-align: left;
+}
+
+ul#submenu li
+{
+    display: inline;
+    list-style: none;
+}
+
+
+ul#submenu li a
+{
+    padding: 10px 10px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #e8eef4;
+    color: #034af3;
+}
+
+ul#submenu li a:hover
+{
+    background-color: #fff;
+    text-decoration: none;
+}
+
+ul#submenu li a:active
+{
+    background-color: #a6e2a6;
+    text-decoration: none;
+}
+
+ul#submenu li.selected a
 {
     background-color: #fff;
     color: #000;
@@ -262,6 +302,11 @@ table th
 }
 
 #menucontainer
+{
+    margin-top:10px;
+}
+
+#submenucontainer
 {
     margin-top:10px;
 }

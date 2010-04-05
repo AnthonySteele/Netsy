@@ -12,7 +12,7 @@ namespace Netsy.DemoWeb
             routes.MapRoute(
                     "Default", // Route name
                     "{action}", // URL with parameters
-                    new { controller = "Home", action = "Index" } // Parameter defaults
+                    new { controller = "Home", action = "Front" } // Parameter defaults
                     );
 
         }

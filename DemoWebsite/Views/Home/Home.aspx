@@ -1,14 +1,16 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HomeModel>" %>
 <%@ Import Namespace="Netsy.DemoWeb.Models"%>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="PageTitle" runat="server">
+<asp:Content ID="PageTitle" ContentPlaceHolderID="PageTitle" runat="server">
     <h1><% = Model.Title %></h1>
 </asp:Content>
 
+<asp:Content ID="TopText" ContentPlaceHolderID="TopText" runat="server">
+    <p> <% = Model.TopText %> </p>
+</asp:Content>
+
+
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
-    <p>
-       <%= Model.TopText %>
-    </p>
 
     <script type="text/javascript" src="/Scripts/Silverlight.js"></script>
     <script type="text/javascript">
