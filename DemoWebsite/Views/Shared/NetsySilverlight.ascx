@@ -6,7 +6,7 @@
     <%  } %>
     
  <div id="silverlightControlHost">
-    <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="660" height="560">
+    <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="<%=Model.Width%>" height="<%=Model.Height%>">
 	  <param name="source" value="/ClientBin/Netsy.Listings.xap"/>
 	  <param name="onError" value="onSilverlightError" />
 	  <param name="background" value="white" />

@@ -24,8 +24,10 @@ namespace Netsy.DemoWeb.Controllers
             model.NetsyControls.Add(new NetsySilverlightModel
                 {
                     Heading = "Etsy front page listings",
-                    Params = "Retrieval=FrontListings,ItemsPerPage=16"
-            }   );
+                    Params = "Retrieval=FrontListings,ItemsPerPage=16",
+                    Width = 660,
+                    Height = 560
+                });
 
             return this.ShowHomeView(model);
         }
@@ -41,7 +43,9 @@ namespace Netsy.DemoWeb.Controllers
             model.NetsyControls.Add(new NetsySilverlightModel
                 {
                     Heading = "Etsy listings for the category 'Art'",
-                    Params = "Retrieval=FrontListingsByCategory,Category=Art,ItemsPerPage=16"
+                    Params = "Retrieval=FrontListingsByCategory,Category=Art,ItemsPerPage=16",
+                    Height = 560,
+                    Width = 660
                 });
 
             return this.ShowHomeView(model);
@@ -58,9 +62,46 @@ namespace Netsy.DemoWeb.Controllers
             model.NetsyControls.Add(new NetsySilverlightModel
             {
                 Heading = "Etsy listings in Blue #0000DD",
-                Params = "Retrieval=FrontListingsByColor,Color=#0000DD,ItemsPerPage=16"
+                Params = "Retrieval=FrontListingsByColor,Color=#0000DD,ItemsPerPage=16",
+                Height = 560,
+                Width = 660
             });
 
+            return this.ShowHomeView(model);
+        }
+
+        public ActionResult Sizes()
+        {
+            HomeModel model = new HomeModel
+            {
+                Title = "Netsy front page",
+                TopText = TopText
+            };
+
+            model.NetsyControls.Add(new NetsySilverlightModel
+            {
+                Heading = "Wide listings",
+                Params = "Retrieval=FrontListings,ItemsPerPage=4",
+                Height = 140,
+                Width = 660
+            });
+
+            model.NetsyControls.Add(new NetsySilverlightModel
+            {
+                Heading = "Tall listings",
+                Params = "Retrieval=FrontListings,ItemsPerPage=4",
+                Height = 560,
+                Width = 165
+            });
+
+            model.NetsyControls.Add(new NetsySilverlightModel
+            {
+                Heading = "Square listings",
+                Params = "Retrieval=FrontListings,ItemsPerPage=4",
+                Height = 290,
+                Width = 330
+            });
+            
             return this.ShowHomeView(model);
         }
 
