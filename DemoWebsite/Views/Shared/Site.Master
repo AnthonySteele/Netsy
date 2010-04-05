@@ -15,8 +15,9 @@
             </div>              
             <div id="menucontainer">
                 <ul id="menu">              
-                    <li><a href="http://github.com/AnthonySteele/Netsy/">Netsy on GitHub</a></li>
+                    <li><a href="http://www.etsy.com/">Etsy</a></li>
                     <li><a href="http://developer.etsy.com/">Etsy Developer</a></li>
+                    <li><a href="http://github.com/AnthonySteele/Netsy/">Netsy on GitHub</a></li>
                 </ul>
             </div>
         </div>

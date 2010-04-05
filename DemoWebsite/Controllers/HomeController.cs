@@ -18,10 +18,14 @@ namespace Netsy.DemoWeb.Controllers
             HomeModel model = new HomeModel
                 {
                     Title = "Netsy front page",
-                    TopText = TopText,
-                    SilverlightHeading = "Etsy front page listings",
-                    SilverlightParams = "Retrieval=FrontListings,ItemsPerPage=16"
+                    TopText = TopText
                 };
+
+            model.NetsyControls.Add(new NetsySilverlightModel
+                {
+                    Heading = "Etsy front page listings",
+                    Params = "Retrieval=FrontListings,ItemsPerPage=16"
+            }   );
 
             return this.ShowHomeView(model);
         }
@@ -31,11 +35,14 @@ namespace Netsy.DemoWeb.Controllers
             HomeModel model = new HomeModel
             {
                 Title = "Category: Art",
-                TopText = TopText,
-                SilverlightHeading = "Etsy listings for the category 'Art'",
-                SilverlightParams = "Retrieval=FrontListingsByCategory,Category=Art,ItemsPerPage=16"
-
+                TopText = TopText
             };
+
+            model.NetsyControls.Add(new NetsySilverlightModel
+                {
+                    Heading = "Etsy listings for the category 'Art'",
+                    Params = "Retrieval=FrontListingsByCategory,Category=Art,ItemsPerPage=16"
+                });
 
             return this.ShowHomeView(model);
         }
@@ -45,11 +52,14 @@ namespace Netsy.DemoWeb.Controllers
             HomeModel model = new HomeModel
             {
                 Title = "Color: Blue",
-                TopText = TopText,
-                SilverlightHeading = "Etsy listings in Blue #0000DD",
-                SilverlightParams = "Retrieval=FrontListingsByColor,Color=#0000DD,ItemsPerPage=16"
-
+                TopText = TopText
             };
+
+            model.NetsyControls.Add(new NetsySilverlightModel
+            {
+                Heading = "Etsy listings in Blue #0000DD",
+                Params = "Retrieval=FrontListingsByColor,Color=#0000DD,ItemsPerPage=16"
+            });
 
             return this.ShowHomeView(model);
         }
