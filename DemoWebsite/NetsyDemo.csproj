@@ -68,11 +68,13 @@
     </Compile>
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\NetsySilverlightModel.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Scripts\Silverlight.js" />
+    <Content Include="Views\Home\Search.aspx" />
     <Content Include="Views\Shared\NetsySilverlight.ascx" />
     <Content Include="Views\Shared\SilverlightErrorHandler.ascx" />
     <Content Include="Web.config" />
