@@ -11,10 +11,6 @@
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
 <br/>
-<% Html.BeginForm("Shop", "Home"); %>
-    Shop name: <%= Html.TextBoxFor(model => model.SearchTerm) %>
-    <input type="submit" value="Show listings for shop" />
-<% Html.EndForm(); %>
 <%
     if (Model.NetsyControl != null)
     {
@@ -22,5 +18,10 @@
         Html.RenderPartial("NetsySilverlight", Model.NetsyControl);
     }
 %>
+
+<% Html.BeginForm(Model.TargetAction, "Home"); %>
+    Shop name: <%= Html.TextBoxFor(model => model.SearchTerm) %>
+    <input type="submit" value="<%= Model.ButtonText %>" />
+<% Html.EndForm(); %>
     
 </asp:Content>

@@ -15,6 +15,10 @@ namespace Netsy.DemoWeb.Controllers
             @" It works in desktop .Net applications, in ASP.Net" +
             @" and is shown here in <a href=""http://www.silverlight.net/"">Silverlight</a> demos.";
 
+        const string DefaultShop = "MaidOfClay";
+        const string DefaultColor = "#0000DD";
+        const string DefaultCategory = "Art";
+
         public ActionResult Front()
         {
             HomeModel model = new HomeModel
@@ -30,44 +34,6 @@ namespace Netsy.DemoWeb.Controllers
                     Width = 660,
                     Height = 560
                 });
-
-            return this.ShowHomeView(model);
-        }
-
-        public ActionResult Category()
-        {
-            HomeModel model = new HomeModel
-            {
-                Title = "Category: Art",
-                TopText = TopText
-            };
-
-            model.NetsyControls.Add(new NetsySilverlightModel
-                {
-                    Heading = "Etsy listings for the category 'Art'",
-                    Params = "Retrieval=FrontListingsByCategory,Category=Art,ItemsPerPage=16",
-                    Height = 560,
-                    Width = 660
-                });
-
-            return this.ShowHomeView(model);
-        }
-
-        public ActionResult Color()
-        {
-            HomeModel model = new HomeModel
-            {
-                Title = "Color: Blue",
-                TopText = TopText
-            };
-
-            model.NetsyControls.Add(new NetsySilverlightModel
-            {
-                Heading = "Etsy listings in Blue #0000DD",
-                Params = "Retrieval=FrontListingsByColor,Color=#0000DD,ItemsPerPage=16",
-                Height = 560,
-                Width = 660
-            });
 
             return this.ShowHomeView(model);
         }
@@ -103,29 +69,95 @@ namespace Netsy.DemoWeb.Controllers
                 Height = 560,
                 Width = 165
             });
-            
+
             return this.ShowHomeView(model);
+        }
+
+        [HttpGet]
+        public ActionResult Category()
+        {
+            return this.CategoryByName(DefaultCategory);
+        }
+
+        [HttpPost]
+        public ActionResult Category(string searchTerm)
+        {
+            searchTerm = SanitizeString(searchTerm);
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = DefaultCategory;
+            }
+
+            return this.CategoryByName(searchTerm);
+        }
+
+        private ActionResult CategoryByName(string searchTerm)
+        {
+            SearchModel model = new SearchModel
+                {
+                        Title = "Category: " + DefaultCategory,
+                        TopText = TopText,
+                        SearchTerm = searchTerm,
+                        ButtonText = "Show listings for category",
+                        TargetAction = "Category"
+
+                };
+
+            model.NetsyControl = new NetsySilverlightModel
+                {
+                        Heading = string.Format("Etsy listings in category '{0}'", searchTerm),
+                        Params = string.Format("Retrieval=FrontListingsByCategory,Category={0},ItemsPerPage=16", searchTerm),
+                        Height = 560,
+                        Width = 660
+                };
+
+            return this.ShowSearchView(model);
+        }
+
+        [HttpGet]
+        public ActionResult Color()
+        {
+            return this.ColorByName(DefaultColor); 
+        }
+
+        [HttpPost]
+        public ActionResult Color(string searchTerm)
+        {
+            searchTerm = SanitizeString(searchTerm);
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = DefaultColor;
+            }
+
+            return this.ColorByName(searchTerm);
+        }
+
+        private ActionResult ColorByName(string searchTerm)
+        {
+            SearchModel model = new SearchModel
+                {
+                        Title = "Color: " + searchTerm,
+                        TopText = TopText,
+                        SearchTerm = searchTerm,
+                        ButtonText = "Show listings for color",
+                        TargetAction = "Color"
+                };
+
+            model.NetsyControl = new NetsySilverlightModel
+                {
+                        Heading = string.Format("Etsy listings in color '{0}'", searchTerm),
+                        Params = string.Format("Retrieval=FrontListingsByColor,Color={0},ItemsPerPage=16", searchTerm),
+                        Height = 560,
+                        Width = 660
+                };
+
+            return this.ShowSearchView(model);
         }
 
         [HttpGet]
         public ActionResult Shop()
         {
-            SearchModel model = new SearchModel
-            {
-                Title = "Shop: MaidOfClay",
-                TopText = TopText,
-                SearchTerm = string.Empty
-            };
-
-            model.NetsyControl = new NetsySilverlightModel
-            {
-                Heading = "Etsy listings for the shop 'MaidOfClay'",
-                Params = "Retrieval=ShopListings,UserId=MaidOfClay,ItemsPerPage=16",
-                Height = 560,
-                Width = 660
-            };
-
-            return this.ShowSearchView(model);
+            return this.ShopByName(DefaultShop);
         }
 
         [HttpPost]
@@ -134,44 +166,72 @@ namespace Netsy.DemoWeb.Controllers
             searchTerm = SanitizeString(searchTerm);
             if (string.IsNullOrEmpty(searchTerm))
             {
-                return Shop();
+                searchTerm = DefaultShop;
             }
 
+            return this.ShopByName(searchTerm);
+        }
+
+        private ActionResult ShopByName(string searchTerm)
+        {
             SearchModel model = new SearchModel
-            {
-                Title = "Shop: " + searchTerm,
-                TopText = TopText,
-                SearchTerm = string.Empty
-            };
+                {
+                        Title = "Shop: " + searchTerm,
+                        TopText = TopText,
+                        SearchTerm = searchTerm,
+                        ButtonText = "Show listings for shop",
+                        TargetAction = "Shop"
+                };
 
             model.NetsyControl = new NetsySilverlightModel
-            {
-                Heading = "Etsy listings for the shop '" + searchTerm + "'",
-                Params = "Retrieval=ShopListings,UserId=" + searchTerm + ",ItemsPerPage=16",
-                Height = 560,
-                Width = 660
-            };
+                {
+                        Heading = string.Format("Etsy listings for the shop '{0}'", searchTerm),
+                        Params = string.Format("Retrieval=ShopListings,UserId={0},ItemsPerPage=16", searchTerm),
+                        Height = 560,
+                        Width = 660
+                };
 
             return this.ShowSearchView(model);
         }
 
+        [HttpGet]
         public ActionResult Favorites()
         {
-            HomeModel model = new HomeModel
-            {
-                Title = "Favourites of: MaidOfClay",
-                TopText = TopText
-            };
+            return this.FavoritesByName(DefaultShop);
+        }
 
-            model.NetsyControls.Add(new NetsySilverlightModel
+        [HttpPost]
+        public ActionResult Favorites(string searchTerm)
+        {
+            searchTerm = SanitizeString(searchTerm);
+            if (string.IsNullOrEmpty(searchTerm))
             {
-                Heading = "Etsy favourites for the user 'MaidOfClay'",
-                Params = "Retrieval=UserFavorites,UserId=MaidOfClay,ItemsPerPage=16",
-                Height = 560,
-                Width = 660
-            });
+                searchTerm = DefaultShop;
+            }
 
-            return this.ShowHomeView(model);
+            return this.FavoritesByName(searchTerm);
+        }
+
+        private ActionResult FavoritesByName(string searchTerm)
+        {
+            SearchModel model = new SearchModel
+                {
+                        Title = "Favorites of: " + searchTerm,
+                        TopText = TopText,
+                        SearchTerm = searchTerm,
+                        ButtonText = "Show favorites of shop",
+                        TargetAction = "Favorites"
+                };
+
+            model.NetsyControl = new NetsySilverlightModel
+                {
+                        Heading = string.Format("Etsy favourites for the user '{0}'", searchTerm),
+                        Params = string.Format("Retrieval=UserFavorites,UserId={0},ItemsPerPage=16", searchTerm),
+                        Height = 560,
+                        Width = 660
+                };
+
+            return this.ShowSearchView(model);
         }
 
         private static string SanitizeString(string inputString)
