@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<SearchModel>" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<ColorModel>" %>
 <%@ Import Namespace="Netsy.DemoWeb.Models"%>
 
 <asp:Content ID="PageTitle" ContentPlaceHolderID="PageTitle" runat="server">
@@ -19,9 +19,9 @@
     }
 %>
 
-<% Html.BeginForm(Model.TargetAction, "Home"); %>
-    Shop name: <%= Html.TextBoxFor(model => model.SearchTerm) %>
-    <input type="submit" value="<%= Model.ButtonText %>" />
+<% Html.BeginForm("Color", "Home"); %>
+    <label for="Color">Color:</label> <%= Html.TextBoxFor(model => model.Color) %>
+    <input type="submit" value="Show listings for color" />
 <% Html.EndForm(); %>
     
 </asp:Content>

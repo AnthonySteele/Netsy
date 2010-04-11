@@ -1,13 +1,11 @@
 ﻿namespace Netsy.DemoWeb.Models
 {
-    public class SearchModel
+    public class ColorModel
     {
         public string Title { get; set; }
         public string TopText { get; set; }
 
-        public string SearchTerm { get; set; }
-        public string TargetAction { get; set; }
-        public string ButtonText { get; set; }
+        public string Color { get; set; }
 
         public NetsySilverlightModel NetsyControl { get; set; }
     }

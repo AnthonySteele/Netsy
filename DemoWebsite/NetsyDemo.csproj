@@ -62,19 +62,27 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Helpers.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DefaultDataConstants.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\ColorModel.cs" />
+    <Compile Include="Models\FavoritesModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\NetsySilverlightModel.cs" />
-    <Compile Include="Models\SearchModel.cs" />
+    <Compile Include="Models\ShopModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Scripts\Silverlight.js" />
-    <Content Include="Views\Home\Search.aspx" />
+    <Content Include="Views\Home\Category.aspx" />
+    <Content Include="Views\Home\Color.aspx" />
+    <Content Include="Views\Home\Favorites.aspx" />
+    <Content Include="Views\Home\Shop.aspx" />
     <Content Include="Views\Shared\NetsySilverlight.ascx" />
     <Content Include="Views\Shared\SilverlightErrorHandler.ascx" />
     <Content Include="Web.config" />

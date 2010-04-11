@@ -28,10 +28,10 @@
             <div id="submenucontainer">
                 <ul id="submenu">              
                     <li><%= Html.ActionLink("Front page", "Front")%></li>
-                    <li><%= Html.ActionLink("Category", "Category")%></li>
-                    <li><%= Html.ActionLink("Color", "Color")%></li>
-                    <li><%= Html.ActionLink("Shop", "Shop")%></li>
-                    <li><%= Html.ActionLink("Favorites", "Favorites")%></li>
+                    <li><%= Html.ActionLink("Category", "Category", new { category = string.Empty } )%></li>
+                    <li><%= Html.ActionLink("Color", "Color", new { color = string.Empty} )%></li>
+                    <li><%= Html.ActionLink("Shop", "Shop", new { shop = string.Empty })%></li>
+                    <li><%= Html.ActionLink("Favorites", "Favorites", new { shop = string.Empty })%></li>
                     <li><%= Html.ActionLink("Sizes", "Sizes")%></li>
                 </ul>
             </div>
