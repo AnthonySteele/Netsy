@@ -12,7 +12,7 @@
     <RootNamespace>Netsy.Favorites.Web</RootNamespace>
     <AssemblyName>Netsy.Favorites.Web</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <SilverlightApplicationList>{3B3AB3F6-6709-4E22-B8F1-CAC8F373D4B6}|..\Netsy.Favorites\Netsy.Favorites.csproj|ClientBin|False</SilverlightApplicationList>
+    <SilverlightApplicationList>{3B3AB3F6-6709-4E22-B8F1-CAC8F373D4B6}|..\Netsy.Favorites\Netsy.Favorites.csproj|ClientBin|False,{BFC38AC6-E862-4453-9B74-ADC9CFFAE605}|..\Netsy.Shop\Netsy.Shop.csproj|ClientBin|False</SilverlightApplicationList>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
@@ -71,6 +71,7 @@
       <Link>CodeAnalysisDictionary.xml</Link>
     </CodeAnalysisDictionary>
     <Content Include="ClientBin\Netsy.Listings.xap" />
+    <Content Include="ClientBin\Netsy.Shop.xap" />
     <Content Include="ShopListings.html" />
     <Content Include="FrontListings.html" />
     <Content Include="FrontListingsByCategory.html" />

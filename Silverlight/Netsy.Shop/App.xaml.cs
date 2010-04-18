@@ -6,13 +6,13 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Listings
+namespace Netsy.Shop
 {
     using System;
     using System.Windows;
 
     /// <summary>
-    /// Application object For the Netsy Listings Control
+    /// Application object For the Netsy Shop Control
     /// </summary>
     public partial class App : Application
     {
@@ -29,25 +29,6 @@ namespace Netsy.Listings
         }
 
         /// <summary>
-        /// Send the error into the browser
-        /// </summary>
-        /// <param name="e">the event parameters</param>
-        private static void ReportErrorToDOM(ApplicationUnhandledExceptionEventArgs e)
-        {
-            try
-            {
-                string errorMsg = e.ExceptionObject.Message + e.ExceptionObject.StackTrace;
-                errorMsg = errorMsg.Replace('"', '\'').Replace("\r\n", @"\n");
-
-                System.Windows.Browser.HtmlPage.Window.Eval("throw new Error(\"Unhandled Error in Silverlight Application " + errorMsg + "\");");
-            }
-            catch (Exception)
-            {
-                // ignore the error
-            }
-        }
-
-        /// <summary>
         /// Startup event handler
         /// </summary>
         /// <param name="sender">the event sender</param>
@@ -55,23 +36,8 @@ namespace Netsy.Listings
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             AppSettings settingsRead = new AppSettings();
-            settingsRead.ReadParams(e.InitParams);
-
-            ListingsControl listingsControl = new ListingsControl();
-            this.RootVisual = listingsControl;
-            Locator.RegisterInstance(this.RootVisual.Dispatcher);
-
-            ListingsControlViewModel viewModel = Locator.Resolve<ListingsControlViewModel>();
-            viewModel.UserId = settingsRead.UserId;
-            viewModel.ItemsPerPage = settingsRead.ItemsPerPage;
-            viewModel.ListingsRetrievalMode = settingsRead.Retrieval;
-            viewModel.Category = settingsRead.Category;
-            viewModel.ListingsColor = settingsRead.Color;
-
-            viewModel.ListingsReceivedCompleted += listingsControl.ListingsLoaded;
-
-            listingsControl.DataContext = viewModel;
-            viewModel.Load();
+            settingsRead.ReadParams(e.InitParams); 
+            this.RootVisual = new ShopControl();
         }
 
         /// <summary>
@@ -100,7 +66,25 @@ namespace Netsy.Listings
                 // For production applications this error handling should be replaced with something that will 
                 // report the error to the website and stop the application.
                 e.Handled = true;
-                Deployment.Current.Dispatcher.BeginInvoke(() => ReportErrorToDOM(e));
+                Deployment.Current.Dispatcher.BeginInvoke(() => this.ReportErrorToDOM(e));
+            }
+        }
+
+        /// <summary>
+        /// Send the error into the browser
+        /// </summary>
+        /// <param name="e">the event parameters</param>
+        private void ReportErrorToDOM(ApplicationUnhandledExceptionEventArgs e)
+        {
+            try
+            {
+                string errorMsg = e.ExceptionObject.Message + e.ExceptionObject.StackTrace;
+                errorMsg = errorMsg.Replace('"', '\'').Replace("\r\n", @"\n");
+
+                System.Windows.Browser.HtmlPage.Window.Eval("throw new Error(\"Unhandled Error in Silverlight Application " + errorMsg + "\");");
+            }
+            catch (Exception)
+            {
             }
         }
     }

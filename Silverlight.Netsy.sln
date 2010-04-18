@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.Listings", "Silverlig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.Listings.Web", "Silverlight\Netsy.Listings.Web\Netsy.Listings.Web.csproj", "{7C1FEBC7-98CC-4A73-AF93-B9FEF4529931}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netsy.Shop", "Silverlight\Netsy.Shop\Netsy.Shop.csproj", "{BFC38AC6-E862-4453-9B74-ADC9CFFAE605}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{7C1FEBC7-98CC-4A73-AF93-B9FEF4529931}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C1FEBC7-98CC-4A73-AF93-B9FEF4529931}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C1FEBC7-98CC-4A73-AF93-B9FEF4529931}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFC38AC6-E862-4453-9B74-ADC9CFFAE605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFC38AC6-E862-4453-9B74-ADC9CFFAE605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFC38AC6-E862-4453-9B74-ADC9CFFAE605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFC38AC6-E862-4453-9B74-ADC9CFFAE605}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
