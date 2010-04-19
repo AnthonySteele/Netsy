@@ -1,12 +1,12 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ShopDetailsCommand.cs" company="AFS">
+// <copyright file="ShopListingsCommand.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Listings
+namespace Netsy.Shop
 {
     using System;
 
@@ -14,13 +14,12 @@ namespace Netsy.Listings
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.UI.Commands;
-
-    using UI.ViewModels;
+    using Netsy.UI.ViewModels;
 
     /// <summary>
-    /// Command to get shop details for the ListingsControlViewModel
+    /// Command to get shop details for the ShopControlViewModel
     /// </summary>
-    public class ShopDetailsCommand : GenericCommandBase<ListingsControlViewModel>
+    public class ShopListingsCommand : GenericCommandBase<ShopControlViewModel>
     {
         /// <summary>
         /// Service for shop details
@@ -30,13 +29,13 @@ namespace Netsy.Listings
         /// <summary>
         /// The view model currently being used
         /// </summary>
-        private ListingsControlViewModel currentViewModel;
+        private ShopControlViewModel currentViewModel;
 
         /// <summary>
-        /// Initializes a new instance of the ShopDetailsCommand class
+        /// Initializes a new instance of the ShopListingsCommand class
         /// </summary>
-        /// <param name="shopService">the service to get shop details</param>
-        public ShopDetailsCommand(IShopService shopService)
+        /// <param name="shopService">the service to get shop listings</param>
+        public ShopListingsCommand(IShopService shopService)
         {
             if (shopService == null)
             {
@@ -45,14 +44,14 @@ namespace Netsy.Listings
 
             this.shopService = shopService;
 
-            this.shopService.GetShopDetailsCompleted += this.GetShopDetailsCompleted;
+            this.shopService.GetShopListingsCompleted += this.GetShopListingsCompleted;
         }
 
         /// <summary>
         /// Execute the command with a ViewModel as parameter
         /// </summary>
         /// <param name="value">the view model</param>
-        public override void ExecuteOnValue(ListingsControlViewModel value)
+        public override void ExecuteOnValue(ShopControlViewModel value)
         {
             if (value == null)
             {
@@ -62,7 +61,7 @@ namespace Netsy.Listings
             if (value.UserId.HasContent())
             {
                 this.currentViewModel = value;
-                this.shopService.GetShopDetails(value.UserId, DetailLevel.Medium);
+                this.shopService.GetShopListings(value.UserId, SortField.Created, SortOrder.Up, null, 0, 10, DetailLevel.Medium);
             }
         }
 
@@ -71,12 +70,16 @@ namespace Netsy.Listings
         /// </summary>
         /// <param name="sender">the vent sender</param>
         /// <param name="e">the event params</param>
-        private void GetShopDetailsCompleted(object sender, ResultEventArgs<Shops> e)
+        private void GetShopListingsCompleted(object sender, ResultEventArgs<Listings> e)
         {
-            if (e.ResultStatus.Success && e.ResultValue.Results.Length == 1)
+            if (e.ResultStatus.Success)
             {
-                Shop shop = e.ResultValue.Results[0];
-                this.currentViewModel.Shop = new ShopViewModel(shop);
+                Listings listings = e.ResultValue;
+
+                foreach (Listing listing in listings.Results)
+                {
+                    this.currentViewModel.Listings.Add(new ListingViewModel(listing));                    
+                }
             }
         }
     }

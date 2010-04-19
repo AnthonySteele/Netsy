@@ -36,8 +36,15 @@ namespace Netsy.Shop
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             AppSettings settingsRead = new AppSettings();
-            settingsRead.ReadParams(e.InitParams); 
-            this.RootVisual = new ShopControl();
+            settingsRead.ReadParams(e.InitParams);
+
+            ShopControlViewModel viewModel = Locator.Resolve<ShopControlViewModel>();
+            viewModel.UserId = settingsRead.UserId;
+
+            ShopControl shopControl = new ShopControl();
+
+            shopControl.DataContext = viewModel;
+            this.RootVisual = shopControl;
         }
 
         /// <summary>

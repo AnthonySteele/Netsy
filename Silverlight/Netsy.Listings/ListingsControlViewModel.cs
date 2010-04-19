@@ -72,6 +72,11 @@ namespace Netsy.Listings
                 throw new ArgumentNullException("favoritesService");
             }
 
+            if (shopDetailsCommand == null)
+            {
+                throw new ArgumentNullException("shopDetailsCommand");
+            }
+
             this.listingsService = listingsService;
             this.listingsService.GetFrontFeaturedListingsCompleted += this.ListingsReceived;
             this.listingsService.GetListingsByCategoryCompleted += this.ListingsReceived;

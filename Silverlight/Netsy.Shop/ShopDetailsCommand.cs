@@ -6,7 +6,7 @@
 // </copyright>
 //----------------------------------------------------------------------- 
 
-namespace Netsy.Listings
+namespace Netsy.Shop
 {
     using System;
 
@@ -14,13 +14,12 @@ namespace Netsy.Listings
     using Netsy.Helpers;
     using Netsy.Interfaces;
     using Netsy.UI.Commands;
-
-    using UI.ViewModels;
+    using Netsy.UI.ViewModels;
 
     /// <summary>
-    /// Command to get shop details for the ListingsControlViewModel
+    /// Command to get shop details for the ShopControlViewModel
     /// </summary>
-    public class ShopDetailsCommand : GenericCommandBase<ListingsControlViewModel>
+    public class ShopDetailsCommand : GenericCommandBase<ShopControlViewModel>
     {
         /// <summary>
         /// Service for shop details
@@ -30,7 +29,7 @@ namespace Netsy.Listings
         /// <summary>
         /// The view model currently being used
         /// </summary>
-        private ListingsControlViewModel currentViewModel;
+        private ShopControlViewModel currentViewModel;
 
         /// <summary>
         /// Initializes a new instance of the ShopDetailsCommand class
@@ -52,7 +51,7 @@ namespace Netsy.Listings
         /// Execute the command with a ViewModel as parameter
         /// </summary>
         /// <param name="value">the view model</param>
-        public override void ExecuteOnValue(ListingsControlViewModel value)
+        public override void ExecuteOnValue(ShopControlViewModel value)
         {
             if (value == null)
             {
