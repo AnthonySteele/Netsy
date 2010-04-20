@@ -78,7 +78,6 @@
     </Compile>
     <Compile Include="AppSettings.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Locator.cs" />
     <Compile Include="ShopControl.xaml.cs">
       <DependentUpon>ShopControl.xaml</DependentUpon>
     </Compile>
@@ -86,7 +85,6 @@
     <Compile Include="ShopControlViewModel.cs" />
     <Compile Include="ShopDetailsCommand.cs" />
     <Compile Include="ShopListingsCommand.cs" />
-    <Compile Include="UnityHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

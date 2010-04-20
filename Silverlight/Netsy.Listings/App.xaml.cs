@@ -11,6 +11,12 @@ namespace Netsy.Listings
     using System;
     using System.Windows;
 
+    using DataModel;
+
+    using Microsoft.Practices.Unity;
+
+    using UI;
+
     /// <summary>
     /// Application object For the Netsy Listings Control
     /// </summary>
@@ -47,6 +53,24 @@ namespace Netsy.Listings
             }
         }
 
+
+        /// <summary>
+        /// Use the unity container to resolve the viewmodel
+        /// </summary>
+        /// <returns>the built-up viewmodel</returns>
+        private ListingsControlViewModel ResolveViewModel()
+        {
+            IUnityContainer container = new UnityContainer();
+
+            // the etsy context can be a singleton
+            const string EtsyApiKey = "fxx4ppr9da9yvxzvug5hhv5a";
+            container.RegisterInstance(new EtsyContext(EtsyApiKey));
+            container.RegisterInstance(this.RootVisual.Dispatcher);
+
+            UnityConfiguration.RegisterServices(container);
+            return container.Resolve<ListingsControlViewModel>();
+        }
+
         /// <summary>
         /// Startup event handler
         /// </summary>
@@ -59,9 +83,8 @@ namespace Netsy.Listings
 
             ListingsControl listingsControl = new ListingsControl();
             this.RootVisual = listingsControl;
-            Locator.RegisterInstance(this.RootVisual.Dispatcher);
 
-            ListingsControlViewModel viewModel = Locator.Resolve<ListingsControlViewModel>();
+            ListingsControlViewModel viewModel = this.ResolveViewModel();
             viewModel.UserId = settingsRead.UserId;
             viewModel.ItemsPerPage = settingsRead.ItemsPerPage;
             viewModel.ListingsRetrievalMode = settingsRead.Retrieval;

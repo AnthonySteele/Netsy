@@ -1,31 +1,34 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Locator.cs" company="AFS">
+// <copyright file="UnityConfiguration.cs" company="AFS">
 //  This source code is part of Netsy http://github.com/AnthonySteele/Netsy/
 //  and is made available under the terms of the Microsoft Public License (Ms-PL)
 //  http://www.opensource.org/licenses/ms-pl.html
 // </copyright>
 //----------------------------------------------------------------------- 
-
-// Todo: common with Listings
-
-namespace Netsy.Shop
+namespace Netsy.UI
 {
     using System;
     using System.Windows.Threading;
 
-    using Microsoft.Practices.Unity;
+    using Cache;
 
-    using Netsy.Cache;
-    using Netsy.DataModel;
-    using Netsy.Interfaces;
-    using Netsy.Requests;
-    using Netsy.Services;
-    using Netsy.UI.DispatchedServices;
+    using DataModel;
+
+    using DispatchedServices;
+
+    using Interfaces;
+
+    using Microsoft.Practices.Unity;
+    using Microsoft.Practices.Unity.StaticFactory;
+
+    using Requests;
+
+    using Services;
 
     /// <summary>
-    /// Class to hold the only singleton we'll need - the IOC container
+    /// Class to configure the Unity IoC Container
     /// </summary>
-    public static class Locator
+    public static class UnityConfiguration
     {
         /// <summary>
         /// the key to use when looking up internal services
@@ -33,66 +36,26 @@ namespace Netsy.Shop
         private const string InternalServiceKey = "Internal";
 
         /// <summary>
-        /// The IOC container
+        /// Register services on the unity IoC Container
         /// </summary>
-        private static readonly IUnityContainer container = new UnityContainer();
-
-        /// <summary>
-        /// Initializes static members of the Locator class
-        /// </summary>
-        static Locator()
+        /// <param name="container">the unity IoC container</param>
+        public static void RegisterServices(IUnityContainer container)
         {
-            RegisterNetsyTypes();
-        }
-
-        /// <summary>
-        /// Register an instance in the unity container
-        /// </summary>
-        /// <param name="instance">the instance to register</param>
-        public static void RegisterInstance(object instance)
-        {
-            if (instance == null)
-            {
-                throw new ArgumentNullException("instance");
-            }
-
-            Type objectType = instance.GetType();
-            container.RegisterInstance(objectType, instance);
-        }
-
-        /// <summary>
-        /// Resolve an object from the IOC container
-        /// </summary>
-        /// <typeparam name="T">The type to resolve</typeparam>
-        /// <returns>the new object</returns>
-        public static T Resolve<T>()
-        {
-            return container.Resolve<T>();
-        }
-
-        /// <summary>
-        /// Register the Netsy Library types into the IOC container
-        /// </summary>
-        private static void RegisterNetsyTypes()
-        {
-            // the etsy context can be a singleton
-            const string EtsyApiKey = "fxx4ppr9da9yvxzvug5hhv5a";
-            RegisterInstance(new EtsyContext(EtsyApiKey));
-
             // register the services 
-            RegisterInternalServices();
-            RegisterDispatchedServiceFactories();
+            RegisterInternalServices(container);
+            RegisterDispatchedServiceFactories(container);
         }
 
         /// <summary>
         /// Register the basic services as internal
         /// </summary>
-        private static void RegisterInternalServices()
+        /// <param name="container">the unity IoC container</param>
+        private static void RegisterInternalServices(IUnityContainer container)
         {
             container.RegisterType<IDataRetriever, DataRetriever>(new ContainerControlledLifetimeManager());
             container.RegisterType<IRequestGenerator, WebRequestGenerator>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IDataCache, DataCache>(new ContainerControlledLifetimeManager()); 
-            
+            container.RegisterType<IDataCache, DataCache>(new ContainerControlledLifetimeManager());
+
             container.RegisterType<IFavoritesService, FavoritesService>(InternalServiceKey);
             container.RegisterType<IFeedbackService, FeedbackService>(InternalServiceKey);
             container.RegisterType<IGiftService, GiftService>(InternalServiceKey);
@@ -107,7 +70,8 @@ namespace Netsy.Shop
         /// Register dispatched services to use as services
         /// Have to use factories as they wrap the internal services that have the same interface
         /// </summary>
-        private static void RegisterDispatchedServiceFactories()
+        /// <param name="container">the unity IoC container</param>
+        private static void RegisterDispatchedServiceFactories(IUnityContainer container)
         {
             container.RegisterFactory<IFavoritesService>(cont =>
                 new DispatchedFavoritesService(
@@ -148,6 +112,24 @@ namespace Netsy.Shop
                 new DispatchedUsersService(
                     cont.Resolve<IUsersService>(InternalServiceKey),
                     cont.Resolve<Dispatcher>()));
+        }
+
+        /// <summary>
+        /// Register a factory method
+        /// </summary>
+        /// <typeparam name="T">the type to be constructed by the factory</typeparam>
+        /// <param name="container">the container</param>
+        /// <param name="factoryDelegate">the factory code</param>
+        private static void RegisterFactory<T>(this IUnityContainer container, FactoryDelegate factoryDelegate)
+        {
+            if (container == null)
+            {
+                throw new ArgumentNullException("container");
+            }
+
+            container.AddNewExtension<StaticFactoryExtension>()
+                    .Configure<IStaticFactoryConfiguration>()
+                    .RegisterFactory<T>(factoryDelegate);
         }
     }
 }
