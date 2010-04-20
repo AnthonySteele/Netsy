@@ -108,6 +108,10 @@
       <Project>{B979E9E0-EB45-47F3-8DA7-307546B8515E}</Project>
       <Name>Silverlight.Netsy</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Netsy.Listings\Netsy.Listings.csproj">
+      <Project>{3B3AB3F6-6709-4E22-B8F1-CAC8F373D4B6}</Project>
+      <Name>Netsy.Listings</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

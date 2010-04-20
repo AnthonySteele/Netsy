@@ -5,8 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="400">
+    <StackPanel Orientation="Vertical">
+        <Image Source="{Binding BannerImageUrl}" HorizontalAlignment="Center" Stretch="None" />
 
-    <Grid x:Name="LayoutRoot" Background="White">
-
-    </Grid>
+    </StackPanel>
 </UserControl>

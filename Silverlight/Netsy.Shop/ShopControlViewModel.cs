@@ -18,7 +18,7 @@ namespace Netsy.Shop
     /// <summary>
     /// View model object for the Shop control
     /// </summary>
-    public class ShopControlViewModel
+    public class ShopControlViewModel : BaseViewModel
     {
         /// <summary>
         /// The command to get the shop details
@@ -35,6 +35,10 @@ namespace Netsy.Shop
         /// </summary>
         private readonly ObservableCollection<ListingViewModel> listings = new ObservableCollection<ListingViewModel>();
 
+        /// <summary>
+        /// The shop data 
+        /// </summary>
+        private ShopViewModel shop;
 
         /// <summary>
         /// Initializes a new instance of the ShopControlViewModel class
@@ -70,7 +74,35 @@ namespace Netsy.Shop
         /// </summary>
         public ShopViewModel Shop
         {
-            get; set;
+            get
+            {
+                return this.shop;
+            }
+            set
+            {
+                if (this.shop != value)
+                {
+                    this.shop = value;
+                    this.OnPropertyChanged("Shop");
+                    this.OnPropertyChanged("BannerImageUrl");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the shop image Url
+        /// </summary>
+        public string BannerImageUrl
+        {
+            get
+            {
+                if (this.Shop == null)
+                {
+                    return String.Empty;
+                }
+
+                return this.Shop.Shop.BannerImageUrl;
+            }
         }
 
         /// <summary>
@@ -95,6 +127,15 @@ namespace Netsy.Shop
         public ICommand ShopListingsCommand
         {
             get { return this.shopListingsCommand; }
+        }
+
+        /// <summary>
+        /// Load the shop
+        /// </summary>
+        public void LoadShop()
+        {
+            this.ShopDetailsCommand.Execute(this);
+            this.shopListingsCommand.Execute(this);
         }
     }
 }

@@ -115,6 +115,7 @@ namespace Netsy.Shop
             viewModel.UserId = settingsRead.UserId;
 
             shopControl.DataContext = viewModel;
+            viewModel.LoadShop();
         }
     }
 }
