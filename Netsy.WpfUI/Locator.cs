@@ -107,45 +107,45 @@ namespace Netsy.WpfUI
         /// </summary>
         private static void RegisterDispatchedServiceFactories()
         {
-            container.RegisterFactory<IFavoritesService>(cont =>
+            container.RegisterType<IFavoritesService>(new InjectionFactory(cont =>
                 new DispatchedFavoritesService(
                     cont.Resolve<IFavoritesService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IFeedbackService>(cont =>
+            container.RegisterType<IFeedbackService>(new InjectionFactory(cont =>
                 new DispatchedFeedbackService(
                     cont.Resolve<IFeedbackService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IGiftService>(cont =>
+            container.RegisterType<IGiftService>(new InjectionFactory(cont =>
                 new DispatchedGiftService(
                     cont.Resolve<IGiftService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IListingsService>(cont =>
+            container.RegisterType<IListingsService>(new InjectionFactory(cont =>
                 new DispatchedListingsService(
                     cont.Resolve<IListingsService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IServerService>(cont =>
+            container.RegisterType<IServerService>(new InjectionFactory(cont =>
                 new DispatchedServerService(
                     cont.Resolve<IServerService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IShopService>(cont =>
+            container.RegisterType<IShopService>(new InjectionFactory(cont =>
                 new DispatchedShopService(
                     cont.Resolve<IShopService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<ITagCategoryService>(cont =>
+            container.RegisterType<ITagCategoryService>(new InjectionFactory(cont =>
                new DispatchedTagCategoryService(
                     cont.Resolve<ITagCategoryService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IUsersService>(cont =>
+            container.RegisterType<IUsersService>(new InjectionFactory(cont =>
                 new DispatchedUsersService(
                     cont.Resolve<IUsersService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
         }
     }
 }

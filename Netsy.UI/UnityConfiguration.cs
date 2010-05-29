@@ -10,20 +10,15 @@ namespace Netsy.UI
     using System;
     using System.Windows.Threading;
 
-    using Cache;
-
-    using DataModel;
-
-    using DispatchedServices;
-
-    using Interfaces;
+    using Netsy.Cache;
+    using Netsy.DataModel;
+    using Netsy.UI.DispatchedServices;
+    using Netsy.Interfaces;
+    using Netsy.Requests;
+    using Netsy.Services;
 
     using Microsoft.Practices.Unity;
     using Microsoft.Practices.Unity.StaticFactory;
-
-    using Requests;
-
-    using Services;
 
     /// <summary>
     /// Class to configure the Unity IoC Container
@@ -73,63 +68,45 @@ namespace Netsy.UI
         /// <param name="container">the unity IoC container</param>
         private static void RegisterDispatchedServiceFactories(IUnityContainer container)
         {
-            container.RegisterFactory<IFavoritesService>(cont =>
+            container.RegisterType<IFavoritesService>(new InjectionFactory(cont =>
                 new DispatchedFavoritesService(
                     cont.Resolve<IFavoritesService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IFeedbackService>(cont =>
+            container.RegisterType<IFeedbackService>(new InjectionFactory(cont =>
                 new DispatchedFeedbackService(
                     cont.Resolve<IFeedbackService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IGiftService>(cont =>
+            container.RegisterType<IGiftService>(new InjectionFactory(cont =>
                 new DispatchedGiftService(
                     cont.Resolve<IGiftService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IListingsService>(cont =>
+            container.RegisterType<IListingsService>(new InjectionFactory(cont =>
                 new DispatchedListingsService(
                     cont.Resolve<IListingsService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IServerService>(cont =>
+            container.RegisterType<IServerService>(new InjectionFactory(cont =>
                 new DispatchedServerService(
                     cont.Resolve<IServerService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IShopService>(cont =>
+            container.RegisterType<IShopService>(new InjectionFactory(cont =>
                 new DispatchedShopService(
                     cont.Resolve<IShopService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<ITagCategoryService>(cont =>
+            container.RegisterType<ITagCategoryService>(new InjectionFactory(cont =>
                new DispatchedTagCategoryService(
                     cont.Resolve<ITagCategoryService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
+                    cont.Resolve<Dispatcher>())));
 
-            container.RegisterFactory<IUsersService>(cont =>
+            container.RegisterType<IUsersService>(new InjectionFactory(cont =>
                 new DispatchedUsersService(
                     cont.Resolve<IUsersService>(InternalServiceKey),
-                    cont.Resolve<Dispatcher>()));
-        }
-
-        /// <summary>
-        /// Register a factory method
-        /// </summary>
-        /// <typeparam name="T">the type to be constructed by the factory</typeparam>
-        /// <param name="container">the container</param>
-        /// <param name="factoryDelegate">the factory code</param>
-        private static void RegisterFactory<T>(this IUnityContainer container, FactoryDelegate factoryDelegate)
-        {
-            if (container == null)
-            {
-                throw new ArgumentNullException("container");
-            }
-
-            container.AddNewExtension<StaticFactoryExtension>()
-                    .Configure<IStaticFactoryConfiguration>()
-                    .RegisterFactory<T>(factoryDelegate);
+                    cont.Resolve<Dispatcher>())));
         }
     }
 }
