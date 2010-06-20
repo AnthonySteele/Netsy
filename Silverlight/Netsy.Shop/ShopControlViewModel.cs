@@ -12,7 +12,6 @@ namespace Netsy.Shop
     using System.Collections.ObjectModel;
     using System.Windows.Input;
 
-    using Netsy.Interfaces;
     using Netsy.UI.ViewModels;
 
     /// <summary>

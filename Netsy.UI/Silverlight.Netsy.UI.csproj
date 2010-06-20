@@ -58,6 +58,9 @@
     <Reference Include="Microsoft.Practices.Unity.Silverlight">
       <HintPath>..\Silverlight\Libraries\Microsoft.Practices.Unity.Silverlight.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Windows.Controls">
+      <HintPath>..\Silverlight\Libraries\Microsoft.Windows.Controls.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Windows" />

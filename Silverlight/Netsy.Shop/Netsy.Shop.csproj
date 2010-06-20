@@ -78,6 +78,9 @@
     </Compile>
     <Compile Include="AppSettings.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\ShopListing.xaml.cs">
+      <DependentUpon>ShopListing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ShopControl.xaml.cs">
       <DependentUpon>ShopControl.xaml</DependentUpon>
     </Compile>
@@ -91,6 +94,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Controls\ShopListing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ShopControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
